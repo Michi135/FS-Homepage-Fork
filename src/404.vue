@@ -43,7 +43,7 @@ export default {
       } else {
         out = {
           title: "404 Error",
-          subTitle: "Never gona give you up",
+          subTitle: "Never gonna give you up",
           image: require("./static/img/rick_roll.jpg"),
         }
       }

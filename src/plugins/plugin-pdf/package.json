@@ -1,0 +1,16 @@
+{
+  "name": "plugin-pdf",
+  "main": "index",
+  "factor": {
+    "load": [
+      "app",
+      "server"
+    ]
+  },
+  "dependencies": {
+    "pdfjs-dist": "^2.5.207"
+  },
+  "devDependencies": {
+    "@types/pdfjs-dist": "^2.1.5"
+  }
+}

@@ -4,5 +4,52 @@
   Use .factor-app class. Make sure to reference any available CSS variables in extensions
 */
 html.factor-app {
-  --my-custom-variable: #0496ff;
+  --color-primary: #ff6600;
+  --color-secondary: #5e7735;
+  --color-text: greenyellow;
+  --color-light: #afec9d;
+  scroll-behavior: smooth;
+
+  .btn {
+    transition: 0.29s cubic-bezier(0.52, 0.01, 0.16, 1);
+  }
+
+  .underline {
+    text-decoration-color: var(--color-secondary);
+  }
+
+  //Factor override default styles
+  a {
+    color: inherit;
+
+    &:hover {
+      opacity: 1;
+    }
+  }
+
+  header
+  {
+    --color-primary: #ff6600;
+    --color-secondary: #358660;
+    --color-text: greenyellow;
+    --color-light: #afec9d;
+  }
+
+  footer
+  {
+    --color-primary: #ff6600;
+    --color-secondary: #2a3d0c;
+    --color-text: greenyellow;
+    --color-light: #afec9d;
+  }
+
+  input[type=email],
+  input[type=password],
+  input[type=search],
+  input[type=tel],
+  input[type=text],
+  select,
+  textarea {
+    box-shadow: none;
+  }
 }

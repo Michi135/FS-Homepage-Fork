@@ -12,15 +12,25 @@
 }*/
 export default {
 
+  metatags: {
+    defaultTitle: "FSMPI",
+    titleTemplate: null,//"%s - Factor JS",
+  },
+
   app: {
     components: {
       error404: (): Promise<any> => import("./404.vue"),
+      content: (): Promise<any> => import("./content.vue"),
+      pdfsth: (): Promise<any> => import("./pdfsth.vue"),
     },
   },
 
   site: {
+    components: {
+      header: (): Promise<any> => import("./header.vue"),
+      footer: (): Promise<any> => import("./footer.vue"),
+    },
     logo: require("./static/img/tross.svg"),
-    logoInverse: require("./static/img/tross.svg"),
     nav: [
       {
         _item: "home",
@@ -85,55 +95,6 @@ export default {
       },
     ]
   },
-  /*blog: {
-    pretitle: "Because the future comes fast",
-    title: "Zeno Blog",
-    content:
-      "Discover the latest product updates, announcements, and articles from the Zeno team",
-    indexRoute: "/blog",
-    postRoute: "/entry",
-    limit: 6,
-    returnLinkText: "Back",
-    notFound: {
-      title: "No Posts",
-      subTitle: "Couldn't find any blog posts.",
-    },
-    promo: {
-      pretitle: "Built with Factor CMS",
-      title: "About Theme Zeno",
-      content:
-        "Zeno is a minimalist theme suited for the needs of IT companies and tech startups. Zeno styles are powered by Tailwind, a low-level CSS framework.",
-      button: {
-        link: "/about",
-        text: "Learn More",
-        classes: "btn bg-gray-100 rounded text-purple-500 hover:text-purple-600",
-      },
-    },
-    components: {
-      blogIndex: (): Promise<any> => import("./blog/blog-index.vue"),
-      blogSingle: (): Promise<any> => import("./blog/blog-single.vue"),
-      featuredImage: (): Promise<any> => import("./blog/el-featured-image.vue"),
-      title: (): Promise<any> => import("./blog/widget-title.vue"),
-      date: (): Promise<any> => import("./blog/widget-date.vue"),
-      author: (): Promise<any> => import("./blog/widget-author.vue"),
-      singleHeader: (): Promise<any> => import("./blog/el-single-header.vue"),
-      entry: (): Promise<any> => import("./blog/widget-entry.vue"),
-      social: (): Promise<any> => import("./blog/widget-social.vue"),
-      pagination: (): Promise<any> => import("./blog/widget-pagination.vue"),
-    },
-    layout: {
-      index: ["featuredImage", "date", "title", "author"],
-      single: ["singleHeader", "entry", "social"],
-    },
-    metatags: {
-      index: {
-        title: "Blog - The Latest from Zeno Theme",
-        description:
-          "Discover the latest product updates, announcements, and articles from the Zeno team",
-        image: require("./img/logo-zeno.jpg"),
-      },
-    },
-  },*/
   // Footer
   footer: {
     nav: [
