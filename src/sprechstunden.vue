@@ -1,10 +1,14 @@
 <template>
-  <div class="main">
-    <div v-if="ferien">
+  <div>
+    <br />
+    <div v-if="ferien" class="flex flex-col items-center space-y-2">
       <h6 class="text">
-        Die Fachschaft wünscht schöne Ferien und ist weiterhin an den Folgenden Tagen von
+        Die Fachschaft wünscht schöne Ferien und ist weiterhin
+        <br />
+        an den folgenden Tagen von
         {{ ferien_sprechstunden.uhrzeit }} für euch da
       </h6>
+      <div class />
       <table class="table">
         <thead>
           <tr>
@@ -64,7 +68,7 @@ export default {
   data() {
     return {
       loading: true,
-      ferien: false,
+      ferien: true,
       sprechstunden: [
         {
           uhrzeit: "13:00",
@@ -138,22 +142,6 @@ export default {
 </script>
 
 <style lang="less">
-.image-container {
-  max-height: 200px;
-  max-width: 120px;
-  height: auto;
-  width: auto;
-}
-
-.main {
-  background-image: url("./static/img/bg-content_orange.png");
-  .header {
-    font-size: 2rem;
-    color: cyan;
-    text-align: center;
-  }
-}
-
 .table {
   table,
   th,
@@ -167,42 +155,5 @@ export default {
 
 .text {
   color: greenyellow;
-}
-
-.details {
-  justify-content: space-between;
-}
-
-.container {
-  display: flex;
-  flex-direction: column;
-  .item {
-    flex: auto;
-  }
-}
-
-.image {
-  max-height: 200px;
-  max-width: 120px;
-  height: auto;
-  width: auto;
-}
-
-.grid {
-  justify-content: center;
-  align-items: center;
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(auto, 25%));
-  column-gap: 3rem;
-  row-gap: 2rem;
-}
-
-.box {
-  border: 5px solid;
-  border-radius: 6px;
-  border-color: aquamarine;
-  border-style: outset;
-  width: 100%;
-  height: 100%;
 }
 </style>
