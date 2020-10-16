@@ -25,13 +25,13 @@ export default {
 <style lang="less">
 .zeno-content {
   opacity: 0;
-  min-width: 100vw;
+  min-width: 100%;
   min-height: 100vh;
 }
 
 .bgrd {
-  background-image: url("./static/img/bg-content_orange.png");
+  background-image: url("/img/bg-content_orange.png");
   background-repeat: no-repeat;
-  background-size: 100%;
+  background-size: cover;
 }
 </style>

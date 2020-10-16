@@ -5,7 +5,6 @@
         <factor-link v-if="footerLogo" path="/">
           <img :src="footerLogo" :alt="setting('home.meta.title')" class="h-8" />
         </factor-link>
-        <div v-if="footerLeft" v-formatted-text="footerLeft" class="text-xs" />
       </div>
       <nav v-if="footerNav" class="mt-8 w-full flex flex-wrap md:block md:w-auto md:mt-0">
         <template v-for="(item, index) in footerNav">

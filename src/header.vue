@@ -5,16 +5,35 @@
       <img v-if="navLogo" :src="navLogo" class="h-12" />
       <p class="text-xl">Fachschaft Mathe|Physik|Informatik</p>
     </div>
+    <div v-if="navConfig" class="relative z-50 flex flex-row md:hidden">
+      <button
+        type="button"
+        class="appearance-none block transition-all cursor-pointer focus:outline-none active:bg-transparent py-3 px-6"
+        @click="isOpen = !isOpen"
+      >
+        <svg class="h-6 w-6 fill-current text-purple-500" viewBox="0 0 24 24">
+          <path
+            v-if="isOpen"
+            fill-rule="evenodd"
+            d="M18.278 16.864a1 1 0 0 1-1.414 1.414l-4.829-4.828-4.828 4.828a1 1 0 0 1-1.414-1.414l4.828-4.829-4.828-4.828a1 1 0 0 1 1.414-1.414l4.829 4.828 4.828-4.828a1 1 0 1 1 1.414 1.414l-4.828 4.829 4.828 4.828z"
+          />
+          <path
+            v-if="!isOpen"
+            fill-rule="evenodd"
+            d="M4 5h16a1 1 0 0 1 0 2H4a1 1 0 1 1 0-2zm0 6h16a1 1 0 0 1 0 2H4a1 1 0 0 1 0-2zm0 6h16a1 1 0 0 1 0 2H4a1 1 0 0 1 0-2z"
+          />
+        </svg>
+      </button>
+    </div>
     <div
       v-if="navConfig"
       class="popup transition-all rounded-lg bg-gray-100 absolute pt-6 md:relative md:opacity-100 md:h-auto md:bg-transparent md:pt-0"
       :class="isOpen ? 'z-40 opacity-100 h-auto' : 'z-0 overflow-hidden h-0 opacity-0'"
     >
-      <h4 class="px-8 custom-uppercase text-gray-600 md:hidden">Menu</h4>
+      <h4 class="px-8 custom-uppercase text-gray-600 md:hidden">Kategorien</h4>
       <nav>
         <ul
-          class="flex flex-wrap list-none list-inside px-6 py-3 lg:items-center"
-          :class="navClass()"
+          class="flex flex-wrap list-none list-inside px-6 py-3 lg:items-center md:justify-end"
         >
           <li v-for="(item, index) in siteNav" :key="index" class="w-1/2 md:w-auto">
             <component :is="item.component()" v-if="item.component" />
@@ -63,11 +82,7 @@ export default {
   },
   methods: {
     navClass(this: any) {
-      if (this.$route.path != "/") {
-        return "md:justify-end"
-      } else {
-        return "md:justify-center"
-      }
+      //  return "md:justify-end"
     },
   },
 }

@@ -5,11 +5,6 @@
  * They allow you to set text and images, but also override components, routes and more.
  *
  */
-/*export default {
-  dashboard: {
-    route: "/dashboard",
-  },
-}*/
 export default {
 
   metatags: {
@@ -21,7 +16,6 @@ export default {
     components: {
       error404: (): Promise<any> => import("./404.vue"),
       content: (): Promise<any> => import("./content.vue"),
-      pdfsth: (): Promise<any> => import("./pdfsth.vue"),
     },
   },
 
@@ -40,32 +34,27 @@ export default {
       {
         _item: "aktive_vertreter",
         path: "/fs-vertreter",
-        name: "Aktive Vertreter",
+        name: "Vertreter",
       },
       {
         _item: "Keine Panik",
         path: "/keine-panik",
         name: "Keine Panik",
       },
-      {
-        _item: "Sprechstunden",
-        path: "/sprechstunden",
-        name: "Sprechstunden",
-      },
-      {
+      /*{
         _item: "Aktuelles",
         path: "/aktuelles",
         name: "Aktuelles",
+      },*/
+      {
+        _item: "erstis",
+        path: "/erstis",
+        name: "Ersti-Bereich",
       },
       {
-        _item: "Kontakt",
-        path: "/kontakt",
-        name: "Kontakt",
-      },
-      {
-        _item: "dashboard",
-        path: "/dashboard",
-        name: "Dashboard &rarr;",
+        _item: "externals",
+        path: "/external-links",
+        name: "Externe Links",
       },
     ],
   },
@@ -74,14 +63,14 @@ export default {
  */
   home: {
     component: (): Promise<any> => import("./home.vue"),
-    buttons: [
+    /*buttons: [
       {
         _item: "Kontakt",
         link: "/kontakt",
         text: "Nimm Kontakt mit uns auf ;)",
         classes: "btn mr-4 text-purple-100 bg-purple-500 hover:bg-purple-600",
       },
-    ]
+    ]*/
   },
 
   aktive_vertreter: {
@@ -99,29 +88,9 @@ export default {
   footer: {
     nav: [
       {
-        _item: "home",
-        path: "/",
-        name: "Home",
-      },
-      {
-        _item: "Aktive Vertreter",
-        path: "/fs-vertreter",
-        name: "Aktive Vertreter",
-      },
-      {
-        _item: "Keine Panik",
-        path: "/keine-panik",
-        name: "Keine Panik",
-      },
-      {
         _item: "Sprechstunden",
         path: "/sprechstunden",
         name: "Sprechstunden",
-      },
-      {
-        _item: "Aktuelles",
-        path: "/aktuelles",
-        name: "Aktuelles",
       },
       {
         _item: "Kontakt",
@@ -129,10 +98,9 @@ export default {
         name: "Kontakt",
       },
       {
-        _item: "twitter",
-        path: "https://twitter.com/",
-        icon: "fab fa-twitter",
-        target: "_blank",
+        _item: "Impressum",
+        path: "/impressum",
+        name: "Impressum",
       },
       {
         _item: "instagram",

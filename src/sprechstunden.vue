@@ -1,62 +1,40 @@
 <template>
   <div>
     <br />
-    <div v-if="ferien" class="flex flex-col items-center space-y-2">
-      <h6 class="text">
+    <div v-if="ferien" class="flex flex-col items-center text-center space-y-2">
+      <div>
         Die Fachschaft wünscht schöne Ferien und ist weiterhin
         <br />
         an den folgenden Tagen von
         {{ ferien_sprechstunden.uhrzeit }} für euch da
-      </h6>
-      <div class />
-      <table class="table">
-        <thead>
-          <tr>
-            <td
-              class="text"
-              :colspan="ferien_sprechstunden.sprechstunden.length"
-            >Feriensprechstunden der FSMPI</td>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td
-              class="text"
-              v-for="sprechstunde in ferien_sprechstunden.sprechstunden"
-              :key="sprechstunde.tag"
-              v-text="sprechstunde.tag"
-            />
-          </tr>
-          <tr>
-            <td
-              class="text"
-              v-for="sprechstunde in ferien_sprechstunden.sprechstunden"
-              :key="sprechstunde.tag"
-              v-text="sprechstunde.betreuer"
-            />
-          </tr>
-        </tbody>
-      </table>
+      </div>
+      <div />
+      <div />
+      <div>Feriensprechstunden der FSMPI</div>
+      <div
+        class="flex flex-wrap space-x-2 border-solid border-2 border-gray-600 text-left justify-center"
+      >
+        <div
+          v-for="(sprechstunde, index) in ferien_sprechstunden.sprechstunden"
+          :key="index"
+        >
+          <div v-text="sprechstunde.tag" />
+          <div v-text="sprechstunde.betreuer" />
+        </div>
+      </div>
     </div>
     <div v-else>
-      <table class="table">
-        <thead>
-          <tr>
-            <td class="text" colspan="5">Sprechstunden der FSMPI</td>
-          </tr>
-        </thead>
-        <tbody>
-          <tr v-for="sprechstunde in sprechstunden" :key="sprechstunde.uhrzeit">
-            <td class="text" v-text="sprechstunde.uhrzeit" />
-            <td
-              class="text"
-              v-for="(betreuend, index) in sprechstunde.betreuer"
-              :key="index"
-              v-text="betreuend"
-            />
-          </tr>
-        </tbody>
-      </table>
+      <div>Sprechstunden der FSMPI</div>
+      <div class="grid" :style="gridStyle">
+        <div></div>
+        <div v-for="(uhrzeit, index) in uhrzeiten" :key="index" v-text="uhrzeit"></div>
+        <template v-for="i in tage.length">
+          <div v-text="tage[i - 1]" :key="i" />
+          <template v-for="(sprechstunde, index) in sprechstunden">
+            <div v-text="sprechstunde.betreuer[i - 1]" :key="index" />
+          </template>
+        </template>
+      </div>
     </div>
   </div>
 </template>
@@ -69,17 +47,16 @@ export default {
     return {
       loading: true,
       ferien: true,
+      tage: ["Montag", "Dienstag", "Mittwoch", "Donnerstag"],
+      uhrzeiten: ["13:00", "14:00", "15:00"],
       sprechstunden: [
         {
-          uhrzeit: "13:00",
           betreuer: ["Julia", "Tobias", "Armin", "David"],
         },
         {
-          uhrzeit: "14:00",
           betreuer: ["Marcel", "Ahmet", "David", "Ahmet"],
         },
         {
-          uhrzeit: "15:00",
           betreuer: ["Marcel", "Armin", "Anne", "Marius"],
         },
       ],
@@ -134,7 +111,17 @@ export default {
       },
     }
   },
-
+  computed: {
+    gridStyle() {
+      return {
+        gridTemplateColumns: `repeat(${this.tage.length + 1}, minmax(max-content, 1fr))`,
+        gridTemplateRows: `repeat(${
+          this.uhrzeiten.length + 1
+        }, minmax(max-content, 1fr))`,
+        gridAutoFlow: "column",
+      }
+    },
+  },
   methods: {
     setting,
   },
@@ -142,18 +129,4 @@ export default {
 </script>
 
 <style lang="less">
-.table {
-  table,
-  th,
-  td {
-    border: 3px solid black;
-  }
-  table {
-    border-collapse: collapse;
-  }
-}
-
-.text {
-  color: greenyellow;
-}
 </style>

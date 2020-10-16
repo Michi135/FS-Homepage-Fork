@@ -3,7 +3,7 @@
     <div class="fallback-page-pad">
       <div class="title">{{ title }}</div>
       <div class="sub-title">{{ subTitle }}</div>
-      <img :src="subImage" />
+      <img v-if="subImage" :src="subImage" />
     </div>
   </div>
 </template>
@@ -38,13 +38,13 @@ export default {
         out = {
           title: "403 Error",
           subTitle: "Hier gibt's nix für dich zu sehen",
-          image: require("./static/img/rick_roll.jpg"),
+          //image: require("./static/img/rick_roll.jpg"),
         }
       } else {
         out = {
           title: "404 Error",
           subTitle: "Never gonna give you up",
-          image: require("./static/img/rick_roll.jpg"),
+          //image: require("./static/img/rick_roll.jpg"),
         }
       }
 
