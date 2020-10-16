@@ -1,0 +1,59 @@
+version: "3.7"
+volumes:
+  mongo_data: {}
+services:
+
+  https-portal:
+    image: steveltn/https-portal:1.13
+    ports:  # Syntax: 'HOST:CONTAINER'
+      - '80:80'
+      - '443:443'
+    volumes:
+      - ./volumes/ssl_certs:/var/lib/https-portal
+    links:  # Syntax: service:hostname
+      - factor
+    restart: unless-stopped
+    environment: 
+      STAGE: local
+      DOMAINS: 'fsmpi.uni-bayreuth.de' => http://factor:3000
+    networks:
+      homepage-network:
+        ipv4_address: 172.23.2.10
+
+  mongodb:
+    image: mongo:4.2.3
+    restart: always
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo_data:/data/db
+      - ./mongodb-init.js:/docker-entrypoint-initdb.d/mongodb-init.js
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=root
+      - MONGO_INITDB_ROOT_PASSWORD=mongodbROOT
+      - MONGO_INITDB_DATABASE=factor
+    networks:
+      homepage-network:
+        ipv4_address: 172.23.2.30
+
+  factor:
+    build:
+      context: .
+    image: factor:dev
+    working_dir: "/var/factor"
+    volumes:
+      - .:/var/factor
+      - /var/factor/node_modules/
+    ports:
+      - "3000:3000"
+    networks:
+      homepage-network:
+        ipv4_address: 172.23.2.50
+
+networks:
+  homepage-network:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.23.2.0/24
