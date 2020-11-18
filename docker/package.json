@@ -19,10 +19,8 @@
       "server"
     ],
     "disable": [
-      "@factor/plugin-storage-s3"
-    ],
-    "admins": [
-      "asdf@asdf.de"
+      "@factor/plugin-storage-s3",
+      "@factor/dashboard"
     ]
   }
 }
