@@ -1,17 +1,12 @@
-# fachschaft
-
-## Built with [Factor](https://factor.dev)
+# FS-Homepage
 
 ```bash
-# Run development server
-npx factor dev
+cd docker
+echo FACTOR_AUTH_SECRET="some_long_random_string" > .env
 
-# Build production app
-npx factor build
+//Change https portal from STAGE: "local" to STAGE: "development"
 
-# Serve production app
-npx factor serve
+sudo docker-compose up
 
-# build for production and then launch server
-npx factor start
+//Magic
 ```
