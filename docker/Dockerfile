@@ -13,9 +13,11 @@ WORKDIR /var/factor
 COPY . .
 
 RUN yarn install
+RUN ["yarn", "factor", "build"]
 
 EXPOSE 3000
 
 RUN chown -R node /var/factor
 USER node
-CMD ["yarn", "factor", "dev"]
+
+CMD ["yarn", "factor", "serve"]
