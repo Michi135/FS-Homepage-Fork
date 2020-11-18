@@ -22,7 +22,7 @@ services:
 
   mongodb:
     image: mongo:4.2.3
-    restart: always
+    restart: unless-stopped
     ports:
       - "27017:27017"
     volumes:
@@ -46,6 +46,9 @@ services:
       - /var/factor/node_modules/
     ports:
       - "3000:3000"
+    environment:
+      - FACTOR_DB_CONNECTION="mongodb://factor:factorDEV@172.23.2.30:27017/factor?authSource=factor&ssl=false"
+      - FACTOR_URL=https://fsmpi.uni-bayreuth.de
     networks:
       homepage-network:
         ipv4_address: 172.23.2.50
