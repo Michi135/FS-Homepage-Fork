@@ -5,12 +5,12 @@
   "main": "src/index",
   "private": true,
   "dependencies": {
-    "@factor/core": "^1.8.26",
-    "@factor/plugin-contact-form": "^1.8.11",
-    "@factor/plugin-notify": "^1.7.8",
-    "@factor/plugin-seo": "^1.8.3",
-    "@factor/plugin-sitemap": "^1.8.11",
-    "@factor/theme-zeno": "^1.8.26"
+    "@factor/core": "^1.8.30",
+    "@factor/plugin-contact-form": "^1.8.28",
+    "@factor/plugin-notify": "^1.8.28",
+    "@factor/plugin-seo": "^1.8.28",
+    "@factor/plugin-sitemap": "^1.8.28",
+    "@factor/theme-zeno": "^1.8.30"
   },
   "factor": {
     "app": {},
