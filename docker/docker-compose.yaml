@@ -44,6 +44,8 @@ services:
     volumes:
       - .:/var/factor
       - /var/factor/node_modules/
+      - /var/factor/.factor/
+      - /var/factor/dist/
     ports:
       - "3000:3000"
     environment:
