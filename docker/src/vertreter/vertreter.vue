@@ -50,7 +50,7 @@ export default {
           email: "marcel.schalling@uni-bayreuth.de",
         },
         {
-          image: require("../static/img/portraits/julia.png"),
+          image: require("../static/img/portraits/julia.jpg"),
           name: "Julia",
           role: "Vize",
           studiengang: "B.Sc. Technomathe",
@@ -58,7 +58,7 @@ export default {
           email: "julia.schwarz@uni-bayreuth.de",
         },
         {
-          image: require("../static/img/portraits/charlotte.png"),
+          image: require("../static/img/portraits/charlotte.jpg"),
           name: "Charlotte",
           role: "Finanzen",
           studiengang: "B.Sc. Physik",
@@ -66,7 +66,7 @@ export default {
           email: "charlotte.geiger@uni-bayreuth.de",
         },
         {
-          image: require("../static/img/portraits/dennis.png"),
+          image: require("../static/img/portraits/dennis.jpg"),
           name: "Dennis",
           role: "Uni-Kino",
           studiengang: "B.Sc. Informatik",
@@ -74,7 +74,7 @@ export default {
           email: "dennis.streicher@uni-bayreuth.de",
         },
         {
-          image: require("../static/img/portraits/olivia.png"),
+          image: require("../static/img/portraits/olivia.jpg"),
           name: "Olivia",
           role: "Öffentlichkeitsarbeit",
           studiengang: "B.Sc. Informatik",
@@ -82,7 +82,7 @@ export default {
           email: "olivia.kammerer@uni-bayreuth.de",
         },
         {
-          image: require("../static/img/portraits/ahmet.png"),
+          image: require("../static/img/portraits/ahmet.jpg"),
           name: "Ahmet",
           role: "Öffentlichkeitsarbeit",
           studiengang: "LA Gym Sport/Mathe",
@@ -98,7 +98,7 @@ export default {
           email: "fabian.herrmann@uni-bayreuth.de",
         },
         {
-          image: require("../static/img/portraits/ruth.png"),
+          image: require("../static/img/portraits/ruth.jpg"),
           name: "Ruth",
           role: "Grafiken",
           studiengang: "B.Sc. Informatik",
