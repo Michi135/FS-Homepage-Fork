@@ -15,7 +15,7 @@ services:
     restart: unless-stopped
     environment: 
       STAGE: local
-      DOMAINS: 'fsmpi.uni-bayreuth.de -> http://factor:3000'
+      DOMAINS: 'www.fsmpi.uni-bayreuth.de => fsmpi.uni-bayreuth.de, fsmpi.uni-bayreuth.de -> http://factor:3000'
     networks:
       homepage-network:
         ipv4_address: 172.23.2.10
