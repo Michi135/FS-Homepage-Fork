@@ -30,7 +30,7 @@ export default {
 }
 
 .bgrd {
-  background-image: url("/img/bg-content_orange.png");
+  background-image: url("/img/bg_back.jpg");
   background-repeat: no-repeat;
   background-size: cover;
 }

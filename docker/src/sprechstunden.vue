@@ -23,17 +23,19 @@
         </div>
       </div>
     </div>
-    <div v-else>
-      <div>Sprechstunden der FSMPI</div>
-      <div class="grid" :style="gridStyle">
-        <div></div>
-        <div v-for="(uhrzeit, index) in uhrzeiten" :key="index" v-text="uhrzeit"></div>
-        <template v-for="i in tage.length">
-          <div v-text="tage[i - 1]" :key="i" />
-          <template v-for="(sprechstunde, index) in sprechstunden">
-            <div v-text="sprechstunde.betreuer[i - 1]" :key="index" />
+    <div v-else class="px-5">
+      <div class="heading">Sprechstunden der FSMPI</div>
+      <div class="contained">
+        <div class="grid secondary" :style="gridStyle">
+          <div></div>
+          <div v-for="(uhrzeit, index) in uhrzeiten" :key="index" v-text="uhrzeit"></div>
+          <template v-for="i in tage.length">
+            <div v-text="tage[i - 1]" :key="i" />
+            <template v-for="(sprechstunde, index) in sprechstunden">
+              <div v-text="sprechstunde.betreuer[i - 1]" :key="index" />
+            </template>
           </template>
-        </template>
+        </div>
       </div>
     </div>
   </div>
@@ -46,18 +48,15 @@ export default {
   data() {
     return {
       loading: true,
-      ferien: true,
+      ferien: false,
       tage: ["Montag", "Dienstag", "Mittwoch", "Donnerstag"],
-      uhrzeiten: ["13:00", "14:00", "15:00"],
+      uhrzeiten: ["14:00", "15:00"],
       sprechstunden: [
         {
-          betreuer: ["Julia", "Tobias", "Armin", "David"],
+          betreuer: ["Elias/Fabian", "Dennis/Olivia", "Marcel", "Ahmet/Ruth"],
         },
         {
-          betreuer: ["Marcel", "Ahmet", "David", "Ahmet"],
-        },
-        {
-          betreuer: ["Marcel", "Armin", "Anne", "Marius"],
+          betreuer: ["Charlotte", "Elias/Olivia", "Julia/Fabian", "Dennis/Ruth"],
         },
       ],
       ferien_sprechstunden: {
@@ -114,11 +113,20 @@ export default {
   computed: {
     gridStyle() {
       return {
-        gridTemplateColumns: `repeat(${this.tage.length + 1}, minmax(max-content, 1fr))`,
+        gridTemplateColumns: `repeat(${
+          this.tage.length + 1
+        }, minmax(min-content, max-content))`,
         gridTemplateRows: `repeat(${
           this.uhrzeiten.length + 1
         }, minmax(max-content, 1fr))`,
         gridAutoFlow: "column",
+        gridRowGap: "2px",
+        gridColumnGap: "5px",
+        background: "rgb(51, 49, 48)",
+        border: "5px solid",
+        borderRadius: "6px",
+        borderColor: "rgb(255, 115, 0)",
+        borderStyle: "outset",
       }
     },
   },
@@ -129,4 +137,14 @@ export default {
 </script>
 
 <style lang="less">
+.heading {
+  color: var(--color-primary-header);
+}
+.secondary {
+  color: var(--color-secondary-header);
+}
+.contained {
+  display: flex;
+  overflow: auto;
+}
 </style>

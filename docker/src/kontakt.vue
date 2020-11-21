@@ -15,7 +15,9 @@
       <br />
       <p>- Instagram: https://www.instagram.com/fachschaft_mpi/</p>
       <br />
-      <p>Oder Ihr besucht uns persönlich in unserem Büro (NW II, zwischen H 20 und S 78)</p>
+      <p>
+        Oder Ihr besucht uns persönlich in unserem Büro (NW II, zwischen H 20 und S 78)
+      </p>
     </div>
   </div>
 </template>
@@ -40,12 +42,12 @@ export default {
 .main {
   .header {
     font-size: 2rem;
-    color: cyan;
+    color: var(--color-primary-header);
     text-align: center;
   }
   h5,
   p {
-    color: greenyellow;
+    color: var(--color-secondary-header);
   }
   div {
     text-align: center;

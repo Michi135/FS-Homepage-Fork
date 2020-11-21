@@ -43,7 +43,7 @@
               :path="item.path"
               :event="item.event"
               :target="item.target"
-              class="mt-0 py-1 px-2 font-normal leading-loose text-xl transition-all text-purple-900 hover:bg-gray-100 hover:text-purple-900 md:hover:bg-transparent md:inline md:px-3 md:text-base md:hover:text-purple-500"
+              class="mt-0 py-1 px-2 font-normal leading-loose text-xl transition-all text-gray-500 hover:bg-gray-100 hover:text-purple-900 md:hover:bg-transparent md:inline md:px-3 md:text-base md:hover:text-purple-500"
               @click="isOpen = !isOpen"
             >
               <factor-icon v-if="item.icon" :icon="item.icon" />

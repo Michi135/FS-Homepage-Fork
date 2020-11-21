@@ -2,29 +2,31 @@
   <div>
     <h5 class="header">Aktuelle Vertreter der Fachschaft FSMPI</h5>
     <br />
-    <div class="all-container">
-      <div
-        class="vertreter-container"
-        v-for="vertreter_it in vertreter"
-        :key="vertreter_it.name"
-      >
-        <div class="image-container">
-          <img class="image" :src="vertreter_it.image" />
+    <div class="flex flex-col items-center">
+      <div class="all-container">
+        <div
+          class="vertreter-container"
+          v-for="vertreter_it in vertreter"
+          :key="vertreter_it.name"
+        >
+          <div class="image-container">
+            <img class="image" :src="vertreter_it.image" />
+          </div>
+          <p class="property">Name:</p>
+          <p class="value" v-text="vertreter_it.name" />
+
+          <p class="property">Rolle:</p>
+          <p class="value" v-text="vertreter_it.role" />
+
+          <p class="property">Studiengang:</p>
+          <div class="value" v-text="vertreter_it.studiengang" />
+
+          <p class="property">Semester:</p>
+          <p class="value" v-text="vertreter_it.semester" />
+
+          <p class="property">Email:</p>
+          <p class="value" v-text="vertreter_it.email" />
         </div>
-        <p class="property">Name:</p>
-        <p class="value" v-text="vertreter_it.name" />
-
-        <p class="property">Rolle:</p>
-        <p class="value" v-text="vertreter_it.role" />
-
-        <p class="property">Studiengang:</p>
-        <div class="value" v-text="vertreter_it.studiengang" />
-
-        <p class="property">Semester:</p>
-        <p class="value" v-text="vertreter_it.semester" />
-
-        <p class="property">Email:</p>
-        <p class="value" v-text="vertreter_it.email" />
       </div>
     </div>
     <br />
@@ -140,9 +142,12 @@ export default {
 .header {
   font-size: 2rem;
   text-align: center;
+  color: rgb(255, 255, 255);
 }
 
 .all-container {
+  width: 98%;
+
   justify-content: center;
   align-items: center;
   display: grid;
@@ -161,7 +166,7 @@ export default {
 }
 
 .vertreter-container {
-  background: rgb(180, 66, 0);
+  background: rgb(51, 49, 48);
   display: grid;
   align-items: flex-start;
   grid-template-columns: [col-image-start] max-content [col-image-end col-properties-start] auto [col-properties-end col-value-start] auto [col-value-end];
@@ -171,7 +176,7 @@ export default {
 
   border: 5px solid;
   border-radius: 6px;
-  border-color: rgb(127, 255, 133);
+  border-color: rgb(255, 115, 0);
   border-style: outset;
 
   overflow: auto;
@@ -213,7 +218,7 @@ export default {
       }
     }
   }
-  color: rgb(0, 255, 13);
+  color: rgb(192, 192, 192);
   .property {
     grid-column: col-properties-start / col-properties-end;
   }

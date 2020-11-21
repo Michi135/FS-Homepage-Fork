@@ -36,10 +36,10 @@ addRoutes({
       path: "/aktuelles",
       component: (): Promise<any> => import("./wip.vue"),
     },
-    {
+    /*{
       path: "/erstis",
       component: (): Promise<any> => import("./erstis.vue"),
-    },
+    },*/
   ],
 })
 

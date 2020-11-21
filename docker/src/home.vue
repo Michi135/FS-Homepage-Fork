@@ -4,7 +4,7 @@
       Willkommen auf der Homepage der Fachschaft
       <br />Mathe|Physik|Informatik
     </h5>
-    <h4 class="text-center">
+    <h4 class="text-center sec-header">
       Nachdem du schon mal hier bist schau dich doch gerne mal um
     </h4>
     <br />
@@ -37,8 +37,12 @@ export default {
 .main {
   .header {
     font-size: 2rem;
-    color: rgb(97, 27, 138);
+    color: var(--color-primary-header);
     text-align: center;
+  }
+  .sec-header {
+    //font-size: 1.5rem;
+    color: var(--color-secondary-header);
   }
 }
 

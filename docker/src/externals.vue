@@ -1,5 +1,5 @@
 <template>
-  <div class="main">
+  <div class="px-5 py-2 main">
     <p>Folgende Links beziehen sich auf externe Inhalte</p>
     <br />
     <h5>Fachschaften</h5>
@@ -111,6 +111,9 @@ export default {
   background-color: var(--color-secondary);
   color: var(--color-text);
 }
+.primary {
+  color: var(--color-primary-header);
+}
 
 .main {
   .factor-link {
@@ -119,16 +122,14 @@ export default {
     display: inline-block;
     line-height: 1;
   }*/
-    color: greenyellow;
+    color: var(--color-secondary-header);
   }
-  .header {
-    font-size: 2rem;
-    color: cyan;
-    text-align: center;
+  .factor-link:hover {
+    color: var(--color-primary);
   }
   h5,
   p {
-    color: greenyellow;
+    color: var(--color-primary-header);
   }
   div {
     text-align: center;

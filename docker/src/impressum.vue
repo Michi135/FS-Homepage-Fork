@@ -1,5 +1,5 @@
 <template>
-  <div class="main">
+  <div class="main px-5 py-2">
     <h1>Impressum</h1>
     <br />
     <h2>Angaben gem&auml;&szlig; &sect; 5 TMG</h2>
@@ -110,33 +110,15 @@ export default {
 }
 </script>
 <style lang="less">
-.footer {
-  background-color: var(--color-secondary);
-  color: var(--color-text);
-}
-
 .main {
-  .factor-link {
-    /*&.btn-link {
-    color: inherit;
-    display: inline-block;
-    line-height: 1;
-  }*/
-    color: greenyellow;
-  }
-  .header {
-    font-size: 2rem;
-    color: cyan;
-    text-align: center;
-  }
   h1,
   h2,
   h3 {
-    color: rgb(78, 141, 212);
+    color: var(--color-primary-header);
   }
   h5,
   p {
-    color: greenyellow;
+    color: var(--color-secondary-header);
   }
   div {
     text-align: center;

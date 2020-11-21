@@ -46,11 +46,11 @@ export default {
         path: "/aktuelles",
         name: "Aktuelles",
       },*/
-      {
+      /*{
         _item: "erstis",
         path: "/erstis",
         name: "Ersti-Bereich",
-      },
+      },*/
       {
         _item: "externals",
         path: "/external-links",
