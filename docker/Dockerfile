@@ -7,17 +7,16 @@ RUN apt-get update && apt-get -y install --no-install-recommends \
   apt-get clean && \
   rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
-RUN mkdir -p /var/factor
-WORKDIR /var/factor
+RUN mkdir -p /var/vuecms
+WORKDIR /var/vuecms
 
 COPY . .
 
-RUN yarn install
-RUN yarn factor build
+RUN npm i
 
 EXPOSE 3000
 
-RUN chown -R node:node /var/factor
+RUN chown -R node:node /var/vuecms
 USER node
 
-CMD ["yarn", "factor", "serve"]
+CMD ["npm", "run", "start:prod"]

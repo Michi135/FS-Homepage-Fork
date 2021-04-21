@@ -1,0 +1,136 @@
+<template>
+  <div class="tw-px-5 tw-py-2 main">
+    <p>Folgende Links beziehen sich auf externe Inhalte</p>
+    <br />
+    <h5>Fachschaften</h5>
+    <ul>
+      <li
+        class="tw-ml-5"
+        v-for="fachschaft in fachschaften"
+        :key="fachschaft.name"
+      >
+        <a class="link" :href="fachschaft.link">{{ fachschaft.name }}</a>
+      </li>
+    </ul>
+    <br />
+    <h5>Hochschulgruppen</h5>
+    <ul>
+      <li
+        class="tw-ml-5"
+        v-for="hochschulgruppe in hochschulgruppen"
+        :key="hochschulgruppe.name"
+      >
+        <a class="link" :href="hochschulgruppe.link">{{
+          hochschulgruppe.name
+        }}</a>
+      </li>
+    </ul>
+    <br />
+    <h5>Weiterführende Links</h5>
+    <ul>
+      <li class="tw-ml-5">
+        <a class="link" href="https://www.max-academy.de/">Max Academy</a>
+      </li>
+    </ul>
+  </div>
+</template>
+
+<script lang="ts">
+import { defineComponent } from "vue";
+
+export default defineComponent({
+  setup: () => {
+    return {
+      footerLogo: null,
+      footerNav: null,
+      footerLeft: null,
+      footerRight: null,
+      fachschaften: [
+        {
+          name: "RW",
+          link: "https://www.fsrw.uni-bayreuth.de/de/index.html",
+        },
+        {
+          name: "BCG",
+          link:
+            "https://www.bcg.uni-bayreuth.de/de/studium/fachschaft/index.html",
+        },
+        {
+          name: "SpLit",
+          link: "https://www.fssplit.uni-bayreuth.de/de/index.html",
+        },
+        {
+          name: "Sport",
+          link: "https://www.fs-sport.uni-bayreuth.de/de/index.html",
+        },
+        {
+          name: "ING",
+          link: "https://www.fachschaft-ing.uni-bayreuth.de/de/index.html",
+        },
+        {
+          name: "KuWi",
+          link: "https://www.kuwi.uni-bayreuth.de/de/index.html",
+        },
+      ],
+      hochschulgruppen: [
+        {
+          name: '"Die Liste"',
+          link: "https://de-de.facebook.com/DieListeUniBayreuth",
+        },
+        {
+          name: "Grüne",
+          link: "https://www.facebook.com/GHGBayreuth/",
+        },
+        {
+          name: "Juso",
+          link:
+            "https://www.facebook.com/Juso-Hochschulgruppe-Uni-Bayreuth-161660643852972/",
+        },
+        {
+          name: "Liberale",
+          link: "https://www.facebook.com/lhg.bayreuth/",
+        },
+        {
+          name: "RCDS",
+          link: "https://www.facebook.com/rcdsbayreuth/",
+        },
+        {
+          name: "Volt",
+          link: "https://www.facebook.com/Volt-Bayreuth-401468427008133/",
+        },
+      ],
+    };
+  },
+});
+</script>
+
+<style scoped lang="less">
+.footer {
+  background-color: var(--color-secondary);
+  color: var(--color-text);
+}
+.primary {
+  color: var(--color-primary-header);
+}
+
+.main {
+  .link {
+    /*&.btn-link {
+    color: inherit;
+    display: inline-block;
+    line-height: 1;
+  }*/
+    color: var(--color-secondary-header);
+  }
+  .link:hover {
+    color: var(--color-primary);
+  }
+  h5,
+  p {
+    color: var(--color-primary-header);
+  }
+  div {
+    text-align: center;
+  }
+}
+</style>

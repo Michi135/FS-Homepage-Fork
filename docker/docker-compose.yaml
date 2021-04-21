@@ -3,54 +3,48 @@ volumes:
   mongo_data: {}
 services:
 
-  https-portal:
-    image: steveltn/https-portal:1.13
-    ports:  # Syntax: 'HOST:CONTAINER'
-      - '80:80'
-      - '443:443'
-    volumes:
-      - ./volumes/ssl_certs:/var/lib/https-portal
-    links:  # Syntax: service:hostname
-      - factor
-    restart: unless-stopped
-    environment: 
-      STAGE: local
-      DOMAINS: 'www.fsmpi.uni-bayreuth.de => fsmpi.uni-bayreuth.de, fsmpi.uni-bayreuth.de -> http://factor:3000'
-    networks:
-      homepage-network:
-        ipv4_address: 172.23.2.10
+  #https-portal:
+   # image: steveltn/https-portal:1.13
+    #ports:  # Syntax: 'HOST:CONTAINER'
+    #  - '80:80'
+    #  - '443:443'
+    #volumes:
+    #  - ./volumes/ssl_certs:/var/lib/https-portal
+    #links:  # Syntax: service:hostname
+    #  - factor
+    #restart: unless-stopped
+    #environment: 
+    #  STAGE: local
+    #  DOMAINS: 'www.fsmpi.uni-bayreuth.de => fsmpi.uni-bayreuth.de, fsmpi.uni-bayreuth.de -> http://factor:3000'
+    #networks:
+    #  homepage-network:
+    #    ipv4_address: 172.23.2.10
 
-  mongodb:
-    image: mongo:4.2.3
-    restart: unless-stopped
-    ports:
-      - "27017:27017"
-    volumes:
-      - mongo_data:/data/db
-      - ./mongodb-init.js:/docker-entrypoint-initdb.d/mongodb-init.js
-    environment:
-      - MONGO_INITDB_ROOT_USERNAME=root
-      - MONGO_INITDB_ROOT_PASSWORD=mongodbROOT
-      - MONGO_INITDB_DATABASE=factor
-    networks:
-      homepage-network:
-        ipv4_address: 172.23.2.30
+  #mongodb:
+   # image: mongo:4.2.3
+   # restart: unless-stopped
+   # ports:
+   #   - "27017:27017"
+   # volumes:
+   #   - mongo_data:/data/db
+   #   - ./mongodb-init.js:/docker-entrypoint-initdb.d/mongodb-init.js
+   # environment:
+   #   - MONGO_INITDB_ROOT_USERNAME=root
+   #   - MONGO_INITDB_ROOT_PASSWORD=mongodbROOT
+   #   - MONGO_INITDB_DATABASE=factor
+   # networks:
+   #   homepage-network:
+   #     ipv4_address: 172.23.2.30
 
   factor:
     build:
       context: .
-    image: factor:dev
-    working_dir: "/var/factor"
+    image: vuecms
+    working_dir: "/var/vuecms"
     volumes:
-      - .:/var/factor
-      - /var/factor/node_modules/
-      - /var/factor/.factor/
-      - /var/factor/dist/
+      - .:/var/vuecms
     ports:
       - "3000:3000"
-    environment:
-      - FACTOR_DB_CONNECTION="mongodb://factor:factorDEV@172.23.2.30:27017/factor?authSource=factor&ssl=false"
-      - FACTOR_URL=https://fsmpi.uni-bayreuth.de
     networks:
       homepage-network:
         ipv4_address: 172.23.2.50
