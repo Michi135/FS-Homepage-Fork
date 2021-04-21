@@ -42,7 +42,7 @@ function cleanExit(...cleanups: Function[]) {
     })
 
     const httpServer = createServer(server);
-    httpServer.listen(3000, 'fsmpi.uni-bayreuth.de');
+    httpServer.listen(3000);
     console.log("Listening")
 
     const exitHandler = () => {

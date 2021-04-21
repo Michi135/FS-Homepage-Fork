@@ -36,7 +36,7 @@ services:
    #   homepage-network:
    #     ipv4_address: 172.23.2.30
 
-  factor:
+  vuecms:
     build:
       context: .
     image: vuecms
@@ -44,7 +44,7 @@ services:
     volumes:
       - .:/var/vuecms
     ports:
-      - "3000:3000"
+      - "80:3000"
     networks:
       homepage-network:
         ipv4_address: 172.23.2.50

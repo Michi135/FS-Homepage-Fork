@@ -33,7 +33,8 @@
   "scripts": {
     "start": "npm run start:dev",
     "start:dev": "env NODE_ENV=development tsnd -r tsconfig-paths/register ./src/server/entry.ts ",
-    "start:prod": "env NODE_ENV=production ts-node ./src/server/entry.ts"
+    "start:prod": "env NODE_ENV=production ts-node ./src/server/entry.ts",
+    "patch": "ts-node ./patch.ts"
   },
   "devDependencies": {
     "@babel/core": "^7.13.16",
