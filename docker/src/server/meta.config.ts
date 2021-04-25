@@ -15,6 +15,10 @@ const metaEntries: MetaEntry[] =
         {
             "http-equiv": "X-UA-Compatible",
             "content": "ie=edge"
+        },
+        {
+            "name": "description",
+            "content": "Fachschaft Mathe/Physik/Informatik"
         }
     ]
 

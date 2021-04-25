@@ -7,8 +7,75 @@ import { createFaviconLink } from '../favicon/favicon'
 import { NextFunction, Request, Response } from 'express'
 import { Stats, Compiler } from 'webpack'
 import { JSDOM } from 'jsdom'
-import { join } from 'path'
+import { join, resolve } from 'path'
 import type * as App from '../shared/app'
+import { readJson, readFile } from 'fs-extra'
+
+interface devMiddleware {
+    stats: Stats,
+    outputFileSystem: Compiler['outputFileSystem']
+};
+
+const chunks: Record<string, string> = {
+    "/": "home",
+    "/vertreter": "home",
+    "/keinePanik": "home",
+    "/externe": "home",
+    "/impressum": "home",
+    "/sprechstunden": "home",
+    "/kontakt": "home"
+}
+
+let initialHtml: string | undefined;
+let initialManifest: Record<string, string> | undefined;
+
+async function loadDom(dev?: devMiddleware) {
+
+    if (dev) {
+        const outputFileSystem = dev!.outputFileSystem;
+        const jsonWebpackStats = dev!.stats.toJson();
+        const { assetsByChunkName, outputPath } = jsonWebpackStats || {};
+
+        initialHtml = await new Promise<string>((resolve, reject) => {
+            outputFileSystem!.readFile(join(outputPath!, 'test.html'), (error, result) => {
+                if (error)
+                    reject(error);
+                resolve(result! as string);
+            })
+        });
+    }
+    else if (typeof initialHtml === "undefined")
+        initialHtml = (await readFile('./dist-ssr/dist/test.html', { encoding: 'utf-8' }));
+    return initialHtml;
+}
+
+async function loadManifest(dev?: devMiddleware) {
+
+    if (dev) {
+        const outputFileSystem = dev!.outputFileSystem;
+        const jsonWebpackStats = dev!.stats.toJson();
+        const { assetsByChunkName, outputPath } = jsonWebpackStats || {};
+
+        initialManifest = await new Promise<Record<string, string>>((resolve, reject) => {
+            outputFileSystem!.readFile(join(outputPath!, 'manifest.json'), (error, result) => {
+                if (error)
+                    reject(error);
+                resolve(JSON.parse(result! as string));
+            })
+        })
+    }
+    else if (typeof initialManifest === "undefined")
+        initialManifest = await readJson(resolve(__dirname, "..", "..", "dist-ssr", 'dist', 'manifest.json'), { encoding: 'utf-8' })
+    return (initialManifest!);
+}
+
+function swap<A extends keyof any, B extends keyof any>(json: Record<A, B>) {
+    var ret: Record<B, A> = new Object as Record<B, A>;
+    for (var key in json) {
+        ret[json[key]] = key;
+    }
+    return ret;
+}
 
 const supportedLanguages =
     ['de',
@@ -27,10 +94,7 @@ function loadFavicon(route: RouteLocationNormalized, context: SSRContext) {
 }
 
 function loadDevMiddleWare(res: Response) {
-    interface devMiddleware {
-        stats: Stats,
-        outputFileSystem: Compiler['outputFileSystem']
-    };
+
     const devMiddleware = res.locals?.webpack?.devMiddleware;
 
     return (!!devMiddleware) ? <devMiddleware>devMiddleware : undefined;
@@ -43,17 +107,20 @@ function loadTitle(route: RouteLocationNormalized, context: SSRContext) {
 export default function ssr(dev: boolean) {
 
     return async function (req: Request, res: Response, next: NextFunction) {
+
         if (!req.accepts('html') || req.method !== 'GET')
             return next();
 
         try {
             const devMiddleware = loadDevMiddleWare(res);
-
-            const outputFileSystem = devMiddleware?.outputFileSystem;
-            const jsonWebpackStats = devMiddleware?.stats.toJson();
-            const { assetsByChunkName, outputPath } = jsonWebpackStats || {};
-
             if (dev) delete require.cache[require.resolve('@distServer/main')];
+
+            const domLoad = loadDom(devMiddleware);
+            const manifestLoad = loadManifest(devMiddleware);
+            const contextLoad = createDefaultContext();
+
+            res.contentType('html');
+            res.charset = 'utf-8';
 
             const { createDefaultApp } = <typeof App>require('@distServer/main');
             const { router, store, app } = createDefaultApp();
@@ -65,24 +132,12 @@ export default function ssr(dev: boolean) {
             if (!currentRoute.matched.length) return res.status(404).end();
 
             const language = getLanguage(req);
-            let context = await createDefaultContext();
 
-            store.commit('setLanguage', language);
+            const context: SSRContext = { ...(await contextLoad) };
+            const manifest = await manifestLoad;
+            const dom = new JSDOM(await domLoad);
 
             context.state = store.state;
-
-            res.contentType('html');
-            res.charset = 'utf-8';
-
-            const dom = (!devMiddleware)
-                ? await JSDOM.fromFile('./dist-ssr/dist/test.html')
-                : new JSDOM(await new Promise<string>((resolve, reject) => {
-                    outputFileSystem!.readFile(join(outputPath!, 'test.html'), (error, result) => {
-                        if (error)
-                            reject(error);
-                        resolve(result! as string);
-                    })
-                }));
 
             const doc = dom.window.document;
             const head = doc.head;
@@ -90,13 +145,40 @@ export default function ssr(dev: boolean) {
             //doc.lang
             head.innerHTML += `<title>${loadTitle(currentRoute, context)}</title>`;
             head.innerHTML += `<link href="https://cdnjs.cloudflare.com" rel="preconnect" crossorigin>`
+
+            const chunk = chunks[req.url];
+            if (chunk) {
+                const preloadCss = manifest[chunk + '.css'];
+                const nodeCss = doc.createElement('link');
+                nodeCss.setAttribute('href', preloadCss);
+                nodeCss.setAttribute('rel', 'stylesheet');
+                head.appendChild(nodeCss);
+
+                const preloadJs = manifest[chunk + '.js'];
+                const nodeJs = doc.createElement('script');
+                nodeJs.setAttribute('src', preloadJs);
+                nodeJs.setAttribute('type', 'text/javascript')
+                head.appendChild(nodeJs);
+            }
+
+            if (req.url === "/") {
+
+                const preloadImg = manifest['plakat.jpg'];
+                const nodeImg = doc.createElement("link");
+                nodeImg.setAttribute('href', preloadImg);
+                nodeImg.setAttribute('rel', 'preload');
+                nodeImg.setAttribute('as', 'image');
+                head.appendChild(nodeImg);
+            }
+
             head.innerHTML += getMeta();
             head.innerHTML += getStyles();
             head.innerHTML += loadFavicon(currentRoute, context);
             head.innerHTML += `<script>window.__INITIAL_STATE__=${JSON.stringify(context.state)}</script>`
             doc.getElementById('app')!.innerHTML = await renderToString(app, context);
 
-            res.send(dom.serialize()).end();
+            const document = dom.serialize();
+            res.send(document).end();
 
         } catch (error) {
             console.log(error);

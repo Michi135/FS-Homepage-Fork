@@ -12,11 +12,14 @@ export function fileRequest(basePath: string) {
         try {
             if (await pathExists(distPath)) {
 
-                const encoding = req.acceptsEncodings(['gzip']);
+                let encoding = req.acceptsEncodings(['br']);
+                if (!encoding) encoding = req.acceptsEncodings(['gzip']);
                 if (encoding) {
                     let extension: string = '';
                     if (encoding === 'gzip')
                         extension = 'gz';
+                    else if (encoding === 'br')
+                        extension = 'br'
 
                     const distPathEncoded = distPath.concat('.', extension);
                     if (await pathExists(distPathEncoded)) {

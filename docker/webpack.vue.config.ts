@@ -3,6 +3,7 @@ import { readFileSync } from 'fs-extra'
 import stripJsonComments from 'strip-json-comments'
 
 import { DefinePlugin, HotModuleReplacementPlugin, NormalModuleReplacementPlugin } from 'webpack'
+import { container } from 'webpack'
 import type { Configuration, Module } from 'webpack'
 import { VueLoaderPlugin } from 'vue-loader'
 import MiniCssExtractPlugin from 'mini-css-extract-plugin'
@@ -103,7 +104,7 @@ const config = (env: NodeJS.ProcessEnv = {}): Configuration => {
   ];
 
   const genConfig = (isServerBuild: boolean = false): Configuration => {
-    const minimize = isProd && !noMinimize
+    const minimize = isProd && !noMinimize && !isServerBuild
     const useBabel = isProd && !isServerBuild && !noBabel
     process.env.NODE_ENV = environment;
     let config: Configuration = {
@@ -112,7 +113,7 @@ const config = (env: NodeJS.ProcessEnv = {}): Configuration => {
         ? resolve(__dirname, 'src', 'shared', 'app.ts')
         : [resolve(__dirname, 'src', 'client', 'main.ts')].concat((!isProd) ? ['webpack-hot-middleware/client?reload=true?overlay=true'] : []),
       target: isServerBuild ? 'node' : 'web',
-      devtool: 'source-map',
+      devtool: (isServerBuild) ? false : 'source-map',
       output: {
         path: resolve(
           __dirname,
@@ -124,10 +125,11 @@ const config = (env: NodeJS.ProcessEnv = {}): Configuration => {
         assetModuleFilename: (isProd) ? '[name].[contenthash][ext]' : '[name][ext]',
         chunkFilename: '[name].[chunkhash].js',
         clean: true,
-      }, //@ts-ignore
+      },
       externals: [
         isServerBuild ? nodeExternals({ allowlist: /\.(css|vue)$/ }) : {}
       ],
+      externalsPresets: { node: isServerBuild },
       module: {
         rules: [
           {
@@ -222,6 +224,26 @@ const config = (env: NodeJS.ProcessEnv = {}): Configuration => {
       ,
       plugins: [ //@ts-ignore
         //new SpeedMeasurePlugin({ granularLoaderData: true }),
+        new container.ModuleFederationPlugin({
+          shared: {
+            'vue': {
+              singleton: true,
+              eager: true
+            },
+            '@vue/compiler-sfc': {
+              singleton: true,
+              eager: true
+            },
+            'vue-loader': {
+              singleton: true,
+              eager: true
+            },
+            'vue-router': {
+              singleton: true,
+              eager: true
+            }
+          }
+        }),
         new VueLoaderPlugin(),
         new MiniCssExtractPlugin({
           filename: (isProd) ? '[name].[contenthash].css' : '[name].css'
@@ -232,32 +254,36 @@ const config = (env: NodeJS.ProcessEnv = {}): Configuration => {
           __IS_SERVER__: isServerBuild,
           __VUE_OPTIONS_API__: true,
           __VUE_PROD_DEVTOOLS__: false,
-        }), //@ts-ignore
-        new WebpackManifestPlugin(),
-        new HtmlWebpackPlugin({
-          filename: 'test.html',
-          template: resolve(__dirname, 'src', 'index.html')
         }),
         //new LicenseWebpackPlugin({
         //}) as any,
       ],
       optimization: {
-        //runtimeChunk: !isServer,
+        runtimeChunk: (isServer) ? false : {
+          name: 'runtime',
+        },
         emitOnErrors: false,
         splitChunks: (isServerBuild) ?
           {
             cacheGroups: {
               main: {
-                name: 'main',
-                chunks: 'all',
+                name: "main",
+                chunks: "all",
+                enforce: true
+              }
+            }
+          } :
+          {
+            chunks: "all",
+            cacheGroups: {
+              commons: {
+                name: "vendor",
+                test: /[\\/]node_modules[\\/]/,
+                chunks: "initial",
                 enforce: true
               }
             }
           }
-          : (isProd) ?
-            {
-              chunks: 'all'
-            } : false
         ,
         minimize: minimize,
         minimizer: [
@@ -296,16 +322,33 @@ const config = (env: NodeJS.ProcessEnv = {}): Configuration => {
       config.plugins!.push(new NormalModuleReplacementPlugin(/type-graphql$/, resource => {
         resource.request = resource.request.replace(/type-graphql/, "type-graphql/dist/browser-shim.js");
       }))
+      config.plugins!.push(new HtmlWebpackPlugin({
+        filename: 'test.html',
+        template: resolve(__dirname, 'src', 'index.html')
+      }))
+      config.plugins!.push(new WebpackManifestPlugin());
     }
 
     if (isProd) {
       if (!isServerBuild) {
-        //config.plugins!.push(new WebpackManifestPlugin()); 
+        const zlib = require('zlib');
 
-        //@ts-ignore
         config.optimization!.minimizer!.push(new CompressionPlugin({
           test: /\.(jpg|txt|map|json|pdf|js|css|html|svg)$/,
           threshold: 8192,
+        }))
+        config.optimization!.minimizer!.push(new CompressionPlugin({
+          filename: "[path][base].br",
+          //@ts-ignore
+          algorithm: "brotliCompress",
+          test: /\.(jpg|txt|map|json|pdf|js|css|html|svg)$/,
+          compressionOptions: {
+            params: {
+              [zlib.constants.BROTLI_PARAM_QUALITY]: 11,
+            },
+          },
+          threshold: 8192,
+          minRatio: 0.8,
         }))
       }
     }

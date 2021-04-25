@@ -34,12 +34,11 @@ export function clientBundle(isDev: boolean) {
 
     if (isDev) {
         return <ClientDevBundle>{
-            //@ts-ignore
             devMid: webpackDevMiddleware(clientCompiler,
                 {
                     publicPath: (client.output!.publicPath as string),
                     //serverSideRender: true,
-                }), //@ts-ignore
+                }),
             devHot: webpackHotMiddleware(clientCompiler)
         }
     }
@@ -66,7 +65,6 @@ export function serverBundle(isDev: boolean) {
 
     if (isDev) {
         return <ServerDevBundle>{
-            //@ts-ignore
             devMid: webpackDevMiddleware(serverCompiler,
                 {
                     publicPath: (server.output!.publicPath as string),

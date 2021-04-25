@@ -8,10 +8,8 @@ const cdnStyles =
 export function getStyles(): string {
     let out: string = ""
     cdnStyles.forEach(element => {
-        out += `<link href="${element.link}" rel="stylesheet">`
+        out += `<link href="${element.link}" rel="stylesheet" crossorigin="anonymous">`
     })
 
     return out;
 }
-
-

@@ -32,7 +32,7 @@ function cleanExit(...cleanups: Function[]) {
     server.use(json());
     server.use(cors(
       {
-        origin: 'https://fsmpi.uni-bayreuth.de:3000'
+        origin: 'https://fsmpi.uni-bayreuth.de'
       })
     )
     server.use(helmet({ contentSecurityPolicy: false }));

@@ -1,43 +1,38 @@
 import type { RouteRecordRaw } from 'vue-router';
 
-const defaultLayout = () => import('@components/main/content.vue')
+const defaultLayout = () => import('@components/main/content.vue'/* webpackChunkName: "home" */)
 
 let headerRoutes: RouteRecordRaw[] = [
-
     {
         path: "/",
         component: () => import('@components/main/home.vue'/* webpackChunkName: "home" */),
         meta:
         {
-            layout: defaultLayout,
             title: "Home"
         }
     },
     {
-        path: "/vertreter",
+        path: "vertreter",
         component: () => import('@components/main/vertreter.vue'/* webpackChunkName: "home" */),
         meta:
         {
-            layout: defaultLayout,
             favicon: require('@static/favicon2.svg'),
             title: "Vertreter",
         }
     },
     {
-        path: "/keinePanik",
+        path: "keinePanik",
         component: () => import('@components/main/panik.vue'/* webpackChunkName: "home" */),
         meta:
         {
-            layout: defaultLayout,
             title: "Keine Panik",
         }
     },
     {
-        path: "/externe",
+        path: "externe",
         component: () => import('@components/main/externals.vue'/* webpackChunkName: "home" */),
         meta:
         {
-            layout: defaultLayout,
             title: "Externe Links",
         }
     }
@@ -46,29 +41,26 @@ let headerRoutes: RouteRecordRaw[] = [
 let footerRoutes: RouteRecordRaw[] = [
 
     {
-        path: "/impressum",
+        path: "impressum",
         component: () => import('@components/main/impressum.vue'/* webpackChunkName: "home" */),
         meta:
         {
-            layout: defaultLayout,
             title: "Impressum",
         }
     },
     {
-        path: "/sprechstunden",
+        path: "sprechstunden",
         component: () => import('@components/main/sprechstunden.vue'/* webpackChunkName: "home" */),
         meta:
         {
-            layout: defaultLayout,
             title: "Sprechstunden",
         }
     },
     {
-        path: "/kontakt",
+        path: "kontakt",
         component: () => import('@components/main/kontakt.vue'/* webpackChunkName: "home" */),
         meta:
         {
-            layout: defaultLayout,
             title: "Kontakt",
         }
     }
@@ -76,11 +68,10 @@ let footerRoutes: RouteRecordRaw[] = [
 
 let routes: RouteRecordRaw[] = [
     {
-        path: "/:catchAll(.*)",
+        path: "",
         component: () => import('@components/404.vue'),
         meta:
         {
-            layout: defaultLayout,
             title: "404 Error",
         }
     }
@@ -89,4 +80,19 @@ export { headerRoutes, footerRoutes }
 
 export function allRoutes() {
     return routes.concat(headerRoutes).concat(footerRoutes)
+}
+
+export function routerCompilation(): RouteRecordRaw[] {
+    return [
+        {
+            path: '/',
+            component: defaultLayout,
+            children: headerRoutes.concat(footerRoutes)
+        },
+        {
+            path: '/:catchAll(.*)',
+            component: defaultLayout,
+            children: routes
+        }
+    ]
 }

@@ -1,35 +1,39 @@
 <template>
   <div class="tw-px-5 tw-py-2 main">
-    <p>Folgende Links beziehen sich auf externe Inhalte</p>
+    <p class="tw-text-2xl">Folgende Links beziehen sich auf externe Inhalte</p>
     <br />
-    <h5>Fachschaften</h5>
+    <h5 class="tw-text-2xl">Fachschaften</h5>
     <ul>
       <li
-        class="tw-ml-5"
+        class="tw-ml-5 tw-py-1"
         v-for="fachschaft in fachschaften"
         :key="fachschaft.name"
       >
-        <a class="link" :href="fachschaft.link">{{ fachschaft.name }}</a>
+        <a class="link tw-text-xl" :href="fachschaft.link">{{
+          fachschaft.name
+        }}</a>
       </li>
     </ul>
     <br />
-    <h5>Hochschulgruppen</h5>
+    <h5 class="tw-text-2xl">Hochschulgruppen</h5>
     <ul>
       <li
-        class="tw-ml-5"
+        class="tw-ml-5 tw-py-1"
         v-for="hochschulgruppe in hochschulgruppen"
         :key="hochschulgruppe.name"
       >
-        <a class="link" :href="hochschulgruppe.link">{{
+        <a class="link tw-text-xl" :href="hochschulgruppe.link">{{
           hochschulgruppe.name
         }}</a>
       </li>
     </ul>
     <br />
-    <h5>Weiterführende Links</h5>
+    <h5 class="tw-text-2xl">Weiterführende Links</h5>
     <ul>
-      <li class="tw-ml-5">
-        <a class="link" href="https://www.max-academy.de/">Max Academy</a>
+      <li class="tw-ml-5 tw-py-1">
+        <a class="link tw-text-xl" href="https://www.max-academy.de/"
+          >Max Academy</a
+        >
       </li>
     </ul>
   </div>
@@ -41,10 +45,6 @@ import { defineComponent } from "vue";
 export default defineComponent({
   setup: () => {
     return {
-      footerLogo: null,
-      footerNav: null,
-      footerLeft: null,
-      footerRight: null,
       fachschaften: [
         {
           name: "RW",
@@ -115,11 +115,6 @@ export default defineComponent({
 
 .main {
   .link {
-    /*&.btn-link {
-    color: inherit;
-    display: inline-block;
-    line-height: 1;
-  }*/
     color: var(--color-secondary-header);
   }
   .link:hover {

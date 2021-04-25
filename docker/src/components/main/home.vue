@@ -10,19 +10,30 @@
     <br />
     <br />
     <div class="tw-flex tw-flex-col tw-items-center">
-      <img :src="fachschaftimage" class="fachschaftsimage tw-rounded-lg" />
+      <img
+        v-if="fachschaftsimage"
+        :src="fachschaftsimage"
+        alt="Fachschaftsplakat"
+        class="fachschaftsimage tw-rounded-lg"
+      />
     </div>
     <br />
   </div>
 </template>
 <script lang="ts">
-import { defineComponent } from "vue";
+import { defineComponent, ref } from "vue";
 
 export default defineComponent({
   setup: () => {
-    const fachschaftimage = require("@static/img/plakat.jpg");
+    const fachschaftsimage = ref<string>("");
 
-    return { fachschaftimage };
+    import("@static/img/plakat.jpg" /* webpackPackPreload: true */).then(
+      (value) => {
+        fachschaftsimage.value = value.default;
+      }
+    );
+
+    return { fachschaftsimage };
   },
 });
 </script>

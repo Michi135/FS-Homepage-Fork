@@ -1,18 +1,11 @@
 <template>
-  <component v-if="component" :is="component" />
-  <router-view v-else />
+  <router-view />
 </template>
 
 <script lang="ts">
-import {
-  AsyncComponentLoader,
-  defineAsyncComponent,
-  defineComponent,
-  watch,
-  shallowRef,
-} from "vue";
-import { useRoute } from "vue-router";
-import { useStore } from "../shared/store";
+import { defineComponent, onMounted } from "vue";
+import { useRouter } from "vue-router";
+import { useStore } from "@shared/store";
 import { createFaviconLink } from "../favicon/favicon";
 //import "mdb-vue-ui-kit/css/mdb.min.css";
 import "tailwindcss/tailwind.css";
@@ -20,40 +13,30 @@ import "tailwindcss/tailwind.css";
 export default defineComponent({
   name: "app",
   setup() {
-    const component = shallowRef<AsyncComponentLoader | null>();
-    const route = useRoute();
-    const store = useStore();
+    onMounted(() => {
+      const store = useStore();
+      useRouter().afterEach((to, from, failure) => {
+        if (failure) return;
+        const meta = to.meta;
 
-    const updateComponent = () => {
-      if (route.meta.layout) {
-        component.value = defineAsyncComponent(
-          <AsyncComponentLoader>route.meta.layout
+        let routeTitle =
+          <string | undefined>meta.title || store.state.defaultTitle;
+        let routeFavicon =
+          <string | undefined>meta.favicon || store.state.defaultFavicon;
+
+        document.title = routeTitle;
+
+        const faviconLink = createFaviconLink(routeFavicon);
+        let exisitingLink: HTMLLinkElement | null = document.querySelector(
+          "link[rel*='icon']"
         );
-      } else component.value = null;
-    };
-    watch(route, (route) => {
-      //Set watchers on meta instead of route
-      const routeTitle = <string | null>route.meta.title;
-      const routeFavicon = <string | null>route.meta.favicon;
-
-      document.title = routeTitle ? routeTitle : store.state.defaultTitle;
-      const favicon = routeFavicon ? routeFavicon : store.state.defaultFavicon;
-
-      const faviconLink = createFaviconLink(favicon);
-      let exisitingLink: HTMLLinkElement | null = document.querySelector(
-        "link[rel*='icon']"
-      );
-      if (exisitingLink) {
-        if (!exisitingLink.isEqualNode(faviconLink)) {
-          exisitingLink.replaceWith(faviconLink);
-        }
-      } else document.head.appendChild(faviconLink);
-
-      updateComponent();
+        if (exisitingLink) {
+          if (!exisitingLink.isEqualNode(faviconLink)) {
+            exisitingLink.replaceWith(faviconLink);
+          }
+        } else document.head.appendChild(faviconLink);
+      });
     });
-    updateComponent();
-
-    return { component };
   },
 });
 </script>
