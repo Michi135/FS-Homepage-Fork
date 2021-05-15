@@ -285,7 +285,7 @@ const config = (env: NodeJS.ProcessEnv = {}): Configuration => {
             }
           }
         ,
-        minimize: minimize && false,
+        minimize: minimize,
         minimizer: [
           '...',
           new CssMinimizerPlugin(),
