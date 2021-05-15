@@ -25,8 +25,8 @@
         <p>
           Dank der Fachschaft ist es möglich, dass ein großer Austausch zwischen
           den Studierenden stattfinden kann. So kann man auch als Erstsemester
-          schon ältere Studenten kennenlernen, die einem mit gutem Rat zur Seite
-          stehen. Wie geht das? Einerseits steht die Tür zur Fachschaft
+          schon ältere Studierende kennenlernen, die einem mit gutem Rat zur
+          Seite stehen. Wie geht das? Einerseits steht die Tür zur Fachschaft
           natürlich für jeden immer offen, egal ob bei konkreten Fragen und
           Problemen oder um einfach nur ein bisschen zu entspannen. Andererseits
           organisiert die Fachschaft auch speziell für Erstsemester
@@ -50,21 +50,25 @@
           alle Erstsemester. In kleineren Gruppen besucht man hier an einem
           Abend drei bis vier der Bayreuther Kneipen. Dabei kann man nicht nur
           die Stadt und ihre Angebote besser kennenlernen, sondern auch die
-          anderen Erstsemester und die Fachschaft. Erstiwochenende Immer am
-          Anfang des Wintersemesters fahren alle Fachschaftler mit allen Erstis,
-          die Lust haben, zusammen in eine Unterkunft in der Nähe von Bayreuth,
-          um dort das Wochenende zu verbringen. Damit dort auch niemandem
-          langweilig wird, gibt es natürlich immer ein umfangreiches Programm,
-          um alle auf Trab zu halten. Aber auch um einfach ein bisschen
-          auszuspannen und ein paar Leute aus seinem Semester und auch die
-          Fachschaftler besser kennenzulernen, ist das Erstiwochenende super
+          anderen Erstsemester und die Fachschaft.
+        </p>
+        <h1>Erstiwochenende</h1>
+        <p>
+          Immer am Anfang des Wintersemesters fahren alle Fachschaftler mit
+          allen Erstis, die Lust haben, zusammen in eine Unterkunft in der Nähe
+          von Bayreuth, um dort das Wochenende zu verbringen. Damit dort auch
+          niemandem langweilig wird, gibt es natürlich immer ein umfangreiches
+          Programm, um alle auf Trab zu halten. Aber auch um einfach ein
+          bisschen auszuspannen und ein paar Leute aus seinem Semester und auch
+          die Fachschaftler besser kennenzulernen, ist das Erstiwochenende super
           geeignet.
         </p>
         <br />
         <h1>Erstigrillen</h1>
         <p>
-          Natürlich kein Grillen der Erstis, sondern mit den Erstis 😉 Bei Speis
-          und Trank kann man hier mit anderen Studenten ins Gespräch kommen.
+          Natürlich kein Grillen der Erstis, sondern mit den Erstis 😉. Bei
+          Speis und Trank kann man hier mit anderen Studierenden ins Gespräch
+          kommen.
         </p>
         <br />
         <h1>Erstifrühstück</h1>
