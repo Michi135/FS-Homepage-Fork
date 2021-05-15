@@ -1,7 +1,7 @@
 <template>
   <div class="vertreter-container">
     <div class="image-container">
-      <img class="image" :src="vertreter.image" />
+      <img class="image" :src="vertreter.image" :alt="vertreter.name" />
     </div>
     <p class="property">Name:</p>
     <p class="value" v-text="vertreter.name" />
