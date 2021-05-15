@@ -52,6 +52,7 @@
           die Stadt und ihre Angebote besser kennenlernen, sondern auch die
           anderen Erstsemester und die Fachschaft.
         </p>
+        <br />
         <h1>Erstiwochenende</h1>
         <p>
           Immer am Anfang des Wintersemesters fahren alle Fachschaftler mit
