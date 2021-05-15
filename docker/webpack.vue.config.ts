@@ -285,31 +285,10 @@ const config = (env: NodeJS.ProcessEnv = {}): Configuration => {
             }
           }
         ,
-        minimize: minimize,
+        minimize: minimize && false,
         minimizer: [
           '...',
           new CssMinimizerPlugin(),
-          /*new ImageMinimizerPlugin({ //contenthash currently wrongly inserted
-            minimizerOptions: {
-              // Lossless optimization with custom option
-              // Feel free to experiment with options for better result for you
-              plugins: [
-                ['gifSicle', gifSicle({ interlaced: true })],
-                ['jpegtran', jpegTran({ progressive: true })],
-                ['optipng', optiPng({ optimizationLevel: 5 })],
-                ['svgo', svgo({
-                  //@ts-ignore
-                  plugins: extendDefaultPlugins([
-                    {
-                      name: 'removeViewBox',
-                      active: false
-                    }
-                  ])
-                })],
-                ['mozjpeg', mozJpeg({ quality: 65, progressive: true })],
-              ],
-            },
-          }),*/
         ]
       },
       resolve: {
@@ -319,9 +298,9 @@ const config = (env: NodeJS.ProcessEnv = {}): Configuration => {
     }
 
     if (!isServerBuild) { //Allows usage of type-graphql decorated classes in browser
-      config.plugins!.push(new NormalModuleReplacementPlugin(/type-graphql$/, resource => {
+      /*config.plugins!.push(new NormalModuleReplacementPlugin(/type-graphql$/, resource => {
         resource.request = resource.request.replace(/type-graphql/, "type-graphql/dist/browser-shim.js");
-      }))
+      }))*/
       config.plugins!.push(new HtmlWebpackPlugin({
         filename: 'test.html',
         template: resolve(__dirname, 'src', 'index.html')

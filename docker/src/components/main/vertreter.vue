@@ -29,7 +29,7 @@ export default defineComponent({
 
     vertreter.value = new Array<Partial<IResolvedVertreter>>(
       {
-        image: require("../../static/img/portraits/masell.jpg"),
+        image: require("@static/img/portraits/masell.jpg"),
         name: "Marcel",
         role: "Chef",
         studiengang: "B.Sc. Physik",
@@ -37,7 +37,7 @@ export default defineComponent({
         email: "marcel.schalling@uni-bayreuth.de",
       },
       {
-        image: require("../../static/img/portraits/julia.jpg"),
+        image: require("@static/img/portraits/julia.jpg"),
         name: "Julia",
         role: "Vize",
         studiengang: "B.Sc. Technomathe",
@@ -45,7 +45,7 @@ export default defineComponent({
         email: "julia.schwarz@uni-bayreuth.de",
       },
       {
-        image: require("../../static/img/portraits/charlotte.jpg"),
+        image: require("@static/img/portraits/charlotte.jpg"),
         name: "Charlotte",
         role: "Finanzen",
         studiengang: "B.Sc. Physik",
@@ -53,7 +53,7 @@ export default defineComponent({
         email: "charlotte.geiger@uni-bayreuth.de",
       },
       {
-        image: require("../../static/img/portraits/dennis.jpg"),
+        image: require("@static/img/portraits/dennis.jpg"),
         name: "Dennis",
         role: "Uni-Kino",
         studiengang: "B.Sc. Informatik",
@@ -61,7 +61,7 @@ export default defineComponent({
         email: "dennis.streicher@uni-bayreuth.de",
       },
       {
-        image: require("../../static/img/portraits/olivia.jpg"),
+        image: require("@static/img/portraits/olivia.jpg"),
         name: "Olivia",
         role: "Öffentlichkeitsarbeit",
         studiengang: "B.Sc. Informatik",
@@ -69,7 +69,7 @@ export default defineComponent({
         email: "olivia.kammerer@uni-bayreuth.de",
       },
       {
-        image: require("../../static/img/portraits/ahmet.jpg"),
+        image: require("@static/img/portraits/ahmet.jpg"),
         name: "Ahmet",
         role: "Öffentlichkeitsarbeit",
         studiengang: "LA Gym Sport/Mathe",
@@ -77,7 +77,7 @@ export default defineComponent({
         email: "ahmet.oezilban@uni-bayreuth.de",
       },
       {
-        image: require("../../static/img/portraits/fabi.jpg"),
+        image: require("@static/img/portraits/fabi.jpg"),
         name: "Fabian",
         role: "Bierkoordinator",
         studiengang: "LA Mathe/Physik",
@@ -85,7 +85,7 @@ export default defineComponent({
         email: "fabian.herrmann@uni-bayreuth.de",
       },
       {
-        image: require("../../static/img/portraits/ruth.jpg"),
+        image: require("@static/img/portraits/ruth.jpg"),
         name: "Ruth",
         role: "Grafiken",
         studiengang: "B.Sc. Informatik",
@@ -93,7 +93,7 @@ export default defineComponent({
         email: "ruth.nikol@uni-bayreuth.de",
       },
       {
-        image: require("../../static/img/portraits/anne.jpg"),
+        image: require("@static/img/portraits/anne.jpg"),
         name: "Anne",
         role: "Grafiken",
         studiengang: "B.Sc. Informatik",
@@ -101,7 +101,7 @@ export default defineComponent({
         email: "anne.schobert@uni-bayreuth.de",
       },
       {
-        image: require("../../static/img/portraits/elias.jpg"),
+        image: require("@static/img/portraits/elias.jpg"),
         name: "Elias",
         role: "Skripten",
         studiengang: "B.Sc. Physik",
@@ -109,7 +109,7 @@ export default defineComponent({
         email: "elias.millitzer@uni-bayreuth.de",
       },
       {
-        image: require("../../static/img/portraits/olli.jpg"),
+        image: require("@static/img/portraits/olli.jpg"),
         name: "Olli",
         role: "Root",
         studiengang: "B.Sc. Informatik",

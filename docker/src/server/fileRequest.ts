@@ -23,7 +23,6 @@ export function fileRequest(basePath: string) {
 
                     const distPathEncoded = distPath.concat('.', extension);
                     if (await pathExists(distPathEncoded)) {
-                        //const contentType = e.static.mime.getType(distPath);
                         const contentType = getType(distPath);
                         res.setHeader('Content-Encoding', encoding);
                         res.status(200).contentType(contentType!).sendFile(distPathEncoded);

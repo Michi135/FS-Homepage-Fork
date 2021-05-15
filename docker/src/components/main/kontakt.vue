@@ -46,7 +46,7 @@ export default defineComponent({});
   }
   h5,
   p {
-    color: #ffffff; //third
+    color: #ffffff;
   }
   div {
     text-align: center;

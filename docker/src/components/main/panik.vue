@@ -1,8 +1,14 @@
 <template>
-  <object :data="pdf" type="application/pdf" width="100%" height="100%">
+  <object
+    :data="pdf"
+    type="application/pdf"
+    width="100%"
+    height="100%"
+    aria-label="Zeitschrift Keine Panik"
+  >
     <a :href="pdf" download
       ><p>
-        Dein Browser kann keine PDF Anzeigen.<br />Klicke
+        Dein Browser kann keine PDF anzeigen.<br />Klicke
         <span class="tw-text-blue-500">hier</span> um sie herunterzuladen
       </p></a
     >

@@ -72,29 +72,12 @@
             class="tw-w-1/2 md:tw-w-auto"
           >
             <router-link :key="index" :to="item.path">
-              <!--<factor-icon v-if="item.icon" :icon="item.icon" />-->
               <span
                 v-if="item.meta.title"
                 v-text="item.meta.title"
                 class="tw-p-2.5"
               />
             </router-link>
-          </li>
-          <li class="tw-w-1/2 md:tw-w-auto">
-            <router-link
-              v-if="!store.state.loggedIn"
-              title="Einloggen"
-              to="/signup"
-            >
-              <span>
-                <i class="fas fa-sign-in-alt" />
-              </span>
-            </router-link>
-            <button @click="store.dispatch('logOut')" title="Ausloggen" v-else>
-              <span>
-                <i class="fas fa-sign-out-alt" />
-              </span>
-            </button>
           </li>
         </ul>
       </nav>

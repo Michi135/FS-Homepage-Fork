@@ -1,5 +1,3 @@
-import type { Connection } from 'mongoose'
-
 declare global {
   namespace NodeJS {
     interface ProcessEnv extends Dict<string> {
@@ -14,19 +12,6 @@ declare global {
   var __IS_SSR__: boolean
   var __IS_DEV__: boolean
   var __IS_SERVER__: boolean
-
-  namespace Express {
-    interface Request {
-      user?: string | object
-      db?: Connection
-    }
-  }
-}
-
-module 'express-session' {
-  interface SessionData {
-    email: string;
-  }
 }
 
 export { }

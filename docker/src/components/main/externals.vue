@@ -31,6 +31,9 @@
     <h5 class="tw-text-2xl">Weiterführende Links</h5>
     <ul>
       <li class="tw-ml-5 tw-py-1">
+        <a class="link tw-text-xl" href="https://alumpi.de/">Alumpi</a>
+      </li>
+      <li class="tw-ml-5 tw-py-1">
         <a class="link tw-text-xl" href="https://www.max-academy.de/"
           >Max Academy</a
         >

@@ -12,12 +12,30 @@ let headerRoutes: RouteRecordRaw[] = [
         }
     },
     {
+        path: "wahl",
+        component: () => import('@components/main/hochschulwahl.vue'/* webpackChunkName: "home" */),
+        meta:
+        {
+            favicon: require('@components/main/wal.svg'),
+            title: "Hochschulwa(h)l",
+        }
+    },
+    {
         path: "vertreter",
         component: () => import('@components/main/vertreter.vue'/* webpackChunkName: "home" */),
         meta:
         {
             favicon: require('@static/favicon2.svg'),
             title: "Vertreter",
+        }
+    },
+    {
+        path: "erstis",
+        component: () => import('@components/main/erstis.vue'/* webpackChunkName: "home" */),
+        meta:
+        {
+            favicon: require('@components/main/student.svg'),
+            title: "Erstis",
         }
     },
     {

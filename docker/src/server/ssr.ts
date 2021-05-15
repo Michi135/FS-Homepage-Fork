@@ -1,6 +1,6 @@
 import { createDefaultContext } from '../shared/context'
 import { renderToString, SSRContext } from '@vue/server-renderer'
-import { getStyles } from './cdn.config'
+//import { getStyles } from './cdn.config'
 import { getMeta } from './meta.config'
 import { RouteLocationNormalized } from 'vue-router'
 import { createFaviconLink } from '../favicon/favicon'
@@ -23,7 +23,9 @@ const chunks: Record<string, string> = {
     "/externe": "home",
     "/impressum": "home",
     "/sprechstunden": "home",
-    "/kontakt": "home"
+    "/kontakt": "home",
+    "/erstis": "home",
+    "/wahl": "home"
 }
 
 let initialHtml: string | undefined;
@@ -144,7 +146,7 @@ export default function ssr(dev: boolean) {
             doc.children[0].setAttribute('lang', language);
             //doc.lang
             head.innerHTML += `<title>${loadTitle(currentRoute, context)}</title>`;
-            head.innerHTML += `<link href="https://cdnjs.cloudflare.com" rel="preconnect" crossorigin>`
+            //head.innerHTML += `<link href="https://cdnjs.cloudflare.com" rel="preconnect" crossorigin>`
 
             const chunk = chunks[req.url];
             if (chunk) {
@@ -172,7 +174,7 @@ export default function ssr(dev: boolean) {
             }
 
             head.innerHTML += getMeta();
-            head.innerHTML += getStyles();
+            //head.innerHTML += getStyles();
             head.innerHTML += loadFavicon(currentRoute, context);
             head.innerHTML += `<script>window.__INITIAL_STATE__=${JSON.stringify(context.state)}</script>`
             doc.getElementById('app')!.innerHTML = await renderToString(app, context);

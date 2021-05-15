@@ -7,7 +7,6 @@ import { defineComponent, onMounted } from "vue";
 import { useRouter } from "vue-router";
 import { useStore } from "@shared/store";
 import { createFaviconLink } from "../favicon/favicon";
-//import "mdb-vue-ui-kit/css/mdb.min.css";
 import "tailwindcss/tailwind.css";
 
 export default defineComponent({
@@ -43,7 +42,4 @@ export default defineComponent({
 
 <style>
 @import "../css/fachschaft-styles.less";
-/*@import "tailwindcss/base";
-@import "tailwindcss/components";
-@import "tailwindcss/utilities";*/
 </style>
