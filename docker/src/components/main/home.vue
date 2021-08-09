@@ -39,31 +39,8 @@
         <p>
           In erster Linie sind wir auch nur Studierende, die neben ihrem Studium
           ein Ehrenamt bekleiden. Die aktuellen Fachschaftler*innen könnt ihr
-          <router-link class="link" to="vertreter">hier</router-link> sehen. Die
-          Kandidaten für das nächste Wahljahr sind:
+          <router-link class="link" to="/vertreter">hier</router-link> sehen.
         </p>
-        <br />
-        <ul>
-          <li>Julia Schwarz (B.Sc. Technomathematik)</li>
-          <li>Armin Rödiger (M.Sc. Physik)</li>
-          <li>Charlotte Geiger (B.Sc. Physik)</li>
-          <li>Lennart Reinstorf (B.Sc. Informatik)</li>
-          <li>
-            Elias Laumeyer (Gymnasiallehramt Informatik & Mathematik, Bachelor)
-          </li>
-          <li>Marcel Schalling (B.Sc. Physik)</li>
-          <li>Sophie Meißner (B.Sc. Physik)</li>
-          <li>Michelle Reimann (B.Sc. Informatik)</li>
-          <li>Olivia Kammerer (B.Sc. Informatik)</li>
-          <li>Marius Kaiser (B.Sc. Physik)</li>
-          <li>
-            Maike Schelhorn (Gymnasiallehramt Mathematik & Physik, Master)
-          </li>
-          <li>Oliver Zahn (B.Sc. Informatik)</li>
-          <li>Dennis Streicher (B.Sc. Informatik)</li>
-          <li>Magdalena Dörfler (B.Sc. Physik)</li>
-        </ul>
-        <br />
         <p>
           Darüber hinaus werden wir durch unzählige ehemalige
           Fachschaftler*innen und Freunde der Fachschaft unterstützt. Wir freuen
@@ -77,8 +54,9 @@
           Studierenden [... der Fakultät, sowie] die Förderung der geistigen,
           musischen und sportlichen Interessen der Studierenden” kümmern. Das
           bedeutet, dass wir uns neben der Vertretung in Studierendenparlament
-          und Fakultätsrat (siehe Abschnitt zur Hochschulwahl) auch mit diversen
-          Events für Erstsemester und Erstsemesterinnen beschäftigen. So bieten
+          und Fakultätsrat auch mit diversen Events für Erstsemester und
+          Erstsemesterinnen beschäftigen (siehe:
+          <router-link class="link" to="/erstis">hier</router-link>). So bieten
           wir im Normalfall mehrere Grillabende, Kneipentouren und Cocktailkurse
           an und fahren mit einigen mutigen Erstis sogar auf ein gemeinsames
           Wochenende. Abseits von der Erstsemesterbetreuung organisieren wir
@@ -91,7 +69,7 @@
           Events, die wir organisieren, bieten wir euch eine allgemeine
           Anlaufstelle. Egal ob ihr ein Problem im Studium habt, Kaffee oder
           Bier trinken, einen Snack essen, oder einfach ein lockeres Gespräch
-          haben wollt, bei uns seit ihr richtig! Falls ihr euch selbst
+          haben wollt, bei uns seid ihr richtig! Falls ihr euch selbst
           engagieren wollt, können wir euch ein nahezu WG gleiches Gefühl
           bieten, nur dass bei uns das Wohnzimmer auf dem Campus steht, es keine
           gemeinsame Dusche gibt und außerhalb der Pandemie am Tag unzählige

@@ -15,7 +15,16 @@
       <div />
       <div>Feriensprechstunden der FSMPI</div>
       <div
-        class="tw-flex tw-flex-wrap tw-space-x-2 tw-border-solid tw-border-2 tw-border-gray-600 tw-text-left tw-justify-center"
+        class="
+          tw-flex
+          tw-flex-wrap
+          tw-space-x-2
+          tw-border-solid
+          tw-border-2
+          tw-border-gray-600
+          tw-text-left
+          tw-justify-center
+        "
       >
         <div
           v-for="(sprechstunde, index) in ferien_sprechstunden.sprechstunden"
@@ -72,14 +81,51 @@ export default defineComponent({
     //https://adamlynch.com/flexible-data-tables-with-css-grid/
     let sprechstunden: { [key: string]: { [key: string]: Ref<String[]> } } = {};
 
-    const tage = ["Dienstag", "Donnerstag"];
+    const tage = [
+      "11.08",
+      "18.08",
+      "25.08",
+      "01.09",
+      "08.09",
+      "15.09",
+      "22.09",
+      "29.09",
+      "06.10",
+      "13.10",
+    ];
     const stunden = ["14:00-16:00"];
 
-    sprechstunden[tage[0]] = {
-      [stunden[0]]: ref<String[]>(["Charlotte", "Ruth"]),
+    let tag = 0;
+
+    sprechstunden[tage[tag++]] = {
+      [stunden[0]]: ref<String[]>(["Julia"]),
     };
-    sprechstunden[tage[1]] = {
-      [stunden[0]]: ref<String[]>(["Dennis", "Julia"]),
+    sprechstunden[tage[tag++]] = {
+      [stunden[0]]: ref<String[]>(["Michelle"]),
+    };
+    sprechstunden[tage[tag++]] = {
+      [stunden[0]]: ref<String[]>(["Sophie"]),
+    };
+    sprechstunden[tage[tag++]] = {
+      [stunden[0]]: ref<String[]>(["Masell"]),
+    };
+    sprechstunden[tage[tag++]] = {
+      [stunden[0]]: ref<String[]>(["Charlotte"]),
+    };
+    sprechstunden[tage[tag++]] = {
+      [stunden[0]]: ref<String[]>(["Olivia"]),
+    };
+    sprechstunden[tage[tag++]] = {
+      [stunden[0]]: ref<String[]>(["Elias"]),
+    };
+    sprechstunden[tage[tag++]] = {
+      [stunden[0]]: ref<String[]>(["Marius"]),
+    };
+    sprechstunden[tage[tag++]] = {
+      [stunden[0]]: ref<String[]>(["Lena"]),
+    };
+    sprechstunden[tage[tag++]] = {
+      [stunden[0]]: ref<String[]>(["Olli"]),
     };
 
     const ferien_sprechstunden = {

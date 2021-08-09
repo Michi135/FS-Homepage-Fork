@@ -106,7 +106,7 @@ dist
 dist-ssr/
 old/
 lighthouse/
-src/static/img/portraitsold/
+src/static/img/portraitsold*/
 src/static/img/miscold
 src/mongodb/file/files/*
 src/server/test.jpg

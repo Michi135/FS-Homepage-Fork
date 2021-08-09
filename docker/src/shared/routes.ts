@@ -2,24 +2,30 @@ import type { RouteRecordRaw } from 'vue-router';
 
 const defaultLayout = () => import('@components/main/content.vue'/* webpackChunkName: "home" */)
 
+export const basePaths = {
+    home: '/',
+    dashboard: '/',
+    account: '/'
+} as const
+
 let headerRoutes: RouteRecordRaw[] = [
     {
-        path: "/",
+        path: "",
         component: () => import('@components/main/home.vue'/* webpackChunkName: "home" */),
         meta:
         {
             title: "Home"
         }
     },
-    {
+    /*{
         path: "wahl",
-        component: () => import('@components/main/hochschulwahl.vue'/* webpackChunkName: "home" */),
-        meta:
-        {
-            favicon: require('@components/main/wal.svg'),
-            title: "Hochschulwa(h)l",
-        }
-    },
+        component: () => import('@components/main/hochschulwahl.vue'/* webpackChunkName: "home" *//*),
+meta:
+{
+    favicon: require('@components/main/wal.svg'),
+    title: "Hochschulwa(h)l",
+}
+},*/
     {
         path: "vertreter",
         component: () => import('@components/main/vertreter.vue'/* webpackChunkName: "home" */),
@@ -103,7 +109,7 @@ export function allRoutes() {
 export function routerCompilation(): RouteRecordRaw[] {
     return [
         {
-            path: '/',
+            path: basePaths.home,
             component: defaultLayout,
             children: headerRoutes.concat(footerRoutes)
         },

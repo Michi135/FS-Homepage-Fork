@@ -30,7 +30,12 @@
       <button
         aria-label="Header-Menü"
         type="button"
-        class="tw-appearance-none tw-block tw-transition-all tw-cursor-pointer focus:tw-outline-none active:tw-bg-transparent tw-py-3 tw-px-6"
+        class="
+          tw-appearance-none tw-block tw-transition-all tw-cursor-pointer
+          focus:tw-outline-none
+          active:tw-bg-transparent
+          tw-py-3 tw-px-6
+        "
         @click="isOpen = !isOpen"
       >
         <svg
@@ -52,7 +57,15 @@
     </div>
     <div
       v-if="navConfig"
-      class="popup tw-transition-all tw-rounded-lg tw-bg-gray-100 tw-absolute tw-pt-6 md:tw-relative md:tw-opacity-100 md:tw-h-auto md:tw-bg-transparent md:tw-pt-0"
+      class="
+        popup
+        tw-transition-all tw-rounded-lg tw-bg-gray-100 tw-absolute tw-pt-6
+        md:tw-relative
+        md:tw-opacity-100
+        md:tw-h-auto
+        md:tw-bg-transparent
+        md:tw-pt-0
+      "
       :class="
         isOpen
           ? 'tw-z-40 tw-opacity-100 tw-h-auto'
@@ -64,14 +77,18 @@
       </h4>
       <nav>
         <ul
-          class="tw-flex tw-flex-wrap tw-list-none tw-list-inside tw-px-6 tw-py-3 lg:tw-items-center md:tw-justify-end"
+          class="
+            tw-flex tw-flex-wrap tw-list-none tw-list-inside tw-px-6 tw-py-3
+            lg:tw-items-center
+            md:tw-justify-end
+          "
         >
           <li
             v-for="(item, index) in routes"
             :key="index"
             class="tw-w-1/2 md:tw-w-auto"
           >
-            <router-link :key="index" :to="item.path">
+            <router-link :key="index" :to="basePaths.home + item.path">
               <span
                 v-if="item.meta.title"
                 v-text="item.meta.title"
@@ -87,7 +104,7 @@
 
 <script lang="ts">
 import { defineComponent, ref } from "vue";
-import { headerRoutes } from "@shared/routes";
+import { headerRoutes, basePaths } from "@shared/routes";
 import { useStore } from "@shared/store";
 
 export default defineComponent({
@@ -101,6 +118,7 @@ export default defineComponent({
       navLogo: require("@static/img/tross.svg"),
       navConfig: true,
       routes: headerRoutes,
+      basePaths,
     };
   },
 });

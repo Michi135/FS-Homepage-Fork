@@ -13,7 +13,6 @@ WORKDIR /var/vuecms
 COPY . .
 
 RUN npm i
-RUN npm run patch
 
 EXPOSE 3000
 
