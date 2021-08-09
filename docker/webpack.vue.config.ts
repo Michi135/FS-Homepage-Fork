@@ -305,7 +305,7 @@ const config = (env: NodeJS.ProcessEnv = {}): Configuration => {
         filename: 'test.html',
         template: resolve(__dirname, 'src', 'index.html')
       }))
-      config.plugins!.push(new WebpackManifestPlugin());
+      config.plugins!.push(new WebpackManifestPlugin({}));
     }
 
     if (isProd) {

@@ -1,4 +1,4 @@
-FROM node:14.13.1-buster-slim
+FROM node:16.6.1-buster-slim
 
 RUN apt-get update && apt-get -y install --no-install-recommends \
   unzip \
