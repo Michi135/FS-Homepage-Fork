@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div id="sprechstunden">
     <br />
     <div
       v-if="ferien"
@@ -82,48 +82,12 @@ export default defineComponent({
     let sprechstunden: { [key: string]: { [key: string]: Ref<String[]> } } = {};
 
     const tage = [
-      "11.08",
-      "18.08",
-      "25.08",
-      "01.09",
-      "08.09",
-      "15.09",
-      "22.09",
-      "29.09",
-      "06.10",
       "13.10",
     ];
     const stunden = ["14:00-16:00"];
 
     let tag = 0;
 
-    sprechstunden[tage[tag++]] = {
-      [stunden[0]]: ref<String[]>(["Julia"]),
-    };
-    sprechstunden[tage[tag++]] = {
-      [stunden[0]]: ref<String[]>(["Michelle"]),
-    };
-    sprechstunden[tage[tag++]] = {
-      [stunden[0]]: ref<String[]>(["Sophie"]),
-    };
-    sprechstunden[tage[tag++]] = {
-      [stunden[0]]: ref<String[]>(["Masell"]),
-    };
-    sprechstunden[tage[tag++]] = {
-      [stunden[0]]: ref<String[]>(["Charlotte"]),
-    };
-    sprechstunden[tage[tag++]] = {
-      [stunden[0]]: ref<String[]>(["Olivia"]),
-    };
-    sprechstunden[tage[tag++]] = {
-      [stunden[0]]: ref<String[]>(["Elias"]),
-    };
-    sprechstunden[tage[tag++]] = {
-      [stunden[0]]: ref<String[]>(["Marius"]),
-    };
-    sprechstunden[tage[tag++]] = {
-      [stunden[0]]: ref<String[]>(["Lena"]),
-    };
     sprechstunden[tage[tag++]] = {
       [stunden[0]]: ref<String[]>(["Olli"]),
     };
@@ -252,6 +216,7 @@ export default defineComponent({
       const style = document.createElement("style");
       style.innerHTML = `@media only screen and (max-width: 760px),
         (min-device-width: 768px) and (max-device-width: 1024px) {
+          #sprechstunden
         td:nth-of-type(1):before { content: "Uhrzeit"; } }`;
       head.appendChild(style);
 
@@ -259,6 +224,7 @@ export default defineComponent({
         const style = document.createElement("style");
         style.innerHTML = `@media only screen and (max-width: 760px),
         (min-device-width: 768px) and (max-device-width: 1024px) {
+          #sprechstunden
         td:nth-of-type(${i + 2}):before { content: "${tage[i]}"; } }`;
         head.appendChild(style);
       }

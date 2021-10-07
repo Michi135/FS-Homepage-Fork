@@ -113,7 +113,7 @@ const config = (env: NodeJS.ProcessEnv = {}): Configuration => {
         ? resolve(__dirname, 'src', 'shared', 'app.ts')
         : [resolve(__dirname, 'src', 'client', 'main.ts')].concat((!isProd) ? ['webpack-hot-middleware/client?reload=true?overlay=true'] : []),
       target: isServerBuild ? 'node' : 'web',
-      devtool: (isServerBuild) ? false : 'source-map',
+      devtool: (isServerBuild || isProd) ? false : 'source-map',
       output: {
         path: resolve(
           __dirname,

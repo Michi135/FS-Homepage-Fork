@@ -7,7 +7,7 @@
         tw-justify-between
       "
     >
-      <div>Zuletzt aktualisiert: 10.08.2021</div>
+      <div>Zuletzt aktualisiert: 07.10.2021</div>
       <div>
         <router-link v-if="footerLogo" to="/">
           <img :src="footerLogo" :alt="{}" class="h-8" />

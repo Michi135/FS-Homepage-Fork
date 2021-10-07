@@ -33,7 +33,7 @@ export default defineComponent({
         name: "Julia",
         role: "Chef",
         studiengang: "B.Sc. Technomathe",
-        semester: 6,
+        semester: 7,
         email: "julia.schwarz@uni-bayreuth.de",
       },
       {
@@ -41,7 +41,7 @@ export default defineComponent({
         name: "Armin",
         role: "Vize",
         studiengang: "M.Sc. Physik",
-        semester: 3,
+        semester: 4,
         email: "armin.roediger@uni-bayreuth.de",
       },
       {
@@ -49,7 +49,7 @@ export default defineComponent({
         name: "Charlotte",
         role: "Finanzen",
         studiengang: "B.Sc. Physik",
-        semester: 4,
+        semester: 5,
         email: "charlotte.geiger@uni-bayreuth.de",
       },
       {
@@ -57,7 +57,7 @@ export default defineComponent({
         name: "Lennart",
         role: "Finanzen",
         studiengang: "B.Sc. Informatik",
-        semester: 2,
+        semester: 3,
         email: "lennart.reinstorf@uni-bayreuth.de",
       },
       {
@@ -65,7 +65,7 @@ export default defineComponent({
         name: "Elias",
         role: "StuPa",
         studiengang: "LA GYM B. Info/Mathe",
-        semester: 2,
+        semester: 3,
         email: "dennis.streicher@uni-bayreuth.de",
       },
       {
@@ -73,7 +73,7 @@ export default defineComponent({
         name: "Dennis",
         role: "Uni-Kino",
         studiengang: "B.Sc. Informatik",
-        semester: 4,
+        semester: 5,
         email: "dennis.streicher@uni-bayreuth.de",
       },
       {
@@ -81,7 +81,7 @@ export default defineComponent({
         name: "Masell",
         role: "Uni-Kino",
         studiengang: "B.Sc. Physik",
-        semester: 6,
+        semester: 7,
         email: "marcel.schalling@uni-bayreuth.de",
       },
       {
@@ -89,7 +89,7 @@ export default defineComponent({
         name: "Olivia",
         role: "Öffentlichkeitsarbeit",
         studiengang: "B.Sc. Informatik",
-        semester: 4,
+        semester: 5,
         email: "olivia.kammerer@uni-bayreuth.de",
       },
       {
@@ -97,7 +97,7 @@ export default defineComponent({
         name: "Sophie",
         role: "Öffentlichkeitsarbeit",
         studiengang: "B.Sc. Physik",
-        semester: 6,
+        semester: 7,
         email: "sophie.meissner@uni-bayreuth.de",
       },
       {
@@ -105,7 +105,7 @@ export default defineComponent({
         name: "Michelle",
         role: "Bierkoordinatorin",
         studiengang: "B.Sc. Informatik",
-        semester: 2,
+        semester: 3,
         email: "michelle.reimann@uni-bayreuth.de",
       },
       {
@@ -113,7 +113,7 @@ export default defineComponent({
         name: "Lena",
         role: "Physikerbar",
         studiengang: "B.Sc. Physik",
-        semester: 6,
+        semester: 7,
         email: "magdalena.doerfler@uni-bayreuth.de",
       },
       {
@@ -121,7 +121,7 @@ export default defineComponent({
         name: "Marius",
         role: "Grafiken",
         studiengang: "B.Sc. Physik",
-        semester: 8,
+        semester: 9,
         email: "marius.kaiser@uni-bayreuth.de",
       },
       {
@@ -129,15 +129,15 @@ export default defineComponent({
         name: "Maike",
         role: "Skripten",
         studiengang: "LA GYM M. Mathe/Physik",
-        semester: 3,
+        semester: 4,
         email: "maike.schelhorn@uni-bayreuth.de",
       },
       {
         image: require("@static/img/portraits/olli.jpg"),
         name: "Olli",
         role: "Root",
-        studiengang: "B.Sc. Informatik",
-        semester: 6,
+        studiengang: "M.Sc. Informatik",
+        semester: 1,
         email: "oliver.zahn@uni-bayreuth.de",
       }
     );

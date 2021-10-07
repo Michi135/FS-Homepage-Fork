@@ -20,7 +20,7 @@ import { defineComponent } from "vue";
 
 export default defineComponent({
   setup: () => {
-    const pdf = require("@static/panik/keinePanik.pdf");
+    const pdf = require("@static/panik/KeinePanik21.pdf");
 
     return { pdf };
   },

@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div id="erstis">
     <div class="tw-m-3.5">
       <div style="max-width: 1100px; margin: 0 auto">
         <h3>Informationen für Studieninteressierte</h3>
@@ -77,6 +77,39 @@
           Ein kleines, aber feines Frühstück in der Uni auf Kosten der
           Fachschaft.
         </p>
+        <br />
+        <h2>Termine für das Semester WS 2021/22</h2>
+        <div>
+          <table :style="gridStyle">
+            <colgroup>
+              <col />
+              <col v-for="tag in tage" :key="tag" />
+            </colgroup>
+            <thead>
+              <tr>
+                <th />
+                <th v-for="tag in tage" :key="tag">{{ tag }}</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr v-for="stunde in stunden" :key="stunde">
+                <td>{{ stunde }}</td>
+                <td v-for="tag in tage" :key="tag">
+                  <template
+                    v-for="betreuer in sprechstunden[tag][stunde].value"
+                    :key="betreuer"
+                  >
+                    {{ betreuer }}
+                    <br />
+                  </template>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="tw-text-red-500">
+            Es gelten die jeweils aktuellen Corona Regelungen
+          </div>
+        </div>
         <br /><br />
         <p>
           Ihr seht also, es gibt viele gute Gründe, nach Bayreuth zu kommen und
@@ -95,10 +128,146 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
+import { computed, defineComponent, onMounted, Ref, ref } from "vue";
 
 export default defineComponent({
-  setup() {},
+  setup() {
+    let sprechstunden: { [key: string]: { [key: string]: Ref<String[]> } } = {};
+
+    const tage = ["Veranstaltung", "Ort"];
+    const stunden = [
+      "12.10 | ab 17:00",
+      "13.10 | 18:30/19:00",
+      "14.10 | 16:00-17:00",
+      "18.10 | 16:00",
+      "18.10 | 18:00",
+      "21.10 | 18:30/19:00",
+      "25.10 | 19:00",
+      "27.10 | 17:00",
+      "10.11 | 18:00",
+      "19. - 21.11",
+    ];
+
+    sprechstunden[tage[0]] = {
+      [stunden[0]]: ref<String[]>(["Erstsemestergrillen"]),
+      [stunden[1]]: ref<String[]>(["1. Kneipentour"]),
+      [stunden[2]]: ref<String[]>(["CMlife-Einführung"]),
+      [stunden[3]]: ref<String[]>([
+        "Vorstellung der Fachschaft",
+        "Campusführung",
+        "Erstitüten",
+      ]),
+      [stunden[4]]: ref<String[]>(["Immatrikulationsstunde", "Campusabend"]),
+      [stunden[5]]: ref<String[]>(["2. Kneipentour"]),
+      [stunden[6]]: ref<String[]>(["Ersti-Sitzung", "Spieleabend"]),
+      [stunden[7]]: ref<String[]>(["1. Buddytreffen"]),
+      [stunden[8]]: ref<String[]>(["2. Buddytreffen"]),
+      [stunden[9]]: ref<String[]>(["Ersti-Wochenende (tbd)"]),
+    };
+
+    sprechstunden[tage[1]] = {
+      [stunden[0]]: ref<String[]>(["städtischer Grillplatz"]),
+      [stunden[1]]: ref<String[]>(["Rondell /", "markanter Platz"]),
+      [stunden[2]]: ref<String[]>(["Online / Link im E-learning"]),
+      [stunden[3]]: ref<String[]>(["H18"]),
+      [stunden[4]]: ref<String[]>(["Audimax"]),
+      [stunden[5]]: ref<String[]>(["Rondell /", "markanter Platz"]),
+      [stunden[6]]: ref<String[]>(["H17 | NW2"]),
+      [stunden[7]]: ref<String[]>([""]),
+      [stunden[8]]: ref<String[]>([""]),
+      [stunden[9]]: ref<String[]>(["Anmeldung E-Learning"]),
+    };
+
+    const gridStyle = computed(() => {
+      return {
+        gridTemplateColumns: `repeat(${
+          tage.length + 1
+        }, minmax(min-content, max-content))`,
+        gridTemplateRows: `0px repeat(${
+          stunden.length + 1
+        }, minmax(max-content, 1fr))`,
+      };
+    });
+    onMounted(() => {
+      const setColor = (
+        ev: MouseEvent,
+        backgroundColor?: string,
+        backgroundColorHeader?: string,
+        backgroundColorActive?: string
+      ) => {
+        const target = <HTMLTableCellElement>ev.target;
+        const index = target.cellIndex;
+
+        const table = <HTMLTableElement>(
+          target.parentNode!.parentNode!.parentNode
+        );
+        const tbody = table.tBodies[0];
+
+        const col = <HTMLTableColElement>(
+          table.querySelector("colgroup")!.childNodes[index]
+        );
+
+        /*if (!col.style) col.style = {};
+        col.style.backgroundColor = backgroundColor ? backgroundColor : "";
+
+        console.log(col);*/
+        //maybe set style of <col> in <colgroup>
+        Array.from(tbody.rows).forEach((value) => {
+          value.cells[index].style.backgroundColor = backgroundColor
+            ? backgroundColor
+            : "";
+        });
+
+        Array.from(table.tHead!.rows).forEach((row) => {
+          row.cells[index].style.backgroundColor = backgroundColorHeader
+            ? backgroundColorHeader
+            : "";
+        });
+
+        if (backgroundColorActive) {
+          if (target.tagName === "TH") return;
+
+          target.style.backgroundColor = backgroundColorActive;
+          target.style.color =
+            "#" +
+            (Number(`0x1${backgroundColorActive.substring(1)}`) ^ 0xffffff)
+              .toString(16)
+              .substring(1)
+              .toUpperCase();
+        } else {
+          target.style.backgroundColor = "";
+          target.style.color = "";
+        }
+      };
+      const dataCells = Array.from(document.getElementsByTagName("td")).concat(
+        Array.from(document.getElementsByTagName("th"))
+      );
+      dataCells.forEach((element) => {
+        element.onmouseenter = (ev) =>
+          setColor(ev, "#e68e0b", "#909090", "#995c00");
+        element.onmouseleave = (ev) => setColor(ev);
+      });
+
+      const head = document.querySelector("head")!;
+
+      const style = document.createElement("style");
+      style.innerHTML = `@media only screen and (max-width: 550px),
+        (min-device-width: 558px) and (max-device-width: 1024px) {
+        #erstis
+        td:nth-of-type(1):before { content: "Termin"; } }`;
+      head.appendChild(style);
+
+      for (let i = 0; i < tage.length; ++i) {
+        const style = document.createElement("style");
+        style.innerHTML = `@media only screen and (max-width: 550px),
+        (min-device-width: 558px) and (max-device-width: 1024px) {
+        #erstis
+        td:nth-of-type(${i + 2}):before { content: "${tage[i]}"; } }`;
+        head.appendChild(style);
+      }
+    });
+    return { gridStyle, tage, stunden, sprechstunden };
+  },
 });
 </script>
 
@@ -130,5 +299,76 @@ ul {
 p {
   text-align: justify;
   color: #f1f1f1;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+/* Zebra striping */
+tr:nth-of-type(odd) td {
+  background: #eee;
+}
+tr:nth-of-type(even) td {
+  background: grey;
+}
+
+th {
+  background: #333;
+  color: white;
+  font-weight: bold;
+}
+td,
+th {
+  padding: 6px;
+  border: 1px solid #ccc;
+  text-align: left;
+}
+
+tr:hover td {
+  background: #e68e0b;
+}
+
+@media only screen and (max-width: 550px),
+  (min-device-width: 558px) and (max-device-width: 1024px) {
+  /* Force table to not be like tables anymore */
+  table,
+  thead,
+  tbody,
+  th,
+  td,
+  tr {
+    display: block;
+  }
+
+  /* Hide table headers (but not display: none;, for accessibility) */
+  thead tr {
+    position: absolute;
+    top: -9999px;
+    left: -9999px;
+  }
+
+  tr {
+    border: 1px solid #ccc;
+  }
+
+  td {
+    /* Behave  like a "row" */
+    border: none;
+    border-bottom: 1px solid #eee;
+    position: relative;
+    padding-left: 50%;
+  }
+
+  td:before {
+    /* Now like a table header */
+    position: absolute;
+    /* Top/left values mimic padding */
+    top: 6px;
+    left: 6px;
+    width: 45%;
+    padding-right: 10px;
+    white-space: nowrap;
+  }
 }
 </style>
