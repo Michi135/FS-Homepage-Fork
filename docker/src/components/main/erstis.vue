@@ -108,6 +108,9 @@
           </table>
           <div class="tw-text-red-500">
             Es gelten die jeweils aktuellen Corona Regelungen
+            <br/>
+            Die Anmeldung im E-Learning findet im Kurs der Fachschaft statt
+            <a class="link" href="https://elearning.uni-bayreuth.de/course/view.php?id=20051#section-1">-> Link</a>
           </div>
         </div>
         <br /><br />
@@ -137,11 +140,11 @@ export default defineComponent({
     const tage = ["Veranstaltung", "Ort"];
     const stunden = [
       "12.10 | ab 17:00",
-      "13.10 | 18:30/19:00",
+      "13.10 | 19:00",
       "14.10 | 16:00-17:00",
       "18.10 | 16:00",
       "18.10 | 18:00",
-      "21.10 | 18:30/19:00",
+      "21.10 | 19:00",
       "25.10 | 19:00",
       "27.10 | 17:00",
       "10.11 | 18:00",
@@ -167,14 +170,14 @@ export default defineComponent({
 
     sprechstunden[tage[1]] = {
       [stunden[0]]: ref<String[]>(["städtischer Grillplatz"]),
-      [stunden[1]]: ref<String[]>(["Rondell /", "markanter Platz"]),
-      [stunden[2]]: ref<String[]>(["Online / Link im E-learning"]),
-      [stunden[3]]: ref<String[]>(["H18"]),
+      [stunden[1]]: ref<String[]>(["Anmeldung E-Learning"]),
+      [stunden[2]]: ref<String[]>(["Online / Link im E-Learning"]),
+      [stunden[3]]: ref<String[]>(["H18 | NW2"]),
       [stunden[4]]: ref<String[]>(["Audimax"]),
-      [stunden[5]]: ref<String[]>(["Rondell /", "markanter Platz"]),
+      [stunden[5]]: ref<String[]>(["Anmeldung E-Learning"]),
       [stunden[6]]: ref<String[]>(["H17 | NW2"]),
-      [stunden[7]]: ref<String[]>([""]),
-      [stunden[8]]: ref<String[]>([""]),
+      [stunden[7]]: ref<String[]>(["Anmeldung E-Learning"]),
+      [stunden[8]]: ref<String[]>(["Anmeldung E-Learning"]),
       [stunden[9]]: ref<String[]>(["Anmeldung E-Learning"]),
     };
 
