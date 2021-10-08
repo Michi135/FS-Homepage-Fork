@@ -63,7 +63,7 @@ export default defineComponent({
       {
         image: require("@static/img/portraits/elias.jpg"),
         name: "Elias",
-        role: "StuPa",
+        role: "Vernetzung",
         studiengang: "LA GYM B. Info/Mathe",
         semester: 3,
         email: "dennis.streicher@uni-bayreuth.de",
