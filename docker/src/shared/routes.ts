@@ -8,13 +8,39 @@ export const basePaths = {
     account: '/'
 } as const
 
+export const localizedRoutes = {
+    de: {
+        home: 'Home',
+        representatives: "Vertreter",
+        freshers: "Erstis",
+        noPanic: "Keine Panik",
+        externals: "Externe Links",
+        imprint: "Impressum",
+        consultationHours: "Sprechstunden",
+        contact: "Kontakt",
+        error404: "404 Error",
+    },
+    en: {
+        home: "Home",
+        representatives: "Representatives",
+        freshers: "Freshers",
+        noPanic: "No panic",
+        externals: "External links",
+        imprint: "Imprint",
+        consultationHours: "Consultation hours",
+        contact: "Contact",
+        error404: "404 Error",
+    }
+}
+
+
 let headerRoutes: RouteRecordRaw[] = [
     {
         path: "",
         component: () => import('@components/main/home.vue'/* webpackChunkName: "home" */),
         meta:
         {
-            title: "Home"
+            title: 'home'
         }
     },
     /*{
@@ -22,8 +48,8 @@ let headerRoutes: RouteRecordRaw[] = [
         component: () => import('@components/main/hochschulwahl.vue'/* webpackChunkName: "home" *//*),
 meta:
 {
-    favicon: require('@components/main/wal.svg'),
-    title: "Hochschulwa(h)l",
+favicon: require('@components/main/wal.svg'),
+title: "Hochschulwa(h)l",
 }
 },*/
     {
@@ -32,7 +58,7 @@ meta:
         meta:
         {
             favicon: require('@static/favicon2.svg'),
-            title: "Vertreter",
+            title: "representatives",
         }
     },
     {
@@ -41,7 +67,7 @@ meta:
         meta:
         {
             favicon: require('@components/main/student.svg'),
-            title: "Erstis",
+            title: "freshers",
         }
     },
     {
@@ -49,7 +75,7 @@ meta:
         component: () => import('@components/main/panik.vue'/* webpackChunkName: "home" */),
         meta:
         {
-            title: "Keine Panik",
+            title: "noPanic",
         }
     },
     {
@@ -57,7 +83,7 @@ meta:
         component: () => import('@components/main/externals.vue'/* webpackChunkName: "home" */),
         meta:
         {
-            title: "Externe Links",
+            title: "externals",
         }
     }
 ]
@@ -69,7 +95,7 @@ let footerRoutes: RouteRecordRaw[] = [
         component: () => import('@components/main/impressum.vue'/* webpackChunkName: "home" */),
         meta:
         {
-            title: "Impressum",
+            title: "imprint",
         }
     },
     {
@@ -77,7 +103,7 @@ let footerRoutes: RouteRecordRaw[] = [
         component: () => import('@components/main/sprechstunden.vue'/* webpackChunkName: "home" */),
         meta:
         {
-            title: "Sprechstunden",
+            title: "consultationHours",
         }
     },
     {
@@ -85,7 +111,7 @@ let footerRoutes: RouteRecordRaw[] = [
         component: () => import('@components/main/kontakt.vue'/* webpackChunkName: "home" */),
         meta:
         {
-            title: "Kontakt",
+            title: "contact",
         }
     }
 ]
@@ -96,7 +122,7 @@ let routes: RouteRecordRaw[] = [
         component: () => import('@components/404.vue'),
         meta:
         {
-            title: "404 Error",
+            title: "error404",
         }
     }
 ]

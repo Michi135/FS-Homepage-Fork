@@ -1,20 +1,20 @@
 <template>
   <div class="main">
-    <h5 class="header">Kontakt:</h5>
+    <h5 class="header">{{t('contact')}}</h5>
     <div>
       <br />
-      <p>Ihr braucht Hilfe oder habt Fragen? Wir sind zu erreichen per:</p>
+      <p>{{t('question')}}</p>
       <br />
-      <p>- Nachricht im e-Learning-Kurs</p>
-      <p>- Email: fsmpi@uni-bayreuth.de</p>
-      <p>- Telefon: 0921/55-3101</p>
+      <p>- {{t('message')}}</p>
+      <p>- {{t('mail')}}: fsmpi@uni-bayreuth.de</p>
+      <p>- {{t('phone')}}: 0921/55-3101</p>
       <br />
       <p>
         - Facebook:
         <a href="https://facebook.com/fsmpi">https://facebook.com/fsmpi</a>
       </p>
       <br />
-      <p>- Uni Now: @FS.MPI</p>
+      <p>- UniNow: @FS.MPI</p>
       <br />
       <p>
         - Instagram:
@@ -23,18 +23,23 @@
         >
       </p>
       <br />
-      <p>
-        Oder Ihr besucht uns persönlich in unserem Büro (NW II, zwischen H 20
-        und S 78)
-      </p>
+      <p>{{t('invitation')}}</p>
     </div>
   </div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from "vue";
+import { useI18n } from 'vue-i18n'
 
-export default defineComponent({});
+export default defineComponent({
+  setup()
+  {
+    const {t, locale} = useI18n({});
+
+    return {t, locale};
+  }
+});
 </script>
 
 <style scoped lang="less">
@@ -56,3 +61,25 @@ export default defineComponent({});
   }
 }
 </style>
+
+<i18n locale='de'>
+{
+  "message": "Nachricht im e-Learning-Kurs",
+  "mail": "Email",
+  "phone": "Telefon",
+  "contact": "Kontakt:",
+  "question": "Ihr braucht Hilfe oder habt Fragen? Wir sind zu erreichen per:",
+  "invitation": "Oder Ihr besucht uns persönlich in unserem Büro (NW II, zwischen H 20 und S 78)"
+}
+</i18n>
+
+<i18n locale='en'>
+{
+  "message": "Message in the e-Learning-course",
+  "mail": "Mail",
+  "phone": "Phone",
+  "contact": "Contact:",
+  "question": "You need help or have questions? We're here for you by:",
+  "invitation": "Or you visit us in person in our office (NW II, between H 20 and S 78)"
+}
+</i18n>

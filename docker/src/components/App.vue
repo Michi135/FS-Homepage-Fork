@@ -5,6 +5,7 @@
 <script lang="ts">
 import { defineComponent, onMounted } from "vue";
 import { useRouter } from "vue-router";
+import { useI18n } from "vue-i18n";
 import { useStore } from "@shared/store";
 import { createFaviconLink } from "../favicon/favicon";
 import "tailwindcss/tailwind.css";
@@ -14,6 +15,7 @@ export default defineComponent({
   setup() {
     onMounted(() => {
       const store = useStore();
+      const { t, locale } = useI18n({useScope: 'global'});
       useRouter().afterEach((to, from, failure) => {
         if (failure) return;
         const meta = to.meta;
@@ -23,12 +25,11 @@ export default defineComponent({
         let routeFavicon =
           <string | undefined>meta.favicon || store.state.defaultFavicon;
 
-        document.title = routeTitle;
+        document.title = t(routeTitle);
 
         const faviconLink = createFaviconLink(routeFavicon);
-        let exisitingLink: HTMLLinkElement | null = document.querySelector(
-          "link[rel*='icon']"
-        );
+        let exisitingLink: HTMLLinkElement | null =
+          document.querySelector("link[rel*='icon']");
         if (exisitingLink) {
           if (!exisitingLink.isEqualNode(faviconLink)) {
             exisitingLink.replaceWith(faviconLink);

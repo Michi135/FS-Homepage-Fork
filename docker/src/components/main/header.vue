@@ -20,7 +20,9 @@
           font-size: 1.2rem;
         "
       >
-        Fachschaft Mathe|Physik|Informatik
+        {{ tLocal("studentCouncil") }} {{ tLocal("math") }}|{{ tLocal("physics") }}|{{
+          tLocal("computerScience")
+        }}
       </p>
     </div>
     <div
@@ -91,7 +93,7 @@
             <router-link :key="index" :to="basePaths.home + item.path">
               <span
                 v-if="item.meta.title"
-                v-text="item.meta.title"
+                v-text="tGlobal(item.meta.title)"
                 class="tw-p-2.5"
               />
             </router-link>
@@ -104,6 +106,7 @@
 
 <script lang="ts">
 import { defineComponent, ref } from "vue";
+import { useI18n } from "vue-i18n";
 import { headerRoutes, basePaths } from "@shared/routes";
 import { useStore } from "@shared/store";
 
@@ -111,8 +114,12 @@ export default defineComponent({
   setup: () => {
     const isOpen = ref<Boolean>(false);
     const store = useStore();
+    const globalI18n = useI18n({useScope: 'global'});
+    const localI18n = useI18n();
 
     return {
+      tLocal: localI18n.t,
+      tGlobal: globalI18n.t,
       store,
       isOpen,
       navLogo: require("@static/img/tross.svg"),
@@ -159,3 +166,21 @@ nav ul li:hover {
   color: var(--color-primary);
 }
 </style>
+
+<i18n locale='de'>
+{
+  "studentCouncil": "Fachschaft",
+  "math": "Mathe",
+  "physics": "Physik",
+  "computerScience": "Informatik"
+}
+</i18n>
+
+<i18n locale='en'>
+{
+  "studentCouncil": "Student council",
+  "math": "Math",
+  "physics": "Physics",
+  "computerScience": "Computer science"
+}
+</i18n>

@@ -125,7 +125,7 @@ export default function ssr(dev: boolean) {
             res.charset = 'utf-8';
 
             const { createDefaultApp } = <typeof App>require('@distServer/main');
-            const { router, store, app } = createDefaultApp();
+            const { router, store, app, i18n } = createDefaultApp();
 
             router.push(req.url);
             await router.isReady();
@@ -145,7 +145,7 @@ export default function ssr(dev: boolean) {
             const head = doc.head;
             doc.children[0].setAttribute('lang', language);
             //doc.lang
-            head.innerHTML += `<title>${loadTitle(currentRoute, context)}</title>`;
+            head.innerHTML += `<title>${i18n.global.t(loadTitle(currentRoute, context))}</title>`;
             //head.innerHTML += `<link href="https://cdnjs.cloudflare.com" rel="preconnect" crossorigin>`
 
             const chunk = chunks[req.url];

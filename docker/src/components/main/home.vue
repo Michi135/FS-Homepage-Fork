@@ -5,7 +5,7 @@
       <br />Mathe|Physik|Informatik
     </h3>
     <div class="tw-text-center">
-      <h1>Nachdem du schon mal hier bist schau dich doch gerne mal um</h1>
+      <h1>Nachdem du schon mal hier bist, schau dich doch gerne mal um!</h1>
       <h2 style="color: #ff9e1f"><router-link class="link" to="/erstis">Hier</router-link> geht es zum Erstsemesterbereich</h2>
     </div>
     <br />

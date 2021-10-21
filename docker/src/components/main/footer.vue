@@ -7,7 +7,7 @@
         tw-justify-between
       "
     >
-      <div>Zuletzt aktualisiert: 08.10.2021</div>
+      <div>{{ tLocal("updated") }}: 08.10.2021</div>
       <div>
         <router-link v-if="footerLogo" to="/">
           <img :src="footerLogo" :alt="{}" class="h-8" />
@@ -31,7 +31,7 @@
             md:tw-text-base md:tw-inline
           "
         >
-          <span v-if="item.meta.title" v-text="item.meta.title" />
+          <span v-if="item.meta.title" v-text="tGlobal(item.meta.title)" />
         </router-link>
       </nav>
     </div>
@@ -41,13 +41,22 @@
 <script lang="ts">
 import { defineComponent } from "vue";
 import { footerRoutes, basePaths } from "@shared/routes";
+import { useI18n } from "vue-i18n";
 
 export default defineComponent({
   setup: () => {
     const routes = footerRoutes;
     const footerLogo = null;
+    const globalI18n = useI18n({ useScope: "global" });
+    const localI18n = useI18n({});
 
-    return { routes, footerLogo, basePaths };
+    return {
+      routes,
+      footerLogo,
+      basePaths,
+      tLocal: localI18n.t,
+      tGlobal: globalI18n.t,
+    };
   },
 });
 </script>
@@ -61,3 +70,15 @@ export default defineComponent({
   color: rgba(160, 174, 192, 1);
 }
 </style>
+
+<i18n locale='de'>
+{
+  "updated": "Zuletzt aktualisiert"
+}
+</i18n>
+
+<i18n locale='en'>
+{
+  "updated": "Last updated"
+}
+</i18n>

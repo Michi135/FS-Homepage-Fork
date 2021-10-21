@@ -146,6 +146,11 @@ const config = (env: NodeJS.ProcessEnv = {}): Configuration => {
             exclude: /node_modules/,
           },
           {
+            resourceQuery: /blockType=i18n/,
+            type: 'javascript/auto',
+            loader: '@intlify/vue-i18n-loader'
+          },
+          {
             test: /\.(png|jpe?g|gif|pdf)$/i,
             type: 'asset',
             parser: {
