@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h5 class="header">Aktuelle Vertreter der Fachschaft FSMPI</h5>
+    <h5 class="header">{{t('header')}}</h5>
     <br />
     <div class="tw-flex tw-flex-col tw-items-center">
       <div class="all-container">
@@ -16,6 +16,8 @@
 </template>
 <script lang="ts">
 import { defineComponent, ref } from "vue";
+import { useI18n } from "vue-i18n";
+
 import SingleVertreter from "@components/main/single-vertreter.vue";
 
 import type { IResolvedVertreter } from "@dataInterfaces/IVertreter";
@@ -25,124 +27,184 @@ export default defineComponent({
     SingleVertreter,
   },
   setup: (prop, context) => {
+    const { t, locale } = useI18n({});
+
     let vertreter = ref(new Array<Partial<IResolvedVertreter>>());
 
     vertreter.value = new Array<Partial<IResolvedVertreter>>(
       {
         image: require("@static/img/portraits/julia.jpg"),
         name: "Julia",
-        role: "Chef",
-        studiengang: "B.Sc. Technomathe",
+        role: "head",
+        studiengang: {
+          degree: "bachelor",
+          field: "science",
+          course: "technoMath",
+        },
         semester: 7,
         email: "julia.schwarz@uni-bayreuth.de",
       },
       {
         image: require("@static/img/portraits/armin.jpg"),
         name: "Armin",
-        role: "Vize",
-        studiengang: "M.Sc. Physik",
+        role: "vice",
+        studiengang: {
+          degree: "master",
+          field: "science",
+          course: "physics",
+        },
         semester: 4,
         email: "armin.roediger@uni-bayreuth.de",
       },
       {
         image: require("@static/img/portraits/charlotte.jpg"),
         name: "Charlotte",
-        role: "Finanzen",
-        studiengang: "B.Sc. Physik",
+        role: "finances",
+        studiengang: {
+          degree: "bachelor",
+          field: "science",
+          course: "physics",
+        },
         semester: 5,
         email: "charlotte.geiger@uni-bayreuth.de",
       },
       {
         image: require("@static/img/portraits/lennart.jpg"),
         name: "Lennart",
-        role: "Finanzen",
-        studiengang: "B.Sc. Informatik",
+        role: "finances",
+        studiengang: {
+          degree: "bachelor",
+          field: "science",
+          course: "computerScience",
+        },
         semester: 3,
         email: "lennart.reinstorf@uni-bayreuth.de",
       },
       {
         image: require("@static/img/portraits/elias.jpg"),
         name: "Elias",
-        role: "Vernetzung",
-        studiengang: "LA GYM B. Info/Mathe",
+        role: "networking",
+        studiengang: {
+          lectureShip: "gymnasium",
+          degree: "bachelor",
+          course: "computerScience",
+          secondary: "math",
+        },
         semester: 3,
         email: "dennis.streicher@uni-bayreuth.de",
       },
       {
         image: require("@static/img/portraits/dennis.jpg"),
         name: "Dennis",
-        role: "Uni-Kino",
-        studiengang: "B.Sc. Informatik",
+        role: "uniCinema",
+        studiengang: {
+          degree: "bachelor",
+          field: "science",
+          course: "computerScience",
+        },
         semester: 5,
         email: "dennis.streicher@uni-bayreuth.de",
       },
       {
         image: require("@static/img/portraits/masell.jpg"),
         name: "Masell",
-        role: "Uni-Kino",
-        studiengang: "B.Sc. Physik",
+        role: "uniCinema",
+        studiengang: {
+          degree: "bachelor",
+          field: "science",
+          course: "physics",
+        },
         semester: 7,
         email: "marcel.schalling@uni-bayreuth.de",
       },
       {
         image: require("@static/img/portraits/olivia.jpg"),
         name: "Olivia",
-        role: "Öffentlichkeitsarbeit",
-        studiengang: "B.Sc. Informatik",
+        role: "publicRelations",
+        studiengang: {
+          degree: "bachelor",
+          field: "science",
+          course: "computerScience",
+        },
         semester: 5,
         email: "olivia.kammerer@uni-bayreuth.de",
       },
       {
         image: require("@static/img/portraits/sophie.jpg"),
         name: "Sophie",
-        role: "Öffentlichkeitsarbeit",
-        studiengang: "B.Sc. Physik",
+        role: "publicRelations",
+        studiengang: {
+          degree: "bachelor",
+          field: "science",
+          course: "physics",
+        },
         semester: 7,
         email: "sophie.meissner@uni-bayreuth.de",
       },
       {
         image: require("@static/img/portraits/michelle.jpg"),
         name: "Michelle",
-        role: "Bierkoordinatorin",
-        studiengang: "B.Sc. Informatik",
+        role: "beerCoordination",
+        studiengang: {
+          degree: "bachelor",
+          field: "science",
+          course: "computerScience",
+        },
         semester: 3,
         email: "michelle.reimann@uni-bayreuth.de",
       },
       {
         image: require("@static/img/portraits/lena.jpg"),
         name: "Lena",
-        role: "Physikerbar",
-        studiengang: "B.Sc. Physik",
+        role: "physicsBar",
+        studiengang: {
+          degree: "bachelor",
+          field: "science",
+          course: "physics",
+        },
         semester: 7,
         email: "magdalena.doerfler@uni-bayreuth.de",
       },
       {
         image: require("@static/img/portraits/marius.jpg"),
         name: "Marius",
-        role: "Grafiken",
-        studiengang: "B.Sc. Physik",
+        role: "graphics",
+        studiengang: {
+          degree: "bachelor",
+          field: "science",
+          course: "physics",
+        },
         semester: 9,
         email: "marius.kaiser@uni-bayreuth.de",
       },
       {
         image: require("@static/img/portraits/maike.jpg"),
         name: "Maike",
-        role: "Skripten",
-        studiengang: "LA GYM M. Mathe/Physik",
+        role: "scripts",
+        studiengang: {
+          lectureShip: "gymnasium",
+          degree: "master",
+          course: "math",
+          secondary: "physics",
+        },
         semester: 4,
         email: "maike.schelhorn@uni-bayreuth.de",
       },
       {
         image: require("@static/img/portraits/olli.jpg"),
         name: "Olli",
-        role: "Root",
-        studiengang: "M.Sc. Informatik",
+        role: "root",
+        studiengang: {
+          degree: "master",
+          field: "science",
+          course: "computerScience",
+        },
         semester: 1,
         email: "oliver.zahn@uni-bayreuth.de",
       }
     );
 
-    return { vertreter };
+    return { vertreter, t };
   },
 });
 </script>
@@ -174,3 +236,15 @@ export default defineComponent({
   }
 }
 </style>
+
+<i18n locale='de'>
+{
+  "header": "Aktuelle Vertreter der Fachschaft FSMPI"
+}
+</i18n>
+
+<i18n locale='en'>
+{
+  "header": "Current representatives of the student council FSMPI"
+}
+</i18n>

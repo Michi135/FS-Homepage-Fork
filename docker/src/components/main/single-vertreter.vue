@@ -3,28 +3,34 @@
     <div class="image-container">
       <img class="image" :src="vertreter.image" :alt="vertreter.name" />
     </div>
-    <p class="property">Name:</p>
+    <p class="property">{{ t("name") }}:</p>
     <p class="value" v-text="vertreter.name" />
 
-    <p class="property">Rolle:</p>
-    <p class="value" v-text="vertreter.role" />
+    <p class="property">{{ t("role") }}:</p>
+    <p class="value" v-text="t(vertreter.role)" />
 
-    <p class="property">Studiengang:</p>
-    <div class="value" v-text="vertreter.studiengang" />
+    <p class="property">{{ t("degreeCourse") }}:</p>
+    <studiengang class="value" :studiengang="vertreter.studiengang"/>
+    <!--p class="value" v-text="vertreter.studiengang" /-->
 
-    <p class="property">Semester:</p>
+    <p class="property">{{ t("semester") }}:</p>
     <p class="value" v-text="vertreter.semester" />
 
-    <p class="property">Email:</p>
+    <p class="property">{{ t("mail") }}:</p>
     <p class="value" v-text="vertreter.email" />
   </div>
 </template>
 
 <script lang="ts">
 import { defineComponent, PropType } from "vue";
+import { useI18n } from "vue-i18n";
 import { IVertreter } from "@dataInterfaces/IVertreter";
+import studiengang from './studiengang.vue'
 
 export default defineComponent({
+  components: {
+    studiengang
+  },
   name: "SingleVertreter",
   props: {
     vertreter: {
@@ -34,7 +40,9 @@ export default defineComponent({
     distPath: String,
   },
   setup: () => {
-    return {};
+    const { t, locale } = useI18n({});
+
+    return { t, locale };
   },
 });
 </script>
@@ -106,3 +114,45 @@ export default defineComponent({
   }
 }
 </style>
+
+<i18n locale="de">
+{
+  "name": "Name",
+  "role": "Rolle",
+  "degreeCourse": "Studiengang",
+  "semester": "Semester",
+  "mail": "Email",
+  "head": "Chef",
+  "vice": "Vize",
+  "finances": "Finanzen",
+  "networking": "Vernetzung",
+  "uniCinema": "Uni-Kino",
+  "publicRelations": "Öffentlichkeitsarbeit",
+  "beerCoordination": "Bierkoordination",
+  "physicsBar": "Physikerbar",
+  "graphics": "Grafiken",
+  "scripts": "Skripten",
+  "root": "Root"
+}
+</i18n>
+
+<i18n locale="en">
+{
+  "name": "Name",
+  "role": "Role",
+  "degreeCourse": "Degree course",
+  "semester": "Semester",
+  "mail": "Mail",
+  "head": "Head",
+  "vice": "Vice",
+  "finances": "Finances",
+  "networking": "Networking",
+  "uniCinema": "Uni-Cinema",
+  "publicRelations": "Public relations",
+  "beerCoordination": "Beer coordination",
+  "physicsBar": "Physics bar",
+  "graphics": "Graphics",
+  "scripts": "Scripts",
+  "root": "Root"
+}
+</i18n>
