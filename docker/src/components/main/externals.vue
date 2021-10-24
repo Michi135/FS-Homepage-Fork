@@ -1,8 +1,8 @@
 <template>
   <div class="tw-px-5 tw-py-2 main">
-    <p class="tw-text-2xl">Folgende Links beziehen sich auf externe Inhalte</p>
+    <p class="tw-text-2xl">{{ t("mainMessage") }}</p>
     <br />
-    <h5 class="tw-text-2xl">Fachschaften</h5>
+    <h5 class="tw-text-2xl">{{ tGlobal("studentCouncil", 2) }}</h5>
     <ul>
       <li
         class="tw-ml-5 tw-py-1"
@@ -15,7 +15,7 @@
       </li>
     </ul>
     <br />
-    <h5 class="tw-text-2xl">Hochschulgruppen</h5>
+    <h5 class="tw-text-2xl">{{t('studentGroups')}}</h5>
     <ul>
       <li
         class="tw-ml-5 tw-py-1"
@@ -28,7 +28,7 @@
       </li>
     </ul>
     <br />
-    <h5 class="tw-text-2xl">Weiterführende Links</h5>
+    <h5 class="tw-text-2xl">{{t('furtherLinks')}}</h5>
     <ul>
       <li class="tw-ml-5 tw-py-1">
         <a class="link tw-text-xl" href="https://alumpi.de/">Alumpi</a>
@@ -44,10 +44,16 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
+import { useI18n } from "vue-i18n";
 
 export default defineComponent({
   setup: () => {
+    const tGlobal = useI18n({ useScope: "global" }).t;
+    const { t } = useI18n({});
+
     return {
+      t,
+      tGlobal,
       fachschaften: [
         {
           name: "RW",
@@ -55,8 +61,7 @@ export default defineComponent({
         },
         {
           name: "BCG",
-          link:
-            "https://www.bcg.uni-bayreuth.de/de/studium/fachschaft/index.html",
+          link: "https://www.bcg.uni-bayreuth.de/de/studium/fachschaft/index.html",
         },
         {
           name: "SpLit",
@@ -86,8 +91,7 @@ export default defineComponent({
         },
         {
           name: "Juso",
-          link:
-            "https://www.facebook.com/Juso-Hochschulgruppe-Uni-Bayreuth-161660643852972/",
+          link: "https://www.facebook.com/Juso-Hochschulgruppe-Uni-Bayreuth-161660643852972/",
         },
         {
           name: "Liberale",
@@ -132,3 +136,19 @@ export default defineComponent({
   }
 }
 </style>
+
+<i18n locale="de">
+{
+  "mainMessage": "Folgende Links beziehen sich auf externe Inhalte",
+  "studentGroups": "Hochschulgruppen",
+  "furtherLinks": "Weiterführende Links",
+}
+</i18n>
+
+<i18n locale="en">
+{
+  "mainMessage": "Following links refer to external content",
+  "studentGroups": "Student groups",
+  "furtherLinks": "Further links",
+}
+</i18n>

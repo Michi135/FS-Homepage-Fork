@@ -20,8 +20,8 @@
           font-size: 1.2rem;
         "
       >
-        {{ tLocal("studentCouncil") }} {{ tLocal("math") }}|{{ tLocal("physics") }}|{{
-          tLocal("computerScience")
+        {{ tGlobal("studentCouncil", 1) }} {{ tGlobal("math") }}|{{ tGlobal("physics") }}|{{
+          tGlobal("computerScience")
         }}
       </p>
     </div>
@@ -169,18 +169,10 @@ nav ul li:hover {
 
 <i18n locale='de'>
 {
-  "studentCouncil": "Fachschaft",
-  "math": "Mathe",
-  "physics": "Physik",
-  "computerScience": "Informatik"
 }
 </i18n>
 
 <i18n locale='en'>
 {
-  "studentCouncil": "Student council",
-  "math": "Math",
-  "physics": "Physics",
-  "computerScience": "Computer science"
 }
 </i18n>

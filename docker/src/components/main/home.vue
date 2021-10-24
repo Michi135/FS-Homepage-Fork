@@ -1,12 +1,22 @@
 <template>
   <div>
     <h3>
-      Willkommen auf der Homepage der Fachschaft
-      <br />Mathe|Physik|Informatik
+      {{ t("welcome") }} {{ tGlobal("studentCouncil", 1) }} <br />{{
+        tGlobal("math") +
+        "|" +
+        tGlobal("physics") +
+        "|" +
+        tGlobal("computerScience")
+      }}
     </h3>
     <div class="tw-text-center">
-      <h1>Nachdem du schon mal hier bist, schau dich doch gerne mal um!</h1>
-      <h2 style="color: #ff9e1f"><router-link class="link" to="/erstis">Hier</router-link> geht es zum Erstsemesterbereich</h2>
+      <h1>{{ t("intermediate") }}!</h1>
+      <h2 style="color: #ff9e1f">
+        <router-link class="link" to="/erstis">{{
+          tGlobal("here")
+        }}</router-link>
+        {{ t("firstis") }}
+      </h2>
     </div>
     <br />
     <div class="tw-flex tw-flex-col tw-items-center">
@@ -82,10 +92,13 @@
 
 <script lang="ts">
 import { defineComponent, ref } from "vue";
+import { useI18n } from "vue-i18n";
 
 export default defineComponent({
   setup: () => {
     const fachschaftsimage = ref<string>("");
+    const tGlobal = useI18n({ useScope: "global" }).t;
+    const { t } = useI18n();
 
     import("@static/img/plakat.jpg" /* webpackPackPreload: true */).then(
       (value) => {
@@ -93,7 +106,7 @@ export default defineComponent({
       }
     );
 
-    return { fachschaftsimage };
+    return { t, tGlobal, fachschaftsimage };
   },
 });
 </script>
@@ -136,3 +149,19 @@ p {
   box-shadow: 4px 4px rgb(39, 39, 39);
 }
 </style>
+
+<i18n locale='de'>
+{
+  "welcome": "Willkommen auf der Homepage der",
+  "intermediate": "Nachdem du schon mal hier bist, schau dich doch gerne mal um",
+  "firstis": "geht es zum Erstsemesterbereich",
+}
+</i18n>
+
+<i18n locale='en'>
+{
+  "welcome": "Welcome to the homepage of the",
+  "intermediate": "Have a look around since you're already here",
+  "firstis": "you can find the first semester area",
+}
+</i18n>

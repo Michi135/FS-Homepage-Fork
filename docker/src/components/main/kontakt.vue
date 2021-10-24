@@ -1,13 +1,13 @@
 <template>
   <div class="main">
-    <h5 class="header">{{t('contact')}}</h5>
+    <h5 class="header">{{tGlobal('contact')}}:</h5>
     <div>
       <br />
       <p>{{t('question')}}</p>
       <br />
       <p>- {{t('message')}}</p>
-      <p>- {{t('mail')}}: fsmpi@uni-bayreuth.de</p>
-      <p>- {{t('phone')}}: 0921/55-3101</p>
+      <p>- {{tGlobal('mail')}}: fsmpi@uni-bayreuth.de</p>
+      <p>- {{tGlobal('phone')}}: 0921/55-3101</p>
       <br />
       <p>
         - Facebook:
@@ -36,8 +36,9 @@ export default defineComponent({
   setup()
   {
     const {t, locale} = useI18n({});
+    const tGlobal = useI18n({useScope: 'global'}).t;
 
-    return {t, locale};
+    return {t, tGlobal, locale};
   }
 });
 </script>
@@ -65,9 +66,6 @@ export default defineComponent({
 <i18n locale='de'>
 {
   "message": "Nachricht im e-Learning-Kurs",
-  "mail": "Email",
-  "phone": "Telefon",
-  "contact": "Kontakt:",
   "question": "Ihr braucht Hilfe oder habt Fragen? Wir sind zu erreichen per:",
   "invitation": "Oder Ihr besucht uns persönlich in unserem Büro (NW II, zwischen H 20 und S 78)"
 }
@@ -76,9 +74,6 @@ export default defineComponent({
 <i18n locale='en'>
 {
   "message": "Message in the e-Learning-course",
-  "mail": "Mail",
-  "phone": "Phone",
-  "contact": "Contact:",
   "question": "You need help or have questions? We're here for you by:",
   "invitation": "Or you visit us in person in our office (NW II, between H 20 and S 78)"
 }

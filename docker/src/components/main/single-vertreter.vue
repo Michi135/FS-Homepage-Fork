@@ -3,10 +3,10 @@
     <div class="image-container">
       <img class="image" :src="vertreter.image" :alt="vertreter.name" />
     </div>
-    <p class="property">{{ t("name") }}:</p>
+    <p class="property">{{ tGlobal("name") }}:</p>
     <p class="value" v-text="vertreter.name" />
 
-    <p class="property">{{ t("role") }}:</p>
+    <p class="property">{{ tGlobal("role") }}:</p>
     <p class="value" v-text="t(vertreter.role)" />
 
     <p class="property">{{ t("degreeCourse") }}:</p>
@@ -16,7 +16,7 @@
     <p class="property">{{ t("semester") }}:</p>
     <p class="value" v-text="vertreter.semester" />
 
-    <p class="property">{{ t("mail") }}:</p>
+    <p class="property">{{ tGlobal("mail") }}:</p>
     <p class="value" v-text="vertreter.email" />
   </div>
 </template>
@@ -41,8 +41,9 @@ export default defineComponent({
   },
   setup: () => {
     const { t, locale } = useI18n({});
+    const tGlobal = useI18n({useScope: 'global'}).t;
 
-    return { t, locale };
+    return { t, tGlobal, locale };
   },
 });
 </script>
@@ -117,11 +118,8 @@ export default defineComponent({
 
 <i18n locale="de">
 {
-  "name": "Name",
-  "role": "Rolle",
   "degreeCourse": "Studiengang",
   "semester": "Semester",
-  "mail": "Email",
   "head": "Chef",
   "vice": "Vize",
   "finances": "Finanzen",
@@ -138,11 +136,8 @@ export default defineComponent({
 
 <i18n locale="en">
 {
-  "name": "Name",
-  "role": "Role",
   "degreeCourse": "Degree course",
   "semester": "Semester",
-  "mail": "Mail",
   "head": "Head",
   "vice": "Vice",
   "finances": "Finances",

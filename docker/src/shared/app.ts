@@ -6,17 +6,47 @@ import app from '@components/App.vue'
 import { createDefaultStore, key } from './store'
 import { Store } from 'vuex'
 import { createI18n, I18n } from 'vue-i18n'
+import _ from 'lodash'
 
 function createBundledApp(root: Component) {
     const app = (__IS_SERVER__ || (!__IS_DEV__ && __IS_SSR__)) ? createSSRApp(root) : createApp(root);
     const { router, localizedRoutes } = createBundledRouter()
     const store = createDefaultStore(router);
+
     const i18n = createI18n(
         {
             legacy: false,
             locale: 'en',
             fallbackLocale: 'en',
-            messages: localizedRoutes
+            messages: _.merge(localizedRoutes, 
+                {
+                    de: 
+                    {
+                        studentCouncil: "Fachschaft | Fachschaften",
+                        math: "Mathe",
+                        physics: "Physic",
+                        computerScience: "Informatik",
+                        mail: "Email",
+                        phone: "Telefon",
+                        contact: "Kontakt",
+                        name: "Name",
+                        role: "Rolle",
+                        here: "Hier"
+                    },
+                    en:
+                    {
+                        studentCouncil: "Student council | Student councils",
+                        math: "Math",
+                        physics: "Physics",
+                        computerScience: "Computer science",
+                        mail: "Mail",
+                        phone: "Phone",
+                        contact: "Contact",
+                        name: "Name",
+                        role: "Role",
+                        here: "Here"
+                    }
+                })
         });
 
     app.use(router);
