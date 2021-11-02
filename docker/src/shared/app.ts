@@ -31,7 +31,12 @@ function createBundledApp(root: Component) {
                         contact: "Kontakt",
                         name: "Name",
                         role: "Rolle",
-                        here: "Hier"
+                        here: "Hier",
+                        monday: "Montag",
+                        tuesday: "Dienstag",
+                        wednesday: "Mittwoch",
+                        thursday: "Donnerstag",
+                        friday: "Freitag",
                     },
                     en:
                     {
@@ -44,7 +49,12 @@ function createBundledApp(root: Component) {
                         contact: "Contact",
                         name: "Name",
                         role: "Role",
-                        here: "Here"
+                        here: "Here",
+                        monday: "Monday",
+                        tuesday: "Tuesday",
+                        wednesday: "Wendesday",
+                        thursday: "Thursday",
+                        friday: "Friday",
                     }
                 })
         });

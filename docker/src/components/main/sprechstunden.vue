@@ -36,7 +36,7 @@
       </div>
     </div>
     <div v-else class="tw-px-5">
-      <div class="heading">Sprechstunden der FSMPI</div>
+      <div class="heading">{{t('consHours')}}</div>
       <table :style="gridStyle">
         <colgroup>
           <col />
@@ -45,7 +45,7 @@
         <thead>
           <tr>
             <th />
-            <th v-for="tag in tage" :key="tag">{{ tag }}</th>
+            <th v-for="tag in tage" :key="tag">{{ tGlobal(tag) }}</th>
           </tr>
         </thead>
         <tbody>
@@ -69,6 +69,7 @@
 
 <script lang="ts">
 import { computed, defineComponent, onMounted, ref, Ref } from "vue";
+import { useI18n } from 'vue-i18n'
 //import table from "./dashboard/table.vue";
 //https://colorlib.com/wp/css3-table-templates/
 //https://colorlib.com/etc/tb/Table_Highlight_Vertical_Horizontal/index.html
@@ -82,14 +83,34 @@ export default defineComponent({
     let sprechstunden: { [key: string]: { [key: string]: Ref<String[]> } } = {};
 
     const tage = [
-      "13.10",
+      "monday", "tuesday", "wednesday", "thursday",
     ];
-    const stunden = ["14:00-16:00"];
+    const stunden = ["13:00", "14:00", "15:00"];
 
     let tag = 0;
 
     sprechstunden[tage[tag++]] = {
-      [stunden[0]]: ref<String[]>(["Olli"]),
+      [stunden[0]]: ref<String[]>(["Sophie"]),
+      [stunden[1]]: ref<String[]>(["Julia"]),
+      [stunden[2]]: ref<String[]>(["Lena"]),
+    };
+
+    sprechstunden[tage[tag++]] = {
+      [stunden[0]]: ref<String[]>(["Charlotte"]),
+      [stunden[1]]: ref<String[]>(["Olivia", "Masell"]),
+      [stunden[2]]: ref<String[]>(["Elias"]),
+    };
+
+    sprechstunden[tage[tag++]] = {
+      [stunden[0]]: ref<String[]>(["Marius", "Olli"]),
+      [stunden[1]]: ref<String[]>(["Michelle"]),
+      [stunden[2]]: ref<String[]>(["Lennart"]),
+    };
+
+    sprechstunden[tage[tag++]] = {
+      [stunden[0]]: ref<String[]>(["Maike"]),
+      [stunden[1]]: ref<String[]>(["Armin"]),
+      [stunden[2]]: ref<String[]>(["Dennis"]),
     };
 
     const ferien_sprechstunden = {
@@ -229,7 +250,13 @@ export default defineComponent({
         head.appendChild(style);
       }
     });
+
+    const tGlobal = useI18n({useScope: 'global'}).t;
+    const { t } = useI18n();
+
     return {
+      t,
+      tGlobal,
       loading,
       ferien,
       tage,
@@ -360,3 +387,15 @@ tr:hover td {
   }
 }
 </style>
+
+<i18n locale="de">
+{
+  "consHours": "Sprechstunden der FSMPI",
+}
+</i18n>
+
+<i18n locale="en">
+{
+  "consHours": "Consultation hours of the FSMPI",
+}
+</i18n>
