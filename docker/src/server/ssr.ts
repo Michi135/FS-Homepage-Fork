@@ -86,7 +86,7 @@ const supportedLanguages =
 function getLanguage(req: Request) {
 
     const lang = req.acceptsLanguages(supportedLanguages)
-    return lang ? lang : 'en'
+    return <'en' | 'de'>(lang ? lang : 'en');
 }
 
 function loadFavicon(route: RouteLocationNormalized, context: SSRContext) {
@@ -124,16 +124,16 @@ export default function ssr(dev: boolean) {
             res.contentType('html');
             res.charset = 'utf-8';
 
+            const language = getLanguage(req);
+
             const { createDefaultApp } = <typeof App>require('@distServer/main');
-            const { router, store, app, i18n } = createDefaultApp();
+            const { router, store, app, i18n } = createDefaultApp({ language: language});
 
             router.push(req.url);
             await router.isReady();
 
             const currentRoute = router.currentRoute.value;
             if (!currentRoute.matched.length) return res.status(404).end();
-
-            const language = getLanguage(req);
 
             const context: SSRContext = { ...(await contextLoad) };
             const manifest = await manifestLoad;

@@ -2,22 +2,28 @@ import { createStore, Store, useStore as baseUseStore } from 'vuex'
 import { InjectionKey } from 'vue'
 import type { Router } from 'vue-router';
 
-const initialState = (router: Router) => {
+const defaultState = {
+    defaultFavicon: require('@static/favicon.svg'),
+    defaultTitle: "FSMPI",
+    language: "de",
+}
+
+const initialState = (router: Router, ctx: Partial<State>): State => {
     return {
-        defaultFavicon: require('@static/favicon.svg'),
-        defaultTitle: "FSMPI",
-        language: "",
+        defaultFavicon: defaultState.defaultFavicon,
+        defaultTitle: ctx.defaultTitle || defaultState.defaultTitle,
+        language: ctx.language || defaultState.language
     }
 }
 
-export type State = ReturnType<typeof initialState>;
+export type State = typeof defaultState;
 
 export const key: InjectionKey<Store<State>> = Symbol();
 
-export function createDefaultStore(router: Router) {
+export function createDefaultStore(router: Router, ctx: Partial<State>) {
     return createStore<State>({
         strict: __IS_DEV__,
-        state: initialState(router),
+        state: initialState(router, ctx),
         mutations: {
             setLanguage(state, lang: string) {
                 state.language = lang;

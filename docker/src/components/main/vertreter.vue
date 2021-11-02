@@ -27,7 +27,7 @@ export default defineComponent({
     SingleVertreter,
   },
   setup: (prop, context) => {
-    const { t, locale } = useI18n({});
+    const { t } = useI18n({});
 
     let vertreter = ref(new Array<Partial<IResolvedVertreter>>());
 
@@ -91,7 +91,7 @@ export default defineComponent({
           secondary: "math",
         },
         semester: 3,
-        email: "dennis.streicher@uni-bayreuth.de",
+        email: "elias.laumeyer@uni-bayreuth.de",
       },
       {
         image: require("@static/img/portraits/dennis.jpg"),
@@ -156,7 +156,7 @@ export default defineComponent({
       {
         image: require("@static/img/portraits/lena.jpg"),
         name: "Lena",
-        role: "physicsBar",
+        role: "physicistBar",
         studiengang: {
           degree: "bachelor",
           field: "science",

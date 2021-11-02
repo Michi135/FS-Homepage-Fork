@@ -1,15 +1,17 @@
 import { createDefaultApp } from '@shared/app'
 import type { State } from '@shared/store'
 
-const instance = createDefaultApp();
-
 declare global {
     interface Window {
         __INITIAL_STATE__?: State
     }
 }
 
+let instance: ReturnType<typeof createDefaultApp>;
+
 if (window.__INITIAL_STATE__) {
+
+    instance = createDefaultApp({language: window.__INITIAL_STATE__.language});
     instance.store.replaceState(window.__INITIAL_STATE__);
 
     const scripts = window.document.getElementsByTagName("script");
@@ -21,7 +23,12 @@ if (window.__INITIAL_STATE__) {
         }
     }
 }
+else
+{
+    instance = createDefaultApp({});
+}
 
 instance.router.isReady().then(() => {
+    //instance.i18n.global.locale = <'de' | 'en'>instance.store.state.language;
     instance.app.mount('#app', true);
 })

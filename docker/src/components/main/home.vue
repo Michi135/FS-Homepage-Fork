@@ -201,32 +201,30 @@ p {
           This elected student representation froms a group together with equally ranked voluntary helpers which are called Fachschaft as well. \
           In our case it's the student council Math/Physics/Computer Science. \
           The third meaning of the word \"Fachschaft\" is as an abbrevation for the \"Fachschaftsbüro\" (student council office) which you can find in the NW2 building adjacent to the H20.",
-  "p[1]": "In the first place we're also just students which have a honorary office alongside their studies. {here} you can see the current student council members.",
+  "p[1]": "In the first place we're also just students which have a honorary office alongside our studies. {here} you can see the current student council members.",
   "p[2]": "In addition we're getting supported by countless former student council members and friends of the student council. \
           But we would still appreciate any voluntary help we get!",
   "p[3]": "According to our Mission (BayHSchG,Art.52Abs.4,5,6) we take care of the \
           representation regarding the professional, economic and social interests of \
           students of the faculty as well as the promotion of cognitive, artistic and \
-          athletic interests of students. Das \
-          bedeutet, dass wir uns neben der Vertretung in Studierendenparlament \
-          und Fakultätsrat auch mit diversen Events für Erstsemester und \
-          Erstsemesterinnen beschäftigen ({see} siehe: {erstis}). So bieten \
-          wir im Normalfall mehrere Grillabende, Kneipentouren und Cocktailkurse \
-          an und fahren mit einigen mutigen Erstis sogar auf ein gemeinsames \
-          Wochenende. Abseits von der Erstsemesterbetreuung organisieren wir \
-          auch noch jedes Semester die NW2-Party, bei der das NW2 Foyer zum \
-          Dancefloor wird und die frisch ausgebildeten Cocktailshaker*innen ihre \
-          Skills beweisen können. Des Weiteren bieten wir euch alle zwei Wochen \
-          im Semester das Unikino an, bei dem wir die Hörsäle H18 und H17 für \
-          euch zum Kino machen, und sind allgemein bei vielen anderen Aktionen \
-          am Campus irgendwie involviert. Was bieten wir euch? Abgesehen von den \
-          Events, die wir organisieren, bieten wir euch eine allgemeine \
-          Anlaufstelle. Egal ob ihr ein Problem im Studium habt, Kaffee oder \
-          Bier trinken, einen Snack essen, oder einfach ein lockeres Gespräch \
-          haben wollt, bei uns seid ihr richtig! Falls ihr euch selbst \
-          engagieren wollt, können wir euch ein nahezu WG gleiches Gefühl \
-          bieten, nur dass bei uns das Wohnzimmer auf dem Campus steht, es keine \
-          gemeinsame Dusche gibt und außerhalb der Pandemie am Tag unzählige \
-          Leute ein und aus gehen."
+          athletic interests of students. \
+          That means we're apart from our representation in the student parliament \
+          and faculty council also invested in several events for freshmen \
+          ({see}: {erstis}). So in a normal case we're offering \
+          multiple grilling evenings, pub crawls and cocktail courses \
+          and we're even driving with some brave freshman on a weekend together. \
+          Apart from the care for freshman we're organizing the NW2-Party every year \
+          whereby the NW2 foyer turns into a dancefloor \
+          and freshly tranied cocktail shaker are able to prove their skills. \
+          Furthermore we're offering you a uni-cinema every two weeks during the semester \
+          whereby we're turning the lecture halls H18 and H17 into a cinema for you \
+          and in general we're somewhat involved in many different actions around the campus. \
+          What do we have to offer for you? Besides of the events that we're organizing \
+          we're offering you a general place to go. \
+          No matter if you have a problem with your studies, want to drink coffee or beer, eat a snack  \
+          or just want to have a casual conversation, you're at the right place with us! \
+          If you also want to get yourself involved we can offer you a almost flat share like feeling \
+          just that our living room is on the campus with no common shower and there is an uncountable amount of people \
+          going in and out every day out of the pandemic."
 }
 </i18n>

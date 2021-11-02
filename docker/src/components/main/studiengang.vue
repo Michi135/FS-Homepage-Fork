@@ -15,7 +15,7 @@ export default defineComponent({
     },
   },
   setup(props) {
-    const {t, locale} = useI18n({});
+    const {t} = useI18n({});
 
     const studiengang = computed(() => {
     

@@ -3,28 +3,29 @@ import { createBundledRouter } from './router'
 import { App } from '@vue/runtime-core'
 import { Router } from 'vue-router'
 import app from '@components/App.vue'
-import { createDefaultStore, key } from './store'
+import { createDefaultStore, key, State } from './store'
 import { Store } from 'vuex'
 import { createI18n, I18n } from 'vue-i18n'
 import _ from 'lodash'
 
-function createBundledApp(root: Component) {
+function createBundledApp(root: Component, ctx: Partial<State>) {
     const app = (__IS_SERVER__ || (!__IS_DEV__ && __IS_SSR__)) ? createSSRApp(root) : createApp(root);
     const { router, localizedRoutes } = createBundledRouter()
-    const store = createDefaultStore(router);
+    const store = createDefaultStore(router, ctx);
 
     const i18n = createI18n(
         {
+            availableLocales: ['en', 'de'],
             legacy: false,
-            locale: 'en',
-            fallbackLocale: 'en',
+            locale: store.state.language,
+            fallbackLocale: ['en', 'de'],
             messages: _.merge(localizedRoutes, 
                 {
                     de: 
                     {
                         studentCouncil: "Fachschaft | Fachschaften",
                         math: "Mathe",
-                        physics: "Physic",
+                        physics: "Physik",
                         computerScience: "Informatik",
                         mail: "Email",
                         phone: "Telefon",
@@ -37,6 +38,7 @@ function createBundledApp(root: Component) {
                         wednesday: "Mittwoch",
                         thursday: "Donnerstag",
                         friday: "Freitag",
+                        link: "Link",
                     },
                     en:
                     {
@@ -52,9 +54,10 @@ function createBundledApp(root: Component) {
                         here: "Here",
                         monday: "Monday",
                         tuesday: "Tuesday",
-                        wednesday: "Wendesday",
+                        wednesday: "Wednesday",
                         thursday: "Thursday",
                         friday: "Friday",
+                        link: "Link",
                     }
                 })
         });
@@ -79,8 +82,8 @@ export interface BundledApp<S extends Store<any>, P extends I18n<any>> {
     i18n: P;
 }
 
-function createDefaultApp() {
-    return createBundledApp(app);
+function createDefaultApp(ctx: Partial<State>) {
+    return createBundledApp(app, ctx);
 }
 
 export { createBundledApp, createDefaultApp };

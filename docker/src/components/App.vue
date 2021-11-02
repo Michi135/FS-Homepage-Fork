@@ -15,7 +15,7 @@ export default defineComponent({
   setup() {
     onMounted(() => {
       const store = useStore();
-      const { t, locale } = useI18n({useScope: 'global'});
+      const { t } = useI18n({useScope: 'global'});
       useRouter().afterEach((to, from, failure) => {
         if (failure) return;
         const meta = to.meta;

@@ -235,18 +235,18 @@ export default defineComponent({
       const head = document.querySelector("head")!;
 
       const style = document.createElement("style");
-      style.innerHTML = `@media only screen and (max-width: 760px),
+      /*style.innerHTML = `@media only screen and (max-width: 760px),
         (min-device-width: 768px) and (max-device-width: 1024px) {
           #sprechstunden
         td:nth-of-type(1):before { content: "Uhrzeit"; } }`;
-      head.appendChild(style);
+      head.appendChild(style);*/
 
       for (let i = 0; i < tage.length; ++i) {
         const style = document.createElement("style");
         style.innerHTML = `@media only screen and (max-width: 760px),
         (min-device-width: 768px) and (max-device-width: 1024px) {
           #sprechstunden
-        td:nth-of-type(${i + 2}):before { content: "${tage[i]}"; } }`;
+        td:nth-of-type(${i + 2}):before { content: "${tGlobal(tage[i])}"; } }`;
         head.appendChild(style);
       }
     });

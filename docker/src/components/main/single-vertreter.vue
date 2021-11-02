@@ -40,10 +40,10 @@ export default defineComponent({
     distPath: String,
   },
   setup: () => {
-    const { t, locale } = useI18n({});
+    const { t } = useI18n({});
     const tGlobal = useI18n({useScope: 'global'}).t;
 
-    return { t, tGlobal, locale };
+    return { t, tGlobal };
   },
 });
 </script>
@@ -127,7 +127,7 @@ export default defineComponent({
   "uniCinema": "Uni-Kino",
   "publicRelations": "Öffentlichkeitsarbeit",
   "beerCoordination": "Bierkoordination",
-  "physicsBar": "Physikerbar",
+  "physicistBar": "Physikerbar",
   "graphics": "Grafiken",
   "scripts": "Skripten",
   "root": "Root"
@@ -145,7 +145,7 @@ export default defineComponent({
   "uniCinema": "Uni-Cinema",
   "publicRelations": "Public relations",
   "beerCoordination": "Beer coordination",
-  "physicsBar": "Physics bar",
+  "physicistBar": "Physicist bar",
   "graphics": "Graphics",
   "scripts": "Scripts",
   "root": "Root"
