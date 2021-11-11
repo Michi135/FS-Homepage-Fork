@@ -15,7 +15,7 @@
       </li>
     </ul>
     <br />
-    <h5 class="tw-text-2xl">{{t('studentGroups')}}</h5>
+    <i18n-t tag="h5" class="tw-text-2xl" keypath="studentGroups" />
     <ul>
       <li
         class="tw-ml-5 tw-py-1"
@@ -28,7 +28,7 @@
       </li>
     </ul>
     <br />
-    <h5 class="tw-text-2xl">{{t('furtherLinks')}}</h5>
+    <i18n-t tag="h5" class="tw-text-2xl" keypath="furtherLinks" />
     <ul>
       <li class="tw-ml-5 tw-py-1">
         <a class="link tw-text-xl" href="https://alumpi.de/">Alumpi</a>

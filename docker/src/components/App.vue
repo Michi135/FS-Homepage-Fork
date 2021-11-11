@@ -9,6 +9,7 @@ import { useI18n } from "vue-i18n";
 import { useStore } from "@shared/store";
 import { createFaviconLink } from "../favicon/favicon";
 import "tailwindcss/tailwind.css";
+import "element-plus/theme-chalk/index.css";
 
 export default defineComponent({
   name: "app",

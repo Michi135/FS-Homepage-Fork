@@ -1,15 +1,26 @@
 <template>
   <div id="erstis">
+    <nav class="floating-menu">
+      <h3>Floating Menu</h3>
+      <a href="#uniBayreuth">Uni Bayreuth</a>
+      <a href="#rolle">Rolle der Fachschaft</a>
+      <a href="/coldfusion/">ColdFusion</a>
+      <a href="/database/">Database</a>
+    </nav>
     <div class="tw-m-3.5">
       <div style="max-width: 1100px; margin: 0 auto">
         <i18n-t tag="h3" keypath="h[0]" />
         <i18n-t tag="p" keypath="p[0]" />
         <br />
-        <i18n-t tag="h2" keypath="h[1]" />
-        <i18n-t tag="p" keypath="p[1]" />
+        <section id="uniBayreuth">
+          <i18n-t tag="h2" keypath="h[1]" />
+          <i18n-t tag="p" keypath="p[1]" />
+        </section>
         <br />
-        <i18n-t tag="h2" keypath="h[2]" />
-        <i18n-t tag="p" keypath="p[2]" />
+        <section id="rolle">
+          <i18n-t tag="h2" keypath="h[2]" />
+          <i18n-t tag="p" keypath="p[2]" />
+        </section>
         <br />
         <i18n-t tag="h1" keypath="h[3]" />
         <i18n-t tag="p" keypath="p[3]" />
@@ -326,6 +337,21 @@ tr:hover td {
     white-space: nowrap;
   }
 }
+.floating-menu {
+    font-family: sans-serif;
+    background: yellowgreen;
+    padding: 5px;;
+    width: 200px;
+    z-index: 100;
+    position: fixed;
+}
+.floating-menu a, 
+.floating-menu h3 {
+  font-size: 0.9em;
+  display: block;
+  margin: 0 0.5em;
+  color: white;
+}
 </style>
 
 <i18n locale='de' lang='json5'>
@@ -353,7 +379,7 @@ tr:hover td {
           organisiert die Fachschaft auch speziell für Erstsemester \
           Veranstaltungen zum Kennenlernen. Die Erstsemester-Veranstaltungen",
   "h[3]": "Buddy-System",
-  "p[3]": "Dies ist ein Hilfssystem für Erstsemester, bei dem jeder Ersti der \
+  "p[3]": "Dies ist ein Hilfssystem für Erstsemester, bei dem, jeder Ersti der \
           möchte, einen Studierenden aus einem höheren Semester (bestenfalls \
           gleiche Studienrichtung) zugeteilt bekommt. Dieser hilft gerne bei \
           organisatorischen Fragen des Studiums, da es gerade zum Anfang schon \

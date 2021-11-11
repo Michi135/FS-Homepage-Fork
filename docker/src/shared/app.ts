@@ -7,6 +7,8 @@ import { createDefaultStore, key, State } from './store'
 import { Store } from 'vuex'
 import { createI18n, I18n } from 'vue-i18n'
 import _ from 'lodash'
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+import ElementPlus from "element-plus";
 
 function createBundledApp(root: Component, ctx: Partial<State>) {
     const app = (__IS_SERVER__ || (!__IS_DEV__ && __IS_SSR__)) ? createSSRApp(root) : createApp(root);
@@ -65,6 +67,9 @@ function createBundledApp(root: Component, ctx: Partial<State>) {
     app.use(router);
     app.use(store, key);
     app.use(i18n);
+    app.use(ElementPlus);
+
+    app.component('font-awesome-icon', FontAwesomeIcon)
 
     const out: BundledApp<typeof store, typeof i18n> = {
         app: app,
