@@ -11,10 +11,12 @@ import nodeExternals from 'webpack-node-externals'
 import svgToMiniDataURI from 'mini-svg-data-uri'
 import { WebpackManifestPlugin } from 'webpack-manifest-plugin'
 import CssMinimizerPlugin from 'css-minimizer-webpack-plugin'
-import CompressionPlugin from 'compression-webpack-plugin'
+import CompressionPlugin, { ZlibOptions } from 'compression-webpack-plugin'
 import HtmlWebpackPlugin from 'html-webpack-plugin'
 //Not supported right now //import SpeedMeasurePlugin from 'speed-measure-webpack-plugin
 import { TsConfig } from './tsConfigType'
+import type { BrotliOptions } from 'zlib'
+import { VuetifyLoaderPlugin } from 'vuetify-loader'
 
 //import rollupResolve from '@rollup/plugin-node-resolve'
 //import commonjs from '@rollup/plugin-commonjs'
@@ -58,6 +60,7 @@ declare interface AssetParserOptions {
 }
 
 const configPath = require.resolve('./tsconfig.webpack.json');
+const serverConfigPath = require.resolve('./tsconfig.json');
 const tsConfigFile = readFileSync(configPath, { encoding: 'utf-8' });
 const tsConfig = <TsConfig>JSON.parse(stripJsonComments(tsConfigFile));
 const alias = tsConfig.compilerOptions.paths
@@ -100,7 +103,15 @@ const config = (env: NodeJS.ProcessEnv = {}): Configuration => {
       }
     },
     'css-loader',
-    'postcss-loader',
+    {
+      loader: 'postcss-loader',
+      /*options: {
+        postcssOptions: {
+          implementation: require("postcss"),
+          config: resolve(__dirname, "postcss.config.cjs"),
+        },
+      },*/
+    }
   ];
 
   const genConfig = (isServerBuild: boolean = false): Configuration => {
@@ -119,7 +130,7 @@ const config = (env: NodeJS.ProcessEnv = {}): Configuration => {
           __dirname,
           isSSR ? (isServerBuild ? 'dist-ssr/server' : 'dist-ssr/dist') : 'dist'
         ),
-        filename: (isProd && !isServerBuild) ? '[name].[contenthash].js' : '[name].js',
+        filename: (isServerBuild) ? '[name].cjs' : (isProd) ? '[name].[contenthash].js' : '[name].js',
         publicPath: '/dist/',
         libraryTarget: isServerBuild ? 'commonjs' : undefined,
         assetModuleFilename: (isProd) ? '[name].[contenthash][ext]' : '[name][ext]',
@@ -196,14 +207,14 @@ const config = (env: NodeJS.ProcessEnv = {}): Configuration => {
                 {
                   appendTsSuffixTo: [/\.vue$/],
                   transpileOnly: true,
-                  configFile: configPath
+                  configFile: (isServerBuild) ? serverConfigPath : configPath
                 }
               },
             ],
             exclude: /node_modules/,
           },
           {
-            test: /\.m?jsx?$/,
+            test: /\.[mc]?jsx?$/,
             use: (useBabel) ? ['babel-loader'] : [],
             exclude: /node_modules/,
           },
@@ -250,6 +261,7 @@ const config = (env: NodeJS.ProcessEnv = {}): Configuration => {
           }
         }),
         new VueLoaderPlugin(),
+        new VuetifyLoaderPlugin({autoImport: true}),
         new MiniCssExtractPlugin({
           filename: (isProd) ? '[name].[contenthash].css' : '[name].css'
         }),
@@ -297,7 +309,7 @@ const config = (env: NodeJS.ProcessEnv = {}): Configuration => {
         ]
       },
       resolve: {
-        extensions: ['.tsx', '.ts', '.js', ".mjs", 'jsx', ".vue", ".json", ".wasm"],
+        extensions: ['.tsx', '.ts', '.js', ".mjs", 'jsx', ".vue", ".json", ".wasm", ".cjs"],
         alias: temp
       },
     }
@@ -321,7 +333,7 @@ const config = (env: NodeJS.ProcessEnv = {}): Configuration => {
           test: /\.(jpg|txt|map|json|pdf|js|css|html|svg)$/,
           threshold: 8192,
         }))
-        config.optimization!.minimizer!.push(new CompressionPlugin({
+        config.optimization!.minimizer!.push(new CompressionPlugin<BrotliOptions>({
           filename: "[path][base].br",
           //@ts-ignore
           algorithm: "brotliCompress",

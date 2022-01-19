@@ -1,5 +1,7 @@
 <template>
-  <router-view />
+  <v-app>
+    <router-view />
+  </v-app>
 </template>
 
 <script lang="ts">
@@ -9,14 +11,14 @@ import { useI18n } from "vue-i18n";
 import { useStore } from "@shared/store";
 import { createFaviconLink } from "../favicon/favicon";
 import "tailwindcss/tailwind.css";
-import "element-plus/theme-chalk/index.css";
+import "vuetify/dist/vuetify.min.css";
 
 export default defineComponent({
   name: "app",
   setup() {
     onMounted(() => {
       const store = useStore();
-      const { t } = useI18n({useScope: 'global'});
+      const { t } = useI18n({ useScope: "global" });
       useRouter().afterEach((to, from, failure) => {
         if (failure) return;
         const meta = to.meta;

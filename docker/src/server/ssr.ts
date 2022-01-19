@@ -115,7 +115,7 @@ export default function ssr(dev: boolean) {
 
         try {
             const devMiddleware = loadDevMiddleWare(res);
-            if (dev) delete require.cache[require.resolve('@distServer/main')];
+            if (dev) delete require.cache[require.resolve('@distServer/main.cjs')];
 
             const domLoad = loadDom(devMiddleware);
             const manifestLoad = loadManifest(devMiddleware);
@@ -126,7 +126,8 @@ export default function ssr(dev: boolean) {
 
             const language = getLanguage(req);
 
-            const { createDefaultApp } = <typeof App>require('@distServer/main');
+            //@ts-ignore
+            const { createDefaultApp } = <typeof App>(await import('@distServer/main.cjs'));
             const { router, store, app, i18n } = createDefaultApp({ language: language});
 
             router.push(req.url);
