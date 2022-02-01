@@ -159,6 +159,10 @@ export default function ssr(dev: boolean) {
             head.innerHTML += `<title>${i18n.global.t(loadTitle(currentRoute, context))}</title>`;
             //head.innerHTML += `<link href="https://cdnjs.cloudflare.com" rel="preconnect" crossorigin>`
 
+            const emptyExports = doc.createElement('script');
+            emptyExports.innerHTML = `var exports = {};`
+            head.appendChild(emptyExports);
+
             const chunk = chunks[req.url];
             if (chunk) {
                 const preloadCss = manifest[chunk + '.css'];

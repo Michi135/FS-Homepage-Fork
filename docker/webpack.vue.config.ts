@@ -63,13 +63,10 @@ declare interface AssetParserOptions {
   ) => boolean);
 }
 
-//TODO:: improve
-import { createRequire } from 'module';
+import { fileURLToPath } from 'url'
 
-const require = createRequire(import.meta.url);
-
-const configPath = require.resolve('./tsconfig.webpack.json');
-const serverConfigPath = require.resolve('./tsconfig.json');
+const configPath = resolve(fileURLToPath(import.meta.url), "..", "tsconfig.webpack.json");
+const serverConfigPath = resolve(fileURLToPath(import.meta.url), "..", "tsconfig.json");
 const tsConfigFile = readFileSync(configPath, { encoding: 'utf-8' });
 const tsConfig = <TsConfig>JSON.parse(stripJsonComments(tsConfigFile));
 const alias = tsConfig.compilerOptions.paths
@@ -123,6 +120,13 @@ const config = (env: NodeJS.ProcessEnv = {}): Configuration => {
     }
   ];
 
+  const babelLoader = {
+    loader: 'babel-loader',
+    options: {
+      presets: [ ["env", {"modules": false} ]]
+    }
+  };
+
   const dirname = resolve();
 
   const genConfig = (isServerBuild: boolean = false): Configuration => {
@@ -159,14 +163,14 @@ const config = (env: NodeJS.ProcessEnv = {}): Configuration => {
       experiments: {
         outputModule: isServerBuild,
       },
-      /*externals: [
+      externals: [
         isServerBuild ? nodeExternals(
           { 
-            allowlist: /(\.(css|vue)|lang=css)$/,
+            allowlist: [/\.(?!(?:jsx?|json)$).{1,5}$/i],
             //@ts-ignore
             importType: 'module'
           }) : {}
-      ],*/
+      ],
       externalsPresets: { node: isServerBuild },
       module: {
         rules: [
@@ -181,7 +185,7 @@ const config = (env: NodeJS.ProcessEnv = {}): Configuration => {
                 }
               }
             ],
-            exclude: /node_modules/,
+            //exclude: /node_modules/,
           },
           {
             resourceQuery: /blockType=i18n/,
