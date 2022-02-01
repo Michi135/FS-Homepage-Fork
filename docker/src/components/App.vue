@@ -11,7 +11,7 @@ import { useI18n } from "vue-i18n";
 import { useStore } from "@shared/store";
 import { createFaviconLink } from "../favicon/favicon";
 import "tailwindcss/tailwind.css";
-import "vuetify/dist/vuetify.min.css";
+//import "vuetify/dist/vuetify.min.css";
 
 export default defineComponent({
   name: "app",

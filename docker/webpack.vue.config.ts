@@ -1,9 +1,6 @@
 import { resolve, join } from 'path'
-import { readFileSync } from 'fs-extra'
 import stripJsonComments from 'strip-json-comments'
 
-import { DefinePlugin, HotModuleReplacementPlugin, NormalModuleReplacementPlugin } from 'webpack'
-import { container } from 'webpack'
 import type { Configuration, Module } from 'webpack'
 import { VueLoaderPlugin } from 'vue-loader'
 import MiniCssExtractPlugin from 'mini-css-extract-plugin'
@@ -34,6 +31,12 @@ import { extendDefaultPlugins } from 'svgo'*/
 //further improvements https://medium.com/shard-labs/how-to-drastically-reduce-your-bundle-size-and-load-time-in-vue-js-54370d513fdf
 
 
+import fsExtra from 'fs-extra'
+import webpack from 'webpack'
+
+const { readFileSync } = fsExtra;
+const { DefinePlugin, HotModuleReplacementPlugin, NormalModuleReplacementPlugin, container } = webpack;
+
 /**
  * Options object for DataUrl condition.
  */
@@ -58,6 +61,11 @@ declare interface AssetParserOptions {
     context: { filename: string; module: Module }
   ) => boolean);
 }
+
+//TODO:: improve
+import { createRequire } from 'module';
+
+const require = createRequire(import.meta.url);
 
 const configPath = require.resolve('./tsconfig.webpack.json');
 const serverConfigPath = require.resolve('./tsconfig.json');
@@ -114,6 +122,8 @@ const config = (env: NodeJS.ProcessEnv = {}): Configuration => {
     }
   ];
 
+  const dirname = resolve();
+
   const genConfig = (isServerBuild: boolean = false): Configuration => {
     const minimize = isProd && !noMinimize && !isServerBuild
     const useBabel = isProd && !isServerBuild && !noBabel
@@ -121,25 +131,41 @@ const config = (env: NodeJS.ProcessEnv = {}): Configuration => {
     let config: Configuration = {
       mode: environment,
       entry: isServerBuild
-        ? resolve(__dirname, 'src', 'shared', 'app.ts')
-        : [resolve(__dirname, 'src', 'client', 'main.ts')].concat((!isProd) ? ['webpack-hot-middleware/client?reload=true?overlay=true'] : []),
+        ? resolve(dirname, 'src', 'shared', 'app.ts')
+        : [resolve(dirname, 'src', 'client', 'main.ts')].concat((!isProd) ? ['webpack-hot-middleware/client?reload=true?overlay=true'] : []),
       target: isServerBuild ? 'node' : 'web',
       devtool: (isServerBuild || isProd) ? false : 'source-map',
       output: {
         path: resolve(
-          __dirname,
+          dirname,
           isSSR ? (isServerBuild ? 'dist-ssr/server' : 'dist-ssr/dist') : 'dist'
         ),
-        filename: (isServerBuild) ? '[name].cjs' : (isProd) ? '[name].[contenthash].js' : '[name].js',
+        environment: {
+          module: isServerBuild
+        },
+        library: {
+          type: (isServerBuild) ? 'module' : 'commonjs'
+        },
+        module: isServerBuild,
+        filename: (isServerBuild) ? '[name].js' : (isProd) ? '[name].[contenthash].js' : '[name].js',
         publicPath: '/dist/',
-        libraryTarget: isServerBuild ? 'commonjs' : undefined,
+        libraryTarget: isServerBuild ? 'module' : undefined,
         assetModuleFilename: (isProd) ? '[name].[contenthash][ext]' : '[name][ext]',
         chunkFilename: '[name].[chunkhash].js',
         clean: true,
+        chunkFormat: isServerBuild ? 'module' : undefined,
       },
-      externals: [
-        isServerBuild ? nodeExternals({ allowlist: /\.(css|vue)$/ }) : {}
-      ],
+      experiments: {
+        outputModule: isServerBuild,
+      },
+      /*externals: [
+        isServerBuild ? nodeExternals(
+          { 
+            allowlist: /(\.(css|vue)|lang=css)$/,
+            //@ts-ignore
+            importType: 'module'
+          }) : {}
+      ],*/
       externalsPresets: { node: isServerBuild },
       module: {
         rules: [
@@ -240,7 +266,7 @@ const config = (env: NodeJS.ProcessEnv = {}): Configuration => {
       ,
       plugins: [ //@ts-ignore
         //new SpeedMeasurePlugin({ granularLoaderData: true }),
-        new container.ModuleFederationPlugin({
+        /*new container.ModuleFederationPlugin({
           shared: {
             'vue': {
               singleton: true,
@@ -259,9 +285,13 @@ const config = (env: NodeJS.ProcessEnv = {}): Configuration => {
               eager: true
             }
           }
-        }),
+        }),*/
         new VueLoaderPlugin(),
-        new VuetifyLoaderPlugin({autoImport: true}),
+        new VuetifyLoaderPlugin(
+          {
+            autoImport: true,
+            //styles: "none"
+          }),
         new MiniCssExtractPlugin({
           filename: (isProd) ? '[name].[contenthash].css' : '[name].css'
         }),
@@ -320,7 +350,7 @@ const config = (env: NodeJS.ProcessEnv = {}): Configuration => {
       }))*/
       config.plugins!.push(new HtmlWebpackPlugin({
         filename: 'test.html',
-        template: resolve(__dirname, 'src', 'index.html')
+        template: resolve(dirname, 'src', 'index.html')
       }))
       config.plugins!.push(new WebpackManifestPlugin({}));
     }

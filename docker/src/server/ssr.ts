@@ -5,11 +5,21 @@ import { getMeta } from './meta.config'
 import { RouteLocationNormalized } from 'vue-router'
 import { createFaviconLink } from '../favicon/favicon'
 import { NextFunction, Request, Response } from 'express'
-import { Stats, Compiler } from 'webpack'
+import type { Stats, Compiler } from 'webpack'
 import { JSDOM } from 'jsdom'
 import { join, resolve } from 'path'
 import type * as App from '../shared/app'
-import { readJson, readFile } from 'fs-extra'
+
+
+import fsExtra from 'fs-extra'
+
+const { readJson, readFile } = fsExtra;
+
+//TODO:: improve
+import { createRequire } from 'module';
+
+const require = createRequire(import.meta.url);
+
 
 interface devMiddleware {
     stats: Stats,
@@ -67,7 +77,7 @@ async function loadManifest(dev?: devMiddleware) {
         })
     }
     else if (typeof initialManifest === "undefined")
-        initialManifest = await readJson(resolve(__dirname, "..", "..", "dist-ssr", 'dist', 'manifest.json'), { encoding: 'utf-8' })
+        initialManifest = await readJson(resolve("dist-ssr", 'dist', 'manifest.json'), { encoding: 'utf-8' })
     return (initialManifest!);
 }
 
@@ -115,7 +125,7 @@ export default function ssr(dev: boolean) {
 
         try {
             const devMiddleware = loadDevMiddleWare(res);
-            if (dev) delete require.cache[require.resolve('@distServer/main.cjs')];
+            if (dev) delete require.cache[require.resolve('@distServer/main.js')];
 
             const domLoad = loadDom(devMiddleware);
             const manifestLoad = loadManifest(devMiddleware);
@@ -127,7 +137,7 @@ export default function ssr(dev: boolean) {
             const language = getLanguage(req);
 
             //@ts-ignore
-            const { createDefaultApp } = <typeof App>(await import('@distServer/main.cjs'));
+            const { createDefaultApp } = <typeof App>(await import('@distServer/main.js'));
             const { router, store, app, i18n } = createDefaultApp({ language: language});
 
             router.push(req.url);

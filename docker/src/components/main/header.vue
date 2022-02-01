@@ -78,6 +78,7 @@
         Menu
       </h4>
       <nav>
+        <!--dropdown /-->
         <ul
           class="
             tw-flex tw-flex-wrap tw-list-none tw-list-inside tw-px-6 tw-py-3
@@ -109,8 +110,12 @@ import { defineComponent, ref } from "vue";
 import { useI18n } from "vue-i18n";
 import { headerRoutes, basePaths } from "@shared/routes";
 import { useStore } from "@shared/store";
+import dropdown from "./dropdown.vue"
 
 export default defineComponent({
+  components: {
+    dropdown
+  },
   setup: () => {
     const isOpen = ref<Boolean>(false);
     const store = useStore();

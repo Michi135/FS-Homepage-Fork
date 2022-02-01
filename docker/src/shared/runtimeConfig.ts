@@ -1,12 +1,17 @@
 import webpackDevMiddleware from 'webpack-dev-middleware'
 import webpackHotMiddleware from 'webpack-hot-middleware'
 import configFunction from '../../webpack.vue.config'
-import { webpack } from 'webpack'
 import { Router } from 'express'
 import ssr from 'src/server/ssr'
 import { fileRequest } from '../server/fileRequest'
-import { readJson } from 'fs-extra'
 import { join, resolve } from 'path'
+import { fileURLToPath } from 'url'
+
+import fsExtra from "fs-extra";
+import webpackM from 'webpack'
+
+const { readJson } = fsExtra;
+const { webpack } = webpackM;
 
 export function clientConfig(development: boolean) {
     const mode = (development) ? 'development' : 'production';
@@ -60,6 +65,7 @@ export interface ServerDevBundle {
 }
 
 export function serverBundle(isDev: boolean) {
+    
     const server = serverConfig(isDev);
     const serverCompiler = webpack(server);
 
@@ -73,7 +79,6 @@ export function serverBundle(isDev: boolean) {
                 })
         }
     }
-
     return <ProdBundle>{
         compileInstance: new Promise<void>((resolve, reject) => {
             serverCompiler.run((error, stats) => {
@@ -113,8 +118,10 @@ export class Build {
     async build() {
         try {
             if (!this.mBuilt) {
-
-                await (<ProdBundle>this.mClient).compileInstance;
+                if (!this.mDev){
+                    await (<ProdBundle>this.mClient).compileInstance;    
+                }
+                
                 await (<ProdBundle>this.mServer).compileInstance;
                 console.log("Building process finished");
             }
@@ -140,8 +147,8 @@ export class Build {
             this.mRouter.use((<ServerDevBundle>this.mServer).devMid);
         }
         else {
-            const manifest: Record<string, string> = await readJson(resolve(__dirname, "..", "..", "dist-ssr", 'dist', 'manifest.json'), { encoding: 'utf-8' });
-            const ressourceRequest = fileRequest(join(__dirname, "..", "..", "dist-ssr"));
+            const manifest: Record<string, string> = await readJson(resolve("dist-ssr", 'dist', 'manifest.json'), { encoding: 'utf-8' });
+            const ressourceRequest = fileRequest(join(fileURLToPath(import.meta.url), "..", "..", "..", "dist-ssr"));
             this.mRouter.get(manifestRoutes(manifest), ressourceRequest);
         }
         this.mRouter.use(/\/(dist.*|favicon.ico)/, (req, res) => {

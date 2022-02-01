@@ -34,7 +34,7 @@
           <span v-if="item.meta.title" v-text="tGlobal(item.meta.title)" />
         </router-link>
       </nav>
-      <v-badge
+      <!--v-badge
         bordered
         color="error"
         icon="mdi-lock"
@@ -45,7 +45,7 @@
         >
           Lock Account
         </v-btn>
-      </v-badge>
+      </v-badge-->
     </div>
   </footer>
 </template>

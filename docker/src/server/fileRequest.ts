@@ -1,8 +1,13 @@
-import { pathExists } from "fs-extra";
 import { join } from "path";
 
 import type { Request, Response } from 'express'
-import { getType } from "mime";
+
+
+import mime from "mime";
+import fsExtra from "fs-extra";
+
+const { getType } = mime;
+const { pathExists } = fsExtra;
 
 export function fileRequest(basePath: string) {
 
@@ -20,7 +25,7 @@ export function fileRequest(basePath: string) {
                         extension = 'gz';
                     else if (encoding === 'br')
                         extension = 'br'
-
+                    
                     const distPathEncoded = distPath.concat('.', extension);
                     if (await pathExists(distPathEncoded)) {
                         const contentType = getType(distPath);
