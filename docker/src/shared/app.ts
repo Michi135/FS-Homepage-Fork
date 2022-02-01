@@ -9,11 +9,6 @@ import { createI18n, I18n } from 'vue-i18n'
 import _ from 'lodash'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { createVuetify } from 'vuetify'
-//@ts-ignore
-//const { components } = require("vuetify")
-//const {VListGroup} = require('vuetify/components')
-
-//import * as components from 'vuetify/lib/components'
 
 function createBundledApp(root: Component, ctx: Partial<State>) {
     const app = (__IS_SERVER__ || (!__IS_DEV__ && __IS_SSR__)) ? createSSRApp(root) : createApp(root);
@@ -72,7 +67,7 @@ function createBundledApp(root: Component, ctx: Partial<State>) {
     app.use(router);
     app.use(store, key);
     app.use(i18n);
-    app.use(createVuetify(/*{components: components}*/));
+    app.use(createVuetify(/*{components: {VListGroup, "v-list-item": VListItem, VList}}*/));
 
     app.component('font-awesome-icon', FontAwesomeIcon)
 

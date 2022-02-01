@@ -13,6 +13,7 @@ import HtmlWebpackPlugin from 'html-webpack-plugin'
 //Not supported right now //import SpeedMeasurePlugin from 'speed-measure-webpack-plugin
 import { TsConfig } from './tsConfigType'
 import type { BrotliOptions } from 'zlib'
+import { constants } from 'zlib'
 import { VuetifyLoaderPlugin } from 'vuetify-loader'
 
 //import rollupResolve from '@rollup/plugin-node-resolve'
@@ -289,7 +290,7 @@ const config = (env: NodeJS.ProcessEnv = {}): Configuration => {
         new VueLoaderPlugin(),
         new VuetifyLoaderPlugin(
           {
-            autoImport: true,
+            //autoImport: true,
             //styles: "none"
           }),
         new MiniCssExtractPlugin({
@@ -339,7 +340,7 @@ const config = (env: NodeJS.ProcessEnv = {}): Configuration => {
         ]
       },
       resolve: {
-        extensions: ['.tsx', '.ts', '.js', ".mjs", 'jsx', ".vue", ".json", ".wasm", ".cjs"],
+        extensions: ['.tsx', '.ts', '.js', ".mjs", 'jsx', ".vue", ".json", ".wasm", ".cjs", ".svg"],
         alias: temp
       },
     }
@@ -357,7 +358,6 @@ const config = (env: NodeJS.ProcessEnv = {}): Configuration => {
 
     if (isProd) {
       if (!isServerBuild) {
-        const zlib = require('zlib');
 
         config.optimization!.minimizer!.push(new CompressionPlugin({
           test: /\.(jpg|txt|map|json|pdf|js|css|html|svg)$/,
@@ -365,12 +365,11 @@ const config = (env: NodeJS.ProcessEnv = {}): Configuration => {
         }))
         config.optimization!.minimizer!.push(new CompressionPlugin<BrotliOptions>({
           filename: "[path][base].br",
-          //@ts-ignore
           algorithm: "brotliCompress",
           test: /\.(jpg|txt|map|json|pdf|js|css|html|svg)$/,
           compressionOptions: {
             params: {
-              [zlib.constants.BROTLI_PARAM_QUALITY]: 11,
+              [constants.BROTLI_PARAM_QUALITY]: 11,
             },
           },
           threshold: 8192,

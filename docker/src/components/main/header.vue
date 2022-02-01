@@ -77,8 +77,26 @@
       <h4 class="tw-px-8 custom-uppercase tw-text-gray-600 md:tw-hidden">
         Menu
       </h4>
+      <v-card
+        class="mx-auto"
+        max-width="300"
+      >
+        <v-list density="compact">
+          <v-list-subheader>REPORTS</v-list-subheader>
+          <v-list-item
+            v-for="(item, i) in items"
+            :key="i"
+            :value="item"
+            active-color="primary"
+          >
+            <v-list-item-avatar left>
+              <v-icon :icon="item.icon"></v-icon>
+            </v-list-item-avatar>
+            <v-list-item-title v-text="item.text"></v-list-item-title>
+          </v-list-item>
+        </v-list>
+      </v-card>
       <nav>
-        <!--dropdown /-->
         <ul
           class="
             tw-flex tw-flex-wrap tw-list-none tw-list-inside tw-px-6 tw-py-3
@@ -110,12 +128,9 @@ import { defineComponent, ref } from "vue";
 import { useI18n } from "vue-i18n";
 import { headerRoutes, basePaths } from "@shared/routes";
 import { useStore } from "@shared/store";
-import dropdown from "./dropdown.vue"
+import trossSvg from "@static/img/tross.svg";
 
 export default defineComponent({
-  components: {
-    dropdown
-  },
   setup: () => {
     const isOpen = ref<Boolean>(false);
     const store = useStore();
@@ -123,11 +138,16 @@ export default defineComponent({
     const localI18n = useI18n();
 
     return {
+      items: [
+        { text: 'Real-Time', icon: 'mdi-clock' },
+        { text: 'Audience', icon: 'mdi-account' },
+        { text: 'Conversions', icon: 'mdi-flag' },
+      ],
       tLocal: localI18n.t,
       tGlobal: globalI18n.t,
       store,
       isOpen,
-      navLogo: require("@static/img/tross.svg"),
+      navLogo: trossSvg,
       navConfig: true,
       routes: headerRoutes,
       basePaths,

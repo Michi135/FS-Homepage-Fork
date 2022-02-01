@@ -1,9 +1,11 @@
 import { createStore, Store, useStore as baseUseStore } from 'vuex'
 import { InjectionKey } from 'vue'
 import type { Router } from 'vue-router';
+import defFav from '@static/favicon.svg'
+
 
 const defaultState = {
-    defaultFavicon: require('@static/favicon.svg'),
+    defaultFavicon: defFav,
     defaultTitle: "FSMPI",
     language: "de",
 }

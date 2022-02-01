@@ -1,4 +1,6 @@
 import type { RouteRecordRaw } from 'vue-router';
+import fav2 from '@static/favicon2.svg'
+import studentSvg from '@components/main/student.svg'
 
 const defaultLayout = () => import('@components/main/content.vue'/* webpackChunkName: "home" */)
 
@@ -57,7 +59,7 @@ title: "Hochschulwa(h)l",
         component: () => import('@components/main/vertreter.vue'/* webpackChunkName: "home" */),
         meta:
         {
-            favicon: require('@static/favicon2.svg'),
+            favicon: fav2,
             title: "representatives",
         }
     },
@@ -66,7 +68,7 @@ title: "Hochschulwa(h)l",
         component: () => import('@components/main/erstis.vue'/* webpackChunkName: "home" */),
         meta:
         {
-            favicon: require('@components/main/student.svg'),
+            favicon: studentSvg,
             title: "freshers",
         }
     },
