@@ -19,9 +19,8 @@ export default defineComponent({
     onMounted(() => {
       const store = useStore();
       const { t } = useI18n({ useScope: "global" });
-      useRouter().afterEach((to, from, failure) => {
+      useRouter().afterEach(({meta}, from, failure) => {
         if (failure) return;
-        const meta = to.meta;
 
         let routeTitle =
           <string | undefined>meta.title || store.state.defaultTitle;
