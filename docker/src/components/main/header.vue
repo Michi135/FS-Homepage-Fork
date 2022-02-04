@@ -60,6 +60,7 @@
     <div
       v-if="navConfig"
       class="
+        tw-flex tw-justify-end tw-flex-col md:tw-flex-row
         popup
         tw-transition-all tw-rounded-lg tw-bg-gray-100 tw-absolute tw-pt-6
         md:tw-relative
@@ -77,25 +78,6 @@
       <h4 class="tw-px-8 custom-uppercase tw-text-gray-600 md:tw-hidden">
         Menu
       </h4>
-      <v-card
-        class="mx-auto"
-        max-width="300"
-      >
-        <v-list density="compact">
-          <v-list-subheader>REPORTS</v-list-subheader>
-          <v-list-item
-            v-for="(item, i) in items"
-            :key="i"
-            :value="item"
-            active-color="primary"
-          >
-            <v-list-item-avatar left>
-              <v-icon :icon="item.icon"></v-icon>
-            </v-list-item-avatar>
-            <v-list-item-title v-text="item.text"></v-list-item-title>
-          </v-list-item>
-        </v-list>
-      </v-card>
       <nav>
         <ul
           class="
@@ -119,16 +101,23 @@
           </li>
         </ul>
       </nav>
+      <div class="tw-flex tw-flex-none tw-justify-evenly tw-items-baseline">
+        <img :src="gerFlagSvg" class="tw-h-12"/>
+        <v-switch hide-details inset v-model="val" style="flex: none"/>
+        <img :src="engFlagSvg" class="tw-h-12"/>
+      </div>
     </div>
   </header>
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from "vue";
+import { defineComponent, onMounted, ref, watch } from "vue";
 import { useI18n } from "vue-i18n";
 import { headerRoutes, basePaths } from "@shared/routes";
 import { useStore } from "@shared/store";
 import trossSvg from "@static/img/tross.svg";
+import gerFlagSvg from "./german_flag.svg";
+import engFlagSvg from "./english_flag.svg";
 
 export default defineComponent({
   setup: () => {
@@ -136,18 +125,27 @@ export default defineComponent({
     const store = useStore();
     const globalI18n = useI18n({useScope: 'global'});
     const localI18n = useI18n();
+    const val = ref<Boolean>(false);
 
+    onMounted(()=>{
+      val.value = globalI18n.locale.value === 'en'
+
+      watch(val, (val, prevval) => {
+        globalI18n.locale.value = (val) ? 'en' : 'de'
+        localStorage.setItem('lang', <string>globalI18n.locale.value)
+      })
+    })    
+    
     return {
-      items: [
-        { text: 'Real-Time', icon: 'mdi-clock' },
-        { text: 'Audience', icon: 'mdi-account' },
-        { text: 'Conversions', icon: 'mdi-flag' },
-      ],
+      val,
+      switchValue: false,
       tLocal: localI18n.t,
       tGlobal: globalI18n.t,
       store,
       isOpen,
       navLogo: trossSvg,
+      gerFlagSvg,
+      engFlagSvg,
       navConfig: true,
       routes: headerRoutes,
       basePaths,

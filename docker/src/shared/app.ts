@@ -9,6 +9,7 @@ import { createI18n, I18n } from 'vue-i18n'
 import _ from 'lodash'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { createVuetify } from 'vuetify'
+import { aliases, mdi } from 'vuetify/lib/iconsets/mdi-svg'
 
 function createBundledApp(root: Component, ctx: Partial<State>) {
     const app = (__IS_SERVER__ || (!__IS_DEV__ && __IS_SSR__)) ? createSSRApp(root) : createApp(root);
@@ -67,7 +68,15 @@ function createBundledApp(root: Component, ctx: Partial<State>) {
     app.use(router);
     app.use(store, key);
     app.use(i18n);
-    app.use(createVuetify(/*{components: {VListGroup, "v-list-item": VListItem, VList}}*/));
+    app.use(createVuetify({
+        icons: {
+            defaultSet: 'mdi',
+            aliases,
+            sets: {
+                mdi,
+            }
+        },
+    }));
 
     app.component('font-awesome-icon', FontAwesomeIcon)
 

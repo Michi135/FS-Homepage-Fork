@@ -7,7 +7,7 @@
         tw-justify-between
       "
     >
-      <div>{{ tLocal("updated") }}: 03.11.2021</div>
+      <div>{{ tLocal("updated") }}: 09.02.2022</div>
       <div>
         <router-link v-if="footerLogo" to="/">
           <img :src="footerLogo" :alt="{}" class="h-8" />
@@ -34,18 +34,6 @@
           <span v-if="item.meta.title" v-text="tGlobal(item.meta.title)" />
         </router-link>
       </nav>
-      <!--v-badge
-        bordered
-        color="error"
-        icon="mdi-lock"
-      >
-        <v-btn
-          color="error"
-          flat
-        >
-          Lock Account
-        </v-btn>
-      </v-badge-->
     </div>
   </footer>
 </template>

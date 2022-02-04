@@ -1,12 +1,12 @@
 <template>
   <div id="erstis">
-    <nav class="floating-menu">
+    <!--nav class="floating-menu">
       <h3>Floating Menu</h3>
       <a href="#uniBayreuth">Uni Bayreuth</a>
       <a href="#rolle">Rolle der Fachschaft</a>
       <a href="/coldfusion/">ColdFusion</a>
       <a href="/database/">Database</a>
-    </nav>
+    </nav-->
     <div class="tw-m-3.5">
       <div style="max-width: 1100px; margin: 0 auto">
         <i18n-t tag="h3" keypath="h[0]" />
@@ -42,24 +42,23 @@
           <table :style="gridStyle">
             <colgroup>
               <col />
-              <col v-for="tag in tage" :key="tag" />
+              <col v-for="tag in categories" :key="tag" />
             </colgroup>
             <thead>
               <tr>
                 <th />
-                <th v-for="tag in tage" :key="tag">{{ tag }}</th>
+                <th v-for="tag in categories" :key="tag">{{ t(tag) }}</th>
               </tr>
             </thead>
             <tbody>
               <tr v-for="stunde in stunden" :key="stunde">
                 <td>{{ stunde }}</td>
-                <td v-for="tag in tage" :key="tag">
+                <td v-for="tag in categories" :key="tag" class="blackP">
                   <template
-                    v-for="betreuer in sprechstunden[tag][stunde].value"
+                    v-for="betreuer in sprechstunden[tag][stunde]"
                     :key="betreuer"
                   >
-                    {{ betreuer }}
-                    <br />
+                    <p>{{ betreuer.result.value }}</p>
                   </template>
                 </td>
               </tr>
@@ -86,17 +85,19 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, onMounted, Ref, ref } from "vue";
+import { computed, defineComponent, onBeforeUnmount, onMounted, watch } from "vue";
 import { useI18n } from "vue-i18n";
+import { rT, RegisteredTranslation } from './translation'
 
 export default defineComponent({
   setup() {
-    let sprechstunden: { [key: string]: { [key: string]: Ref<String[]> } } = {};
+    let sprechstunden: { [key: string]: { [key: string]: RegisteredTranslation[] } } = {};
 
     const tGlobal = useI18n({ useScope: "global" }).t;
-    const { t } = useI18n();
+    const tLocal = useI18n();
+    const { t, locale } = tLocal;
 
-    const tage = [t("event"), t("location")];
+    const categories = ["event", "location"];
     const stunden = [
       "12.10 | " + t("ab") + " 17:00",
       "13.10 | 19:00",
@@ -110,43 +111,52 @@ export default defineComponent({
       "19. - 21.11",
     ];
 
-    sprechstunden[tage[0]] = {
-      [stunden[0]]: ref<String[]>([t("Erstsemestergrillen")]),
-      [stunden[1]]: ref<String[]>(["1. " + t("Kneipentour")]),
-      [stunden[2]]: ref<String[]>(["CMlife-" + t("Einführung")]),
-      [stunden[3]]: ref<String[]>([
-        t("Vorstellung"),
-        t("Führung"),
-        t("Erstitüten"),
-      ]),
-      [stunden[4]]: ref<String[]>([
-        t("Immatrikulationsstunde"),
-        t("Campusabend"),
-      ]),
-      [stunden[5]]: ref<String[]>(["2. " + t("Kneipentour")]),
-      [stunden[6]]: ref<String[]>([t("Sitzung"), t("Spieleabend")]),
-      [stunden[7]]: ref<String[]>(["1. " + t("buddy")]),
-      [stunden[8]]: ref<String[]>(["2. " + t("buddy")]),
-      [stunden[9]]: ref<String[]>([t("Wochenende")]),
+    sprechstunden[categories[0]] = {
+      [stunden[0]]: [rT(() => t("Erstsemestergrillen"), locale)],
+      [stunden[1]]: [rT(() => "1. " + t("Kneipentour"), locale)],
+      [stunden[2]]: [rT(() => "CMlife-" + t("Einführung"), locale)],
+      [stunden[3]]: [
+        rT(() => t("Vorstellung"), locale),
+        rT(() => t("Führung"), locale),
+        rT(() => t("Erstitüten"), locale)
+      ],
+      [stunden[4]]: 
+      [
+        rT(() => t("Immatrikulationsstunde"), locale),
+        rT(() => t("Campusabend"), locale),
+      ],
+      [stunden[5]]: [rT(() => "2. " + t("Kneipentour"), locale)],
+      [stunden[6]]: [
+        rT(() => t("Sitzung"), locale),
+        rT(() => t("Spieleabend"), locale),
+      ],
+      [stunden[7]]: [rT(() => "1. " + t("buddy"), locale)],
+      [stunden[8]]: [rT(() => "2. " + t("buddy"), locale)],
+      [stunden[9]]: [rT(() => t("Wochenende"), locale)],
     };
 
-    sprechstunden[tage[1]] = {
-      [stunden[0]]: ref<String[]>([t("grillplatz")]),
-      [stunden[1]]: ref<String[]>([t("Anmeldung")]),
-      [stunden[2]]: ref<String[]>(["Online / " + t("linkage")]),
-      [stunden[3]]: ref<String[]>(["H18 | NW2"]),
-      [stunden[4]]: ref<String[]>(["Audimax"]),
-      [stunden[5]]: ref<String[]>([t("Anmeldung")]),
-      [stunden[6]]: ref<String[]>(["H17 | NW2"]),
-      [stunden[7]]: ref<String[]>([t("Anmeldung")]),
-      [stunden[8]]: ref<String[]>([t("Anmeldung")]),
-      [stunden[9]]: ref<String[]>([t("Anmeldung")]),
+//[rT(() => , locale)],
+
+    sprechstunden[categories[1]] = {
+      [stunden[0]]: [rT(() => t("grillplatz"), locale)],
+      [stunden[1]]: [rT(() => t("Anmeldung"), locale)],
+      [stunden[2]]: [rT(() => "Online / " + t("linkage"), locale)],
+      [stunden[3]]: [rT(() => "H18 | NW2", locale)],
+      [stunden[4]]: [rT(() => "Audimax", locale)],
+      [stunden[5]]: [rT(() => t("Anmeldung"), locale)],
+      [stunden[6]]: [rT(() => "H17 | NW2", locale)],
+      [stunden[7]]: [rT(() => t("Anmeldung"), locale)],
+      [stunden[8]]: [rT(() => t("Anmeldung"), locale)],
+      [stunden[9]]: [rT(() => t("Anmeldung"), locale)],
     };
+
+    let styles: Record<string, HTMLStyleElement> = {};
+    let headStyle: HTMLStyleElement;
 
     const gridStyle = computed(() => {
       return {
         gridTemplateColumns: `repeat(${
-          tage.length + 1
+          categories.length + 1
         }, minmax(min-content, max-content))`,
         gridTemplateRows: `0px repeat(${
           stunden.length + 1
@@ -221,18 +231,36 @@ export default defineComponent({
         #erstis
         td:nth-of-type(1):before { content: "Termin"; } }`;
       head.appendChild(style);
+      headStyle = style;
 
-      for (let i = 0; i < tage.length; ++i) {
+      for (let i = 0; i < categories.length; ++i) {
         const style = document.createElement("style");
         style.innerHTML = `@media only screen and (max-width: 550px),
         (min-device-width: 558px) and (max-device-width: 1024px) {
         #erstis
-        td:nth-of-type(${i + 2}):before { content: "${tage[i]}"; } }`;
+        td:nth-of-type(${i + 2}):before { content: "${t(categories[i])}"; } }`;
         head.appendChild(style);
+        styles[i] = style;
+      }      
+    });
+
+    watch(locale, () => {
+      for (let i = 0; i < categories.length; ++i) {
+        styles[i].innerHTML = `@media only screen and (max-width: 550px),
+        (min-device-width: 558px) and (max-device-width: 1024px) {
+        #erstis
+        td:nth-of-type(${i + 2}):before { content: "${t(categories[i])}"; } }`;
       }
     });
 
-    return { t, tGlobal, gridStyle, tage, stunden, sprechstunden };
+    onBeforeUnmount(()=> {
+      for (let i = 0; i < categories.length; ++i) {
+        styles[i].remove();
+      }
+      headStyle.remove();
+    })
+
+    return { t, tGlobal, gridStyle, categories, stunden, sprechstunden };
   },
 });
 </script>
@@ -351,6 +379,11 @@ tr:hover td {
   display: block;
   margin: 0 0.5em;
   color: white;
+}
+.blackP { 
+  p {
+    color: black
+  }
 }
 </style>
 
@@ -505,5 +538,25 @@ tr:hover td {
           If there are any open questions feel free to visit our office (NW II, between H 20 \
           and S 78) where you can paint yourself a picture of the beautifull campus uni Bayreuth and the here settled student council. \
           Or if you're coming from farther away or if theirs no possibility of direct contact due to the pandemic leave us a mail ({mail}).",
+}
+
+function watch(locale: WritableComputedRef<string>, arg1: () => void) {
+  throw new Error("Function not implemented.");
+}
+
+function watch(locale: WritableComputedRef<string>, arg1: () => void) {
+  throw new Error("Function not implemented.");
+}
+
+function watch(locale: WritableComputedRef<string>, arg1: () => void) {
+  throw new Error("Function not implemented.");
+}
+
+function watch(locale: WritableComputedRef<string>, arg1: () => void) {
+  throw new Error("Function not implemented.");
+}
+
+function watch(locale: WritableComputedRef<string>, arg1: () => void) {
+  throw new Error("Function not implemented.");
 }
 </i18n>

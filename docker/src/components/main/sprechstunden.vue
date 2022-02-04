@@ -68,8 +68,9 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, onMounted, ref, Ref } from "vue";
+import { computed, defineComponent, onBeforeUnmount, onMounted, ref, Ref, watch } from "vue";
 import { useI18n } from 'vue-i18n'
+import { rT } from './translation'
 //import table from "./dashboard/table.vue";
 //https://colorlib.com/wp/css3-table-templates/
 //https://colorlib.com/etc/tb/Table_Highlight_Vertical_Horizontal/index.html
@@ -88,6 +89,7 @@ export default defineComponent({
     const stunden = ["13:00", "14:00", "15:00"];
 
     let tag = 0;
+    let styles: Record<string, HTMLStyleElement> = {};
 
     sprechstunden[tage[tag++]] = {
       [stunden[0]]: ref<String[]>(["Sophie"]),
@@ -234,7 +236,7 @@ export default defineComponent({
 
       const head = document.querySelector("head")!;
 
-      const style = document.createElement("style");
+      //const style = document.createElement("style");
       /*style.innerHTML = `@media only screen and (max-width: 760px),
         (min-device-width: 768px) and (max-device-width: 1024px) {
           #sprechstunden
@@ -248,11 +250,27 @@ export default defineComponent({
           #sprechstunden
         td:nth-of-type(${i + 2}):before { content: "${tGlobal(tage[i])}"; } }`;
         head.appendChild(style);
+        styles[i] = style;
       }
     });
 
     const tGlobal = useI18n({useScope: 'global'}).t;
-    const { t } = useI18n();
+    const { t, locale } = useI18n();
+
+    watch(locale, () => {
+      for (let i = 0; i < tage.length; ++i) {
+        styles[i].innerHTML = `@media only screen and (max-width: 760px),
+        (min-device-width: 768px) and (max-device-width: 1024px) {
+          #sprechstunden
+        td:nth-of-type(${i + 2}):before { content: "${tGlobal(tage[i])}"; } }`;
+      }
+    })
+
+    onBeforeUnmount(() => {
+      for (let i = 0; i < tage.length; ++i) {
+        styles[i].remove();
+      }
+    })
 
     return {
       t,

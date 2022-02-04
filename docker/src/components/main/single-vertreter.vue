@@ -9,14 +9,21 @@
     <p class="property">{{ tGlobal("role") }}:</p>
     <p class="value" v-text="t(vertreter.role)" />
 
-    <p class="property">{{ t("degreeCourse") }}:</p>
+    <v-icon
+      large
+      color="orange darken-2"
+      :icon="mdiSchool"
+    />
     <studiengang class="value" :studiengang="vertreter.studiengang"/>
-    <!--p class="value" v-text="vertreter.studiengang" /-->
 
     <p class="property">{{ t("semester") }}:</p>
     <p class="value" v-text="vertreter.semester" />
 
-    <p class="property">{{ tGlobal("mail") }}:</p>
+    <v-icon
+      large
+      color="orange darken-2"
+      :icon="mdiEmail"
+    />
     <p class="value" v-text="vertreter.email" />
   </div>
 </template>
@@ -26,6 +33,7 @@ import { defineComponent, PropType } from "vue";
 import { useI18n } from "vue-i18n";
 import { IVertreter } from "@dataInterfaces/IVertreter";
 import studiengang from './studiengang.vue'
+import { mdiEmail, mdiSchool } from '@mdi/js'
 
 export default defineComponent({
   components: {
@@ -43,7 +51,12 @@ export default defineComponent({
     const { t } = useI18n({});
     const tGlobal = useI18n({useScope: 'global'}).t;
 
-    return { t, tGlobal };
+    return { 
+      t, 
+      tGlobal,
+      mdiEmail,
+      mdiSchool
+    };
   },
 });
 </script>
