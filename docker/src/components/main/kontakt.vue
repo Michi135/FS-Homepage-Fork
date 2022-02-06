@@ -1,6 +1,6 @@
 <template>
   <div class="main">
-    <h5 class="header">{{tGlobal('contact')}}:</h5>
+    <h5 class="header">{{tGlobal('contact')}}</h5>
     <div>
       <br />
       <p>{{t('question')}}</p>
@@ -111,12 +111,6 @@ export default defineComponent({
   a:hover {
     color: var(--color-primary);
   }
-}
-.instagram {
-    background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%); 
-    background: -webkit-radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%);    
-    color: white;
-    //border-radius: 20
 }
 .social {
   a {

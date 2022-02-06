@@ -150,8 +150,7 @@ export default defineComponent({
       [stunden[9]]: [rT(() => t("Anmeldung"), locale)],
     };
 
-    let styles: Record<string, HTMLStyleElement> = {};
-    let headStyle: HTMLStyleElement;
+    let tableStyle: HTMLStyleElement;
 
     const gridStyle = computed(() => {
       return {
@@ -218,46 +217,35 @@ export default defineComponent({
         Array.from(document.getElementsByTagName("th"))
       );
       dataCells.forEach((element) => {
-        element.onmouseenter = (ev) =>
-          setColor(ev, "#e68e0b", "#909090", "#995c00");
+        element.onmouseenter = (ev) => {
+          if (window.innerWidth > 550)
+            setColor(ev, "#e68e0b", "#909090", "#995c00");
+        }
         element.onmouseleave = (ev) => setColor(ev);
       });
 
       const head = document.querySelector("head")!;
 
-      const style = document.createElement("style");
-      style.innerHTML = `@media only screen and (max-width: 550px),
-        (min-device-width: 558px) and (max-device-width: 1024px) {
-        #erstis
-        td:nth-of-type(1):before { content: "Termin"; } }`;
-      head.appendChild(style);
-      headStyle = style;
-
-      for (let i = 0; i < categories.length; ++i) {
-        const style = document.createElement("style");
-        style.innerHTML = `@media only screen and (max-width: 550px),
-        (min-device-width: 558px) and (max-device-width: 1024px) {
-        #erstis
-        td:nth-of-type(${i + 2}):before { content: "${t(categories[i])}"; } }`;
-        head.appendChild(style);
-        styles[i] = style;
-      }      
+      tableStyle = document.createElement("style");
+      tableStyle.innerHTML = `@media only screen and (max-width: 550px) {
+        #erstis td:nth-of-type(1):before { content: "Termin"; }` 
+      for (let i = 0; i < categories.length; ++i) 
+        tableStyle.innerHTML += ` td:nth-of-type(${i + 2}):before { content: "${t(categories[i])}"; } `
+      tableStyle.innerHTML += `}`;  
+      head.appendChild(tableStyle);
     });
 
     watch(locale, () => {
-      for (let i = 0; i < categories.length; ++i) {
-        styles[i].innerHTML = `@media only screen and (max-width: 550px),
-        (min-device-width: 558px) and (max-device-width: 1024px) {
-        #erstis
-        td:nth-of-type(${i + 2}):before { content: "${t(categories[i])}"; } }`;
-      }
+      let newHtml = `@media only screen and (max-width: 550px) {
+        #erstis td:nth-of-type(1):before { content: "Termin"; }` 
+      for (let i = 0; i < categories.length; ++i) 
+        newHtml += ` td:nth-of-type(${i + 2}):before { content: "${t(categories[i])}"; } `
+      newHtml += `}`;  
+      tableStyle.innerHTML = newHtml;
     });
 
     onBeforeUnmount(()=> {
-      for (let i = 0; i < categories.length; ++i) {
-        styles[i].remove();
-      }
-      headStyle.remove();
+      tableStyle.remove();
     })
 
     return { t, tGlobal, gridStyle, categories, stunden, sprechstunden };
@@ -299,13 +287,6 @@ table {
   width: 100%;
   border-collapse: collapse;
 }
-/* Zebra striping */
-tr:nth-of-type(odd) td {
-  background: #eee;
-}
-tr:nth-of-type(even) td {
-  background: grey;
-}
 
 th {
   background: #333;
@@ -319,12 +300,19 @@ th {
   text-align: left;
 }
 
-tr:hover td {
-  background: #e68e0b;
+@media only screen and (min-width: 551px){
+  tr:nth-of-type(odd) td {
+    background: #eee;
+  }
+  tr:nth-of-type(even) td {
+    background: grey;
+  }
+  tr:hover td {
+    background: #e68e0b;
+  }
 }
 
-@media only screen and (max-width: 550px),
-  (min-device-width: 558px) and (max-device-width: 1024px) {
+@media only screen and (max-width: 550px) {
   /* Force table to not be like tables anymore */
   table,
   thead,
@@ -349,7 +337,7 @@ tr:hover td {
   td {
     /* Behave  like a "row" */
     border: none;
-    border-bottom: 1px solid #eee;
+    //border-bottom: 1px solid #eee;
     position: relative;
     padding-left: 50%;
   }
@@ -363,6 +351,16 @@ tr:hover td {
     width: 45%;
     padding-right: 10px;
     white-space: nowrap;
+  }
+
+  tr:nth-of-type(odd) td:not(:hover) {
+    background: #eee;
+  }
+  tr:nth-of-type(even) td:not(:hover) {
+    background: grey;
+  }
+  td:hover {
+    background: #e68e0b;
   }
 }
 .floating-menu {
@@ -538,25 +536,5 @@ tr:hover td {
           If there are any open questions feel free to visit our office (NW II, between H 20 \
           and S 78) where you can paint yourself a picture of the beautifull campus uni Bayreuth and the here settled student council. \
           Or if you're coming from farther away or if theirs no possibility of direct contact due to the pandemic leave us a mail ({mail}).",
-}
-
-function watch(locale: WritableComputedRef<string>, arg1: () => void) {
-  throw new Error("Function not implemented.");
-}
-
-function watch(locale: WritableComputedRef<string>, arg1: () => void) {
-  throw new Error("Function not implemented.");
-}
-
-function watch(locale: WritableComputedRef<string>, arg1: () => void) {
-  throw new Error("Function not implemented.");
-}
-
-function watch(locale: WritableComputedRef<string>, arg1: () => void) {
-  throw new Error("Function not implemented.");
-}
-
-function watch(locale: WritableComputedRef<string>, arg1: () => void) {
-  throw new Error("Function not implemented.");
 }
 </i18n>

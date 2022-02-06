@@ -37,7 +37,7 @@
     </div>
     <div v-else class="tw-px-5">
       <div class="heading">{{t('consHours')}}</div>
-      <table :style="gridStyle">
+      <table>
         <colgroup>
           <col />
           <col v-for="tag in tage" :key="tag" />
@@ -70,7 +70,6 @@
 <script lang="ts">
 import { computed, defineComponent, onBeforeUnmount, onMounted, ref, Ref, watch } from "vue";
 import { useI18n } from 'vue-i18n'
-import { rT } from './translation'
 //import table from "./dashboard/table.vue";
 //https://colorlib.com/wp/css3-table-templates/
 //https://colorlib.com/etc/tb/Table_Highlight_Vertical_Horizontal/index.html
@@ -78,10 +77,21 @@ export default defineComponent({
   //components: { table },
   setup: () => {
     const loading = true;
-    const ferien = false;
+    const ferien = true;
     //https://www.npmjs.com/package/@thi.ng/sparse
     //https://adamlynch.com/flexible-data-tables-with-css-grid/
     let sprechstunden: { [key: string]: { [key: string]: Ref<String[]> } } = {};
+
+    /*const windowWidth = ref(0);
+    const tableStyle = computed(() => {
+      if (windowWidth.value > 760)
+        return "";
+      let style = "";
+      for (let i = 0; i < tage.length; ++i)
+        style += `td:nth-of-type(${i + 2}):before { content: "${tGlobal(tage[i])}"; }`
+      console.log(style)
+      return style;
+    });*/
 
     const tage = [
       "monday", "tuesday", "wednesday", "thursday",
@@ -89,7 +99,7 @@ export default defineComponent({
     const stunden = ["13:00", "14:00", "15:00"];
 
     let tag = 0;
-    let styles: Record<string, HTMLStyleElement> = {};
+    let tableStyle: HTMLStyleElement;
 
     sprechstunden[tage[tag++]] = {
       [stunden[0]]: ref<String[]>(["Sophie"]),
@@ -164,17 +174,12 @@ export default defineComponent({
         },
       ],
     };
-    const gridStyle = computed(() => {
-      return {
-        gridTemplateColumns: `repeat(${
-          tage.length + 1
-        }, minmax(min-content, max-content))`,
-        gridTemplateRows: `0px repeat(${
-          stunden.length + 1
-        }, minmax(max-content, 1fr))`,
-      };
-    });
     onMounted(() => {
+      //windowWidth.value = window.innerWidth;
+      //window.onresize = (ev) => {
+       // windowWidth.value = window.innerWidth;
+      //};
+
       const setColor = (
         ev: MouseEvent,
         backgroundColor?: string,
@@ -229,8 +234,10 @@ export default defineComponent({
         Array.from(document.getElementsByTagName("th"))
       );
       dataCells.forEach((element) => {
-        element.onmouseenter = (ev) =>
-          setColor(ev, "#e68e0b", "#909090", "#995c00");
+        element.onmouseenter = (ev) => {
+          if (window.innerWidth > 760)
+            setColor(ev, "#e68e0b", "#909090", "#995c00");
+        }
         element.onmouseleave = (ev) => setColor(ev);
       });
 
@@ -243,33 +250,30 @@ export default defineComponent({
         td:nth-of-type(1):before { content: "Uhrzeit"; } }`;
       head.appendChild(style);*/
 
-      for (let i = 0; i < tage.length; ++i) {
-        const style = document.createElement("style");
-        style.innerHTML = `@media only screen and (max-width: 760px),
-        (min-device-width: 768px) and (max-device-width: 1024px) {
-          #sprechstunden
-        td:nth-of-type(${i + 2}):before { content: "${tGlobal(tage[i])}"; } }`;
-        head.appendChild(style);
-        styles[i] = style;
-      }
+      
+      tableStyle = document.createElement("style");
+      tableStyle.innerHTML = `@media only screen and (max-width: 760px) {
+        #sprechstunden`;
+      for (let i = 0; i < tage.length; ++i)          
+        tableStyle.innerHTML += ` td:nth-of-type(${i + 2}):before { content: "${tGlobal(tage[i])}"; } `
+      tableStyle.innerHTML += `}`;
+      head.appendChild(tableStyle);
     });
 
     const tGlobal = useI18n({useScope: 'global'}).t;
     const { t, locale } = useI18n();
 
     watch(locale, () => {
-      for (let i = 0; i < tage.length; ++i) {
-        styles[i].innerHTML = `@media only screen and (max-width: 760px),
-        (min-device-width: 768px) and (max-device-width: 1024px) {
-          #sprechstunden
-        td:nth-of-type(${i + 2}):before { content: "${tGlobal(tage[i])}"; } }`;
-      }
+      let newHtml = `@media only screen and (max-width: 760px) {
+        #sprechstunden`;
+      for (let i = 0; i < tage.length; ++i)          
+        newHtml += ` td:nth-of-type(${i + 2}):before { content: "${tGlobal(tage[i])}"; } `
+      newHtml += `}`;
+      tableStyle.innerHTML = newHtml;
     })
 
     onBeforeUnmount(() => {
-      for (let i = 0; i < tage.length; ++i) {
-        styles[i].remove();
-      }
+      tableStyle.remove();
     })
 
     return {
@@ -281,7 +285,7 @@ export default defineComponent({
       stunden,
       sprechstunden,
       ferien_sprechstunden,
-      gridStyle,
+      //tableStyle
     };
   },
 });
@@ -294,57 +298,12 @@ export default defineComponent({
 .secondary {
   color: var(--color-secondary-header);
 }
-/*
-.contained {
-  display: flex;
-  overflow: auto;
-}
-
-thead {
-  color: white;
-}
-
-th,
-td {
-  padding: 15px;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
-td {
-  padding-top: 10px;
-  padding-bottom: 10px;
-  color: #4b4b4b;
-}
-
-tr:nth-child(even) td {
-  background: #e09f3d;
-}
-
-tr:nth-child(odd) td {
-  background: #f8ce8e;
-}
-
-tr:hover th {
-  background: #909090;
-}
-
-tr:hover td {
-  background: #e68e0b;
-}*/
 
 table {
   width: 100%;
   border-collapse: collapse;
 }
 /* Zebra striping */
-tr:nth-of-type(odd) td {
-  background: #eee;
-}
-tr:nth-of-type(even) td {
-  background: grey;
-}
 
 th {
   background: #333;
@@ -358,12 +317,20 @@ th {
   text-align: left;
 }
 
-tr:hover td {
-  background: #e68e0b;
+@media only screen and (min-width: 761px){
+  tr:nth-of-type(odd) td {
+    background: #eee;
+  }
+  tr:nth-of-type(even) td {
+    background: grey;
+  }
+  tr:hover td {
+    background: #e68e0b;
+  }
 }
 
-@media only screen and (max-width: 760px),
-  (min-device-width: 768px) and (max-device-width: 1024px) {
+@media only screen and (max-width: 760px){//,
+  //(min-device-width: 768px) and (max-device-width: 1024px) {
   /* Force table to not be like tables anymore */
   table,
   thead,
@@ -373,7 +340,6 @@ tr:hover td {
   tr {
     display: block;
   }
-
   /* Hide table headers (but not display: none;, for accessibility) */
   thead tr {
     position: absolute;
@@ -386,22 +352,38 @@ tr:hover td {
   }
 
   td {
-    /* Behave  like a "row" */
+    // Behave  like a "row"
     border: none;
-    border-bottom: 1px solid #eee;
+    //border-bottom: 1px solid #eee;
     position: relative;
     padding-left: 50%;
   }
 
   td:before {
-    /* Now like a table header */
+    // Now like a table header 
     position: absolute;
-    /* Top/left values mimic padding */
+    // Top/left values mimic padding
     top: 6px;
     left: 6px;
     width: 45%;
     padding-right: 10px;
     white-space: nowrap;
+  }
+
+  /*td:hover:before {
+    background: black;
+  }
+  */
+
+  tr:nth-of-type(odd) td:not(:hover) {
+    background: #eee;
+  }
+  tr:nth-of-type(even) td:not(:hover) {
+    background: grey;
+  }
+
+  td:hover {
+    background: #e68e0b;
   }
 }
 </style>
