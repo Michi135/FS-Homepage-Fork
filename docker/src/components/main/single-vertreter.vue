@@ -3,10 +3,10 @@
     <div class="image-container">
       <img class="image" :src="vertreter.image" :alt="vertreter.name" />
     </div>
-    <p class="property">{{ tGlobal("name") }}:</p>
+    <p class="property">{{ tGlobal("name") }}</p>
     <p class="value" v-text="vertreter.name" />
 
-    <p class="property">{{ tGlobal("role") }}:</p>
+    <p class="property">{{ tGlobal("role") }}</p>
     <p class="value" v-text="t(vertreter.role)" />
 
     <v-icon
@@ -16,7 +16,7 @@
     />
     <studiengang class="value" :studiengang="vertreter.studiengang"/>
 
-    <p class="property">{{ t("semester") }}:</p>
+    <p class="property">{{ t("semester") }}</p>
     <p class="value" v-text="vertreter.semester" />
 
     <v-icon

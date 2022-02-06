@@ -9,7 +9,7 @@
         v-for="fachschaft in fachschaften"
         :key="fachschaft.name"
       >
-        <a class="link tw-text-xl" :href="fachschaft.link">{{
+        <a class="link tw-text-xl" :href="fachschaft.link" target="_blank" rel="noopener noreferrer">{{
           fachschaft.name
         }}</a>
       </li>
@@ -22,7 +22,7 @@
         v-for="hochschulgruppe in hochschulgruppen"
         :key="hochschulgruppe.name"
       >
-        <a class="link tw-text-xl" :href="hochschulgruppe.link">{{
+        <a class="link tw-text-xl" :href="hochschulgruppe.link" target="_blank" rel="noopener noreferrer">{{
           hochschulgruppe.name
         }}</a>
       </li>
@@ -31,10 +31,10 @@
     <i18n-t tag="h5" class="tw-text-2xl" keypath="furtherLinks" />
     <ul>
       <li class="tw-ml-5 tw-py-1">
-        <a class="link tw-text-xl" href="https://alumpi.de/">Alumpi</a>
+        <a class="link tw-text-xl" href="https://alumpi.de/" target="_blank" rel="noopener noreferrer">Alumpi</a>
       </li>
       <li class="tw-ml-5 tw-py-1">
-        <a class="link tw-text-xl" href="https://www.max-academy.de/"
+        <a class="link tw-text-xl" href="https://www.max-academy.de/" target="_blank" rel="noopener noreferrer"
           >Max Academy</a
         >
       </li>

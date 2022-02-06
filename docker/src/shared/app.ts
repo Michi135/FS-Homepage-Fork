@@ -64,7 +64,6 @@ function createBundledApp(root: Component, ctx: Partial<State>) {
                     }
                 })
         });
-
     app.use(router);
     app.use(store, key);
     app.use(i18n);

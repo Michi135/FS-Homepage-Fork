@@ -83,7 +83,7 @@
           class="
             tw-flex tw-flex-wrap tw-list-none tw-list-inside tw-px-6 tw-py-3
             lg:tw-items-center
-            md:tw-justify-end
+            md:tw-justify-end tw-gap-y-4
           "
         >
           <li
