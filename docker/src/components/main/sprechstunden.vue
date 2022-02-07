@@ -5,23 +5,26 @@
       v-if="ferien"
       class="tw-flex tw-flex-col tw-items-center tw-text-center tw-space-y-2"
     >
-      <div>
-        Die Fachschaft wünscht schöne Ferien und ist weiterhin
-        <br />
-        an den folgenden Tagen von
-        {{ ferien_sprechstunden.uhrzeit }} für euch da
-      </div>
-      <div />
-      <div />
-      <div>Feriensprechstunden der FSMPI</div>
+      <i18n-t keypath="t[0]" tag="h1"/>
+      <i18n-t keypath="t[1]" tag="h1">
+        <template v-slot:from>
+          {{ ferien_sprechstunden.timespan[0] }}
+        </template>
+        <template v-slot:to>
+          {{ ferien_sprechstunden.timespan[1] }}
+        </template>
+      </i18n-t>
+      <br/><br/>
+      <i18n-t tag="h2" keypath="holidayConsHours" />
+      <br/>
       <div
+        style="background: rgb(51, 49, 48); color: rgb(192, 192, 192); border-color: rgb(255, 115, 0); font-size: 1.1rem; gap: 19px; padding: 10px;"
         class="
           tw-flex
           tw-flex-wrap
           tw-space-x-2
           tw-border-solid
           tw-border-2
-          tw-border-gray-600
           tw-text-left
           tw-justify-center
         "
@@ -36,7 +39,7 @@
       </div>
     </div>
     <div v-else class="tw-px-5">
-      <div class="heading">{{t('consHours')}}</div>
+      <i18n-t tag="h1" keypath="consHours" />
       <table>
         <colgroup>
           <col />
@@ -45,7 +48,7 @@
         <thead>
           <tr>
             <th />
-            <th v-for="tag in tage" :key="tag">{{ tGlobal(tag) }}</th>
+            <i18n-t tag="th" v-for="tag in tage" :key="tag" :keypath="tag"/>
           </tr>
         </thead>
         <tbody>
@@ -126,7 +129,7 @@ export default defineComponent({
     };
 
     const ferien_sprechstunden = {
-      uhrzeit: "14 bis 16 Uhr",
+      timespan: [14, 16],
       sprechstunden: [
         {
           tag: "19.08",
@@ -292,11 +295,13 @@ export default defineComponent({
 </script>
 
 <style scoped lang="less">
-.heading {
+h1 {
   color: var(--color-primary-header);
+  font-size: 1.5rem;
 }
-.secondary {
-  color: var(--color-secondary-header);
+h2 {
+  color: white;
+  font-size: 1.2rem;
 }
 
 table {
@@ -391,11 +396,17 @@ th {
 <i18n locale="de">
 {
   "consHours": "Sprechstunden der FSMPI",
+  "holidayConsHours": "Feriensprechstunden der FSMPI",
+  "t[0]": "Die Fachschaft wünscht schöne Ferien und ist weiterhin",
+  "t[1]": "an den folgenden Tagen von {from} bis {to} Uhr für euch da"
 }
 </i18n>
 
 <i18n locale="en">
 {
   "consHours": "Consultation hours of the FSMPI",
+  "holidayConsHours": "Consultation hours of the FSMPI during the holidays",
+  "t[0]": "The student council wishes you nice holidays and is still",
+  "t[1]": "there for you between {from} and {to}h on the following days"
 }
 </i18n>

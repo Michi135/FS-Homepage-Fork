@@ -5,8 +5,8 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, onMounted } from "vue";
-import { useRouter } from "vue-router";
+import { defineComponent, onMounted, watch } from "vue";
+import { useRouter, useRoute } from "vue-router";
 import { useI18n } from "vue-i18n";
 import { useStore } from "@shared/store";
 import { createFaviconLink } from "../favicon/favicon";
@@ -17,7 +17,14 @@ export default defineComponent({
   setup() {
     onMounted(() => {
       const store = useStore();
-      const { t } = useI18n({ useScope: "global" });
+      const { t, locale } = useI18n({ useScope: "global" });
+      const route = useRoute();
+
+      document.title = t(<string | undefined>route.meta.title || store.state.defaultTitle);
+      watch(locale, () => {
+        document.title = t(<string | undefined>route.meta.title || store.state.defaultTitle);
+      })
+
       useRouter().afterEach(({meta}, from, failure) => {
         if (failure) return;
 

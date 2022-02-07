@@ -166,7 +166,7 @@ const config = (env: NodeJS.ProcessEnv = {}): Configuration => {
       externals: [
         isServerBuild ? nodeExternals(
           { 
-            allowlist: [/\.(?!(?:jsx?|json)$).{1,5}$/i],
+            allowlist: [/\.(?!(?:jsx?|json|tsx?)$).{1,5}$/i],
             //@ts-ignore
             importType: 'module'
           }) : {}
