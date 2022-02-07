@@ -136,6 +136,7 @@ export default function ssr(dev: boolean) {
 
             const language = getLanguage(req);
 
+            //@ts-ignore necessary in case there isn't a compiled main.js
             const { createDefaultApp } = <typeof App>(await import('@distServer/main.js'));
             const { router, store, app, i18n } = createDefaultApp({ language: language});
 

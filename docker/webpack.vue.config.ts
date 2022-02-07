@@ -364,13 +364,13 @@ const config = (env: NodeJS.ProcessEnv = {}): Configuration => {
       if (!isServerBuild) {
 
         config.optimization!.minimizer!.push(new CompressionPlugin({
-          test: /\.(jpg|txt|map|json|pdf|js|css|html|svg)$/,
+          test: /\.(jpg|txt|map|json|pdf|js|css|html|svg|png)$/,
           threshold: 8192,
         }))
         config.optimization!.minimizer!.push(new CompressionPlugin<BrotliOptions>({
           filename: "[path][base].br",
           algorithm: "brotliCompress",
-          test: /\.(jpg|txt|map|json|pdf|js|css|html|svg)$/,
+          test: /\.(jpg|txt|map|json|pdf|js|css|html|svg|png)$/,
           compressionOptions: {
             params: {
               [constants.BROTLI_PARAM_QUALITY]: 11,

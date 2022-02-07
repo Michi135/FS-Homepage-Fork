@@ -34,7 +34,9 @@
           :key="index"
         >
           <div v-text="sprechstunde.tag" />
-          <div v-text="sprechstunde.betreuer" />
+          <div>
+            <p v-for="(betreuer, index) in sprechstunde.betreuer" :key="index" v-text="betreuer"/>
+          </div>
         </div>
       </div>
     </div>
@@ -132,48 +134,44 @@ export default defineComponent({
       timespan: [14, 16],
       sprechstunden: [
         {
-          tag: "19.08",
-          betreuer: "Fabi",
+          tag: "16.02",
+          betreuer: ["Fabi", "Lena"],
         },
         {
-          tag: "26.08",
-          betreuer: "Dennis",
+          tag: "23.02",
+          betreuer: ["Charlotte", "Marius"],
         },
         {
-          tag: "02.09",
-          betreuer: "Ruth",
+          tag: "02.03",
+          betreuer: ["Maike", "Olli"],
         },
         {
-          tag: "09.09",
-          betreuer: "Julia",
+          tag: "09.03",
+          betreuer: ["Julia"],
         },
         {
-          tag: "16.09",
-          betreuer: "Masell",
+          tag: "16.03",
+          betreuer: ["Olivia"],
         },
         {
-          tag: "23.09",
-          betreuer: "Olivia",
+          tag: "23.03",
+          betreuer: ["Michelle"],
         },
         {
-          tag: "30.09",
-          betreuer: "David",
+          tag: "30.03",
+          betreuer: ["Denis"],
         },
         {
-          tag: "07.10",
-          betreuer: "Elias",
+          tag: "06.04",
+          betreuer: ["Masell"],
         },
         {
-          tag: "14.10",
-          betreuer: "Charlotte",
+          tag: "13.04",
+          betreuer: ["Sophie"],
         },
         {
-          tag: "21.10",
-          betreuer: "Marius",
-        },
-        {
-          tag: "28.10",
-          betreuer: "Armin",
+          tag: "20.04",
+          betreuer: ["Armin"],
         },
       ],
     };

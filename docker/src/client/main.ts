@@ -12,8 +12,8 @@ let instance: ReturnType<typeof createDefaultApp>;
 if (window.__INITIAL_STATE__) {
 
     //TODO:: check if lang is valid (in en, de)
-    const lang = <'de' | 'en'>localStorage.getItem('lang');
-    instance = createDefaultApp({language: lang || window.__INITIAL_STATE__.language});
+    //const lang = <'de' | 'en'>localStorage.getItem('lang');
+    instance = createDefaultApp({language: window.__INITIAL_STATE__.language});
     instance.store.replaceState(window.__INITIAL_STATE__);
 
     const scripts = window.document.getElementsByTagName("script");

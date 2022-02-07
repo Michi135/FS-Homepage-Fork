@@ -101,10 +101,10 @@
           </li>
         </ul>
       </nav>
-      <div class="tw-flex tw-flex-none tw-justify-evenly tw-items-baseline">
-        <img :src="gerFlagSvg" class="tw-h-12"/>
+      <div class="tw-flex tw-flex-none tw-justify-evenly tw-items-center myImg temp">
+        <img :src="gerFlagSvg" class="tw-px-3"/>
         <v-switch hide-details inset v-model="val" style="flex: none"/>
-        <img :src="engFlagSvg" class="tw-h-12"/>
+        <img :src="engFlagSvg" class="tw-px-3"/>
       </div>
     </div>
   </header>
@@ -116,8 +116,9 @@ import { useI18n } from "vue-i18n";
 import { headerRoutes, basePaths } from "@shared/routes";
 import { useStore } from "@shared/store";
 import trossSvg from "@static/img/tross.svg";
-import gerFlagSvg from "./german_flag.svg";
-import engFlagSvg from "./english_flag.svg";
+
+import gerFlagSvg from "svg-country-flags/svg/de.svg"
+import engFlagSvg from "svg-country-flags/svg/gb.svg";
 
 export default defineComponent({
   setup: () => {
@@ -128,7 +129,11 @@ export default defineComponent({
     const val = ref<Boolean>(false);
 
     onMounted(()=>{
+
       val.value = globalI18n.locale.value === 'en'
+      watch(localI18n.locale, ()=> {
+        val.value = localI18n.locale.value === 'en'
+      })
 
       watch(val, (val, prevval) => {
         globalI18n.locale.value = (val) ? 'en' : 'de'
@@ -187,6 +192,20 @@ export default defineComponent({
 
 nav ul li:hover {
   color: var(--color-primary);
+}
+
+.myImg {
+  img {
+    height: 25px;
+  }
+}
+</style>
+
+<style lang="less">
+.temp {
+  .v-label {
+    padding-inline-start: 0px
+  }
 }
 </style>
 

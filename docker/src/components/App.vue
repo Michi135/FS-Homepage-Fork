@@ -20,6 +20,7 @@ export default defineComponent({
       const { t, locale } = useI18n({ useScope: "global" });
       const route = useRoute();
 
+      locale.value = <'de' | 'en'>localStorage.getItem('lang');
       document.title = t(<string | undefined>route.meta.title || store.state.defaultTitle);
       watch(locale, () => {
         document.title = t(<string | undefined>route.meta.title || store.state.defaultTitle);

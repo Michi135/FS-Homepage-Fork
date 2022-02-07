@@ -7,7 +7,7 @@
         tw-justify-between
       "
     >
-      <div>{{ tLocal("updated") }}: 09.02.2022</div>
+      <div>{{ tLocal("updated") }}: 07.02.2022</div>
       <div>
         <router-link v-if="footerLogo" to="/">
           <img :src="footerLogo" :alt="{}" class="h-8" />
