@@ -10,9 +10,12 @@ import _ from 'lodash'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { createVuetify } from 'vuetify'
 import { aliases, mdi } from 'vuetify/lib/iconsets/mdi-svg'
+import { createGraphql } from './graphql'
+import Globali18n from './i18nGlobal.json'
+import type { ApolloClients } from '@vue/apollo-ssr'
 
 function createBundledApp(root: Component, ctx: Partial<State>) {
-    const app = (__IS_SERVER__ || (!__IS_DEV__ && __IS_SSR__)) ? createSSRApp(root) : createApp(root);
+    const app = (__IS_SERVER__ || __IS_SSR__) ? createSSRApp(root) : createApp(root);
     const { router, localizedRoutes } = createBundledRouter()
     const store = createDefaultStore(router, ctx);
 
@@ -22,51 +25,14 @@ function createBundledApp(root: Component, ctx: Partial<State>) {
             legacy: false,
             locale: store.state.language,
             fallbackLocale: ['en', 'de'],
-            messages: _.merge(localizedRoutes, 
-                {
-                    de: 
-                    {
-                        studentCouncil: "Fachschaft | Fachschaften",
-                        math: "Mathe",
-                        physics: "Physik",
-                        computerScience: "Informatik",
-                        mail: "Email",
-                        phone: "Telefon",
-                        contact: "Kontakt",
-                        name: "Name",
-                        role: "Rolle",
-                        here: "Hier",
-                        monday: "Montag",
-                        tuesday: "Dienstag",
-                        wednesday: "Mittwoch",
-                        thursday: "Donnerstag",
-                        friday: "Freitag",
-                        link: "Link",
-                    },
-                    en:
-                    {
-                        studentCouncil: "Student council | Student councils",
-                        math: "Math",
-                        physics: "Physics",
-                        computerScience: "Computer science",
-                        mail: "Mail",
-                        phone: "Phone",
-                        contact: "Contact",
-                        name: "Name",
-                        role: "Role",
-                        here: "Here",
-                        monday: "Monday",
-                        tuesday: "Tuesday",
-                        wednesday: "Wednesday",
-                        thursday: "Thursday",
-                        friday: "Friday",
-                        link: "Link",
-                    }
-                })
+            messages: _.merge(localizedRoutes, Globali18n)
         });
+    const GraphqlVue = createGraphql();
+
     app.use(router);
     app.use(store, key);
     app.use(i18n);
+    app.use(GraphqlVue);
     app.use(createVuetify({
         icons: {
             defaultSet: 'mdi',
@@ -83,7 +49,8 @@ function createBundledApp(root: Component, ctx: Partial<State>) {
         app: app,
         router: router,
         store: store,
-        i18n
+        i18n,
+        apolloClients: GraphqlVue.clients
     };
     return out;
 }
@@ -93,6 +60,7 @@ export interface BundledApp<S extends Store<any>, P extends I18n<any>> {
     router: Router;
     store: S;
     i18n: P;
+    apolloClients: ApolloClients
 }
 
 function createDefaultApp(ctx: Partial<State>) {

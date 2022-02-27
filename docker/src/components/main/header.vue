@@ -20,8 +20,8 @@
           font-size: 1.2rem;
         "
       >
-        {{ tGlobal("studentCouncil", 1) }} {{ tGlobal("math") }}|{{ tGlobal("physics") }}|{{
-          tGlobal("computerScience")
+        {{ tGlobal("studentCouncil", 1) }} {{ tGlobal("MATH") }}|{{ tGlobal("PHYSICS") }}|{{
+          tGlobal("COMPUTER SCIENCE")
         }}
       </p>
     </div>
@@ -102,9 +102,9 @@
         </ul>
       </nav>
       <div class="tw-flex tw-flex-none tw-justify-evenly tw-items-center myImg temp">
-        <img :src="gerFlagSvg" class="tw-px-3"/>
-        <v-switch hide-details inset v-model="val" style="flex: none"/>
-        <img :src="engFlagSvg" class="tw-px-3"/>
+        <img alt="german flag" :src="gerFlagSvg" class="tw-px-3"/>
+        <v-switch hide-details inset v-model="val"/>
+        <img alt="english flag" :src="engFlagSvg" class="tw-px-3"/>
       </div>
     </div>
   </header>

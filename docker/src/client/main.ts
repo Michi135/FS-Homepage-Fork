@@ -1,5 +1,6 @@
 import { createDefaultApp } from '@shared/app'
 import type { State } from '@shared/store'
+//import type { GraphQLClients } from '@shared/graphql'
 
 declare global {
     interface Window {

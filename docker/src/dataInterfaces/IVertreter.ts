@@ -2,9 +2,9 @@ import type { Ref } from "@typegoose/typegoose";
 import type { IFile } from '@dataInterfaces/IFile'
 
 export interface IStudiengang {
-    lectureShip?: 'gymnasium',
-    degree: 'bachelor' | 'master',
-    field?: 'science',
+    lectureShip?: 'GYMNASIUM',
+    degree: 'BACHELOR' | 'MASTER',
+    field?: 'SCIENCE',
     course: string,
     secondary?: string
 }
@@ -19,7 +19,22 @@ export interface IVertreter {
     email: string
 }
 
-export interface IResolvedVertreter extends Partial<IVertreter> {
+/*export interface IResolvedVertreter extends Partial<IVertreter> {
 
     image: Partial<IFile>
-}
+}*/
+
+export interface IResolvedVertreter {
+    nutzer_email: {
+      name: string
+      email: string
+    },
+    rolle: string,
+    grad: string,
+    feld: string,
+    hauptfach: string,
+    zweitfach:  string | undefined,
+    Lehramt: string | undefined,
+    semester: number,
+    portrait: { url: string }
+  }

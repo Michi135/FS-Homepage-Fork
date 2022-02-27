@@ -1,20 +1,20 @@
 <template>
   <div class="vertreter-container">
     <div class="image-container">
-      <img class="image" :src="vertreter.image" :alt="vertreter.name" />
+      <img class="image" crossorigin="anonymous" :src="'http://localhost:4000' + vertreter.portrait.url" :alt="vertreter.nutzer_email.name" />
     </div>
     <p class="property">{{ tGlobal("name") }}</p>
-    <p class="value" v-text="vertreter.name" />
+    <p class="value" v-text="vertreter.nutzer_email.name" />
 
     <p class="property">{{ tGlobal("role") }}</p>
-    <p class="value" v-text="t(vertreter.role)" />
+    <p class="value" v-text="t(vertreter.rolle)" />
 
     <v-icon
       large
       color="orange darken-2"
       :icon="mdiSchool"
     />
-    <studiengang class="value" :studiengang="vertreter.studiengang"/>
+    <studiengang class="value" :feld="vertreter.feld" :grad="vertreter.grad" :hauptfach="vertreter.hauptfach" :zweitfach="vertreter.zweitfach" :lehramt="vertreter.Lehramt"/>
 
     <p class="property">{{ t("semester") }}</p>
     <p class="value" v-text="vertreter.semester" />
@@ -24,16 +24,18 @@
       color="orange darken-2"
       :icon="mdiEmail"
     />
-    <p class="value" v-text="vertreter.email" />
+    <p class="value" v-text="vertreter.nutzer_email.email" />
   </div>
 </template>
 
 <script lang="ts">
 import { defineComponent, PropType } from "vue";
 import { useI18n } from "vue-i18n";
-import { IVertreter } from "@dataInterfaces/IVertreter";
+//import { IVertreter } from "@dataInterfaces/IVertreter";
 import studiengang from './studiengang.vue'
 import { mdiEmail, mdiSchool } from '@mdi/js'
+
+import type { IResolvedVertreter } from "@dataInterfaces/IVertreter";
 
 export default defineComponent({
   components: {
@@ -42,7 +44,7 @@ export default defineComponent({
   name: "SingleVertreter",
   props: {
     vertreter: {
-      type: Object as PropType<Partial<IVertreter>>,
+      type: Object as PropType<IResolvedVertreter>,
       required: true,
     },
     distPath: String,
@@ -133,17 +135,17 @@ export default defineComponent({
 {
   "degreeCourse": "Studiengang",
   "semester": "Semester",
-  "head": "Chef",
-  "vice": "Vize",
-  "finances": "Finanzen",
-  "networking": "Vernetzung",
-  "uniCinema": "Uni-Kino",
-  "publicRelations": "Öffentlichkeitsarbeit",
-  "beerCoordination": "Bierkoordination",
-  "physicistBar": "Physikerbar",
-  "graphics": "Grafiken",
-  "scripts": "Skripten",
-  "root": "Root"
+  "HEAD": "Chef",
+  "VICE": "Vize",
+  "FINANCES": "Finanzen",
+  "NETWORKING": "Vernetzung",
+  "UNI-CINEMA": "Uni-Kino",
+  "PUBLIC RELATIONS": "Öffentlichkeitsarbeit",
+  "BEER COORDINATION": "Bierkoordination",
+  "PHYSICIST BAR": "Physikerbar",
+  "GRAPHICS": "Grafiken",
+  "SCRIPTS": "Skripten",
+  "ROOT": "Root"
 }
 </i18n>
 
@@ -151,16 +153,16 @@ export default defineComponent({
 {
   "degreeCourse": "Degree course",
   "semester": "Semester",
-  "head": "Head",
-  "vice": "Vice",
-  "finances": "Finances",
-  "networking": "Networking",
-  "uniCinema": "Uni-Cinema",
-  "publicRelations": "Public relations",
-  "beerCoordination": "Beer coordination",
-  "physicistBar": "Physicist bar",
-  "graphics": "Graphics",
-  "scripts": "Scripts",
-  "root": "Root"
+  "HEAD": "Head",
+  "VICE": "Vice",
+  "FINANCES": "Finances",
+  "NETWORKING": "Networking",
+  "UNI-CINEMA": "Uni-Cinema",
+  "PUBLIC RELATIONS": "Public relations",
+  "BEER COORDINATION": "Beer coordination",
+  "PHYSICIST BAR": "Physicist bar",
+  "GRAPHICS": "Graphics",
+  "SCRIPTS": "Scripts",
+  "ROOT": "Root"
 }
 </i18n>

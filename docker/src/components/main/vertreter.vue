@@ -15,12 +15,16 @@
   </div>
 </template>
 <script lang="ts">
-import { defineComponent, ref } from "vue";
+import { defineComponent, ref, watch, onServerPrefetch, onBeforeMount } from "vue";
 import { useI18n } from "vue-i18n";
+import { useQuery } from '@vue/apollo-composable'
+import { gql } from 'graphql-tag'
 
 import SingleVertreter from "@components/main/single-vertreter.vue";
 
 import type { IResolvedVertreter } from "@dataInterfaces/IVertreter";
+
+import { useQuerySSR } from '@shared/vue-apollo-ssr'
 
 export default defineComponent({
   components: {
@@ -29,180 +33,34 @@ export default defineComponent({
   setup: (prop, context) => {
     const { t } = useI18n({});
 
-    let vertreter = ref(new Array<Partial<IResolvedVertreter>>());
+    let vertreter = ref(new Array<IResolvedVertreter>());
 
-    vertreter.value = new Array<Partial<IResolvedVertreter>>(
+    const res = useQuery<{vertreters: Array<IResolvedVertreter>}>(gql`
       {
-        image: require("@static/img/portraits/julia.jpg"),
-        name: "Julia",
-        role: "head",
-        studiengang: {
-          degree: "bachelor",
-          field: "science",
-          course: "technoMath",
-        },
-        semester: 7,
-        email: "julia.schwarz@uni-bayreuth.de",
-      },
-      {
-        image: require("@static/img/portraits/armin.jpg"),
-        name: "Armin",
-        role: "vice",
-        studiengang: {
-          degree: "master",
-          field: "science",
-          course: "physics",
-        },
-        semester: 4,
-        email: "armin.roediger@uni-bayreuth.de",
-      },
-      {
-        image: require("@static/img/portraits/charlotte.jpg"),
-        name: "Charlotte",
-        role: "finances",
-        studiengang: {
-          degree: "bachelor",
-          field: "science",
-          course: "physics",
-        },
-        semester: 5,
-        email: "charlotte.geiger@uni-bayreuth.de",
-      },
-      {
-        image: require("@static/img/portraits/lennart.jpg"),
-        name: "Lennart",
-        role: "finances",
-        studiengang: {
-          degree: "bachelor",
-          field: "science",
-          course: "computerScience",
-        },
-        semester: 3,
-        email: "lennart.reinstorf@uni-bayreuth.de",
-      },
-      {
-        image: require("@static/img/portraits/elias.jpg"),
-        name: "Elias",
-        role: "networking",
-        studiengang: {
-          lectureShip: "gymnasium",
-          degree: "bachelor",
-          course: "computerScience",
-          secondary: "math",
-        },
-        semester: 3,
-        email: "elias.laumeyer@uni-bayreuth.de",
-      },
-      {
-        image: require("@static/img/portraits/dennis.jpg"),
-        name: "Dennis",
-        role: "uniCinema",
-        studiengang: {
-          degree: "bachelor",
-          field: "science",
-          course: "computerScience",
-        },
-        semester: 5,
-        email: "dennis.streicher@uni-bayreuth.de",
-      },
-      {
-        image: require("@static/img/portraits/masell.jpg"),
-        name: "Masell",
-        role: "uniCinema",
-        studiengang: {
-          degree: "bachelor",
-          field: "science",
-          course: "physics",
-        },
-        semester: 7,
-        email: "marcel.schalling@uni-bayreuth.de",
-      },
-      {
-        image: require("@static/img/portraits/olivia.jpg"),
-        name: "Olivia",
-        role: "publicRelations",
-        studiengang: {
-          degree: "bachelor",
-          field: "science",
-          course: "computerScience",
-        },
-        semester: 5,
-        email: "olivia.kammerer@uni-bayreuth.de",
-      },
-      {
-        image: require("@static/img/portraits/sophie.jpg"),
-        name: "Sophie",
-        role: "publicRelations",
-        studiengang: {
-          degree: "bachelor",
-          field: "science",
-          course: "physics",
-        },
-        semester: 7,
-        email: "sophie.meissner@uni-bayreuth.de",
-      },
-      {
-        image: require("@static/img/portraits/michelle.jpg"),
-        name: "Michelle",
-        role: "beerCoordination",
-        studiengang: {
-          degree: "bachelor",
-          field: "science",
-          course: "computerScience",
-        },
-        semester: 3,
-        email: "michelle.reimann@uni-bayreuth.de",
-      },
-      {
-        image: require("@static/img/portraits/lena.jpg"),
-        name: "Lena",
-        role: "physicistBar",
-        studiengang: {
-          degree: "bachelor",
-          field: "science",
-          course: "physics",
-        },
-        semester: 7,
-        email: "magdalena.doerfler@uni-bayreuth.de",
-      },
-      {
-        image: require("@static/img/portraits/marius.jpg"),
-        name: "Marius",
-        role: "graphics",
-        studiengang: {
-          degree: "bachelor",
-          field: "science",
-          course: "physics",
-        },
-        semester: 9,
-        email: "marius.kaiser@uni-bayreuth.de",
-      },
-      {
-        image: require("@static/img/portraits/maike.jpg"),
-        name: "Maike",
-        role: "scripts",
-        studiengang: {
-          lectureShip: "gymnasium",
-          degree: "master",
-          course: "math",
-          secondary: "physics",
-        },
-        semester: 4,
-        email: "maike.schelhorn@uni-bayreuth.de",
-      },
-      {
-        image: require("@static/img/portraits/olli.jpg"),
-        name: "Olli",
-        role: "root",
-        studiengang: {
-          degree: "master",
-          field: "science",
-          course: "computerScience",
-        },
-        semester: 1,
-        email: "oliver.zahn@uni-bayreuth.de",
-      }
-    );
+        vertreters 
+        {
+          nutzer_email 
+          {
+            name
+            email
+          }
+          rolle,
+          grad,
+          feld,
+          hauptfach,
+          zweitfach,
+          Lehramt,
+          semester,
+          portrait {
+            url
+          }
+        }
+      }`)
+
+    useQuerySSR(() => 
+    { 
+      vertreter.value = res.result.value!.vertreters
+    }, res)
 
     return { vertreter, t };
   },

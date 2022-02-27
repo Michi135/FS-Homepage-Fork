@@ -21,6 +21,7 @@ export const localizedRoutes = {
         consultationHours: "Sprechstunden",
         contact: "Kontakt",
         error404: "404 Error",
+        blog: "Blog",
     },
     en: {
         home: "Home",
@@ -32,6 +33,7 @@ export const localizedRoutes = {
         consultationHours: "Consultation hours",
         contact: "Contact",
         error404: "404 Error",
+        blog: "Blog",
     }
 }
 
@@ -86,6 +88,14 @@ title: "Hochschulwa(h)l",
         meta:
         {
             title: "externals",
+        }
+    },
+    {
+        path: "blog",
+        component: () => import('@components/main/blog.vue' /* webpackChunkName: "home" */),
+        meta:
+        {
+            title: "blog",
         }
     }
 ]

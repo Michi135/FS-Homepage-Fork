@@ -2,11 +2,11 @@
   <div>
     <h3>
       {{ t("welcome") }} {{ tGlobal("studentCouncil", 1) }} <br />{{
-        tGlobal("math") +
+        tGlobal("MATH") +
         "|" +
-        tGlobal("physics") +
+        tGlobal("PHYSICS") +
         "|" +
-        tGlobal("computerScience")
+        tGlobal("COMPUTER SCIENCE")
       }}
     </h3>
     <div class="tw-text-center">

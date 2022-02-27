@@ -8,7 +8,7 @@ import nodeExternals from 'webpack-node-externals'
 import svgToMiniDataURI from 'mini-svg-data-uri'
 import { WebpackManifestPlugin } from 'webpack-manifest-plugin'
 import CssMinimizerPlugin from 'css-minimizer-webpack-plugin'
-import CompressionPlugin, { ZlibOptions } from 'compression-webpack-plugin'
+import CompressionPlugin from 'compression-webpack-plugin'
 import HtmlWebpackPlugin from 'html-webpack-plugin'
 //Not supported right now //import SpeedMeasurePlugin from 'speed-measure-webpack-plugin
 import { TsConfig } from './tsConfigType'
@@ -166,7 +166,7 @@ const config = (env: NodeJS.ProcessEnv = {}): Configuration => {
       externals: [
         isServerBuild ? nodeExternals(
           { 
-            allowlist: [/\.(?!(?:jsx?|json|tsx?)$).{1,5}$/i],
+            allowlist: [/\.(?!(?:jsx?|json|tsx?)$).{1,5}$/i, '@vue/apollo-composable'],
             //@ts-ignore
             importType: 'module'
           }) : {}
@@ -231,7 +231,7 @@ const config = (env: NodeJS.ProcessEnv = {}): Configuration => {
           {
             test: /\.tsx?$/,
             use: [
-              ...(useBabel ? ['babel-loader'] : []),
+              ...(/*useBabel*/ true ? ['babel-loader'] : []),
               {
                 loader: 'ts-loader',
                 options:
@@ -246,7 +246,7 @@ const config = (env: NodeJS.ProcessEnv = {}): Configuration => {
           },
           {
             test: /\.[mc]?jsx?$/,
-            use: (useBabel) ? ['babel-loader'] : [],
+            use: (/*useBabel*/ true) ? ['babel-loader'] : [],
             exclude: /node_modules/,
           },
           // target <docs> custom blocks

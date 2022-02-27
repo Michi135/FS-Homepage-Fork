@@ -9,7 +9,8 @@ import type { Stats, Compiler } from 'webpack'
 import { JSDOM } from 'jsdom'
 import { join, resolve } from 'path'
 import type * as App from '../shared/app'
-
+import { exportStates } from '@vue/apollo-ssr'
+import { brotliCompressSync, gzipSync } from 'zlib'
 
 import fsExtra from 'fs-extra'
 
@@ -118,7 +119,7 @@ function loadTitle(route: RouteLocationNormalized, context: SSRContext) {
 
 export default function ssr(dev: boolean) {
 
-    return async function (req: Request, res: Response, next: NextFunction) {
+    return async function (req: Request, res: Response, next: NextFunction) {        
 
         if (!req.accepts('html') || req.method !== 'GET')
             return next();
@@ -130,26 +131,26 @@ export default function ssr(dev: boolean) {
             const domLoad = loadDom(devMiddleware);
             const manifestLoad = loadManifest(devMiddleware);
             const contextLoad = createDefaultContext();
-
+            
             res.contentType('html');
             res.charset = 'utf-8';
 
             const language = getLanguage(req);
-
+            
             //@ts-ignore necessary in case there isn't a compiled main.js
             const { createDefaultApp } = <typeof App>(await import('@distServer/main.js'));
-            const { router, store, app, i18n } = createDefaultApp({ language: language});
+            const { router, store, app, i18n, apolloClients } = createDefaultApp({ language: language});
 
             router.push(req.url);
             await router.isReady();
-
+            
             const currentRoute = router.currentRoute.value;
             if (!currentRoute.matched.length) return res.status(404).end();
 
             const context: SSRContext = { ...(await contextLoad) };
             const manifest = await manifestLoad;
             const dom = new JSDOM(await domLoad);
-
+            
             context.state = store.state;
 
             const doc = dom.window.document;
@@ -158,7 +159,6 @@ export default function ssr(dev: boolean) {
             //doc.lang
             head.innerHTML += `<title>${i18n.global.t(loadTitle(currentRoute, context))}</title>`;
             //head.innerHTML += `<link href="https://cdnjs.cloudflare.com" rel="preconnect" crossorigin>`
-
             const emptyExports = doc.createElement('script');
             emptyExports.innerHTML = `var exports = {};`
             head.appendChild(emptyExports);
@@ -187,15 +187,29 @@ export default function ssr(dev: boolean) {
                 nodeImg.setAttribute('as', 'image');
                 head.appendChild(nodeImg);
             }
-
             head.innerHTML += getMeta();
             //head.innerHTML += getStyles();
             head.innerHTML += loadFavicon(currentRoute, context);
-            head.innerHTML += `<script>window.__INITIAL_STATE__=${JSON.stringify(context.state)}</script>`
-            doc.getElementById('app')!.innerHTML = await renderToString(app, context);
 
+            doc.getElementById('app')!.innerHTML = await renderToString(app, context);
+            
+            head.innerHTML += `<script>window.__INITIAL_STATE__=${JSON.stringify(context.state)}</script>`
+            head.innerHTML += `<script>${exportStates(apolloClients)}</script>`
+            
             const document = dom.serialize();
-            res.send(document).end();
+
+            if (req.acceptsEncodings(['br']))
+            {
+                res.setHeader('Content-Encoding', "br");
+                res.send(brotliCompressSync(document)).end();
+            }
+            else if (req.acceptsEncodings(['gzip']))
+            {
+                res.setHeader('Content-Encoding', "gzip");
+                res.send(gzipSync(document)).end();
+            }
+            else 
+                res.send(document).end();
 
         } catch (error) {
             console.log(error);

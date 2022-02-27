@@ -97,8 +97,8 @@ import { defineComponent } from "vue";
 
 export default defineComponent({
   setup: () => {
-    const oeA = ["Olivia Kammerer", "Ahmet Özilban"];
-    const chef = "Marcel Schalling";
+    const oeA = ["Olivia Kammerer", "Sophie Meissner"];
+    const chef = "Julia Schwarz";
     return { oeA, chef };
   },
 });

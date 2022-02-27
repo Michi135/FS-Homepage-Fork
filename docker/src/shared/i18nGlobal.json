@@ -1,0 +1,40 @@
+{
+    "de": 
+    {
+        "studentCouncil": "Fachschaft | Fachschaften",
+        "MATH": "Mathe",
+        "PHYSICS": "Physik",
+        "COMPUTER SCIENCE": "Informatik",
+        "mail": "Email",
+        "phone": "Telefon",
+        "contact": "Kontakt",
+        "name": "Name",
+        "role": "Rolle",
+        "here": "Hier",
+        "monday": "Montag",
+        "tuesday": "Dienstag",
+        "wednesday": "Mittwoch",
+        "thursday": "Donnerstag",
+        "friday": "Freitag",
+        "link": "Link"
+    },
+    "en":
+    {
+        "studentCouncil": "Student council | Student councils",
+        "MATH": "Math",
+        "PHYSICS": "Physics",
+        "COMPUTER SCIENCE": "Computer science",
+        "mail": "Mail",
+        "phone": "Phone",
+        "contact": "Contact",
+        "name": "Name",
+        "role": "Role",
+        "here": "Here",
+        "monday": "Monday",
+        "tuesday": "Tuesday",
+        "wednesday": "Wednesday",
+        "thursday": "Thursday",
+        "friday": "Friday",
+        "link": "Link"
+    }
+}

@@ -73,19 +73,43 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, onBeforeUnmount, onMounted, ref, Ref, watch } from "vue";
+import { defineComponent, onBeforeUnmount, onMounted, ref, watch } from "vue";
+import type { Ref } from 'vue'
 import { useI18n } from 'vue-i18n'
+import { useQuery } from '@vue/apollo-composable'
+import { gql } from 'graphql-tag'
+import dateFormat from 'dateformat'
+
+import { useQuerySSR } from '@shared/vue-apollo-ssr'
 //import table from "./dashboard/table.vue";
 //https://colorlib.com/wp/css3-table-templates/
 //https://colorlib.com/etc/tb/Table_Highlight_Vertical_Horizontal/index.html
+
+
+interface FerienTag {
+  tag: Date,
+  person: Array<{name: string}>
+}
+
 export default defineComponent({
   //components: { table },
   setup: () => {
-    const loading = true;
     const ferien = true;
     //https://www.npmjs.com/package/@thi.ng/sparse
     //https://adamlynch.com/flexible-data-tables-with-css-grid/
     let sprechstunden: { [key: string]: { [key: string]: Ref<String[]> } } = {};
+
+    const res = useQuery<{feriensprechstundens: Array<FerienTag>}>(gql
+    `
+    {
+      feriensprechstundens(orderBy: {tag: asc}) {
+        tag
+        person {
+          name
+        }
+      }
+    }
+    `)
 
     /*const windowWidth = ref(0);
     const tableStyle = computed(() => {
@@ -130,52 +154,25 @@ export default defineComponent({
       [stunden[2]]: ref<String[]>(["Dennis"]),
     };
 
-    const ferien_sprechstunden = {
+    const ferien_sprechstunden: Ref<{timespan: Array<number>, sprechstunden: Array<{tag: string, betreuer: Array<string>}>}> = ref({
       timespan: [14, 16],
-      sprechstunden: [
-        {
-          tag: "16.02",
-          betreuer: ["Fabi", "Lena"],
-        },
-        {
-          tag: "23.02",
-          betreuer: ["Charlotte", "Marius"],
-        },
-        {
-          tag: "02.03",
-          betreuer: ["Maike", "Olli"],
-        },
-        {
-          tag: "09.03",
-          betreuer: ["Julia"],
-        },
-        {
-          tag: "16.03",
-          betreuer: ["Olivia"],
-        },
-        {
-          tag: "23.03",
-          betreuer: ["Michelle"],
-        },
-        {
-          tag: "30.03",
-          betreuer: ["Denis"],
-        },
-        {
-          tag: "06.04",
-          betreuer: ["Masell"],
-        },
-        {
-          tag: "13.04",
-          betreuer: ["Sophie"],
-        },
-        {
-          tag: "20.04",
-          betreuer: ["Armin"],
-        },
-      ],
-    };
+      sprechstunden: []
+    });
+    
+    const process_ferien = () => {
+      ferien_sprechstunden.value.sprechstunden =
+      res.result!.value!.feriensprechstundens.map((val) => {
+        return {
+          tag: dateFormat(val.tag, "dd.mm"),
+          betreuer: val.person.map((per) => { return per.name })
+        }
+      })
+    }
+
+    useQuerySSR(process_ferien, res);
     onMounted(() => {
+
+
       //windowWidth.value = window.innerWidth;
       //window.onresize = (ev) => {
        // windowWidth.value = window.innerWidth;
@@ -280,7 +277,6 @@ export default defineComponent({
     return {
       t,
       tGlobal,
-      loading,
       ferien,
       tage,
       stunden,

@@ -3,35 +3,53 @@
 </template>
 
 <script lang="ts">
-import type { IStudiengang } from "@dataInterfaces/IVertreter";
+//import type { IStudiengang } from "@dataInterfaces/IVertreter";
 import { computed, defineComponent, PropType } from "vue";
 import { useI18n } from "vue-i18n";
 
+type Faecher = "COMPUTER SCIENCE" | "PHYSICS" | "MATH" | "TECHNO MATH"
+
 export default defineComponent({
   props: {
-    studiengang: {
-      type: Object as PropType<IStudiengang>,
+    lehramt: {
+      type: String as PropType<"GYMNASIUM">,
+      required: false
+    },
+    grad: {
+      type: String as PropType<'BACHELOR' | 'MASTER'>,
       required: true
+    },
+    feld: {
+      type: String as PropType<'SCIENCE'>,
+      required: false
+    },
+    hauptfach: {
+      type: String as PropType<Faecher>,
+      required: true
+    },
+    zweitfach: {
+      type: String as PropType<Faecher>,
+      required: false
     },
   },
   setup(props) {
-    const {t} = useI18n({});
+    const { t } = useI18n({});
 
     const studiengang = computed(() => {
     
         let val: string = '';
-        if (props.studiengang.lectureShip)
-            val = t('lectureship') + ' ' + t(props.studiengang.lectureShip) + ' ';
+        if (props.lehramt)
+            val = t('lectureship') + ' ' + t(props.lehramt) + ' ';
 
-        val += t(props.studiengang.degree);
+        val += t(props.grad);
 
-        if (props.studiengang.field)
-            val += t(props.studiengang.field);
+        if (!props.lehramt /*props.feld*/)
+            val += t(<"SCIENCE">props.feld);
 
-        val += ' ' + t(props.studiengang.course);
+        val += ' ' + t(props.hauptfach);
         
-        if (props.studiengang.secondary)
-            val += '/' + t(props.studiengang.secondary);
+        if (props.zweitfach)
+            val += '/' + t(props.zweitfach);
 
         return val;
     });
@@ -42,28 +60,28 @@ export default defineComponent({
 
 <i18n locale="de">
 {
-  "math": "Mathe",
-  "physics": "Physik",
-  "computerScience": "Informatik",
-  "gymnasium": "GYM",
-  "bachelor": "B.",
-  "master": "M.",
-  "science": "Sc.",
+  "MATH": "Mathe",
+  "PHYSICS": "Physik",
+  "COMPUTER SCIENCE": "Informatik",
+  "GYMNASIUM": "GYM",
+  "BACHELOR": "B.",
+  "MASTER": "M.",
+  "SCIENCE": "Sc.",
   "lectureship": "LA",
-  "technoMath": "Technomathe"
+  "TECHNO MATH": "Technomathe"
 }
 </i18n>
 
 <i18n locale="en">
 {
-  "math": "Math",
-  "physics": "Physics",
-  "computerScience": "Computer science",
-  "gymnasium": "GYM",
-  "bachelor": "B.",
-  "master": "M.",
-  "science": "Sc.",
+  "MATH": "Math",
+  "PHYSICS": "Physics",
+  "COMPUTER SCIENCE": "Computer science",
+  "GYMNASIUM": "GYM",
+  "BACHELOR": "B.",
+  "MASTER": "M.",
+  "SCIENCE": "Sc.",
   "lectureship": "LS",
-  "technoMath": "Techno math"
+  "TECHNO MATH": "Techno math"
 }
 </i18n>
