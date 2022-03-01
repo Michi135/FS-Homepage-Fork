@@ -114,7 +114,6 @@
 import { defineComponent, onMounted, ref, watch } from "vue";
 import { useI18n } from "vue-i18n";
 import { headerRoutes, basePaths } from "@shared/routes";
-import { useStore } from "@shared/store";
 import trossSvg from "@static/img/tross.svg";
 
 import gerFlagSvg from "svg-country-flags/svg/de.svg"
@@ -123,7 +122,6 @@ import engFlagSvg from "svg-country-flags/svg/gb.svg";
 export default defineComponent({
   setup: () => {
     const isOpen = ref<Boolean>(false);
-    const store = useStore();
     const globalI18n = useI18n({useScope: 'global'});
     const localI18n = useI18n();
     const val = ref<Boolean>(false);
@@ -146,7 +144,6 @@ export default defineComponent({
       switchValue: false,
       tLocal: localI18n.t,
       tGlobal: globalI18n.t,
-      store,
       isOpen,
       navLogo: trossSvg,
       gerFlagSvg,

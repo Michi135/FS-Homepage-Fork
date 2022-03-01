@@ -139,6 +139,8 @@ const DocumentNode = (props: { node: Element | Text, renderers: Renderers, compo
 
         if (node.text !== "")
             child = <>{node.text}</>;
+        else
+            child = <br/>
         
         (Object.keys(renderers.inline) as (keyof typeof renderers.inline)[]).forEach(markName => 
         {

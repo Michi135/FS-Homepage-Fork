@@ -16,23 +16,24 @@ export default defineComponent({
   name: "app",
   setup() {
     onMounted(() => {
-      const store = useStore();
+      const { state } = useStore();
+      const { defaultTitle, defaultFavicon } = state;
       const { t, locale } = useI18n({ useScope: "global" });
       const route = useRoute();
 
       locale.value = <'de' | 'en'>localStorage.getItem('lang');
-      document.title = t(<string | undefined>route.meta.title || store.state.defaultTitle);
+      document.title = t(<string | undefined>route.meta.title || defaultTitle);
       watch(locale, () => {
-        document.title = t(<string | undefined>route.meta.title || store.state.defaultTitle);
+        document.title = t(<string | undefined>route.meta.title || defaultTitle);
       })
 
       useRouter().afterEach(({meta}, from, failure) => {
         if (failure) return;
 
         let routeTitle =
-          <string | undefined>meta.title || store.state.defaultTitle;
+          <string | undefined>meta.title || defaultTitle;
         let routeFavicon =
-          <string | undefined>meta.favicon || store.state.defaultFavicon;
+          <string | undefined>meta.favicon || defaultFavicon;
 
         document.title = t(routeTitle);
 

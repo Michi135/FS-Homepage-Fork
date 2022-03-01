@@ -120,13 +120,6 @@ const config = (env: NodeJS.ProcessEnv = {}): Configuration => {
     }
   ];
 
-  const babelLoader = {
-    loader: 'babel-loader',
-    options: {
-      presets: [ ["env", {"modules": false} ]]
-    }
-  };
-
   const dirname = resolve();
 
   const genConfig = (isServerBuild: boolean = false): Configuration => {
