@@ -1,114 +1,141 @@
 <template>
   <div class="tw-px-5 tw-py-2 main">
-    <p class="tw-text-2xl">{{ t("mainMessage") }}</p>
+    <p class="tw-text-2xl">
+      {{ t('mainMessage') }}
+    </p>
     <br />
-    <h5 class="tw-text-2xl">{{ tGlobal("studentCouncil", 2) }}</h5>
+    <h5 class="tw-text-2xl">
+      {{ tGlobal('studentCouncil', 2) }}
+    </h5>
     <ul>
       <li
         class="tw-ml-5 tw-py-1"
         v-for="fachschaft in fachschaften"
         :key="fachschaft.name"
       >
-        <a class="link tw-text-xl" :href="fachschaft.link" target="_blank" rel="noopener noreferrer">{{
-          fachschaft.name
-        }}</a>
+        <a
+          class="link tw-text-xl"
+          :href="fachschaft.link"
+          target="_blank"
+          rel="noopener noreferrer"
+        >{{ fachschaft.name }}</a>
       </li>
     </ul>
     <br />
-    <i18n-t tag="h5" class="tw-text-2xl" keypath="studentGroups" />
+    <i18n-t
+      tag="h5"
+      class="tw-text-2xl"
+      keypath="studentGroups"
+    />
     <ul>
       <li
         class="tw-ml-5 tw-py-1"
         v-for="hochschulgruppe in hochschulgruppen"
         :key="hochschulgruppe.name"
       >
-        <a class="link tw-text-xl" :href="hochschulgruppe.link" target="_blank" rel="noopener noreferrer">{{
-          hochschulgruppe.name
-        }}</a>
+        <a
+          class="link tw-text-xl"
+          :href="hochschulgruppe.link"
+          target="_blank"
+          rel="noopener noreferrer"
+        >{{ hochschulgruppe.name }}</a>
       </li>
     </ul>
     <br />
-    <i18n-t tag="h5" class="tw-text-2xl" keypath="furtherLinks" />
+    <i18n-t
+      tag="h5"
+      class="tw-text-2xl"
+      keypath="furtherLinks"
+    />
     <ul>
       <li class="tw-ml-5 tw-py-1">
-        <a class="link tw-text-xl" href="https://alumpi.de/" target="_blank" rel="noopener noreferrer">Alumpi</a>
+        <a
+          class="link tw-text-xl"
+          href="https://alumpi.de/"
+          target="_blank"
+          rel="noopener noreferrer"
+        >Alumpi</a>
       </li>
       <li class="tw-ml-5 tw-py-1">
-        <a class="link tw-text-xl" href="https://www.max-academy.de/" target="_blank" rel="noopener noreferrer"
-          >Max Academy</a
-        >
+        <a
+          class="link tw-text-xl"
+          href="https://www.max-academy.de/"
+          target="_blank"
+          rel="noopener noreferrer"
+        >Max Academy</a>
       </li>
     </ul>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
-import { useI18n } from "vue-i18n";
+import { defineComponent } from 'vue'
+import { useI18n } from 'vue-i18n'
 
 export default defineComponent({
-  setup: () => {
-    const tGlobal = useI18n({ useScope: "global" }).t;
-    const { t } = useI18n({});
+  setup: () =>
+  {
+    const tGlobal = useI18n({ useScope: 'global' }).t
+    const { t } = useI18n({})
 
     return {
       t,
       tGlobal,
       fachschaften: [
         {
-          name: "RW",
-          link: "https://www.fsrw.uni-bayreuth.de/de/index.html",
+          name: 'RW',
+          link: 'https://www.fsrw.uni-bayreuth.de/de/index.html'
         },
         {
-          name: "BCG",
-          link: "https://www.bcg.uni-bayreuth.de/de/studium/fachschaft/index.html",
+          name: 'BCG',
+          link: 'https://www.bcg.uni-bayreuth.de/de/studium/fachschaft/index.html'
         },
         {
-          name: "SpLit",
-          link: "https://www.fssplit.uni-bayreuth.de/de/index.html",
+          name: 'SpLit',
+          link: 'https://www.fssplit.uni-bayreuth.de/de/index.html'
         },
         {
-          name: "Sport",
-          link: "https://www.fs-sport.uni-bayreuth.de/de/index.html",
+          name: 'Sport',
+          link: 'https://www.fs-sport.uni-bayreuth.de/de/index.html'
         },
         {
-          name: "ING",
-          link: "https://www.fachschaft-ing.uni-bayreuth.de/de/index.html",
+          name: 'ING',
+          link: 'https://www.fachschaft-ing.uni-bayreuth.de/de/index.html'
         },
         {
-          name: "KuWi",
-          link: "https://www.kuwi.uni-bayreuth.de/de/index.html",
-        },
+          name: 'KuWi',
+          link: 'https://www.kuwi.uni-bayreuth.de/de/index.html'
+        }
       ],
       hochschulgruppen: [
         {
           name: '"Die Liste"',
-          link: "https://de-de.facebook.com/DieListeUniBayreuth",
+          link: 'https://de-de.facebook.com/DieListeUniBayreuth'
         },
         {
-          name: "Grüne",
-          link: "https://www.facebook.com/GHGBayreuth/",
+          name: 'Grüne',
+          link: 'https://www.facebook.com/GHGBayreuth/'
         },
         {
-          name: "Juso",
-          link: "https://www.facebook.com/Juso-Hochschulgruppe-Uni-Bayreuth-161660643852972/",
+          name: 'Juso',
+          link: 'https://www.facebook.com/Juso-Hochschulgruppe-Uni-Bayreuth-161660643852972/'
         },
         {
-          name: "Liberale",
-          link: "https://www.facebook.com/lhg.bayreuth/",
+          name: 'Liberale',
+          link: 'https://www.facebook.com/lhg.bayreuth/'
         },
         {
-          name: "RCDS",
-          link: "https://www.facebook.com/rcdsbayreuth/",
+          name: 'RCDS',
+          link: 'https://www.facebook.com/rcdsbayreuth/'
         },
         {
-          name: "Volt",
-          link: "https://www.facebook.com/Volt-Bayreuth-401468427008133/",
-        },
-      ],
-    };
-  },
-});
+          name: 'Volt',
+          link: 'https://www.facebook.com/Volt-Bayreuth-401468427008133/'
+        }
+      ]
+    }
+  }
+})
 </script>
 
 <style scoped lang="less">

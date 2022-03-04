@@ -1,0 +1,28 @@
+{
+    "extends": [
+        "plugin:vue/vue3-strongly-recommended"
+    ],
+    "plugins": [],
+    "rules": {
+        "brace-style": ["error", "allman"],
+        "vue/multi-word-component-names": 0,
+        "vue/component-definition-name-casing": 0,
+        "vue/html-self-closing": 0,
+        "vue/html-closing-bracket-newline": ["error", {
+            "singleline": "never",
+            "multiline": "always"
+          }],
+        "indent": ["error", 2],
+        "object-curly-spacing": ["error", "always"],
+        "array-bracket-spacing": ["error", "never"],
+        "semi": ["error", "never"],
+        "no-trailing-spaces": "error",
+        "space-in-parens": "error",
+        "comma-dangle": "error"
+    },
+    "parserOptions": {
+        "parser": "@typescript-eslint/parser",
+        "sourceType": "module"
+    },
+    "ignorePatterns": ["./dist-ssr/**", "./node_modules/**"]
+}

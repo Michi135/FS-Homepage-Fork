@@ -1,21 +1,26 @@
 <template>
   <div>
     <h3>
-      {{ t("welcome") }} {{ tGlobal("studentCouncil", 1) }} <br />{{
-        tGlobal("MATH") +
-        "|" +
-        tGlobal("PHYSICS") +
-        "|" +
-        tGlobal("COMPUTER SCIENCE")
+      {{ t('welcome') }} {{ tGlobal('studentCouncil', 1) }} <br />{{
+        tGlobal('MATH') +
+          '|' +
+          tGlobal('PHYSICS') +
+          '|' +
+          tGlobal('COMPUTER SCIENCE')
       }}
     </h3>
     <div class="tw-text-center">
-      <h1>{{ t("intermediate") }}!</h1>
+      <h1>{{ t('intermediate') }}!</h1>
       <h2 style="color: #ff9e1f">
-        <router-link class="link" to="/erstis">{{
-          tGlobal("here")
-        }}</router-link>
-        {{ t("firstis") }}
+        <router-link
+          class="link"
+          to="/erstis"
+        >
+          {{
+            tGlobal('here')
+          }}
+        </router-link>
+        {{ t('firstis') }}
       </h2>
     </div>
     <br />
@@ -30,29 +35,72 @@
     <br /><br />
     <div class="tw-m-3.5">
       <div style="max-width: 1100px; margin: 0 auto">
-        <h2>{{t('theStCo')}}</h2>
-        <i18n-t tag="h1" keypath="temp">
-          <template v-slot:what><b>{{t('what')}}</b></template>
-        </i18n-t>
-        <i18n-t tag="p" keypath="p[0]"/>
-        <br />
-        <i18n-t tag="h1" keypath="whoF">
-          <template v-slot:who><b>{{t('who')}}</b></template>
-        </i18n-t>
-        <i18n-t tag="p" keypath="p[1]">
-          <template v-slot:here>
-            <router-link class="link" to="/vertreter">{{tGlobal('here')}}</router-link>
+        <h2>{{ t('theStCo') }}</h2>
+        <i18n-t
+          tag="h1"
+          keypath="temp"
+        >
+          <template #what>
+            <b>{{ t('what') }}</b>
           </template>
         </i18n-t>
-        <i18n-t tag="p" keypath="p[2]" />
+        <i18n-t
+          tag="p"
+          keypath="p[0]"
+        />
         <br />
-        <i18n-t tag="h1" keypath="whatF">
-          <template v-slot:what><b>{{t('what')}}</b></template>
+        <i18n-t
+          tag="h1"
+          keypath="whoF"
+        >
+          <template #who>
+            <b>{{ t('who') }}</b>
+          </template>
         </i18n-t>
-        <i18n-t tag="p" keypath="p[3]">
-          <template v-slot:see>{{t('see')}}</template>
-          <template v-slot:erstis>
-            <router-link class="link" to="/erstis">{{tGlobal('here')}}</router-link>
+        <i18n-t
+          tag="p"
+          keypath="p[1]"
+        >
+          <template #here>
+            <router-link
+              class="link"
+              to="/vertreter"
+            >
+              {{
+                tGlobal('here')
+              }}
+            </router-link>
+          </template>
+        </i18n-t>
+        <i18n-t
+          tag="p"
+          keypath="p[2]"
+        />
+        <br />
+        <i18n-t
+          tag="h1"
+          keypath="whatF"
+        >
+          <template #what>
+            <b>{{ t('what') }}</b>
+          </template>
+        </i18n-t>
+        <i18n-t
+          tag="p"
+          keypath="p[3]"
+        >
+          <template #see>
+            {{ t('see') }}
+          </template>
+          <template #erstis>
+            <router-link
+              class="link"
+              to="/erstis"
+            >
+              {{
+                tGlobal('here')
+              }}
+            </router-link>
           </template>
         </i18n-t>
       </div>
@@ -61,25 +109,26 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from "vue";
-import { useI18n } from "vue-i18n";
+import { defineComponent, ref } from 'vue'
+import { useI18n } from 'vue-i18n'
 
 export default defineComponent({
-  setup: () => {
-    const fachschaftsimage = ref<string>("");
-    const tGlobal = useI18n({ useScope: "global" }).t;
+  setup: () =>
+  {
+    const fachschaftsimage = ref<string>('')
+    const tGlobal = useI18n({ useScope: 'global' }).t
 
-    const { t } = useI18n();
+    const { t } = useI18n()
 
-    import("@static/img/plakat.jpg" /* webpackPackPreload: true */).then(
-      (value) => {
-        fachschaftsimage.value = value.default;
-      }
-    );
+    import('@static/img/plakat.jpg' /* webpackPackPreload: true */).then(
+      (value) =>
+      {
+        fachschaftsimage.value = value.default
+      })
 
-    return { t, tGlobal, fachschaftsimage };
-  },
-});
+    return { t, tGlobal, fachschaftsimage }
+  }
+})
 </script>
 
 <style scoped lang="less">
@@ -121,41 +170,41 @@ p {
 }
 </style>
 
-<i18n locale='de' lang="json5">
+<i18n locale="de" lang="json5">
 {
-  "welcome": "Willkommen auf der Homepage der",
-  "intermediate": "Nachdem du schon mal hier bist, schau dich doch gerne mal um",
-  "firstis": "geht es zum Erstsemesterbereich",
-  "theStCo": "Die \"Fachschaft\"",
-  "what": "Was",
-  "see": "siehe",
-  "temp": "{what} ist die Fachschaft?",
-  "whoF": "{who} ist die Fachschaft?",
-  "whatF": "{what} macht die Fachschaft?",
-  "der": "der",
-  "die": "die",
-  "das": "das",
-  "is": "ist",
-  "who": "Wer",
-  "p[0]": "Als Fachschaft versteht man drei verschiedene Dinge: Zunächst ist die \
+  welcome: 'Willkommen auf der Homepage der',
+  intermediate: 'Nachdem du schon mal hier bist, schau dich doch gerne mal um',
+  firstis: 'geht es zum Erstsemesterbereich',
+  theStCo: 'Die "Fachschaft"',
+  what: 'Was',
+  see: 'siehe',
+  temp: '{what} ist die Fachschaft?',
+  whoF: '{who} ist die Fachschaft?',
+  whatF: '{what} macht die Fachschaft?',
+  der: 'der',
+  die: 'die',
+  das: 'das',
+  is: 'ist',
+  who: 'Wer',
+  'p[0]': 'Als Fachschaft versteht man drei verschiedene Dinge: Zunächst ist die \
           Fachschaft die Gesamtheit der Studierenden an einer Fakultät. Diese \
           Studierenden wählen jedes Jahr zur Hochschulwahl eine \
           Studienvertretung mit bis zu sieben Mitgliedern. Diese gewählte \
           Studienvertretung bildet zusammen mit gleichrangigen freiwilligen \
-          Helfern eine Gruppe, welche ebenfalls als \"Fachschaft\" bezeichnet \
+          Helfern eine Gruppe, welche ebenfalls als "Fachschaft" bezeichnet \
           wird. In unserem Fall ist das die Fachschaft Mathe/Physik/Informatik. \
-          Die dritte Bedeutung des Wortes ist \"Fachschaft\" als Abkürzung für \
-          \"Fachschaftsbüro\", welches ihr übrigens im NW2 Gebäude neben dem H20 \
-          findet.",
-  "p[1]": "In erster Linie sind wir auch nur Studierende, die neben ihrem Studium \
-          ein Ehrenamt bekleiden. Die aktuellen Fachschaftler*innen könnt ihr {here} sehen.",
-  "p[2]": "Darüber hinaus werden wir durch unzählige ehemalige \
+          Die dritte Bedeutung des Wortes ist "Fachschaft" als Abkürzung für \
+          "Fachschaftsbüro", welches ihr übrigens im NW2 Gebäude neben dem H20 \
+          findet.',
+  'p[1]': 'In erster Linie sind wir auch nur Studierende, die neben ihrem Studium \
+          ein Ehrenamt bekleiden. Die aktuellen Fachschaftler*innen könnt ihr {here} sehen.',
+  'p[2]': 'Darüber hinaus werden wir durch unzählige ehemalige \
           Fachschaftler*innen und Freunde der Fachschaft unterstützt. Wir freuen \
-          uns aber natürlich auch über jede freiwillige Hilfe!",
-  "p[3]": "Gemäß unserem Auftrag (BayHSchG,Art.52Abs.4,5,6) werden wir uns um die \
-          \"Vertretung der fachlichen, wirtschaftlichen und sozialen Belange der \
+          uns aber natürlich auch über jede freiwillige Hilfe!',
+  'p[3]': 'Gemäß unserem Auftrag (BayHSchG,Art.52Abs.4,5,6) werden wir uns um die \
+          "Vertretung der fachlichen, wirtschaftlichen und sozialen Belange der \
           Studierenden [... der Fakultät, sowie] die Förderung der geistigen, \
-          musischen und sportlichen Interessen der Studierenden\" kümmern. Das \
+          musischen und sportlichen Interessen der Studierenden" kümmern. Das \
           bedeutet, dass wir uns neben der Vertretung in Studierendenparlament \
           und Fakultätsrat auch mit diversen Events für Erstsemester und \
           Erstsemesterinnen beschäftigen ({see} siehe: {erstis}). So bieten \
@@ -175,36 +224,36 @@ p {
           engagieren wollt, können wir euch ein nahezu WG gleiches Gefühl \
           bieten, nur dass bei uns das Wohnzimmer auf dem Campus steht, es keine \
           gemeinsame Dusche gibt und außerhalb der Pandemie am Tag unzählige \
-          Leute ein und aus gehen."
+          Leute ein und aus gehen.'
 }
 </i18n>
 
-<i18n locale='en' lang="json5">
+<i18n locale="en" lang="json5">
 {
-  "welcome": "Welcome to the homepage of the",
-  "intermediate": "Have a look around since you're already here",
-  "firstis": "you can find the first semester area",
-  "theStCo": "The \"Fachschaft\" (Student council)",
-  "what": "What",
-  "see": "see",
-  "temp": "{what} is the Fachschaft?",
-  "whoF": "{who} is the Fachschaft?",
-  "whatF": "{what} is the Fachschaft doing?",
-  "der": "the",
-  "die": "the",
-  "das": "the",
-  "is": "is",
-  "who": "Who",
-  "p[0]": "The Fachschaft is understood to be three different things: \
+  welcome: 'Welcome to the homepage of the',
+  intermediate: "Have a look around since you're already here",
+  firstis: 'you can find the first semester area',
+  theStCo: 'The "Fachschaft" (Student council)',
+  what: 'What',
+  see: 'see',
+  temp: '{what} is the Fachschaft?',
+  whoF: '{who} is the Fachschaft?',
+  whatF: '{what} is the Fachschaft doing?',
+  der: 'the',
+  die: 'the',
+  das: 'the',
+  is: 'is',
+  who: 'Who',
+  'p[0]': 'The Fachschaft is understood to be three different things: \
           First of all the Fachschaft is the entirety of the students of a faculty. \
           Every year during the university elections those students are electing a student representation of up to seven members. \
           This elected student representation froms a group together with equally ranked voluntary helpers which are called Fachschaft as well. \
-          In our case it's the student council Math/Physics/Computer Science. \
-          The third meaning of the word \"Fachschaft\" is as an abbrevation for the \"Fachschaftsbüro\" (student council office) which you can find in the NW2 building adjacent to the H20.",
-  "p[1]": "In the first place we're also just students which have a honorary office alongside our studies. {here} you can see the current student council members.",
-  "p[2]": "In addition we're getting supported by countless former student council members and friends of the student council. \
+          In our case it\'s the student council Math/Physics/Computer Science. \
+          The third meaning of the word "Fachschaft" is as an abbrevation for the "Fachschaftsbüro" (student council office) which you can find in the NW2 building adjacent to the H20.',
+  'p[1]': "In the first place we're also just students which have a honorary office alongside our studies. {here} you can see the current student council members.",
+  'p[2]': "In addition we're getting supported by countless former student council members and friends of the student council. \
           But we would still appreciate any voluntary help we get!",
-  "p[3]": "According to our Mission (BayHSchG,Art.52Abs.4,5,6) we take care of the \
+  'p[3]': "According to our Mission (BayHSchG,Art.52Abs.4,5,6) we take care of the \
           representation regarding the professional, economic and social interests of \
           students of the faculty as well as the promotion of cognitive, artistic and \
           athletic interests of students. \

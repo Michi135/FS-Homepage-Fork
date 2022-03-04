@@ -4,16 +4,17 @@
 
 <script lang="ts">
 //import type { IStudiengang } from "@dataInterfaces/IVertreter";
-import { computed, defineComponent, PropType } from "vue";
-import { useI18n } from "vue-i18n";
+import { computed, defineComponent, PropType } from 'vue'
+import { useI18n } from 'vue-i18n'
 
-type Faecher = "COMPUTER SCIENCE" | "PHYSICS" | "MATH" | "TECHNO MATH"
+type Faecher = 'COMPUTER SCIENCE' | 'PHYSICS' | 'MATH' | 'TECHNO MATH'
 
 export default defineComponent({
   props: {
     lehramt: {
-      type: String as PropType<"GYMNASIUM">,
-      required: false
+      type: String as PropType<'GYMNASIUM'>,
+      required: false,
+      default: undefined
     },
     grad: {
       type: String as PropType<'BACHELOR' | 'MASTER'>,
@@ -21,7 +22,8 @@ export default defineComponent({
     },
     feld: {
       type: String as PropType<'SCIENCE'>,
-      required: false
+      required: false,
+      default: undefined
     },
     hauptfach: {
       type: String as PropType<Faecher>,
@@ -29,33 +31,32 @@ export default defineComponent({
     },
     zweitfach: {
       type: String as PropType<Faecher>,
-      required: false
-    },
+      required: false,
+      default: undefined
+    }
   },
-  setup(props) {
-    const { t } = useI18n({});
+  setup(props)
+  {
+    const { t } = useI18n()
 
-    const studiengang = computed(() => {
-    
-        let val: string = '';
-        if (props.lehramt)
-            val = t('lectureship') + ' ' + t(props.lehramt) + ' ';
+    const studiengang = computed(() =>
+    {
+      let val: string = ''
+      if (props.lehramt) val = t('lectureship') + ' ' + t(props.lehramt) + ' '
 
-        val += t(props.grad);
+      val += t(props.grad)
 
-        if (!props.lehramt /*props.feld*/)
-            val += t(<"SCIENCE">props.feld);
+      if (!props.lehramt /*props.feld*/) val += t(<'SCIENCE'>props.feld)
 
-        val += ' ' + t(props.hauptfach);
-        
-        if (props.zweitfach)
-            val += '/' + t(props.zweitfach);
+      val += ' ' + t(props.hauptfach)
 
-        return val;
-    });
-    return { studiengang };
-  },
-});
+      if (props.zweitfach) val += '/' + t(props.zweitfach)
+
+      return val
+    })
+    return { studiengang }
+  }
+})
 </script>
 
 <i18n locale="de">

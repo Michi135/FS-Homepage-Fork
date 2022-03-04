@@ -5,29 +5,37 @@
       v-if="ferien"
       class="tw-flex tw-flex-col tw-items-center tw-text-center tw-space-y-2"
     >
-      <i18n-t keypath="t[0]" tag="h1"/>
-      <i18n-t keypath="t[1]" tag="h1">
-        <template v-slot:from>
+      <i18n-t
+        keypath="t[0]"
+        tag="h1"
+      />
+      <i18n-t
+        keypath="t[1]"
+        tag="h1"
+      >
+        <template #from>
           {{ ferien_sprechstunden.timespan[0] }}
         </template>
-        <template v-slot:to>
+        <template #to>
           {{ ferien_sprechstunden.timespan[1] }}
         </template>
       </i18n-t>
-      <br/><br/>
-      <i18n-t tag="h2" keypath="holidayConsHours" />
-      <br/>
+      <br /><br />
+      <i18n-t
+        tag="h2"
+        keypath="holidayConsHours"
+      />
+      <br />
       <div
-        style="background: rgb(51, 49, 48); color: rgb(192, 192, 192); border-color: rgb(255, 115, 0); font-size: 1.1rem; gap: 19px; padding: 10px;"
-        class="
-          tw-flex
-          tw-flex-wrap
-          tw-space-x-2
-          tw-border-solid
-          tw-border-2
-          tw-text-left
-          tw-justify-center
+        style="
+          background: rgb(51, 49, 48);
+          color: rgb(192, 192, 192);
+          border-color: rgb(255, 115, 0);
+          font-size: 1.1rem;
+          gap: 19px;
+          padding: 10px;
         "
+        class="tw-flex tw-flex-wrap tw-space-x-2 tw-border-solid tw-border-2 tw-text-left tw-justify-center"
       >
         <div
           v-for="(sprechstunde, index) in ferien_sprechstunden.sprechstunden"
@@ -35,28 +43,52 @@
         >
           <div v-text="sprechstunde.tag" />
           <div>
-            <p v-for="(betreuer, index) in sprechstunde.betreuer" :key="index" v-text="betreuer"/>
+            <p
+              v-for="(betreuer, index2) in sprechstunde.betreuer"
+              :key="index2"
+              v-text="betreuer"
+            />
           </div>
         </div>
       </div>
     </div>
-    <div v-else class="tw-px-5">
-      <i18n-t tag="h1" keypath="consHours" />
+    <div
+      v-else
+      class="tw-px-5"
+    >
+      <i18n-t
+        tag="h1"
+        keypath="consHours"
+      />
       <table>
         <colgroup>
           <col />
-          <col v-for="tag in tage" :key="tag" />
+          <col
+            v-for="tag in tage"
+            :key="tag"
+          />
         </colgroup>
         <thead>
           <tr>
             <th />
-            <i18n-t tag="th" v-for="tag in tage" :key="tag" :keypath="tag"/>
+            <i18n-t
+              tag="th"
+              v-for="tag in tage"
+              :key="tag"
+              :keypath="tag"
+            />
           </tr>
         </thead>
         <tbody>
-          <tr v-for="stunde in stunden" :key="stunde">
+          <tr
+            v-for="stunde in stunden"
+            :key="stunde"
+          >
             <td>{{ stunde }}</td>
-            <td v-for="tag in tage" :key="tag">
+            <td
+              v-for="tag in tage"
+              :key="tag"
+            >
               <template
                 v-for="betreuer in sprechstunden[tag][stunde].value"
                 :key="betreuer"
@@ -73,7 +105,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, onBeforeUnmount, onMounted, ref, watch } from "vue";
+import { defineComponent, onBeforeUnmount, onMounted, ref, watch } from 'vue'
 import type { Ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useQuery } from '@vue/apollo-composable'
@@ -85,30 +117,29 @@ import { useQuerySSR } from '@shared/vue-apollo-ssr'
 //https://colorlib.com/wp/css3-table-templates/
 //https://colorlib.com/etc/tb/Table_Highlight_Vertical_Horizontal/index.html
 
-
 interface FerienTag {
-  tag: Date,
-  person: Array<{name: string}>
+  tag: Date
+  person: Array<{ name: string }>
 }
 
 export default defineComponent({
   //components: { table },
-  setup: () => {
-    const ferien = true;
+  setup: () =>
+  {
+    const ferien = true
     //https://www.npmjs.com/package/@thi.ng/sparse
     //https://adamlynch.com/flexible-data-tables-with-css-grid/
-    let sprechstunden: { [key: string]: { [key: string]: Ref<String[]> } } = {};
+    let sprechstunden: { [key: string]: { [key: string]: Ref<String[]> } } = {}
 
-    const res = useQuery<{feriensprechstundens: Array<FerienTag>}>(gql
-    `
-    {
-      feriensprechstundens(orderBy: {tag: asc}) {
-        tag
-        person {
-          name
+    const res = useQuery<{ feriensprechstundens: Array<FerienTag> }>(gql`
+      {
+        feriensprechstundens(orderBy: { tag: asc }) {
+          tag
+          person {
+            name
+          }
         }
       }
-    }
     `)
 
     /*const windowWidth = ref(0);
@@ -122,60 +153,65 @@ export default defineComponent({
       return style;
     });*/
 
-    const tage = [
-      "monday", "tuesday", "wednesday", "thursday",
-    ];
-    const stunden = ["13:00", "14:00", "15:00"];
+    const tage = ['monday', 'tuesday', 'wednesday', 'thursday']
+    const stunden = ['13:00', '14:00', '15:00']
 
-    let tag = 0;
-    let tableStyle: HTMLStyleElement;
+    let tag = 0
+    let tableStyle: HTMLStyleElement
 
     sprechstunden[tage[tag++]] = {
-      [stunden[0]]: ref<String[]>(["Sophie"]),
-      [stunden[1]]: ref<String[]>(["Julia"]),
-      [stunden[2]]: ref<String[]>(["Lena"]),
-    };
-
-    sprechstunden[tage[tag++]] = {
-      [stunden[0]]: ref<String[]>(["Charlotte"]),
-      [stunden[1]]: ref<String[]>(["Olivia", "Masell"]),
-      [stunden[2]]: ref<String[]>(["Elias"]),
-    };
-
-    sprechstunden[tage[tag++]] = {
-      [stunden[0]]: ref<String[]>(["Marius", "Olli"]),
-      [stunden[1]]: ref<String[]>(["Michelle"]),
-      [stunden[2]]: ref<String[]>(["Lennart"]),
-    };
-
-    sprechstunden[tage[tag++]] = {
-      [stunden[0]]: ref<String[]>(["Maike"]),
-      [stunden[1]]: ref<String[]>(["Armin"]),
-      [stunden[2]]: ref<String[]>(["Dennis"]),
-    };
-
-    const ferien_sprechstunden: Ref<{timespan: Array<number>, sprechstunden: Array<{tag: string, betreuer: Array<string>}>}> = ref({
-      timespan: [14, 16],
-      sprechstunden: []
-    });
-    
-    const process_ferien = () => {
-      ferien_sprechstunden.value.sprechstunden =
-      res.result!.value!.feriensprechstundens.map((val) => {
-        return {
-          tag: dateFormat(val.tag, "dd.mm"),
-          betreuer: val.person.map((per) => { return per.name })
-        }
-      })
+      [stunden[0]]: ref<String[]>(['Sophie']),
+      [stunden[1]]: ref<String[]>(['Julia']),
+      [stunden[2]]: ref<String[]>(['Lena'])
     }
 
-    useQuerySSR(process_ferien, res);
-    onMounted(() => {
+    sprechstunden[tage[tag++]] = {
+      [stunden[0]]: ref<String[]>(['Charlotte']),
+      [stunden[1]]: ref<String[]>(['Olivia', 'Masell']),
+      [stunden[2]]: ref<String[]>(['Elias'])
+    }
 
+    sprechstunden[tage[tag++]] = {
+      [stunden[0]]: ref<String[]>(['Marius', 'Olli']),
+      [stunden[1]]: ref<String[]>(['Michelle']),
+      [stunden[2]]: ref<String[]>(['Lennart'])
+    }
 
+    sprechstunden[tage[tag++]] = {
+      [stunden[0]]: ref<String[]>(['Maike']),
+      [stunden[1]]: ref<String[]>(['Armin']),
+      [stunden[2]]: ref<String[]>(['Dennis'])
+    }
+
+    const ferien_sprechstunden: Ref<{
+      timespan: Array<number>
+      sprechstunden: Array<{ tag: string; betreuer: Array<string> }>
+    }> = ref({
+      timespan: [14, 16],
+      sprechstunden: []
+    })
+
+    const process_ferien = () =>
+    {
+      ferien_sprechstunden.value.sprechstunden =
+        res.result!.value!.feriensprechstundens.map((val) =>
+        {
+          return {
+            tag: dateFormat(val.tag, 'dd.mm'),
+            betreuer: val.person.map((per) =>
+            {
+              return per.name
+            })
+          }
+        })
+    }
+
+    useQuerySSR(process_ferien, res)
+    onMounted(() =>
+    {
       //windowWidth.value = window.innerWidth;
       //window.onresize = (ev) => {
-       // windowWidth.value = window.innerWidth;
+      // windowWidth.value = window.innerWidth;
       //};
 
       const setColor = (
@@ -183,63 +219,71 @@ export default defineComponent({
         backgroundColor?: string,
         backgroundColorHeader?: string,
         backgroundColorActive?: string
-      ) => {
-        const target = <HTMLTableCellElement>ev.target;
-        const index = target.cellIndex;
+      ) =>
+      {
+        const target = <HTMLTableCellElement>ev.target
+        const index = target.cellIndex
 
         const table = <HTMLTableElement>(
           target.parentNode!.parentNode!.parentNode
-        );
-        const tbody = table.tBodies[0];
+        )
+        const tbody = table.tBodies[0]
 
         const col = <HTMLTableColElement>(
-          table.querySelector("colgroup")!.childNodes[index]
-        );
+          table.querySelector('colgroup')!.childNodes[index]
+        )
 
         /*if (!col.style) col.style = {};
         col.style.backgroundColor = backgroundColor ? backgroundColor : "";
 
         console.log(col);*/
         //maybe set style of <col> in <colgroup>
-        Array.from(tbody.rows).forEach((value) => {
+        Array.from(tbody.rows).forEach((value) =>
+        {
           value.cells[index].style.backgroundColor = backgroundColor
             ? backgroundColor
-            : "";
-        });
+            : ''
+        })
 
-        Array.from(table.tHead!.rows).forEach((row) => {
+        Array.from(table.tHead!.rows).forEach((row) =>
+        {
           row.cells[index].style.backgroundColor = backgroundColorHeader
             ? backgroundColorHeader
-            : "";
-        });
+            : ''
+        })
 
-        if (backgroundColorActive) {
-          if (target.tagName === "TH") return;
+        if (backgroundColorActive)
+        {
+          if (target.tagName === 'TH') return
 
-          target.style.backgroundColor = backgroundColorActive;
+          target.style.backgroundColor = backgroundColorActive
           target.style.color =
-            "#" +
+            '#' +
             (Number(`0x1${backgroundColorActive.substring(1)}`) ^ 0xffffff)
               .toString(16)
               .substring(1)
-              .toUpperCase();
-        } else {
-          target.style.backgroundColor = "";
-          target.style.color = "";
+              .toUpperCase()
         }
-      };
-      const dataCells = Array.from(document.getElementsByTagName("td")).concat(
-        Array.from(document.getElementsByTagName("th"))
-      );
-      dataCells.forEach((element) => {
-        element.onmouseenter = (ev) => {
+        else
+        {
+          target.style.backgroundColor = ''
+          target.style.color = ''
+        }
+      }
+      const dataCells = Array.from(document.getElementsByTagName('td')).concat(
+        Array.from(document.getElementsByTagName('th'))
+      )
+      dataCells.forEach((element) =>
+      {
+        element.onmouseenter = (ev) =>
+        {
           if (window.innerWidth > 760)
-            setColor(ev, "#e68e0b", "#909090", "#995c00");
+            setColor(ev, '#e68e0b', '#909090', '#995c00')
         }
-        element.onmouseleave = (ev) => setColor(ev);
-      });
+        element.onmouseleave = (ev) => setColor(ev)
+      })
 
-      const head = document.querySelector("head")!;
+      const head = document.querySelector('head')!
 
       //const style = document.createElement("style");
       /*style.innerHTML = `@media only screen and (max-width: 760px),
@@ -248,30 +292,35 @@ export default defineComponent({
         td:nth-of-type(1):before { content: "Uhrzeit"; } }`;
       head.appendChild(style);*/
 
-      
-      tableStyle = document.createElement("style");
+      tableStyle = document.createElement('style')
       tableStyle.innerHTML = `@media only screen and (max-width: 760px) {
-        #sprechstunden`;
-      for (let i = 0; i < tage.length; ++i)          
-        tableStyle.innerHTML += ` td:nth-of-type(${i + 2}):before { content: "${tGlobal(tage[i])}"; } `
-      tableStyle.innerHTML += `}`;
-      head.appendChild(tableStyle);
-    });
-
-    const tGlobal = useI18n({useScope: 'global'}).t;
-    const { t, locale } = useI18n();
-
-    watch(locale, () => {
-      let newHtml = `@media only screen and (max-width: 760px) {
-        #sprechstunden`;
-      for (let i = 0; i < tage.length; ++i)          
-        newHtml += ` td:nth-of-type(${i + 2}):before { content: "${tGlobal(tage[i])}"; } `
-      newHtml += `}`;
-      tableStyle.innerHTML = newHtml;
+        #sprechstunden`
+      for (let i = 0; i < tage.length; ++i)
+        tableStyle.innerHTML += ` td:nth-of-type(${
+          i + 2
+        }):before { content: "${tGlobal(tage[i])}"; } `
+      tableStyle.innerHTML += `}`
+      head.appendChild(tableStyle)
     })
 
-    onBeforeUnmount(() => {
-      tableStyle.remove();
+    const tGlobal = useI18n({ useScope: 'global' }).t
+    const { t, locale } = useI18n()
+
+    watch(locale, () =>
+    {
+      let newHtml = `@media only screen and (max-width: 760px) {
+        #sprechstunden`
+      for (let i = 0; i < tage.length; ++i)
+        newHtml += ` td:nth-of-type(${i + 2}):before { content: "${tGlobal(
+          tage[i]
+        )}"; } `
+      newHtml += `}`
+      tableStyle.innerHTML = newHtml
+    })
+
+    onBeforeUnmount(() =>
+    {
+      tableStyle.remove()
     })
 
     return {
@@ -281,11 +330,11 @@ export default defineComponent({
       tage,
       stunden,
       sprechstunden,
-      ferien_sprechstunden,
+      ferien_sprechstunden
       //tableStyle
-    };
-  },
-});
+    }
+  }
+})
 </script>
 
 <style scoped lang="less">
@@ -316,7 +365,7 @@ th {
   text-align: left;
 }
 
-@media only screen and (min-width: 761px){
+@media only screen and (min-width: 761px) {
   tr:nth-of-type(odd) td {
     background: #eee;
   }
@@ -328,7 +377,8 @@ th {
   }
 }
 
-@media only screen and (max-width: 760px){//,
+@media only screen and (max-width: 760px) {
+  //,
   //(min-device-width: 768px) and (max-device-width: 1024px) {
   /* Force table to not be like tables anymore */
   table,
@@ -359,7 +409,7 @@ th {
   }
 
   td:before {
-    // Now like a table header 
+    // Now like a table header
     position: absolute;
     // Top/left values mimic padding
     top: 6px;

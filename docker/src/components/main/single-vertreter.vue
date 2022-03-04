@@ -1,66 +1,96 @@
 <template>
   <div class="vertreter-container">
     <div class="image-container">
-      <img class="image" crossorigin="anonymous" :src="'http://localhost:4000' + vertreter.portrait.url" :alt="vertreter.nutzer_email.name" />
+      <img
+        class="image"
+        crossorigin="anonymous"
+        :src="'http://localhost:4000' + vertreter.portrait.url"
+        :alt="vertreter.nutzer_email.name"
+      />
     </div>
-    <p class="property">{{ tGlobal("name") }}</p>
-    <p class="value" v-text="vertreter.nutzer_email.name" />
+    <p class="property">
+      {{ tGlobal('name') }}
+    </p>
+    <p
+      class="value"
+      v-text="vertreter.nutzer_email.name"
+    />
 
-    <p class="property">{{ tGlobal("role") }}</p>
-    <p class="value" v-text="t(vertreter.rolle)" />
+    <p class="property">
+      {{ tGlobal('role') }}
+    </p>
+    <p
+      class="value"
+      v-text="t(vertreter.rolle)"
+    />
 
     <v-icon
       large
       color="orange darken-2"
       :icon="mdiSchool"
     />
-    <studiengang class="value" :feld="vertreter.feld" :grad="vertreter.grad" :hauptfach="vertreter.hauptfach" :zweitfach="vertreter.zweitfach" :lehramt="vertreter.Lehramt"/>
+    <studiengang
+      class="value"
+      :feld="vertreter.feld"
+      :grad="vertreter.grad"
+      :hauptfach="vertreter.hauptfach"
+      :zweitfach="vertreter.zweitfach"
+      :lehramt="vertreter.Lehramt"
+    />
 
-    <p class="property">{{ t("semester") }}</p>
-    <p class="value" v-text="vertreter.semester" />
+    <p class="property">
+      {{ t('semester') }}
+    </p>
+    <p
+      class="value"
+      v-text="vertreter.semester"
+    />
 
     <v-icon
       large
       color="orange darken-2"
       :icon="mdiEmail"
     />
-    <p class="value" v-text="vertreter.nutzer_email.email" />
+    <p
+      class="value"
+      v-text="vertreter.nutzer_email.email"
+    />
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType } from "vue";
-import { useI18n } from "vue-i18n";
+import { defineComponent, PropType } from 'vue'
+import { useI18n } from 'vue-i18n'
 //import { IVertreter } from "@dataInterfaces/IVertreter";
 import studiengang from './studiengang.vue'
 import { mdiEmail, mdiSchool } from '@mdi/js'
 
-import type { IResolvedVertreter } from "@dataInterfaces/IVertreter";
+import type { IResolvedVertreter } from '@dataInterfaces/IVertreter'
 
 export default defineComponent({
   components: {
     studiengang
   },
-  name: "SingleVertreter",
+  name: 'SingleVertreter',
   props: {
     vertreter: {
       type: Object as PropType<IResolvedVertreter>,
-      required: true,
-    },
-    distPath: String,
+      required: true
+    }
   },
-  setup: () => {
-    const { t } = useI18n({});
-    const tGlobal = useI18n({useScope: 'global'}).t;
+  setup: () =>
+  {
+    const { t } = useI18n({})
+    const tGlobal = useI18n({ useScope: 'global' }).t
 
-    return { 
-      t, 
+    return {
+      t,
       tGlobal,
       mdiEmail,
       mdiSchool
-    };
-  },
-});
+    }
+  }
+})
 </script>
 
 <style lang="less" scoped>

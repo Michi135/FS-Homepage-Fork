@@ -9,51 +9,117 @@
     </nav-->
     <div class="tw-m-3.5">
       <div style="max-width: 1100px; margin: 0 auto">
-        <i18n-t tag="h3" keypath="h[0]" />
-        <i18n-t tag="p" keypath="p[0]" />
+        <i18n-t
+          tag="h3"
+          keypath="h[0]"
+        />
+        <i18n-t
+          tag="p"
+          keypath="p[0]"
+        />
         <br />
         <section id="uniBayreuth">
-          <i18n-t tag="h2" keypath="h[1]" />
-          <i18n-t tag="p" keypath="p[1]" />
+          <i18n-t
+            tag="h2"
+            keypath="h[1]"
+          />
+          <i18n-t
+            tag="p"
+            keypath="p[1]"
+          />
         </section>
         <br />
         <section id="rolle">
-          <i18n-t tag="h2" keypath="h[2]" />
-          <i18n-t tag="p" keypath="p[2]" />
+          <i18n-t
+            tag="h2"
+            keypath="h[2]"
+          />
+          <i18n-t
+            tag="p"
+            keypath="p[2]"
+          />
         </section>
         <br />
-        <i18n-t tag="h1" keypath="h[3]" />
-        <i18n-t tag="p" keypath="p[3]" />
+        <i18n-t
+          tag="h1"
+          keypath="h[3]"
+        />
+        <i18n-t
+          tag="p"
+          keypath="p[3]"
+        />
         <br />
-        <i18n-t tag="h1" keypath="h[4]" />
-        <i18n-t tag="p" keypath="p[4]" />
+        <i18n-t
+          tag="h1"
+          keypath="h[4]"
+        />
+        <i18n-t
+          tag="p"
+          keypath="p[4]"
+        />
         <br />
-        <i18n-t tag="h1" keypath="h[5]" />
-        <i18n-t tag="p" keypath="p[5]" />
+        <i18n-t
+          tag="h1"
+          keypath="h[5]"
+        />
+        <i18n-t
+          tag="p"
+          keypath="p[5]"
+        />
         <br />
-        <i18n-t tag="h1" keypath="h[6]" />
-        <i18n-t tag="p" keypath="p[6]" />
+        <i18n-t
+          tag="h1"
+          keypath="h[6]"
+        />
+        <i18n-t
+          tag="p"
+          keypath="p[6]"
+        />
         <br />
-        <i18n-t tag="h1" keypath="h[7]" />
-        <i18n-t tag="p" keypath="p[7]" />
+        <i18n-t
+          tag="h1"
+          keypath="h[7]"
+        />
+        <i18n-t
+          tag="p"
+          keypath="p[7]"
+        />
         <br />
-        <i18n-t tag="h2" keypath="dates" />
+        <i18n-t
+          tag="h2"
+          keypath="dates"
+        />
         <div>
           <table :style="gridStyle">
             <colgroup>
               <col />
-              <col v-for="tag in categories" :key="tag" />
+              <col
+                v-for="tag in categories"
+                :key="tag"
+              />
             </colgroup>
             <thead>
               <tr>
                 <th />
-                <th v-for="tag in categories" :key="tag">{{ t(tag) }}</th>
+                <th
+                  v-for="tag in categories"
+                  :key="tag"
+                >
+                  {{ t(tag) }}
+                </th>
               </tr>
             </thead>
             <tbody>
-              <tr v-for="stunde in stunden" :key="stunde">
+              <tr
+                v-for="stunde in stunden"
+                :key="stunde"
+              >
                 <td>{{ stunde }}</td>
-                <td v-for="tag in categories" :key="tag" class="blackP">
+                <td
+                  v-for="tag in categories"
+                  :key="tag"
+                  class="blackP"
+                >
                   <template
                     v-for="betreuer in sprechstunden[tag][stunde]"
                     :key="betreuer"
@@ -64,20 +130,30 @@
               </tr>
             </tbody>
           </table>
-          <i18n-t tag="div" class="tw-text-red-500" keypath="corona">
-            <template v-slot:br><br /></template>
-            <template v-slot:link>
+          <i18n-t
+            tag="div"
+            class="tw-text-red-500"
+            keypath="corona"
+          >
+            <template #br>
+              <br />
+            </template>
+            <template #link>
               <a
                 class="link"
                 href="https://elearning.uni-bayreuth.de/course/view.php?id=20051#section-1"
-                >-> {{ tGlobal("link") }}</a
-              >
+              >-> {{ tGlobal('link') }}</a>
             </template>
           </i18n-t>
         </div>
         <br /><br />
-        <i18n-t tag="p" keypath="p[n]">
-          <template v-slot:mail>fsmpi@uni-bayreuth.de</template>
+        <i18n-t
+          tag="p"
+          keypath="p[n]"
+        >
+          <template #mail>
+            fsmpi@uni-bayreuth.de
+          </template>
         </i18n-t>
       </div>
     </div>
@@ -85,172 +161,196 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, onBeforeUnmount, onMounted, watch } from "vue";
-import { useI18n } from "vue-i18n";
+import {
+  computed,
+  defineComponent,
+  onBeforeUnmount,
+  onMounted,
+  watch
+} from 'vue'
+import { useI18n } from 'vue-i18n'
 import { rT, RegisteredTranslation } from './translation'
 
 export default defineComponent({
-  setup() {
-    let sprechstunden: { [key: string]: { [key: string]: RegisteredTranslation[] } } = {};
+  setup()
+  {
+    let sprechstunden: {
+      [key: string]: { [key: string]: RegisteredTranslation[] }
+    } = {}
 
-    const tGlobal = useI18n({ useScope: "global" }).t;
-    const tLocal = useI18n();
-    const { t, locale } = tLocal;
+    const tGlobal = useI18n({ useScope: 'global' }).t
+    const tLocal = useI18n()
+    const { t, locale } = tLocal
 
-    const categories = ["event", "location"];
+    const categories = ['event', 'location']
     const stunden = [
-      "12.10 | " + t("ab") + " 17:00",
-      "13.10 | 19:00",
-      "14.10 | 16:00-17:00",
-      "18.10 | 16:00",
-      "18.10 | 18:00",
-      "21.10 | 19:00",
-      "25.10 | 19:00",
-      "27.10 | 17:00",
-      "10.11 | 18:00",
-      "19. - 21.11",
-    ];
+      '12.10 | ' + t('ab') + ' 17:00',
+      '13.10 | 19:00',
+      '14.10 | 16:00-17:00',
+      '18.10 | 16:00',
+      '18.10 | 18:00',
+      '21.10 | 19:00',
+      '25.10 | 19:00',
+      '27.10 | 17:00',
+      '10.11 | 18:00',
+      '19. - 21.11'
+    ]
 
     sprechstunden[categories[0]] = {
-      [stunden[0]]: [rT(() => t("Erstsemestergrillen"), locale)],
-      [stunden[1]]: [rT(() => "1. " + t("Kneipentour"), locale)],
-      [stunden[2]]: [rT(() => "CMlife-" + t("Einführung"), locale)],
+      [stunden[0]]: [rT(() => t('Erstsemestergrillen'), locale)],
+      [stunden[1]]: [rT(() => '1. ' + t('Kneipentour'), locale)],
+      [stunden[2]]: [rT(() => 'CMlife-' + t('Einführung'), locale)],
       [stunden[3]]: [
-        rT(() => t("Vorstellung"), locale),
-        rT(() => t("Führung"), locale),
-        rT(() => t("Erstitüten"), locale)
+        rT(() => t('Vorstellung'), locale),
+        rT(() => t('Führung'), locale),
+        rT(() => t('Erstitüten'), locale)
       ],
-      [stunden[4]]: 
-      [
-        rT(() => t("Immatrikulationsstunde"), locale),
-        rT(() => t("Campusabend"), locale),
+      [stunden[4]]: [
+        rT(() => t('Immatrikulationsstunde'), locale),
+        rT(() => t('Campusabend'), locale)
       ],
-      [stunden[5]]: [rT(() => "2. " + t("Kneipentour"), locale)],
+      [stunden[5]]: [rT(() => '2. ' + t('Kneipentour'), locale)],
       [stunden[6]]: [
-        rT(() => t("Sitzung"), locale),
-        rT(() => t("Spieleabend"), locale),
+        rT(() => t('Sitzung'), locale),
+        rT(() => t('Spieleabend'), locale)
       ],
-      [stunden[7]]: [rT(() => "1. " + t("buddy"), locale)],
-      [stunden[8]]: [rT(() => "2. " + t("buddy"), locale)],
-      [stunden[9]]: [rT(() => t("Wochenende"), locale)],
-    };
+      [stunden[7]]: [rT(() => '1. ' + t('buddy'), locale)],
+      [stunden[8]]: [rT(() => '2. ' + t('buddy'), locale)],
+      [stunden[9]]: [rT(() => t('Wochenende'), locale)]
+    }
 
-//[rT(() => , locale)],
+    //[rT(() => , locale)],
 
     sprechstunden[categories[1]] = {
-      [stunden[0]]: [rT(() => t("grillplatz"), locale)],
-      [stunden[1]]: [rT(() => t("Anmeldung"), locale)],
-      [stunden[2]]: [rT(() => "Online / " + t("linkage"), locale)],
-      [stunden[3]]: [rT(() => "H18 | NW2", locale)],
-      [stunden[4]]: [rT(() => "Audimax", locale)],
-      [stunden[5]]: [rT(() => t("Anmeldung"), locale)],
-      [stunden[6]]: [rT(() => "H17 | NW2", locale)],
-      [stunden[7]]: [rT(() => t("Anmeldung"), locale)],
-      [stunden[8]]: [rT(() => t("Anmeldung"), locale)],
-      [stunden[9]]: [rT(() => t("Anmeldung"), locale)],
-    };
+      [stunden[0]]: [rT(() => t('grillplatz'), locale)],
+      [stunden[1]]: [rT(() => t('Anmeldung'), locale)],
+      [stunden[2]]: [rT(() => 'Online / ' + t('linkage'), locale)],
+      [stunden[3]]: [rT(() => 'H18 | NW2', locale)],
+      [stunden[4]]: [rT(() => 'Audimax', locale)],
+      [stunden[5]]: [rT(() => t('Anmeldung'), locale)],
+      [stunden[6]]: [rT(() => 'H17 | NW2', locale)],
+      [stunden[7]]: [rT(() => t('Anmeldung'), locale)],
+      [stunden[8]]: [rT(() => t('Anmeldung'), locale)],
+      [stunden[9]]: [rT(() => t('Anmeldung'), locale)]
+    }
 
-    let tableStyle: HTMLStyleElement;
+    let tableStyle: HTMLStyleElement
 
-    const gridStyle = computed(() => {
+    const gridStyle = computed(() =>
+    {
       return {
         gridTemplateColumns: `repeat(${
           categories.length + 1
         }, minmax(min-content, max-content))`,
         gridTemplateRows: `0px repeat(${
           stunden.length + 1
-        }, minmax(max-content, 1fr))`,
-      };
-    });
-    onMounted(() => {
+        }, minmax(max-content, 1fr))`
+      }
+    })
+    onMounted(() =>
+    {
       const setColor = (
         ev: MouseEvent,
         backgroundColor?: string,
         backgroundColorHeader?: string,
         backgroundColorActive?: string
-      ) => {
-        const target = <HTMLTableCellElement>ev.target;
-        const index = target.cellIndex;
+      ) =>
+      {
+        const target = <HTMLTableCellElement>ev.target
+        const index = target.cellIndex
 
         const table = <HTMLTableElement>(
           target.parentNode!.parentNode!.parentNode
-        );
-        const tbody = table.tBodies[0];
+        )
+        const tbody = table.tBodies[0]
 
         const col = <HTMLTableColElement>(
-          table.querySelector("colgroup")!.childNodes[index]
-        );
+          table.querySelector('colgroup')!.childNodes[index]
+        )
 
         /*if (!col.style) col.style = {};
         col.style.backgroundColor = backgroundColor ? backgroundColor : "";
 
         console.log(col);*/
         //maybe set style of <col> in <colgroup>
-        Array.from(tbody.rows).forEach((value) => {
+        Array.from(tbody.rows).forEach((value) =>
+        {
           value.cells[index].style.backgroundColor = backgroundColor
             ? backgroundColor
-            : "";
-        });
+            : ''
+        })
 
-        Array.from(table.tHead!.rows).forEach((row) => {
+        Array.from(table.tHead!.rows).forEach((row) =>
+        {
           row.cells[index].style.backgroundColor = backgroundColorHeader
             ? backgroundColorHeader
-            : "";
-        });
+            : ''
+        })
 
-        if (backgroundColorActive) {
-          if (target.tagName === "TH") return;
+        if (backgroundColorActive)
+        {
+          if (target.tagName === 'TH') return
 
-          target.style.backgroundColor = backgroundColorActive;
+          target.style.backgroundColor = backgroundColorActive
           target.style.color =
-            "#" +
+            '#' +
             (Number(`0x1${backgroundColorActive.substring(1)}`) ^ 0xffffff)
               .toString(16)
               .substring(1)
-              .toUpperCase();
-        } else {
-          target.style.backgroundColor = "";
-          target.style.color = "";
+              .toUpperCase()
         }
-      };
-      const dataCells = Array.from(document.getElementsByTagName("td")).concat(
-        Array.from(document.getElementsByTagName("th"))
-      );
-      dataCells.forEach((element) => {
-        element.onmouseenter = (ev) => {
+        else
+        {
+          target.style.backgroundColor = ''
+          target.style.color = ''
+        }
+      }
+      const dataCells = Array.from(document.getElementsByTagName('td')).concat(
+        Array.from(document.getElementsByTagName('th'))
+      )
+      dataCells.forEach((element) =>
+      {
+        element.onmouseenter = (ev) =>
+        {
           if (window.innerWidth > 550)
-            setColor(ev, "#e68e0b", "#909090", "#995c00");
+            setColor(ev, '#e68e0b', '#909090', '#995c00')
         }
-        element.onmouseleave = (ev) => setColor(ev);
-      });
+        element.onmouseleave = (ev) => setColor(ev)
+      })
 
-      const head = document.querySelector("head")!;
+      const head = document.querySelector('head')!
 
-      tableStyle = document.createElement("style");
+      tableStyle = document.createElement('style')
       tableStyle.innerHTML = `@media only screen and (max-width: 550px) {
-        #erstis td:nth-of-type(1):before { content: "Termin"; }` 
-      for (let i = 0; i < categories.length; ++i) 
-        tableStyle.innerHTML += ` td:nth-of-type(${i + 2}):before { content: "${t(categories[i])}"; } `
-      tableStyle.innerHTML += `}`;  
-      head.appendChild(tableStyle);
-    });
-
-    watch(locale, () => {
-      let newHtml = `@media only screen and (max-width: 550px) {
-        #erstis td:nth-of-type(1):before { content: "Termin"; }` 
-      for (let i = 0; i < categories.length; ++i) 
-        newHtml += ` td:nth-of-type(${i + 2}):before { content: "${t(categories[i])}"; } `
-      newHtml += `}`;  
-      tableStyle.innerHTML = newHtml;
-    });
-
-    onBeforeUnmount(()=> {
-      tableStyle.remove();
+        #erstis td:nth-of-type(1):before { content: "Termin"; }`
+      for (let i = 0; i < categories.length; ++i)
+        tableStyle.innerHTML += ` td:nth-of-type(${
+          i + 2
+        }):before { content: "${t(categories[i])}"; } `
+      tableStyle.innerHTML += `}`
+      head.appendChild(tableStyle)
     })
 
-    return { t, tGlobal, gridStyle, categories, stunden, sprechstunden };
-  },
-});
+    watch(locale, () =>
+    {
+      let newHtml = `@media only screen and (max-width: 550px) {
+        #erstis td:nth-of-type(1):before { content: "Termin"; }`
+      for (let i = 0; i < categories.length; ++i)
+        newHtml += ` td:nth-of-type(${i + 2}):before { content: "${t(
+          categories[i]
+        )}"; } `
+      newHtml += `}`
+      tableStyle.innerHTML = newHtml
+    })
+
+    onBeforeUnmount(() =>
+    {
+      tableStyle.remove()
+    })
+
+    return { t, tGlobal, gridStyle, categories, stunden, sprechstunden }
+  }
+})
 </script>
 
 <style lang="less" scoped>
@@ -300,7 +400,7 @@ th {
   text-align: left;
 }
 
-@media only screen and (min-width: 551px){
+@media only screen and (min-width: 551px) {
   tr:nth-of-type(odd) td {
     background: #eee;
   }
@@ -364,28 +464,28 @@ th {
   }
 }
 .floating-menu {
-    font-family: sans-serif;
-    background: yellowgreen;
-    padding: 5px;;
-    width: 200px;
-    z-index: 100;
-    position: fixed;
+  font-family: sans-serif;
+  background: yellowgreen;
+  padding: 5px;
+  width: 200px;
+  z-index: 100;
+  position: fixed;
 }
-.floating-menu a, 
+.floating-menu a,
 .floating-menu h3 {
   font-size: 0.9em;
   display: block;
   margin: 0 0.5em;
   color: white;
 }
-.blackP { 
+.blackP {
   p {
-    color: black
+    color: black;
   }
 }
 </style>
 
-<i18n locale='de' lang='json5'>
+<i18n locale="de" lang="json5">
 {
   "h[0]": "Informationen für Studieninteressierte",
   "p[0]": "Du überlegst, ein Bachelor-, Master- oder Lehramtsstudium in Mathe, \
@@ -469,11 +569,11 @@ th {
           Campus-Uni Bayreuth und der dort angesiedelten Fachschaft machen. \
           Oder, falls ihr von weiter herkommt oder die Pandemie gerade keinen \
           persönlichen Kontakt zulässt, schreibt uns einfach eine Mail \
-          ({mail}).",
+          ({mail})."
 }
 </i18n>
 
-<i18n locale='en' lang='json5'>
+<i18n locale="en" lang="json5">
 {
   "h[0]": "Informations for prospective students",
   "p[0]": "You're thinking about starting a bachelor-, master- or lectureship study in math, \
@@ -535,6 +635,6 @@ th {
           as the student council will do our best to make your entry to your studies as easy as possible. \
           If there are any open questions feel free to visit our office (NW II, between H 20 \
           and S 78) where you can paint yourself a picture of the beautifull campus uni Bayreuth and the here settled student council. \
-          Or if you're coming from farther away or if theirs no possibility of direct contact due to the pandemic leave us a mail ({mail}).",
+          Or if you're coming from farther away or if theirs no possibility of direct contact due to the pandemic leave us a mail ({mail})."
 }
 </i18n>

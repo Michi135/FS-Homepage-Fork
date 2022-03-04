@@ -21,7 +21,12 @@
     <br />
     <h2>Verantwortlich f&uuml;r den Inhalt nach &sect; 55 Abs. 2 RStV</h2>
     <p>
-      <template v-for="oe in oeA" :key="oe"> {{ oe }} <br /> </template>
+      <template
+        v-for="oe in oeA"
+        :key="oe"
+      >
+        {{ oe }} <br />
+      </template>
     </p>
     <br />
     <h2>
@@ -93,15 +98,16 @@
   </div>
 </template>
 <script lang="ts">
-import { defineComponent } from "vue";
+import { defineComponent } from 'vue'
 
 export default defineComponent({
-  setup: () => {
-    const oeA = ["Olivia Kammerer", "Sophie Meissner"];
-    const chef = "Julia Schwarz";
-    return { oeA, chef };
-  },
-});
+  setup: () =>
+  {
+    const oeA = ['Olivia Kammerer', 'Sophie Meissner']
+    const chef = 'Julia Schwarz'
+    return { oeA, chef }
+  }
+})
 </script>
 
 <style scoped lang="less">

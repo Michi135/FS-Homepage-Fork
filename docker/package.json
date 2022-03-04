@@ -35,6 +35,7 @@
     "lodash": "^4.17.21",
     "mime": "^3.0.0",
     "mini-css-extract-plugin": "^2.4.2",
+    "node-dev": "^7.1.0",
     "nodemon": "^2.0.15",
     "pinia": "^2.0.11",
     "strip-json-comments": "^4.0.0",
@@ -53,7 +54,9 @@
     "start:dev": "env NODE_ENV=development tsnd -r tsconfig-paths/register ./src/server/entry.ts ",
     "start:prod": "env NODE_ENV=production node --experimental-specifier-resolution=node --loader ts-paths-esm-loader ./src/server/entry.ts",
     "patch": "ts-node ./patch.ts",
-    "start:esm": "env NODE_ENV=development tsnd -r ts-node/esm -r tsconfig-paths/register ./src/server/entry.ts "
+    "start:esm": "env NODE_ENV=development tsnd -r ts-node/esm -r tsconfig-paths/register ./src/server/entry.ts",
+    "fix": "npx eslint \"./src/**/*.{vue, ts}\" --fix",
+    "lint": "npx eslint \"./src/**/*.{vue, ts}\""
   },
   "devDependencies": {
     "@babel/core": "^7.15.8",
@@ -74,10 +77,13 @@
     "@types/webpack-env": "^1.16.2",
     "@types/webpack-hot-middleware": "^2.25.5",
     "@types/webpack-node-externals": "^2.5.2",
+    "@typescript-eslint/parser": "^5.13.0",
     "@vue/babel-plugin-jsx": "^1.1.1",
     "autoprefixer": "^10.3.7",
     "babel-loader": "^8.2.2",
     "css-loader": "^6.3.0",
+    "eslint": "^8.10.0",
+    "eslint-plugin-vue": "^8.5.0",
     "less": "^4.1.2",
     "less-loader": "^10.0.1",
     "mini-svg-data-uri": "^1.3.3",

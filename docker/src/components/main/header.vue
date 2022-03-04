@@ -20,9 +20,9 @@
           font-size: 1.2rem;
         "
       >
-        {{ tGlobal("studentCouncil", 1) }} {{ tGlobal("MATH") }}|{{ tGlobal("PHYSICS") }}|{{
-          tGlobal("COMPUTER SCIENCE")
-        }}
+        {{ tGlobal('studentCouncil', 1) }} {{ tGlobal('MATH') }}|{{
+          tGlobal('PHYSICS')
+        }}|{{ tGlobal('COMPUTER SCIENCE') }}
       </p>
     </div>
     <div
@@ -32,12 +32,7 @@
       <button
         aria-label="Header-Menü"
         type="button"
-        class="
-          tw-appearance-none tw-block tw-transition-all tw-cursor-pointer
-          focus:tw-outline-none
-          active:tw-bg-transparent
-          tw-py-3 tw-px-6
-        "
+        class="tw-appearance-none tw-block tw-transition-all tw-cursor-pointer focus:tw-outline-none active:tw-bg-transparent tw-py-3 tw-px-6"
         @click="isOpen = !isOpen"
       >
         <svg
@@ -59,16 +54,7 @@
     </div>
     <div
       v-if="navConfig"
-      class="
-        tw-flex tw-justify-end tw-flex-col md:tw-flex-row
-        popup
-        tw-transition-all tw-rounded-lg tw-bg-gray-100 tw-absolute tw-pt-6
-        md:tw-relative
-        md:tw-opacity-100
-        md:tw-h-auto
-        md:tw-bg-transparent
-        md:tw-pt-0
-      "
+      class="tw-flex tw-justify-end tw-flex-col md:tw-flex-row popup tw-transition-all tw-rounded-lg tw-bg-gray-100 tw-absolute tw-pt-6 md:tw-relative md:tw-opacity-100 md:tw-h-auto md:tw-bg-transparent md:tw-pt-0"
       :class="
         isOpen
           ? 'tw-z-40 tw-opacity-100 tw-h-auto'
@@ -80,20 +66,19 @@
       </h4>
       <nav>
         <ul
-          class="
-            tw-flex tw-flex-wrap tw-list-none tw-list-inside tw-px-6 tw-py-3
-            lg:tw-items-center
-            md:tw-justify-end tw-gap-y-4
-          "
+          class="tw-flex tw-flex-wrap tw-list-none tw-list-inside tw-px-6 tw-py-3 lg:tw-items-center md:tw-justify-end tw-gap-y-4"
         >
           <li
             v-for="(item, index) in routes"
             :key="index"
             class="tw-w-1/2 md:tw-w-auto"
           >
-            <router-link :key="index" :to="basePaths.home + item.path">
+            <router-link
+              :key="index"
+              :to="basePaths.home + item.path"
+            >
               <span
-                v-if="item.meta.title"
+                v-if="item.meta?.title"
                 v-text="tGlobal(item.meta.title)"
                 class="tw-p-2.5"
               />
@@ -101,44 +86,61 @@
           </li>
         </ul>
       </nav>
-      <div class="tw-flex tw-flex-none tw-justify-evenly tw-items-center myImg temp">
-        <img alt="german flag" :src="gerFlagSvg" class="tw-px-3"/>
-        <v-switch hide-details inset v-model="val"/>
-        <img alt="english flag" :src="engFlagSvg" class="tw-px-3"/>
+      <div
+        class="tw-flex tw-flex-none tw-justify-evenly tw-items-center myImg temp"
+      >
+        <img
+          alt="german flag"
+          :src="gerFlagSvg"
+          class="tw-px-3"
+        />
+        <v-switch
+          hide-details
+          inset
+          v-model="val"
+        />
+        <img
+          alt="english flag"
+          :src="engFlagSvg"
+          class="tw-px-3"
+        />
       </div>
     </div>
   </header>
 </template>
 
 <script lang="ts">
-import { defineComponent, onMounted, ref, watch } from "vue";
-import { useI18n } from "vue-i18n";
-import { headerRoutes, basePaths } from "@shared/routes";
-import trossSvg from "@static/img/tross.svg";
+import { defineComponent, onMounted, ref, watch } from 'vue'
+import { useI18n } from 'vue-i18n'
+import { headerRoutes, basePaths } from '@shared/routes'
+import trossSvg from '@static/img/tross.svg'
 
-import gerFlagSvg from "svg-country-flags/svg/de.svg"
-import engFlagSvg from "svg-country-flags/svg/gb.svg";
+import gerFlagSvg from 'svg-country-flags/svg/de.svg'
+import engFlagSvg from 'svg-country-flags/svg/gb.svg'
 
 export default defineComponent({
-  setup: () => {
-    const isOpen = ref<Boolean>(false);
-    const globalI18n = useI18n({useScope: 'global'});
-    const localI18n = useI18n();
-    const val = ref<Boolean>(false);
+  setup: () =>
+  {
+    const isOpen = ref<Boolean>(false)
+    const globalI18n = useI18n({ useScope: 'global' })
+    const localI18n = useI18n()
+    const val = ref<Boolean>(false)
 
-    onMounted(()=>{
-
+    onMounted(() =>
+    {
       val.value = globalI18n.locale.value === 'en'
-      watch(localI18n.locale, ()=> {
+      watch(localI18n.locale, () =>
+      {
         val.value = localI18n.locale.value === 'en'
       })
 
-      watch(val, (val, prevval) => {
-        globalI18n.locale.value = (val) ? 'en' : 'de'
+      watch(val, (val, prevval) =>
+      {
+        globalI18n.locale.value = val ? 'en' : 'de'
         localStorage.setItem('lang', <string>globalI18n.locale.value)
       })
-    })    
-    
+    })
+
     return {
       val,
       switchValue: false,
@@ -150,10 +152,10 @@ export default defineComponent({
       engFlagSvg,
       navConfig: true,
       routes: headerRoutes,
-      basePaths,
-    };
-  },
-});
+      basePaths
+    }
+  }
+})
 </script>
 
 <style lang="less">
@@ -201,17 +203,17 @@ nav ul li:hover {
 <style lang="less">
 .temp {
   .v-label {
-    padding-inline-start: 0px
+    padding-inline-start: 0px;
   }
 }
 </style>
 
-<i18n locale='de'>
+<i18n locale="de">
 {
 }
 </i18n>
 
-<i18n locale='en'>
+<i18n locale="en">
 {
 }
 </i18n>

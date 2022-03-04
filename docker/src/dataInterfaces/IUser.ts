@@ -1,4 +1,4 @@
-import type { TOTP } from "otpauth";
+import type { TOTP } from "otpauth"
 import type Roles from '../permissions/roles'
 
 export interface IUser {

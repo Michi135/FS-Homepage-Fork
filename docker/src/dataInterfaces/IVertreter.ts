@@ -1,4 +1,4 @@
-import type { Ref } from "@typegoose/typegoose";
+import type { Ref } from "@typegoose/typegoose"
 import type { IFile } from '@dataInterfaces/IFile'
 
 export interface IStudiengang {

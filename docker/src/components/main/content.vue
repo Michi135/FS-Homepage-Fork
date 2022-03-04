@@ -7,17 +7,17 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
-import primeheader from "./header.vue";
-import primefooter from "./footer.vue";
+import { defineComponent } from 'vue'
+import primeheader from './header.vue'
+import primefooter from './footer.vue'
 
 export default defineComponent({
-  name: "content",
+  name: 'content',
   components: {
     primeheader,
-    primefooter,
-  },
-});
+    primefooter
+  }
+})
 </script>
 
 <style scoped lang="less">
@@ -27,7 +27,7 @@ export default defineComponent({
 }
 
 .bgrd {
-  background-image: url("@static/img/bg.jpg");
+  background-image: url('@static/img/bg.jpg');
   background-repeat: no-repeat;
   background-size: cover;
 }

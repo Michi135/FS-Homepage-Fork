@@ -5,52 +5,60 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, onMounted, watch } from "vue";
-import { useRouter, useRoute } from "vue-router";
-import { useI18n } from "vue-i18n";
-import { useStore } from "@shared/store";
-import { createFaviconLink } from "../favicon/favicon";
-import "tailwindcss/tailwind.css";
+import { defineComponent, onMounted, watch } from 'vue'
+import { useRouter, useRoute } from 'vue-router'
+import { useI18n } from 'vue-i18n'
+import { useStore } from '@shared/store'
+import { createFaviconLink } from '../favicon/favicon'
+import 'tailwindcss/tailwind.css'
 
 export default defineComponent({
-  name: "app",
-  setup() {
-    onMounted(() => {
-      const { state } = useStore();
-      const { defaultTitle, defaultFavicon } = state;
-      const { t, locale } = useI18n({ useScope: "global" });
-      const route = useRoute();
+  name: 'app',
+  setup()
+  {
+    onMounted(() =>
+    {
+      const { state } = useStore()
+      const { defaultTitle, defaultFavicon } = state
+      const { t, locale } = useI18n({ useScope: 'global' })
+      const route = useRoute()
 
-      locale.value = <'de' | 'en'>localStorage.getItem('lang');
-      document.title = t(<string | undefined>route.meta.title || defaultTitle);
-      watch(locale, () => {
-        document.title = t(<string | undefined>route.meta.title || defaultTitle);
+      const tempLocale = <'de' | 'en' | undefined>localStorage.getItem('lang')
+      if (tempLocale)
+        locale.value = tempLocale
+
+      document.title = t(<string | undefined>route.meta.title || defaultTitle)
+      watch(locale, () =>
+      {
+        document.title = t(<string | undefined>route.meta.title || defaultTitle)
       })
 
-      useRouter().afterEach(({meta}, from, failure) => {
-        if (failure) return;
+      useRouter().afterEach(({ meta }, from, failure) =>
+      {
+        if (failure) return
 
-        let routeTitle =
-          <string | undefined>meta.title || defaultTitle;
-        let routeFavicon =
-          <string | undefined>meta.favicon || defaultFavicon;
+        let routeTitle = <string | undefined>meta.title || defaultTitle
+        let routeFavicon = <string | undefined>meta.favicon || defaultFavicon
 
-        document.title = t(routeTitle);
+        document.title = t(routeTitle)
 
-        const faviconLink = createFaviconLink(routeFavicon);
+        const faviconLink = createFaviconLink(routeFavicon)
         let exisitingLink: HTMLLinkElement | null =
-          document.querySelector("link[rel*='icon']");
-        if (exisitingLink) {
-          if (!exisitingLink.isEqualNode(faviconLink)) {
-            exisitingLink.replaceWith(faviconLink);
+          document.querySelector("link[rel*='icon']")
+        if (exisitingLink)
+        {
+          if (!exisitingLink.isEqualNode(faviconLink))
+          {
+            exisitingLink.replaceWith(faviconLink)
           }
-        } else document.head.appendChild(faviconLink);
-      });
-    });
-  },
-});
+        }
+        else document.head.appendChild(faviconLink)
+      })
+    })
+  }
+})
 </script>
 
 <style>
-@import "../css/fachschaft-styles.less";
+@import '../css/fachschaft-styles.less';
 </style>

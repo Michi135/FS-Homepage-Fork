@@ -1,18 +1,21 @@
 <template>
   <div class="main">
-    <h5 class="header">{{tGlobal('contact')}}</h5>
+    <h5 class="header">
+      {{ tGlobal('contact') }}
+    </h5>
     <div>
       <br />
-      <p>{{t('question')}}</p>
+      <p>{{ t('question') }}</p>
       <br />
-      <p>- {{t('message')}}</p>
+      <p>- {{ t('message') }}</p>
       <a href="mailto:fsmpi@uni-bayreuth.de">
         <p>
           <v-icon
             large
             color="orange darken-2"
             :icon="mdiEmail"
-          />  fsmpi@uni-bayreuth.de
+          />
+          fsmpi@uni-bayreuth.de
         </p>
       </a>
       <p>
@@ -20,7 +23,7 @@
           large
           color="orange darken-2"
           :icon="mdiPhone"
-        />  0921/55-3101
+        /> 0921/55-3101
       </p>
       <br />
       <div class="tw-flex tw-justify-center tw-flex-wrap">
@@ -35,26 +38,34 @@
           </p>
         </div>
         <div class="tw-basis-1/2 social">
-          <a href="https://facebook.com/fsmpi" target="_blank" rel="noopener noreferrer">
-          <v-img
-            :src="facebookImg"
-            height="100px"
-            width="100px"
-            class="grey darken-4"
-          />
+          <a
+            href="https://facebook.com/fsmpi"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <v-img
+              :src="facebookImg"
+              height="100px"
+              width="100px"
+              class="grey darken-4"
+            />
           </a>
           <p class="text-h6">
             @fsmpi
           </p>
         </div>
         <div class="tw-basis-1/2 social">
-          <a href="https://www.instagram.com/fachschaft_mpi/" target="_blank" rel="noopener noreferrer">
-          <v-img
-            :src="instagramImg"
-            height="100px"
-            width="100px"
-            class="grey darken-4"
-          />
+          <a
+            href="https://www.instagram.com/fachschaft_mpi/"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <v-img
+              :src="instagramImg"
+              height="100px"
+              width="100px"
+              class="grey darken-4"
+            />
           </a>
           <p class="text-h6">
             @fachschaft_mpi
@@ -62,13 +73,13 @@
         </div>
       </div>
       <br />
-      <p>{{t('invitation')}}</p>
+      <p>{{ t('invitation') }}</p>
     </div>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
+import { defineComponent } from 'vue'
 import { useI18n } from 'vue-i18n'
 import uniNowImg from '@static/uninow_AppIcon_rgb_color_rounded.png'
 import instagramImg from '@static/6929237_instagram_icon.png'
@@ -78,8 +89,8 @@ import { mdiEmail, mdiPhone } from '@mdi/js'
 export default defineComponent({
   setup()
   {
-    const { t } = useI18n({});
-    const tGlobal = useI18n({useScope: 'global'}).t;
+    const { t } = useI18n({})
+    const tGlobal = useI18n({ useScope: 'global' }).t
 
     return {
       t,
@@ -89,9 +100,9 @@ export default defineComponent({
       facebookImg,
       mdiEmail,
       mdiPhone
-    };
+    }
   }
-});
+})
 </script>
 
 <style scoped lang="less">
@@ -124,7 +135,7 @@ export default defineComponent({
 }
 </style>
 
-<i18n locale='de'>
+<i18n locale="de">
 {
   "message": "Nachricht im e-Learning-Kurs",
   "question": "Ihr braucht Hilfe oder habt Fragen? Wir sind zu erreichen per:",
@@ -132,7 +143,7 @@ export default defineComponent({
 }
 </i18n>
 
-<i18n locale='en'>
+<i18n locale="en">
 {
   "message": "Message in the e-Learning-course",
   "question": "You need help or have questions? We're here for you by:",
