@@ -1,8 +1,10 @@
 <template>
-  <div>
-    <h5 class="header">
-      {{ t('header') }}
-    </h5>
+  <div id="vertreter">
+    <i18n-t
+      keypath="header"
+      tag="h5"
+      class="header"
+    />
     <br />
     <div class="tw-flex tw-flex-col tw-items-center">
       <div class="all-container">
@@ -16,29 +18,29 @@
     <br />
   </div>
 </template>
+
 <script lang="ts">
 import { defineComponent, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useQuery } from '@vue/apollo-composable'
 import { gql } from 'graphql-tag'
 
+import { useQuerySSR } from '@shared/vue-apollo-ssr'
 import SingleVertreter from '@components/main/single-vertreter.vue'
 
-import type { IResolvedVertreter } from '@dataInterfaces/IVertreter'
-
-import { useQuerySSR } from '@shared/vue-apollo-ssr'
+import type { VertreterGQL } from '@dataInterfaces/IVertreter'
 
 export default defineComponent({
   components: {
     SingleVertreter
   },
-  setup: (prop, context) =>
+  setup: () =>
   {
-    const { t } = useI18n({})
+    const { t } = useI18n()
 
-    let vertreter = ref(new Array<IResolvedVertreter>())
+    const vertreter = ref(new Array<VertreterGQL>())
 
-    const res = useQuery<{ vertreters: Array<IResolvedVertreter> }>(gql`
+    const res = useQuery<{ vertreters: Array<VertreterGQL> }>(gql`
       {
         vertreters {
           nutzer_email {
@@ -87,30 +89,32 @@ export default defineComponent({
 })
 </script>
 
-<style scoped lang="less">
-.header {
-  font-size: 2rem;
-  text-align: center;
-  color: var(--color-primary-header);
-}
+<style lang="less">
+#vertreter {
+  .header {
+    font-size: 2rem;
+    text-align: center;
+    color: var(--color-primary-header);
+  }
 
-.all-container {
-  width: 98%;
+  .all-container {
+    width: 98%;
 
-  justify-content: center;
-  align-items: center;
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(450px, 1fr));
-  grid-template-rows: repeat(auto, max-content);
-  column-gap: 10px;
-  row-gap: 15px;
-  align-items: stretch;
+    justify-content: center;
+    align-items: center;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(450px, 1fr));
+    grid-template-rows: repeat(auto, max-content);
+    column-gap: 10px;
+    row-gap: 15px;
+    align-items: stretch;
 
-  @media only screen and (max-width: 460px) {
-    display: flex;
-    flex-direction: column;
-    width: max-content;
-    max-width: 100%;
+    @media only screen and (max-width: 460px) {
+      display: flex;
+      flex-direction: column;
+      width: max-content;
+      max-width: 100%;
+    }
   }
 }
 </style>

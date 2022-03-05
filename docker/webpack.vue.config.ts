@@ -15,6 +15,8 @@ import { TsConfig } from './tsConfigType'
 import type { BrotliOptions } from 'zlib'
 import { constants } from 'zlib'
 import { VuetifyLoaderPlugin } from 'vuetify-loader'
+import PurgeCSSPlugin from 'purgecss-webpack-plugin'
+import glob from 'glob'
 
 //import rollupResolve from '@rollup/plugin-node-resolve'
 //import commonjs from '@rollup/plugin-commonjs'
@@ -35,8 +37,8 @@ import { extendDefaultPlugins } from 'svgo'*/
 import fsExtra from 'fs-extra'
 import webpack from 'webpack'
 
-const { readFileSync } = fsExtra;
-const { DefinePlugin, HotModuleReplacementPlugin, NormalModuleReplacementPlugin, container } = webpack;
+const { readFileSync } = fsExtra
+const { DefinePlugin, HotModuleReplacementPlugin, NormalModuleReplacementPlugin, container } = webpack
 
 /**
  * Options object for DataUrl condition.
@@ -65,37 +67,40 @@ declare interface AssetParserOptions {
 
 import { fileURLToPath } from 'url'
 
-const configPath = resolve(fileURLToPath(import.meta.url), "..", "tsconfig.webpack.json");
-const serverConfigPath = resolve(fileURLToPath(import.meta.url), "..", "tsconfig.json");
-const tsConfigFile = readFileSync(configPath, { encoding: 'utf-8' });
-const tsConfig = <TsConfig>JSON.parse(stripJsonComments(tsConfigFile));
+const configPath = resolve(fileURLToPath(import.meta.url), "..", "tsconfig.webpack.json")
+const serverConfigPath = resolve(fileURLToPath(import.meta.url), "..", "tsconfig.json")
+const tsConfigFile = readFileSync(configPath, { encoding: 'utf-8' })
+const tsConfig = <TsConfig>JSON.parse(stripJsonComments(tsConfigFile))
 const alias = tsConfig.compilerOptions.paths
-const aliasBasePath = join(configPath, '..', tsConfig.compilerOptions.baseUrl);
+const aliasBasePath = join(configPath, '..', tsConfig.compilerOptions.baseUrl)
 
-let temp: Record<string, string[]> = {};
+let temp: Record<string, string[]> = {}
 
-for (let [key, value] of Object.entries(alias)) {
+for (let [key, value] of Object.entries(alias))
+{
 
   if (key.endsWith('/*'))
-    key = key.substring(0, key.length - 2);
+    key = key.substring(0, key.length - 2)
 
-  temp[key] = [];
-  value.forEach((value) => {
+  temp[key] = []
+  value.forEach((value) =>
+  {
     if (value.endsWith('*'))
-      value = value.substr(0, value.length - 1);
+      value = value.substr(0, value.length - 1)
 
-    temp[key].push(join(aliasBasePath, value));
-  });
+    temp[key].push(join(aliasBasePath, value))
+  })
 };
 
-const config = (env: NodeJS.ProcessEnv = {}): Configuration => {
-  const isProd = (env.mode === 'production');
-  const isSSR = (env.rendering === 'ssr');
-  const noMinimize = (env.minimize === 'false');
-  const noBabel = (env.babel === 'false');
-  const isServer = (env.target === 'server');
+const config = (env: NodeJS.ProcessEnv = {}): Configuration =>
+{
+  const isProd = (env.mode === 'production')
+  const isSSR = (env.rendering === 'ssr')
+  const noMinimize = (env.minimize === 'false')
+  const noBabel = (env.babel === 'false')
+  const isServer = (env.target === 'server')
 
-  const environment = isProd ? 'production' : 'development';
+  const environment = isProd ? 'production' : 'development'
   /**
    * Some notes regarding config for the server build of an SSR app:
    * 1. target: 'node'
@@ -110,7 +115,7 @@ const config = (env: NodeJS.ProcessEnv = {}): Configuration => {
     },
     'css-loader',
     {
-      loader: 'postcss-loader',
+      loader: 'postcss-loader'
       /*options: {
         postcssOptions: {
           implementation: require("postcss"),
@@ -118,14 +123,15 @@ const config = (env: NodeJS.ProcessEnv = {}): Configuration => {
         },
       },*/
     }
-  ];
+  ]
 
-  const dirname = resolve();
+  const dirname = resolve()
 
-  const genConfig = (isServerBuild: boolean = false): Configuration => {
+  const genConfig = (isServerBuild: boolean = false): Configuration =>
+  {
     const minimize = isProd && !noMinimize && !isServerBuild
     const useBabel = isProd && !isServerBuild && !noBabel
-    process.env.NODE_ENV = environment;
+    process.env.NODE_ENV = environment
     let config: Configuration = {
       mode: environment,
       entry: isServerBuild
@@ -151,15 +157,15 @@ const config = (env: NodeJS.ProcessEnv = {}): Configuration => {
         assetModuleFilename: (isProd) ? '[name].[contenthash][ext]' : '[name][ext]',
         chunkFilename: '[name].[chunkhash].js',
         clean: true,
-        chunkFormat: isServerBuild ? 'module' : undefined,
+        chunkFormat: isServerBuild ? 'module' : undefined
       },
       experiments: {
-        outputModule: isServerBuild,
+        outputModule: isServerBuild
       },
       externals: [
         isServerBuild ? nodeExternals(
-          { 
-            allowlist: [/\.(?!(?:jsx?|json|tsx?)$).{1,5}$/i, '@vue/apollo-composable'],
+          {
+            allowlist: [/\.(?!(?:jsx?|json|tsx?|mjs|cjs)$).{1,5}$/i, '@vue/apollo-composable', /vuetify\/lib\/.*$/i],
             //@ts-ignore
             importType: 'module'
           }) : {}
@@ -177,7 +183,7 @@ const config = (env: NodeJS.ProcessEnv = {}): Configuration => {
                   hotReload: !isProd
                 }
               }
-            ],
+            ]
             //exclude: /node_modules/,
           },
           {
@@ -200,9 +206,10 @@ const config = (env: NodeJS.ProcessEnv = {}): Configuration => {
               /\.svg$/i,
             type: 'asset',
             parser: <AssetParserOptions>{
-              dataUrlCondition: (source, { filename, module }) => {
-                const size = svgToMiniDataURI(source.toString()).length * 8;
-                return size < 8096;
+              dataUrlCondition: (source, { filename, module }) =>
+              {
+                const size = svgToMiniDataURI(source.toString()).length * 8
+                return size < 8096
               }
             },
             generator: {
@@ -212,14 +219,14 @@ const config = (env: NodeJS.ProcessEnv = {}): Configuration => {
           },
           {
             test: /\.css$/i,
-            use: commonLoadersCSS,
+            use: commonLoadersCSS
           },
           {
             test: /\.less$/,
             use: [
               ...commonLoadersCSS,
-              'less-loader',
-            ],
+              'less-loader'
+            ]
           },
           {
             test: /\.tsx?$/,
@@ -233,25 +240,25 @@ const config = (env: NodeJS.ProcessEnv = {}): Configuration => {
                   transpileOnly: true,
                   configFile: (isServerBuild) ? serverConfigPath : configPath
                 }
-              },
+              }
             ],
-            exclude: /node_modules/,
+            exclude: /node_modules/
           },
           {
             test: /\.[mc]?jsx?$/,
             use: (/*useBabel*/ true) ? ['babel-loader'] : [],
-            exclude: /node_modules/,
-          },
+            exclude: /node_modules/
+          }
           // target <docs> custom blocks
           /*{
             resourceQuery: /blockType=docs/,
             loader: require.resolve('./docs-loader'),
           },*/
-        ],
+        ]
       },
       cache: (!isProd) ?
         {
-          type: 'memory',
+          type: 'memory'
           /*name: isServerBuild ? "server" : "client",
           buildDependencies: {
             // 2. Add your config as buildDependency to get cache invalidation on config change
@@ -264,32 +271,8 @@ const config = (env: NodeJS.ProcessEnv = {}): Configuration => {
       ,
       plugins: [ //@ts-ignore
         //new SpeedMeasurePlugin({ granularLoaderData: true }),
-        /*new container.ModuleFederationPlugin({
-          shared: {
-            'vue': {
-              singleton: true,
-              eager: true
-            },
-            '@vue/compiler-sfc': {
-              singleton: true,
-              eager: true
-            },
-            'vue-loader': {
-              singleton: true,
-              eager: true
-            },
-            'vue-router': {
-              singleton: true,
-              eager: true
-            }
-          }
-        }),*/
         new VueLoaderPlugin(),
-        new VuetifyLoaderPlugin(
-          {
-            //autoImport: true,
-            //styles: "none"
-          }),
+        new VuetifyLoaderPlugin({}),
         new MiniCssExtractPlugin({
           filename: (isProd) ? '[name].[contenthash].css' : '[name].css'
         }),
@@ -298,14 +281,14 @@ const config = (env: NodeJS.ProcessEnv = {}): Configuration => {
           __IS_DEV__: !isProd,
           __IS_SERVER__: isServerBuild,
           __VUE_OPTIONS_API__: true,
-          __VUE_PROD_DEVTOOLS__: false,
-        }),
+          __VUE_PROD_DEVTOOLS__: false
+        })
         //new LicenseWebpackPlugin({
         //}) as any,
       ],
       optimization: {
         runtimeChunk: (isServer) ? false : {
-          name: 'runtime',
+          name: 'runtime'
         },
         emitOnErrors: false,
         splitChunks: (isServerBuild) ?
@@ -322,7 +305,7 @@ const config = (env: NodeJS.ProcessEnv = {}): Configuration => {
             chunks: "all",
             cacheGroups: {
               commons: {
-                name: "vendor",
+                filename: 'vendors.[contenthash].js',
                 test: /[\\/]node_modules[\\/]/,
                 chunks: "initial",
                 enforce: true
@@ -333,16 +316,17 @@ const config = (env: NodeJS.ProcessEnv = {}): Configuration => {
         minimize: minimize,
         minimizer: [
           '...',
-          new CssMinimizerPlugin(),
+          new CssMinimizerPlugin()
         ]
       },
       resolve: {
         extensions: ['.tsx', '.ts', '.js', ".mjs", 'jsx', ".vue", ".json", ".wasm", ".cjs", ".svg"],
         alias: temp
-      },
+      }
     }
 
-    if (!isServerBuild) { //Allows usage of type-graphql decorated classes in browser
+    if (!isServerBuild)
+    { //Allows usage of type-graphql decorated classes in browser
       /*config.plugins!.push(new NormalModuleReplacementPlugin(/type-graphql$/, resource => {
         resource.request = resource.request.replace(/type-graphql/, "type-graphql/dist/browser-shim.js");
       }))*/
@@ -350,15 +334,16 @@ const config = (env: NodeJS.ProcessEnv = {}): Configuration => {
         filename: 'test.html',
         template: resolve(dirname, 'src', 'index.html')
       }))
-      config.plugins!.push(new WebpackManifestPlugin({}));
+      config.plugins!.push(new WebpackManifestPlugin({}))
     }
 
-    if (isProd) {
-      if (!isServerBuild) {
-
+    if (isProd)
+    {
+      if (!isServerBuild)
+      {
         config.optimization!.minimizer!.push(new CompressionPlugin({
           test: /\.(jpg|txt|map|json|pdf|js|css|html|svg|png)$/,
-          threshold: 8192,
+          threshold: 8192
         }))
         config.optimization!.minimizer!.push(new CompressionPlugin<BrotliOptions>({
           filename: "[path][base].br",
@@ -366,20 +351,28 @@ const config = (env: NodeJS.ProcessEnv = {}): Configuration => {
           test: /\.(jpg|txt|map|json|pdf|js|css|html|svg|png)$/,
           compressionOptions: {
             params: {
-              [constants.BROTLI_PARAM_QUALITY]: 11,
-            },
+              [constants.BROTLI_PARAM_QUALITY]: 11
+            }
           },
           threshold: 8192,
-          minRatio: 0.8,
-        }))
+          minRatio: 0.8
+        })),
+        config.plugins!.push(new PurgeCSSPlugin(
+          {
+            paths: () => [...glob.sync(`./src/**/*`,  { nodir: true }), ...glob.sync(`./node_modules/vuetify/**/*`,  { nodir: true })],
+            defaultExtractor: content => content.match(/([A-Za-z0-9-_:\/]|[0-9\.0-9])+/g) || [],
+            blocklist: ["./src/static/index.html"],
+            safelist: [/-(leave|enter|appear)(|-(to|from|active))$/, /^(?!(|.*?:)cursor-move).+-move$/, /^router-link(|-exact)-active$/, /data-v-.*/, /v-icon--size-.*/]
+          }))
       }
     }
-    else {
-      config.plugins!.push(new HotModuleReplacementPlugin());
+    else
+    {
+      config.plugins!.push(new HotModuleReplacementPlugin())
     }
-    return config;
+    return config
   }
   return genConfig(isServer)
 }
 
-export default config;
+export default config

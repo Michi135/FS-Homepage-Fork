@@ -13,13 +13,14 @@
 
 <script lang="ts">
 import { defineComponent, ref } from 'vue'
-import type { Ref } from 'vue'
-
-import { GenericDocumentRenderer, Element } from '../document-renderer'
-
 import { gql } from 'graphql-tag'
 import { useQuery } from '@vue/apollo-composable'
+
 import { useQuerySSR } from '@shared/vue-apollo-ssr'
+import { GenericDocumentRenderer } from '../document-renderer'
+
+import type { Ref } from 'vue'
+import type { Element } from '../document-renderer'
 
 interface Result {
   posts: Array<{
@@ -31,7 +32,7 @@ interface Result {
 
 export default defineComponent({
   components: {
-    doc: GenericDocumentRenderer() //DocumentRenderer()
+    doc: GenericDocumentRenderer()
   },
   setup()
   {

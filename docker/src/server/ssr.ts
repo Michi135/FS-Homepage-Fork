@@ -32,9 +32,9 @@ const chunks: Record<string, string> = {
   "/vertreter": "home",
   "/keinePanik": "home",
   "/externe": "home",
-  "/impressum": "home",
-  "/sprechstunden": "home",
-  "/kontakt": "home",
+  "/impressum": "footer",
+  "/sprechstunden": "footer",
+  "/kontakt": "footer",
   "/erstis": "home",
   "/wahl": "home"
 }
@@ -198,7 +198,6 @@ export default function ssr(dev: boolean)
 
       if (req.url === "/")
       {
-
         const preloadImg = manifest['plakat.jpg']
         const nodeImg = doc.createElement("link")
         nodeImg.setAttribute('href', preloadImg)

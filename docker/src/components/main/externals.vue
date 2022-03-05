@@ -1,12 +1,21 @@
 <template>
-  <div class="tw-px-5 tw-py-2 main">
-    <p class="tw-text-2xl">
-      {{ t('mainMessage') }}
-    </p>
+  <div
+    id="externals"
+    class="tw-px-5 tw-py-2"
+  >
+    <i18n-t
+      keypath="mainMessage"
+      tag="p"
+      class="tw-text-2xl"
+    />
     <br />
-    <h5 class="tw-text-2xl">
-      {{ tGlobal('studentCouncil', 2) }}
-    </h5>
+    <i18n-t
+      keypath="studentCouncil"
+      tag="h5"
+      class="tw-text-2xl"
+      scope="global"
+      plural="2"
+    />
     <ul>
       <li
         class="tw-ml-5 tw-py-1"
@@ -76,7 +85,7 @@ export default defineComponent({
   setup: () =>
   {
     const tGlobal = useI18n({ useScope: 'global' }).t
-    const { t } = useI18n({})
+    const { t } = useI18n()
 
     return {
       t,
@@ -138,16 +147,8 @@ export default defineComponent({
 })
 </script>
 
-<style scoped lang="less">
-.footer {
-  background-color: var(--color-secondary);
-  color: var(--color-text);
-}
-.primary {
-  color: var(--color-primary-header);
-}
-
-.main {
+<style lang="less">
+#externals {
   .link {
     color: var(--color-secondary-header);
   }

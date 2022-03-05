@@ -353,134 +353,136 @@ export default defineComponent({
 })
 </script>
 
-<style lang="less" scoped>
-h3 {
-  font-size: 2rem;
-  color: var(--color-primary-header);
-}
-h2 {
-  font-size: 1.5rem;
-  color: var(--color-primary-header);
-}
-h1 {
-  font-size: 1.2rem;
-  color: var(--color-secondary-header);
-}
-.link {
-  color: lightblue;
-}
-.link:hover {
-  color: var(--color-primary);
-}
-ul {
-  li {
-    margin-left: 20px;
+<style lang="less">
+#erstis {
+  h3 {
+    font-size: 2rem;
+    color: var(--color-primary-header);
+  }
+  h2 {
+    font-size: 1.5rem;
+    color: var(--color-primary-header);
+  }
+  h1 {
+    font-size: 1.2rem;
+    color: var(--color-secondary-header);
+  }
+  .link {
+    color: lightblue;
+  }
+  .link:hover {
+    color: var(--color-primary);
+  }
+  ul {
+    li {
+      margin-left: 20px;
+      color: #f1f1f1;
+    }
+  }
+  p {
+    text-align: justify;
     color: #f1f1f1;
   }
-}
-p {
-  text-align: justify;
-  color: #f1f1f1;
-}
 
-table {
-  width: 100%;
-  border-collapse: collapse;
-}
-
-th {
-  background: #333;
-  color: white;
-  font-weight: bold;
-}
-td,
-th {
-  padding: 6px;
-  border: 1px solid #ccc;
-  text-align: left;
-}
-
-@media only screen and (min-width: 551px) {
-  tr:nth-of-type(odd) td {
-    background: #eee;
+  table {
+    width: 100%;
+    border-collapse: collapse;
   }
-  tr:nth-of-type(even) td {
-    background: grey;
-  }
-  tr:hover td {
-    background: #e68e0b;
-  }
-}
 
-@media only screen and (max-width: 550px) {
-  /* Force table to not be like tables anymore */
-  table,
-  thead,
-  tbody,
-  th,
+  th {
+    background: #333;
+    color: white;
+    font-weight: bold;
+  }
   td,
-  tr {
-    display: block;
-  }
-
-  /* Hide table headers (but not display: none;, for accessibility) */
-  thead tr {
-    position: absolute;
-    top: -9999px;
-    left: -9999px;
-  }
-
-  tr {
+  th {
+    padding: 6px;
     border: 1px solid #ccc;
+    text-align: left;
   }
 
-  td {
-    /* Behave  like a "row" */
-    border: none;
-    //border-bottom: 1px solid #eee;
-    position: relative;
-    padding-left: 50%;
+  @media only screen and (min-width: 551px) {
+    tr:nth-of-type(odd) td {
+      background: #eee;
+    }
+    tr:nth-of-type(even) td {
+      background: grey;
+    }
+    tr:hover td {
+      background: #e68e0b;
+    }
   }
 
-  td:before {
-    /* Now like a table header */
-    position: absolute;
-    /* Top/left values mimic padding */
-    top: 6px;
-    left: 6px;
-    width: 45%;
-    padding-right: 10px;
-    white-space: nowrap;
-  }
+  @media only screen and (max-width: 550px) {
+    /* Force table to not be like tables anymore */
+    table,
+    thead,
+    tbody,
+    th,
+    td,
+    tr {
+      display: block;
+    }
 
-  tr:nth-of-type(odd) td:not(:hover) {
-    background: #eee;
+    /* Hide table headers (but not display: none;, for accessibility) */
+    thead tr {
+      position: absolute;
+      top: -9999px;
+      left: -9999px;
+    }
+
+    tr {
+      border: 1px solid #ccc;
+    }
+
+    td {
+      /* Behave  like a "row" */
+      border: none;
+      //border-bottom: 1px solid #eee;
+      position: relative;
+      padding-left: 50%;
+    }
+
+    td:before {
+      /* Now like a table header */
+      position: absolute;
+      /* Top/left values mimic padding */
+      top: 6px;
+      left: 6px;
+      width: 45%;
+      padding-right: 10px;
+      white-space: nowrap;
+    }
+
+    tr:nth-of-type(odd) td:not(:hover) {
+      background: #eee;
+    }
+    tr:nth-of-type(even) td:not(:hover) {
+      background: grey;
+    }
+    td:hover {
+      background: #e68e0b;
+    }
   }
-  tr:nth-of-type(even) td:not(:hover) {
-    background: grey;
+  .floating-menu {
+    font-family: sans-serif;
+    background: yellowgreen;
+    padding: 5px;
+    width: 200px;
+    z-index: 100;
+    position: fixed;
   }
-  td:hover {
-    background: #e68e0b;
+  .floating-menu a,
+  .floating-menu h3 {
+    font-size: 0.9em;
+    display: block;
+    margin: 0 0.5em;
+    color: white;
   }
-}
-.floating-menu {
-  font-family: sans-serif;
-  background: yellowgreen;
-  padding: 5px;
-  width: 200px;
-  z-index: 100;
-  position: fixed;
-}
-.floating-menu a,
-.floating-menu h3 {
-  font-size: 0.9em;
-  display: block;
-  margin: 0 0.5em;
-  color: white;
-}
-.blackP {
-  p {
-    color: black;
+  .blackP {
+    p {
+      color: black;
+    }
   }
 }
 </style>

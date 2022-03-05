@@ -1,7 +1,7 @@
-import type { Ref } from "@typegoose/typegoose"
-import type { IFile } from '@dataInterfaces/IFile'
+//import type { Ref } from "@typegoose/typegoose"
+//import type { IFile } from '@dataInterfaces/IFile'
 
-export interface IStudiengang {
+/*export interface IStudiengang {
     lectureShip?: 'GYMNASIUM',
     degree: 'BACHELOR' | 'MASTER',
     field?: 'SCIENCE',
@@ -17,24 +17,40 @@ export interface IVertreter {
     studiengang: IStudiengang
     semester: number
     email: string
-}
+}*/
 
 /*export interface IResolvedVertreter extends Partial<IVertreter> {
 
     image: Partial<IFile>
 }*/
 
-export interface IResolvedVertreter {
+type Faecher = 'COMPUTER SCIENCE' | 'PHYSICS' | 'MATH' | 'TECHNO MATH'
+type Lehramt = 'GYMNASIUM'
+type Grad = 'BACHELOR' | 'MASTER'
+type Feld = 'SCIENCE'
+type Rolle = "HEAD" | "VICE" | "FINANCES" | "NETWORKING" | "UNI-CINEMA" | "PUBLIC RELATIONS" | "BEER COORDINATION" | "PHYSICIST BAR" | "GRAPHICS" | "SCRIPTS" | "ROOT"
+
+
+interface VertreterGQL {
     nutzer_email: {
-      name: string
-      email: string
+        name: string
+        email: string
     },
-    rolle: string,
-    grad: string,
-    feld: string,
-    hauptfach: string,
-    zweitfach:  string | undefined,
-    Lehramt: string | undefined,
+    rolle: Rolle,
+    grad: Grad,
+    feld: Feld,
+    hauptfach: Faecher,
+    zweitfach?: Faecher,
+    Lehramt?: Lehramt,
     semester: number,
     portrait: { url: string }
-  }
+}
+
+export {
+  Faecher,
+  Lehramt,
+  Grad,
+  Feld,
+  Rolle,
+  VertreterGQL
+}

@@ -98,6 +98,7 @@
           hide-details
           inset
           v-model="val"
+          style="flex: none"
         />
         <img
           alt="english flag"

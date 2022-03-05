@@ -8,17 +8,23 @@
         :alt="vertreter.nutzer_email.name"
       />
     </div>
-    <p class="property">
-      {{ tGlobal('name') }}
-    </p>
+    <i18n-t
+      keypath="name"
+      tag="p"
+      scope="global"
+      class="property"
+    />
     <p
       class="value"
       v-text="vertreter.nutzer_email.name"
     />
 
-    <p class="property">
-      {{ tGlobal('role') }}
-    </p>
+    <i18n-t
+      keypath="role"
+      tag="p"
+      scope="global"
+      class="property"
+    />
     <p
       class="value"
       v-text="t(vertreter.rolle)"
@@ -38,9 +44,11 @@
       :lehramt="vertreter.Lehramt"
     />
 
-    <p class="property">
-      {{ t('semester') }}
-    </p>
+    <i18n-t
+      keypath="semester"
+      tag="p"
+      class="property"
+    />
     <p
       class="value"
       v-text="vertreter.semester"
@@ -51,21 +59,23 @@
       color="orange darken-2"
       :icon="mdiEmail"
     />
-    <p
-      class="value"
-      v-text="vertreter.nutzer_email.email"
-    />
+    <a :href="'mailto:' + vertreter.nutzer_email.email">
+      <p
+        class="value"
+        v-text="vertreter.nutzer_email.email"
+      />
+    </a>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType } from 'vue'
+import { defineComponent } from 'vue'
 import { useI18n } from 'vue-i18n'
-//import { IVertreter } from "@dataInterfaces/IVertreter";
 import studiengang from './studiengang.vue'
 import { mdiEmail, mdiSchool } from '@mdi/js'
 
-import type { IResolvedVertreter } from '@dataInterfaces/IVertreter'
+import type { PropType } from 'vue'
+import type { VertreterGQL } from '@dataInterfaces/IVertreter'
 
 export default defineComponent({
   components: {
@@ -74,13 +84,13 @@ export default defineComponent({
   name: 'SingleVertreter',
   props: {
     vertreter: {
-      type: Object as PropType<IResolvedVertreter>,
+      type: Object as PropType<VertreterGQL>,
       required: true
     }
   },
   setup: () =>
   {
-    const { t } = useI18n({})
+    const { t } = useI18n()
     const tGlobal = useI18n({ useScope: 'global' }).t
 
     return {

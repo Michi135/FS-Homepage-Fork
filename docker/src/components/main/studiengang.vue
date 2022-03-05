@@ -3,25 +3,25 @@
 </template>
 
 <script lang="ts">
-//import type { IStudiengang } from "@dataInterfaces/IVertreter";
-import { computed, defineComponent, PropType } from 'vue'
+import { computed, defineComponent } from 'vue'
 import { useI18n } from 'vue-i18n'
 
-type Faecher = 'COMPUTER SCIENCE' | 'PHYSICS' | 'MATH' | 'TECHNO MATH'
+import type { PropType } from 'vue'
+import type { Faecher, Lehramt, Grad, Feld } from "@dataInterfaces/IVertreter"
 
 export default defineComponent({
   props: {
     lehramt: {
-      type: String as PropType<'GYMNASIUM'>,
+      type: String as PropType<Lehramt>,
       required: false,
       default: undefined
     },
     grad: {
-      type: String as PropType<'BACHELOR' | 'MASTER'>,
+      type: String as PropType<Grad>,
       required: true
     },
     feld: {
-      type: String as PropType<'SCIENCE'>,
+      type: String as PropType<Feld>,
       required: false,
       default: undefined
     },
@@ -46,7 +46,7 @@ export default defineComponent({
 
       val += t(props.grad)
 
-      if (!props.lehramt /*props.feld*/) val += t(<'SCIENCE'>props.feld)
+      if (!props.lehramt /*props.feld*/) val += t(<Feld>props.feld)
 
       val += ' ' + t(props.hauptfach)
 

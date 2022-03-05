@@ -4,10 +4,10 @@ import { App } from '@vue/runtime-core'
 import { Router } from 'vue-router'
 import app from '@components/App.vue'
 import { createDefaultStore, key, State } from './store'
-import { Store } from 'vuex'
+import type { Store } from 'vuex'
 import { createI18n, I18n } from 'vue-i18n'
 import _ from 'lodash'
-import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+//import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { createVuetify } from 'vuetify'
 import { aliases, mdi } from 'vuetify/lib/iconsets/mdi-svg'
 import { createGraphql } from './graphql'
@@ -44,7 +44,7 @@ function createBundledApp(root: Component, ctx: Partial<State>)
     }
   }))
 
-  app.component('font-awesome-icon', FontAwesomeIcon)
+  //app.component('font-awesome-icon', FontAwesomeIcon)
 
   const out: BundledApp<typeof store, typeof i18n> = {
     app: app,

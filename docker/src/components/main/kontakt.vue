@@ -1,11 +1,20 @@
 <template>
-  <div class="main">
-    <h5 class="header">
-      {{ tGlobal('contact') }}
-    </h5>
+  <div
+    id="kontakt"
+    class="main"
+  >
+    <i18n-t
+      keypath="contact"
+      tag="h5"
+      scope="global"
+      class="header"
+    />
     <div>
       <br />
-      <p>{{ t('question') }}</p>
+      <i18n-t
+        keypath="question"
+        tag="p"
+      />
       <br />
       <p>- {{ t('message') }}</p>
       <a href="mailto:fsmpi@uni-bayreuth.de">
@@ -73,7 +82,10 @@
         </div>
       </div>
       <br />
-      <p>{{ t('invitation') }}</p>
+      <i18n-t
+        keypath="invitation"
+        tag="p"
+      />
     </div>
   </div>
 </template>
@@ -89,7 +101,7 @@ import { mdiEmail, mdiPhone } from '@mdi/js'
 export default defineComponent({
   setup()
   {
-    const { t } = useI18n({})
+    const { t } = useI18n()
     const tGlobal = useI18n({ useScope: 'global' }).t
 
     return {
@@ -105,8 +117,8 @@ export default defineComponent({
 })
 </script>
 
-<style scoped lang="less">
-.main {
+<style lang="less">
+#kontakt {
   .header {
     font-size: 2rem;
     color: var(--color-primary-header);
@@ -122,15 +134,15 @@ export default defineComponent({
   a:hover {
     color: var(--color-primary);
   }
-}
-.social {
-  a {
-    display: inline-block;
-  }
-  a > div {
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
+  .social {
+    a {
+      display: inline-block;
+    }
+    a > div {
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+    }
   }
 }
 </style>

@@ -104,7 +104,7 @@ let footerRoutes: RouteRecordRaw[] = [
 
   {
     path: "impressum",
-    component: () => import('@components/main/impressum.vue'/* webpackChunkName: "home" */),
+    component: () => import('@components/main/impressum.vue'/* webpackChunkName: "footer" */),
     meta:
         {
           title: "imprint"
@@ -112,7 +112,7 @@ let footerRoutes: RouteRecordRaw[] = [
   },
   {
     path: "sprechstunden",
-    component: () => import('@components/main/sprechstunden.vue'/* webpackChunkName: "home" */),
+    component: () => import('@components/main/sprechstunden.vue'/* webpackChunkName: "footer" */),
     meta:
         {
           title: "consultationHours"
@@ -120,7 +120,7 @@ let footerRoutes: RouteRecordRaw[] = [
   },
   {
     path: "kontakt",
-    component: () => import('@components/main/kontakt.vue'/* webpackChunkName: "home" */),
+    component: () => import('@components/main/kontakt.vue'/* webpackChunkName: "footer" */),
     meta:
         {
           title: "contact"
