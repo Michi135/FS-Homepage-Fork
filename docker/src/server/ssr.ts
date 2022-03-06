@@ -8,9 +8,10 @@ import type { NextFunction, Request, Response } from 'express'
 import type { Stats, Compiler } from 'webpack'
 import { JSDOM } from 'jsdom'
 import { join, resolve } from 'path'
-import type * as App from '../shared/app'
+import type * as App from '@shared/app'
 import { exportStates } from '@vue/apollo-ssr'
 import { brotliCompressSync, gzipSync } from 'zlib'
+import devalue from '@nuxt/devalue'
 
 
 import fsExtra from 'fs-extra'
@@ -53,12 +54,12 @@ async function loadDom(dev?: devMiddleware)
 
     initialHtml = await new Promise<string>((resolve, reject) =>
     {
-            outputFileSystem!.readFile(join(outputPath!, 'test.html'), (error, result) =>
-            {
-              if (error)
-                reject(error)
-              resolve(result! as string)
-            })
+      outputFileSystem!.readFile(join(outputPath!, 'test.html'), (error, result) =>
+      {
+        if (error)
+          reject(error)
+        resolve(result! as string)
+      })
     })
   }
   else if (typeof initialHtml === "undefined")
@@ -68,7 +69,6 @@ async function loadDom(dev?: devMiddleware)
 
 async function loadManifest(dev?: devMiddleware)
 {
-
   if (dev)
   {
     const outputFileSystem = dev!.outputFileSystem
@@ -77,12 +77,12 @@ async function loadManifest(dev?: devMiddleware)
 
     initialManifest = await new Promise<Record<string, string>>((resolve, reject) =>
     {
-            outputFileSystem!.readFile(join(outputPath!, 'manifest.json'), (error, result) =>
-            {
-              if (error)
-                reject(error)
-              resolve(JSON.parse(result! as string))
-            })
+      outputFileSystem!.readFile(join(outputPath!, 'manifest.json'), (error, result) =>
+      {
+        if (error)
+          reject(error)
+        resolve(JSON.parse(result! as string))
+      })
     })
   }
   else if (typeof initialManifest === "undefined")
@@ -106,7 +106,6 @@ const supportedLanguages =
 
 function getLanguage(req: Request)
 {
-
   const lang = req.acceptsLanguages(supportedLanguages)
   return <'en' | 'de'>(lang ? lang : 'en')
 }
@@ -155,7 +154,7 @@ export default function ssr(dev: boolean)
 
       //@ts-ignore necessary in case there isn't a compiled main.js
       const { createDefaultApp } = <typeof App>(await import('@distServer/main.js'))
-      const { router, store, app, i18n, apolloClients } = createDefaultApp({ language: language })
+      const { router, app, pinia, store, i18n, apolloClients } = createDefaultApp({ language: language })
 
       router.push(req.url)
       await router.isReady()
@@ -167,7 +166,7 @@ export default function ssr(dev: boolean)
       const manifest = await manifestLoad
       const dom = new JSDOM(await domLoad)
 
-      context.state = store.state
+      context.state = { ...store.$state }
 
       const doc = dom.window.document
       const head = doc.head
@@ -208,7 +207,7 @@ export default function ssr(dev: boolean)
 
       doc.getElementById('app')!.innerHTML = await renderToString(app, context)
 
-      head.innerHTML += `<script>window.__INITIAL_STATE__=${JSON.stringify(context.state)}</script>`
+      head.innerHTML += `<script>window.__INITIAL_STATE__=${devalue(pinia.state.value)}</script>`
       head.innerHTML += `<script>${exportStates(apolloClients)}</script>`
 
       const document = dom.serialize()

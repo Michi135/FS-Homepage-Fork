@@ -18,8 +18,7 @@ export default defineComponent({
   {
     onMounted(() =>
     {
-      const { state } = useStore()
-      const { defaultTitle, defaultFavicon } = state
+      const { defaultTitle, defaultFavicon } = useStore()
       const { t, locale } = useI18n({ useScope: 'global' })
       const route = useRoute()
 

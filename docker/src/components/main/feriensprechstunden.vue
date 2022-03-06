@@ -72,7 +72,7 @@ export default defineComponent({
   setup()
   {
     const t = useI18n()
-    const { initialTime } = useStore().state
+    const { initialTime } = useStore()
 
     const res = useQuery<{ feriensprechstundens: Array<FerienTag>, }>(gql`
       query futureConsultationHours ($var: DateTime)
