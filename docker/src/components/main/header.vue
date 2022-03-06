@@ -79,7 +79,7 @@
             >
               <span
                 v-if="item.meta?.title"
-                v-text="tGlobal(item.meta.title)"
+                v-text="tGlobal(item.meta.title as string)"
                 class="tw-p-2.5"
               />
             </router-link>

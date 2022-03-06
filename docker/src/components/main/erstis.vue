@@ -90,46 +90,14 @@
           keypath="dates"
         />
         <div>
-          <table :style="gridStyle">
-            <colgroup>
-              <col />
-              <col
-                v-for="tag in categories"
-                :key="tag"
-              />
-            </colgroup>
-            <thead>
-              <tr>
-                <th />
-                <th
-                  v-for="tag in categories"
-                  :key="tag"
-                >
-                  {{ t(tag) }}
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr
-                v-for="stunde in stunden"
-                :key="stunde"
-              >
-                <td>{{ stunde }}</td>
-                <td
-                  v-for="tag in categories"
-                  :key="tag"
-                  class="blackP"
-                >
-                  <template
-                    v-for="betreuer in sprechstunden[tag][stunde]"
-                    :key="betreuer"
-                  >
-                    <p>{{ betreuer.result.value }}</p>
-                  </template>
-                </td>
-              </tr>
-            </tbody>
-          </table>
+          <table-comp
+            :columns="categories"
+            :rows="stunden"
+            :data="sprechstunden"
+            :breakpoint="550"
+            :translation="translation"
+            :first-header-cell="{ value: 'Termin', show: 'SMALL' }"
+          ></table-comp>
           <i18n-t
             tag="div"
             class="tw-text-red-500"
@@ -161,22 +129,21 @@
 </template>
 
 <script lang="ts">
-import {
-  computed,
-  defineComponent,
-  onBeforeUnmount,
-  onMounted,
-  watch
-} from 'vue'
+import { defineComponent } from 'vue'
 import { useI18n } from 'vue-i18n'
-import { rT, RegisteredTranslation } from './translation'
+
+import type { Ref } from 'vue'
+
+import { rT } from './translation'
+import tableComp from './dynamicTable.vue'
 
 export default defineComponent({
+  components: {
+    tableComp
+  },
   setup()
   {
-    let sprechstunden: {
-      [key: string]: { [key: string]: RegisteredTranslation[] }
-    } = {}
+    let sprechstunden: Record<string, Record<string, Ref<string>[]>> = {}
 
     const tGlobal = useI18n({ useScope: 'global' }).t
     const tLocal = useI18n()
@@ -184,7 +151,7 @@ export default defineComponent({
 
     const categories = ['event', 'location']
     const stunden = [
-      '12.10 | ' + t('ab') + ' 17:00',
+      '12.10 | ab 17:00',
       '13.10 | 19:00',
       '14.10 | 16:00-17:00',
       '18.10 | 16:00',
@@ -197,158 +164,62 @@ export default defineComponent({
     ]
 
     sprechstunden[categories[0]] = {
-      [stunden[0]]: [rT(() => t('Erstsemestergrillen'), locale)],
-      [stunden[1]]: [rT(() => '1. ' + t('Kneipentour'), locale)],
-      [stunden[2]]: [rT(() => 'CMlife-' + t('Einführung'), locale)],
+      [stunden[0]]: [rT(() => t('Erstsemestergrillen'), locale).result],
+      [stunden[1]]: [rT(() => '1. ' + t('Kneipentour'), locale).result],
+      [stunden[2]]: [rT(() => 'CMlife-' + t('Einführung'), locale).result],
       [stunden[3]]: [
-        rT(() => t('Vorstellung'), locale),
-        rT(() => t('Führung'), locale),
-        rT(() => t('Erstitüten'), locale)
+        rT(() => t('Vorstellung'), locale).result,
+        rT(() => t('Führung'), locale).result,
+        rT(() => t('Erstitüten'), locale).result
       ],
       [stunden[4]]: [
-        rT(() => t('Immatrikulationsstunde'), locale),
-        rT(() => t('Campusabend'), locale)
+        rT(() => t('Immatrikulationsstunde'), locale).result,
+        rT(() => t('Campusabend'), locale).result
       ],
-      [stunden[5]]: [rT(() => '2. ' + t('Kneipentour'), locale)],
+      [stunden[5]]: [rT(() => '2. ' + t('Kneipentour'), locale).result],
       [stunden[6]]: [
-        rT(() => t('Sitzung'), locale),
-        rT(() => t('Spieleabend'), locale)
+        rT(() => t('Sitzung'), locale).result,
+        rT(() => t('Spieleabend'), locale).result
       ],
-      [stunden[7]]: [rT(() => '1. ' + t('buddy'), locale)],
-      [stunden[8]]: [rT(() => '2. ' + t('buddy'), locale)],
-      [stunden[9]]: [rT(() => t('Wochenende'), locale)]
+      [stunden[7]]: [rT(() => '1. ' + t('buddy'), locale).result],
+      [stunden[8]]: [rT(() => '2. ' + t('buddy'), locale).result],
+      [stunden[9]]: [rT(() => t('Wochenende'), locale).result]
     }
 
-    //[rT(() => , locale)],
+    //[rT(() => , locale).result],
 
     sprechstunden[categories[1]] = {
-      [stunden[0]]: [rT(() => t('grillplatz'), locale)],
-      [stunden[1]]: [rT(() => t('Anmeldung'), locale)],
-      [stunden[2]]: [rT(() => 'Online / ' + t('linkage'), locale)],
-      [stunden[3]]: [rT(() => 'H18 | NW2', locale)],
-      [stunden[4]]: [rT(() => 'Audimax', locale)],
-      [stunden[5]]: [rT(() => t('Anmeldung'), locale)],
-      [stunden[6]]: [rT(() => 'H17 | NW2', locale)],
-      [stunden[7]]: [rT(() => t('Anmeldung'), locale)],
-      [stunden[8]]: [rT(() => t('Anmeldung'), locale)],
-      [stunden[9]]: [rT(() => t('Anmeldung'), locale)]
+      [stunden[0]]: [rT(() => t('grillplatz'), locale).result],
+      [stunden[1]]: [rT(() => t('Anmeldung'), locale).result],
+      [stunden[2]]: [rT(() => 'Online / ' + t('linkage'), locale).result],
+      [stunden[3]]: [rT(() => 'H18 | NW2', locale).result],
+      [stunden[4]]: [rT(() => 'Audimax', locale).result],
+      [stunden[5]]: [rT(() => t('Anmeldung'), locale).result],
+      [stunden[6]]: [rT(() => 'H17 | NW2', locale).result],
+      [stunden[7]]: [rT(() => t('Anmeldung'), locale).result],
+      [stunden[8]]: [rT(() => t('Anmeldung'), locale).result],
+      [stunden[9]]: [rT(() => t('Anmeldung'), locale).result]
     }
 
-    let tableStyle: HTMLStyleElement
-
-    const gridStyle = computed(() =>
-    {
-      return {
-        gridTemplateColumns: `repeat(${
-          categories.length + 1
-        }, minmax(min-content, max-content))`,
-        gridTemplateRows: `0px repeat(${
-          stunden.length + 1
-        }, minmax(max-content, 1fr))`
-      }
-    })
-    onMounted(() =>
-    {
-      const setColor = (
-        ev: MouseEvent,
-        backgroundColor?: string,
-        backgroundColorHeader?: string,
-        backgroundColorActive?: string
-      ) =>
+    const translation: Record<string, () => string> = {
+      'event': () => t('event'),
+      'location': () => t('location'),
+      'wednesday': () => tGlobal('wednesday'),
+      'thursday': () => tGlobal('thursday'),
+      '12.10 | ab 17:00': () =>
       {
-        const target = <HTMLTableCellElement>ev.target
-        const index = target.cellIndex
-
-        const table = <HTMLTableElement>(
-          target.parentNode!.parentNode!.parentNode
-        )
-        const tbody = table.tBodies[0]
-
-        const col = <HTMLTableColElement>(
-          table.querySelector('colgroup')!.childNodes[index]
-        )
-
-        /*if (!col.style) col.style = {};
-        col.style.backgroundColor = backgroundColor ? backgroundColor : "";
-
-        console.log(col);*/
-        //maybe set style of <col> in <colgroup>
-        Array.from(tbody.rows).forEach((value) =>
-        {
-          value.cells[index].style.backgroundColor = backgroundColor
-            ? backgroundColor
-            : ''
-        })
-
-        Array.from(table.tHead!.rows).forEach((row) =>
-        {
-          row.cells[index].style.backgroundColor = backgroundColorHeader
-            ? backgroundColorHeader
-            : ''
-        })
-
-        if (backgroundColorActive)
-        {
-          if (target.tagName === 'TH') return
-
-          target.style.backgroundColor = backgroundColorActive
-          target.style.color =
-            '#' +
-            (Number(`0x1${backgroundColorActive.substring(1)}`) ^ 0xffffff)
-              .toString(16)
-              .substring(1)
-              .toUpperCase()
-        }
-        else
-        {
-          target.style.backgroundColor = ''
-          target.style.color = ''
-        }
+        return '12.10 | ' + t('ab') + ' 17:00'
       }
-      const dataCells = Array.from(document.getElementsByTagName('td')).concat(
-        Array.from(document.getElementsByTagName('th'))
-      )
-      dataCells.forEach((element) =>
-      {
-        element.onmouseenter = (ev) =>
-        {
-          if (window.innerWidth > 550)
-            setColor(ev, '#e68e0b', '#909090', '#995c00')
-        }
-        element.onmouseleave = (ev) => setColor(ev)
-      })
+    }
 
-      const head = document.querySelector('head')!
-
-      tableStyle = document.createElement('style')
-      tableStyle.innerHTML = `@media only screen and (max-width: 550px) {
-        #erstis td:nth-of-type(1):before { content: "Termin"; }`
-      for (let i = 0; i < categories.length; ++i)
-        tableStyle.innerHTML += ` td:nth-of-type(${
-          i + 2
-        }):before { content: "${t(categories[i])}"; } `
-      tableStyle.innerHTML += `}`
-      head.appendChild(tableStyle)
-    })
-
-    watch(locale, () =>
-    {
-      let newHtml = `@media only screen and (max-width: 550px) {
-        #erstis td:nth-of-type(1):before { content: "Termin"; }`
-      for (let i = 0; i < categories.length; ++i)
-        newHtml += ` td:nth-of-type(${i + 2}):before { content: "${t(
-          categories[i]
-        )}"; } `
-      newHtml += `}`
-      tableStyle.innerHTML = newHtml
-    })
-
-    onBeforeUnmount(() =>
-    {
-      tableStyle.remove()
-    })
-
-    return { t, tGlobal, gridStyle, categories, stunden, sprechstunden }
+    return {
+      t,
+      tGlobal,
+      categories,
+      stunden,
+      sprechstunden,
+      translation
+    }
   }
 })
 </script>
@@ -383,87 +254,6 @@ export default defineComponent({
     text-align: justify;
     color: #f1f1f1;
   }
-
-  table {
-    width: 100%;
-    border-collapse: collapse;
-  }
-
-  th {
-    background: #333;
-    color: white;
-    font-weight: bold;
-  }
-  td,
-  th {
-    padding: 6px;
-    border: 1px solid #ccc;
-    text-align: left;
-  }
-
-  @media only screen and (min-width: 551px) {
-    tr:nth-of-type(odd) td {
-      background: #eee;
-    }
-    tr:nth-of-type(even) td {
-      background: grey;
-    }
-    tr:hover td {
-      background: #e68e0b;
-    }
-  }
-
-  @media only screen and (max-width: 550px) {
-    /* Force table to not be like tables anymore */
-    table,
-    thead,
-    tbody,
-    th,
-    td,
-    tr {
-      display: block;
-    }
-
-    /* Hide table headers (but not display: none;, for accessibility) */
-    thead tr {
-      position: absolute;
-      top: -9999px;
-      left: -9999px;
-    }
-
-    tr {
-      border: 1px solid #ccc;
-    }
-
-    td {
-      /* Behave  like a "row" */
-      border: none;
-      //border-bottom: 1px solid #eee;
-      position: relative;
-      padding-left: 50%;
-    }
-
-    td:before {
-      /* Now like a table header */
-      position: absolute;
-      /* Top/left values mimic padding */
-      top: 6px;
-      left: 6px;
-      width: 45%;
-      padding-right: 10px;
-      white-space: nowrap;
-    }
-
-    tr:nth-of-type(odd) td:not(:hover) {
-      background: #eee;
-    }
-    tr:nth-of-type(even) td:not(:hover) {
-      background: grey;
-    }
-    td:hover {
-      background: #e68e0b;
-    }
-  }
   .floating-menu {
     font-family: sans-serif;
     background: yellowgreen;
@@ -478,11 +268,6 @@ export default defineComponent({
     display: block;
     margin: 0 0.5em;
     color: white;
-  }
-  .blackP {
-    p {
-      color: black;
-    }
   }
 }
 </style>

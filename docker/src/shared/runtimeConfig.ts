@@ -10,7 +10,7 @@ import { fileURLToPath } from 'url'
 import fsExtra from "fs-extra"
 import webpackM from 'webpack'
 
-const { readJson } = fsExtra
+const { readJson, writeJSON } = fsExtra
 const { webpack } = webpackM
 
 export function clientConfig(development: boolean)
@@ -58,6 +58,7 @@ export function clientBundle(isDev: boolean)
       clientCompiler.run((error, stats) =>
       {
         console.log("Client finished building")
+        //writeJSON('./stats/stats.json', stats?.toJson())
         if (stats?.hasErrors())
           reject(stats?.compilation.errors)
         resolve()

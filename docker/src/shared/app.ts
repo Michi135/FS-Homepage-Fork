@@ -6,7 +6,7 @@ import app from '@components/App.vue'
 import { createDefaultStore, key, State } from './store'
 import type { Store } from 'vuex'
 import { createI18n, I18n } from 'vue-i18n'
-import _ from 'lodash'
+import { merge } from 'lodash-es'
 //import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { createVuetify } from 'vuetify'
 import { aliases, mdi } from 'vuetify/lib/iconsets/mdi-svg'
@@ -26,7 +26,7 @@ function createBundledApp(root: Component, ctx: Partial<State>)
       legacy: false,
       locale: store.state.language,
       fallbackLocale: ['en', 'de'],
-      messages: _.merge(localizedRoutes, Globali18n)
+      messages: merge(localizedRoutes, Globali18n)
     })
   const GraphqlVue = createGraphql()
 

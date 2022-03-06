@@ -5,7 +5,7 @@
     >
       <div>{{ tLocal('updated') }}: 10.03.2022</div>
       <div>
-        <router-link
+        <!--router-link
           v-if="footerLogo"
           to="/"
         >
@@ -14,7 +14,7 @@
             :alt="{}"
             class="h-8"
           />
-        </router-link>
+        </router-link-->
       </div>
       <nav
         v-if="routes"
@@ -28,7 +28,7 @@
         >
           <span
             v-if="item.meta?.title"
-            v-text="tGlobal(item.meta.title)"
+            v-text="tGlobal(item.meta.title as string)"
           />
         </router-link>
       </nav>

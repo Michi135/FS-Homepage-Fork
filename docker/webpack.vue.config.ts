@@ -67,8 +67,10 @@ declare interface AssetParserOptions {
 
 import { fileURLToPath } from 'url'
 
-const configPath = resolve(fileURLToPath(import.meta.url), "..", "tsconfig.webpack.json")
-const serverConfigPath = resolve(fileURLToPath(import.meta.url), "..", "tsconfig.json")
+const path = fileURLToPath(import.meta.url)
+
+const configPath = resolve(path, "..", "tsconfig.webpack.json")
+const serverConfigPath = resolve(path, "..", "tsconfig.json")
 const tsConfigFile = readFileSync(configPath, { encoding: 'utf-8' })
 const tsConfig = <TsConfig>JSON.parse(stripJsonComments(tsConfigFile))
 const alias = tsConfig.compilerOptions.paths
@@ -130,7 +132,7 @@ const config = (env: NodeJS.ProcessEnv = {}): Configuration =>
   const genConfig = (isServerBuild: boolean = false): Configuration =>
   {
     const minimize = isProd && !noMinimize && !isServerBuild
-    const useBabel = isProd && !isServerBuild && !noBabel
+    //const useBabel = isProd && !isServerBuild && !noBabel
     process.env.NODE_ENV = environment
     let config: Configuration = {
       mode: environment,
@@ -280,8 +282,9 @@ const config = (env: NodeJS.ProcessEnv = {}): Configuration =>
           __IS_SSR__: isSSR,
           __IS_DEV__: !isProd,
           __IS_SERVER__: isServerBuild,
-          __VUE_OPTIONS_API__: true,
-          __VUE_PROD_DEVTOOLS__: false
+          __VUE_OPTIONS_API__: false,
+          __VUE_PROD_DEVTOOLS__: false,
+          __VUE_I18N_LEGACY_API__: false
         })
         //new LicenseWebpackPlugin({
         //}) as any,
@@ -323,6 +326,7 @@ const config = (env: NodeJS.ProcessEnv = {}): Configuration =>
         extensions: ['.tsx', '.ts', '.js', ".mjs", 'jsx', ".vue", ".json", ".wasm", ".cjs", ".svg"],
         alias: temp
       }
+      //stats: (isServerBuild) ? 'normal' : 'verbose'
     }
 
     if (!isServerBuild)
