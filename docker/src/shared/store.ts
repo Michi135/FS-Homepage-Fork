@@ -7,7 +7,8 @@ import defFav from '@static/favicon.svg'
 const defaultState = {
   defaultFavicon: defFav,
   defaultTitle: "FSMPI",
-  language: "de"
+  language: "de",
+  initialTime: new Date()
 }
 
 const initialState = (router: Router, ctx: Partial<State>): State =>
@@ -15,7 +16,8 @@ const initialState = (router: Router, ctx: Partial<State>): State =>
   return {
     defaultFavicon: defaultState.defaultFavicon,
     defaultTitle: ctx.defaultTitle || defaultState.defaultTitle,
-    language: ctx.language || defaultState.language
+    language: ctx.language || defaultState.language,
+    initialTime: ctx.initialTime || defaultState.initialTime
   }
 }
 

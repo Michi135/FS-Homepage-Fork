@@ -56,8 +56,10 @@ import { defineComponent, ref } from 'vue'
 import { useQuery } from '@vue/apollo-composable'
 import { gql } from 'graphql-tag'
 import dateFormat from 'dateformat'
-import { useQuerySSR } from '@shared/vue-apollo-ssr'
 import { useI18n } from 'vue-i18n'
+
+import { useQuerySSR } from '@shared/vue-apollo-ssr'
+import { useStore } from '@shared/store'
 
 import type { Ref } from 'vue'
 
@@ -70,17 +72,19 @@ export default defineComponent({
   setup()
   {
     const t = useI18n()
+    const { initialTime } = useStore().state
 
-    const res = useQuery<{ feriensprechstundens: Array<FerienTag> }>(gql`
+    const res = useQuery<{ feriensprechstundens: Array<FerienTag>, }>(gql`
+      query futureConsultationHours ($var: DateTime)
       {
-        feriensprechstundens(orderBy: { tag: asc }) {
+        feriensprechstundens(orderBy: {tag: asc}, where: {tag: {gte: $var}} ) {
           tag
           person {
             name
           }
         }
       }
-    `)
+    `, { var: initialTime })
 
     const ferien_sprechstunden: Ref<{
       timespan: Array<number>

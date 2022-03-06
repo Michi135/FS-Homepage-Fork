@@ -1,16 +1,17 @@
-import { createDefaultContext } from '../shared/context'
+import { createDefaultContext } from '@shared/context'
 import { renderToString, SSRContext } from '@vue/server-renderer'
 //import { getStyles } from './cdn.config'
 import { getMeta } from './meta.config'
-import { RouteLocationNormalized } from 'vue-router'
+import type { RouteLocationNormalized } from 'vue-router'
 import { createFaviconLink } from '../favicon/favicon'
-import { NextFunction, Request, Response } from 'express'
+import type { NextFunction, Request, Response } from 'express'
 import type { Stats, Compiler } from 'webpack'
 import { JSDOM } from 'jsdom'
 import { join, resolve } from 'path'
 import type * as App from '../shared/app'
 import { exportStates } from '@vue/apollo-ssr'
 import { brotliCompressSync, gzipSync } from 'zlib'
+
 
 import fsExtra from 'fs-extra'
 
@@ -44,7 +45,6 @@ let initialManifest: Record<string, string> | undefined
 
 async function loadDom(dev?: devMiddleware)
 {
-
   if (dev)
   {
     const outputFileSystem = dev!.outputFileSystem
@@ -133,7 +133,6 @@ function loadTitle(route: RouteLocationNormalized, context: SSRContext)
 
 export default function ssr(dev: boolean)
 {
-
   return async function (req: Request, res: Response, next: NextFunction)
   {
 
@@ -173,9 +172,7 @@ export default function ssr(dev: boolean)
       const doc = dom.window.document
       const head = doc.head
       doc.children[0].setAttribute('lang', language)
-      //doc.lang
       head.innerHTML += `<title>${i18n.global.t(loadTitle(currentRoute, context))}</title>`
-      //head.innerHTML += `<link href="https://cdnjs.cloudflare.com" rel="preconnect" crossorigin>`
       const emptyExports = doc.createElement('script')
       emptyExports.innerHTML = `var exports = {};`
       head.appendChild(emptyExports)
@@ -209,25 +206,25 @@ export default function ssr(dev: boolean)
       //head.innerHTML += getStyles();
       head.innerHTML += loadFavicon(currentRoute, context)
 
-            doc.getElementById('app')!.innerHTML = await renderToString(app, context)
+      doc.getElementById('app')!.innerHTML = await renderToString(app, context)
 
-            head.innerHTML += `<script>window.__INITIAL_STATE__=${JSON.stringify(context.state)}</script>`
-            head.innerHTML += `<script>${exportStates(apolloClients)}</script>`
+      head.innerHTML += `<script>window.__INITIAL_STATE__=${JSON.stringify(context.state)}</script>`
+      head.innerHTML += `<script>${exportStates(apolloClients)}</script>`
 
-            const document = dom.serialize()
+      const document = dom.serialize()
 
-            if (req.acceptsEncodings(['br']))
-            {
-              res.setHeader('Content-Encoding', "br")
-              res.send(brotliCompressSync(document)).end()
-            }
-            else if (req.acceptsEncodings(['gzip']))
-            {
-              res.setHeader('Content-Encoding', "gzip")
-              res.send(gzipSync(document)).end()
-            }
-            else
-              res.send(document).end()
+      if (req.acceptsEncodings(['br']))
+      {
+        res.setHeader('Content-Encoding', "br")
+        res.send(brotliCompressSync(document)).end()
+      }
+      else if (req.acceptsEncodings(['gzip']))
+      {
+        res.setHeader('Content-Encoding', "gzip")
+        res.send(gzipSync(document)).end()
+      }
+      else
+        res.send(document).end()
 
     }
     catch (error)
