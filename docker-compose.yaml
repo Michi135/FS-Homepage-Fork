@@ -35,10 +35,22 @@ services:
    # networks:
    #   homepage-network:
    #     ipv4_address: 172.23.2.30
-
+  keystone:
+    build:
+      context: ./backend
+    image: keystone
+    working_dir: "/var/keystone"
+    volumes:
+      - .:/var/keystone
+        /var/keystone
+    ports:
+      - "80:4000"
+    networks:
+      homepage-network:
+        ipv4_address: 172.23.2.40
   vuecms:
     build:
-      context: .
+      context: ./frontend
     image: vuecms
     working_dir: "/var/vuecms"
     volumes:
