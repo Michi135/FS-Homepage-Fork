@@ -14,7 +14,7 @@ COPY . .
 
 RUN npm i
 
-EXPOSE 3000
+EXPOSE 5000
 
 RUN chown -R node:node /var/vuecms
 USER node

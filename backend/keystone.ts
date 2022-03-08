@@ -69,11 +69,14 @@ const course_options =
 export default withAuth({
     server: {
         port: 4000,
-        cors: true
+        //cors: true
     },
     db: {
         provider: 'postgresql',
-        url: 'postgres://postgres:asdf@localhost/keystone', 
+        url: 'postgres://postgres:asdf@localhost/keystone',
+    },
+    graphql: {
+        path: '/v1/api/graphql'
     },
     lists: {
         User: list({

@@ -29,7 +29,6 @@ function cleanExit(...cleanups: Function[])
 {
   try
   {
-
     const build = new Build(isDev).build()
 
     server.use(json())
@@ -46,7 +45,7 @@ function cleanExit(...cleanups: Function[])
     })
 
     const httpServer = createServer(server)
-    httpServer.listen(3000)
+    httpServer.listen(5000)
     console.log("Listening")
 
     const exitHandler = () =>

@@ -1,8 +1,16 @@
 version: "3.7"
 volumes:
-  mongo_data: {}
+  node_modules_frontend: {}
+  node_modules_backend: {}
 services:
 
+  common-frontend:
+    build: ./nginx
+    ports:
+      - "3000:3000"
+    networks:
+      homepage-network:
+        ipv4_address: 172.23.2.10
   #https-portal:
    # image: steveltn/https-portal:1.13
     #ports:  # Syntax: 'HOST:CONTAINER'
@@ -36,28 +44,27 @@ services:
    #   homepage-network:
    #     ipv4_address: 172.23.2.30
   keystone:
-    build:
-      context: ./backend
-    image: keystone
+    build: ./backend
+    image: keystone:0.9.9
     working_dir: "/var/keystone"
     volumes:
       - .:/var/keystone
-        /var/keystone
+      - node_modules_backend:/var/node_modules
     ports:
-      - "80:4000"
+      - "4000"
     networks:
       homepage-network:
         ipv4_address: 172.23.2.40
+
   vuecms:
-    build:
-      context: ./frontend
-    image: vuecms
+    build: ./frontend
+    image: vuecms:0.9.9
     working_dir: "/var/vuecms"
     volumes:
       - .:/var/vuecms
-        /var/node_modules
+      - node_modules_frontend:/var/node_modules
     ports:
-      - "80:3000"
+      - "5000"
     networks:
       homepage-network:
         ipv4_address: 172.23.2.50

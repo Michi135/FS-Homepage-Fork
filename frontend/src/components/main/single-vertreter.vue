@@ -3,8 +3,7 @@
     <div class="image-container">
       <img
         class="image"
-        crossorigin="anonymous"
-        :src="'http://localhost:4000' + vertreter.portrait.url"
+        :src="vertreter.portrait.url"
         :alt="vertreter.nutzer_email.name"
       />
     </div>

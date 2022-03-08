@@ -7,7 +7,7 @@ import type { App } from 'vue'
 
 function genClients()
 {
-  const http = new HttpLink({ uri: 'http://localhost:4000/api/graphql', fetch, useGETForQueries: true, credentials: 'same-origin' })
+  const http = new HttpLink({ uri: 'http://localhost:8080/v1/api/graphql', fetch, useGETForQueries: true, credentials: 'same-origin' })
 
   const apolloOptions: ApolloClientOptions<NormalizedCacheObject> = {
     link: http,//authMiddleware.concat(http),
