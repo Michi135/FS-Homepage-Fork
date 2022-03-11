@@ -5,9 +5,23 @@ import { ApolloClients } from '@vue/apollo-composable'
 import type { ApolloClients as SSRApolloClients } from '@vue/apollo-ssr'
 import type { App } from 'vue'
 
+
+/*import { onError } from '@apollo/client/link/error'
+
+const errorlink = onError(({ graphQLErrors, networkError }) => {
+  if (graphQLErrors)
+    graphQLErrors.map(({ message, locations, path }) =>
+      console.log(
+        `[GraphQL error]: Message: ${message}, Location: ${locations}, Path: ${path}`,
+      ),
+    )
+
+  if (networkError) console.log(`[Network error]: ${networkError}`)
+})*/
+
 function genClients()
 {
-  const http = new HttpLink({ uri: 'http://localhost:8080/v1/api/graphql', fetch, useGETForQueries: true, credentials: 'same-origin' })
+  const http = new HttpLink({ uri: (__IS_SERVER__) ? 'http://keystone:4000/v1/api/graphql' : '/v1/api/graphql', fetch, useGETForQueries: true, credentials: 'same-origin' })
 
   const apolloOptions: ApolloClientOptions<NormalizedCacheObject> = {
     link: http,//authMiddleware.concat(http),

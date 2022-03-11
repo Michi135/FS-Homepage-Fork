@@ -7,7 +7,7 @@ services:
   common-frontend:
     build: ./nginx
     ports:
-      - "3000:3000"
+      - "443:443"
     networks:
       homepage-network:
         ipv4_address: 172.23.2.10
@@ -47,9 +47,13 @@ services:
     build: ./backend
     image: keystone:0.9.9
     working_dir: "/var/keystone"
+    #stdin_open: true
+    #tty: true
     volumes:
-      - .:/var/keystone
-      - node_modules_backend:/var/node_modules
+      - ./backend:/var/keystone
+      - /var/keystone/.keystone
+      - /var/keystone/node_modules/.prisma/client
+      - node_modules_backend:/var/keystone/node_modules
     ports:
       - "4000"
     networks:
@@ -58,11 +62,11 @@ services:
 
   vuecms:
     build: ./frontend
-    image: vuecms:0.9.9
+    image: vuecms:0.9.901
     working_dir: "/var/vuecms"
     volumes:
-      - .:/var/vuecms
-      - node_modules_frontend:/var/node_modules
+      - ./frontend:/var/vuecms
+      - node_modules_frontend:/var/vuecms/node_modules
     ports:
       - "5000"
     networks:

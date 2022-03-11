@@ -12,9 +12,12 @@ export function useQuerySSR<T, K>(f: () => void, res: UseQueryReturn<T, K>)
   {
     await new Promise<void>((resolve) =>
     {
-      watch(res.result, value =>
+      watch(res.loading, value =>
       {
-        f()
+        if (res.error.value)
+          console.log("Error loading query: " + res.error)
+        else if (res.result.value)
+          f()
         resolve()
       })
     })
@@ -24,7 +27,8 @@ export function useQuerySSR<T, K>(f: () => void, res: UseQueryReturn<T, K>)
     if (res.loading.value)
       watch(res.result, value =>
       {
-        f()
+        if (!res.error.value)
+          f()
       })
   })
 }

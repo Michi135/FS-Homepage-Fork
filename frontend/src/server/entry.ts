@@ -37,7 +37,7 @@ function cleanExit(...cleanups: Function[])
     server.use(json())
     server.use(cors(
       {
-        origin: ['https://fsmpi.uni-bayreuth.de']
+        //origin: ['https://fsmpi.uni-bayreuth.de']
       })
     )
     server.use((req, res, next) =>

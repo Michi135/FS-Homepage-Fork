@@ -3,6 +3,7 @@ import { statelessSessions } from '@keystone-6/core/session'
 import { text, select, integer, image, relationship, timestamp, password } from '@keystone-6/core/fields';
 import { document } from '@keystone-6/fields-document'
 import { createAuth } from '@keystone-6/auth'
+import helmet from 'helmet'
 
 const { withAuth } = createAuth({
     // Required options
@@ -31,6 +32,7 @@ const session = statelessSessions({
     maxAge: 60 * 30,
     secret: '-- EXAMPLE COOKIE SECRET; CHANGE ME --',
     sameSite: 'strict',
+    secure: true
 });
 
 const authentic = ({ session }: { session: Session }) => session?.data.name === 'Fachschaft';
@@ -69,14 +71,17 @@ const course_options =
 export default withAuth({
     server: {
         port: 4000,
-        //cors: true
+        //cors: { origin: false },
+        extendExpressApp: (app) => {
+            app.use(helmet(/*{ contentSecurityPolicy: false, crossOriginOpenerPolicy: false }*/))
+        }
     },
     db: {
         provider: 'postgresql',
-        url: 'postgres://postgres:asdf@localhost/keystone',
+        url: 'postgres://postgres:TestPassword@192.168.178.31/keystone',
     },
     graphql: {
-        path: '/v1/api/graphql'
+        path: '/v1/api/graphql',
     },
     lists: {
         User: list({
