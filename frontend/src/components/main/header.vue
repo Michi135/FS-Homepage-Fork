@@ -97,7 +97,9 @@
         <v-switch
           hide-details
           inset
-          v-model="val"
+          v-model="language"
+          true-value="en"
+          false-value="de"
           style="flex: none"
         />
         <img
@@ -113,7 +115,10 @@
 <script lang="ts">
 import { defineComponent, onMounted, ref, watch } from 'vue'
 import { useI18n } from 'vue-i18n'
+import { storeToRefs } from 'pinia'
+
 import { headerRoutes, basePaths } from '@shared/routes'
+import { useStore } from '@shared/store'
 import trossSvg from '@static/img/tross.svg'
 
 import gerFlagSvg from 'svg-country-flags/svg/de.svg'
@@ -125,25 +130,25 @@ export default defineComponent({
     const isOpen = ref<Boolean>(false)
     const globalI18n = useI18n({ useScope: 'global' })
     const localI18n = useI18n()
-    const val = ref<Boolean>(false)
+    const { language } = storeToRefs(useStore())
 
     onMounted(() =>
     {
-      val.value = globalI18n.locale.value === 'en'
+      language.value = <string>globalI18n.locale.value
       watch(localI18n.locale, () =>
       {
-        val.value = localI18n.locale.value === 'en'
+        language.value = localI18n.locale.value
       })
 
-      watch(val, (val, prevval) =>
+      watch(language, (val, prevval) =>
       {
-        globalI18n.locale.value = val ? 'en' : 'de'
+        globalI18n.locale.value = language.value
         localStorage.setItem('lang', <string>globalI18n.locale.value)
       })
     })
 
     return {
-      val,
+      language,
       switchValue: false,
       tLocal: localI18n.t,
       tGlobal: globalI18n.t,

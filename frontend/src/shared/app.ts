@@ -35,12 +35,21 @@ function createBundledApp(root: Component, ctx?: Partial<State>)
   const GraphqlVue = createGraphql()
   const pinia = createPinia()
 
+  if (!__IS_SERVER__ && __IS_SSR__ && window.__INITIAL_STATE__)
+  {
+    pinia.state.value = window.__INITIAL_STATE__
+
+    Array.from(window!.document!.getElementsByTagName('script'))!.find((val)=>
+    {
+      return val.text.startsWith("window.__INITIAL_STATE__")
+    })!.remove()
+  }
+
   app.use(router)
   app.use(pinia)
 
   const store = useStore(pinia)
-
-  if (ctx)
+  if (__IS_SERVER__ && ctx)
     store.$patch(ctx)
 
   const i18n = createI18n(
@@ -64,15 +73,6 @@ function createBundledApp(root: Component, ctx?: Partial<State>)
     }
   }))
 
-  if (!__IS_SERVER__ && __IS_SSR__ && window.__INITIAL_STATE__)
-  {
-    pinia.state.value = window.__INITIAL_STATE__
-
-    Array.from(window!.document!.getElementsByTagName('script'))!.find((val)=>
-    {
-      return val.text.startsWith("window.__INITIAL_STATE__")
-    })!.remove()
-  }
   //app.component('font-awesome-icon', FontAwesomeIcon)
 
   const out: BundledApp<typeof store, typeof i18n> = {

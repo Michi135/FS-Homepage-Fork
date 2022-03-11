@@ -37,7 +37,6 @@ export default defineComponent({
   setup: () =>
   {
     const { t } = useI18n()
-
     const vertreter = ref(new Array<VertreterGQL>())
 
     const res = useQuery<{ vertreters: Array<VertreterGQL> }>(gql`
