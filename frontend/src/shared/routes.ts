@@ -1,6 +1,7 @@
 import type { RouteRecordRaw } from 'vue-router'
 import fav2 from '@static/favicon2.svg'
 import studentSvg from '@components/main/student.svg'
+import localizedRoutes from './localizedRoutes.json'
 
 const defaultLayout = () => import('@components/main/content.vue'/* webpackChunkName: "home" */)
 
@@ -9,34 +10,6 @@ export const basePaths = {
   dashboard: '/',
   account: '/'
 } as const
-
-export const localizedRoutes = {
-  de: {
-    home: 'Home',
-    representatives: "Vertreter",
-    freshers: "Erstis",
-    noPanic: "Keine Panik",
-    externals: "Externe Links",
-    imprint: "Impressum",
-    consultationHours: "Sprechstunden",
-    contact: "Kontakt",
-    error404: "404 Error",
-    blog: "Blog"
-  },
-  en: {
-    home: "Home",
-    representatives: "Representatives",
-    freshers: "Freshers",
-    noPanic: "No panic",
-    externals: "External links",
-    imprint: "Imprint",
-    consultationHours: "Consultation hours",
-    contact: "Contact",
-    error404: "404 Error",
-    blog: "Blog"
-  }
-}
-
 
 let headerRoutes: RouteRecordRaw[] = [
   {

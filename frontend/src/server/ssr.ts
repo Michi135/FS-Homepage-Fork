@@ -173,6 +173,7 @@ export default function ssr(dev: boolean)
       doc.children[0].setAttribute('lang', language)
       head.innerHTML += `<title>${i18n.global.t(loadTitle(currentRoute, context))}</title>`
       const emptyExports = doc.createElement('script')
+      emptyExports.nonce = res.locals.cspNonce
       emptyExports.innerHTML = `var exports = {};`
       head.appendChild(emptyExports)
 
@@ -207,8 +208,8 @@ export default function ssr(dev: boolean)
 
       doc.getElementById('app')!.innerHTML = await renderToString(app, context)
 
-      head.innerHTML += `<script>window.__INITIAL_STATE__=${devalue(pinia.state.value)}</script>`
-      head.innerHTML += `<script>${exportStates(apolloClients)}</script>`
+      head.innerHTML += `<script nonce="${res.locals.cspNonce}">window.__INITIAL_STATE__=${devalue(pinia.state.value)}</script>`
+      head.innerHTML += `<script nonce="${res.locals.cspNonce}">${exportStates(apolloClients)}</script>`
 
       const document = dom.serialize()
 

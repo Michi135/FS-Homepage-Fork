@@ -1,5 +1,6 @@
 import { createRouter, createMemoryHistory, createWebHistory } from "vue-router"
-import { routerCompilation, localizedRoutes } from './routes'
+import { routerCompilation } from './routes'
+import localizedRoutes from './localizedRoutes.json'
 
 function createBundledRouter()
 {

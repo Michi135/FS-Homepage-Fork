@@ -1,0 +1,26 @@
+{
+    "de": {
+        "home": "Home",
+        "representatives": "Vertreter",
+        "freshers": "Erstis",
+        "noPanic": "Keine Panik",
+        "externals": "Externe Links",
+        "imprint": "Impressum",
+        "consultationHours": "Sprechstunden",
+        "contact": "Kontakt",
+        "error404": "404 Error",
+        "blog": "Blog"
+    },
+    "en": {
+        "home": "Home",
+        "representatives": "Representatives",
+        "freshers": "Freshers",
+        "noPanic": "No panic",
+        "externals": "External links",
+        "imprint": "Imprint",
+        "consultationHours": "Consultation hours",
+        "contact": "Contact",
+        "error404": "404 Error",
+        "blog": "Blog"
+    }
+}

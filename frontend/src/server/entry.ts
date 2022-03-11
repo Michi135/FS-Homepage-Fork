@@ -3,10 +3,13 @@ import express, { json } from 'express'
 import { createServer } from 'http'
 import process from 'process'
 
-import helmet from 'helmet'
+import helmet, { contentSecurityPolicy } from 'helmet'
 import cors from 'cors'
+import crypto from 'crypto'
 
 import { Build } from '@shared/runtimeConfig'
+
+import type { IncomingMessage, ServerResponse } from 'http'
 
 const isDev = (process.env.NODE_ENV || 'development') === 'development'
 const server = express()
@@ -37,7 +40,24 @@ function cleanExit(...cleanups: Function[])
         origin: ['https://fsmpi.uni-bayreuth.de']
       })
     )
-    server.use(helmet({ contentSecurityPolicy: false }))
+    server.use((req, res, next) =>
+    {
+      res.locals.cspNonce = crypto.randomBytes(40).toString('base64url').substring(0, 40)
+      next()
+    })
+
+    server.use(helmet({
+      contentSecurityPolicy: {
+        directives: {
+          scriptSrc: [...(contentSecurityPolicy.getDefaultDirectives()["script-src"]), (req: IncomingMessage, res: ServerResponse) =>
+          {
+            //@ts-ignore
+            return `'nonce-${res.locals.cspNonce}'`
+          }]
+        }
+      },
+      crossOriginOpenerPolicy: false
+    }))
     server.use('/robots.txt', (req, res) =>
     {
       return res.status(200).send(`User-agent: AdsBot-Google

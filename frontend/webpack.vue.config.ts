@@ -76,7 +76,7 @@ const tsConfig = <TsConfig>JSON.parse(stripJsonComments(tsConfigFile))
 const alias = tsConfig.compilerOptions.paths
 const aliasBasePath = join(configPath, '..', tsConfig.compilerOptions.baseUrl)
 
-let temp: Record<string, string[]> = {}
+let aliases: Record<string, string[] | string> = {}
 
 for (let [key, value] of Object.entries(alias))
 {
@@ -84,13 +84,13 @@ for (let [key, value] of Object.entries(alias))
   if (key.endsWith('/*'))
     key = key.substring(0, key.length - 2)
 
-  temp[key] = []
+  aliases[key] = []
   value.forEach((value) =>
   {
     if (value.endsWith('*'))
-      value = value.substr(0, value.length - 1)
+      value = value.substr(0, value.length - 1);
 
-    temp[key].push(join(aliasBasePath, value))
+    (<string[]>aliases[key]).push(join(aliasBasePath, value))
   })
 };
 
@@ -126,6 +126,9 @@ const config = (env: NodeJS.ProcessEnv = {}): Configuration =>
       },*/
     }
   ]
+
+  if (isProd)
+    aliases = { ...aliases, ...{ "vue": "vue/dist/vue.runtime.esm-bundler.js", 'vue-i18n': 'vue-i18n/dist/vue-i18n.runtime.esm-bundler.js' } }
 
   const dirname = resolve()
 
@@ -192,6 +195,14 @@ const config = (env: NodeJS.ProcessEnv = {}): Configuration =>
             resourceQuery: /blockType=i18n/,
             type: 'javascript/auto',
             loader: '@intlify/vue-i18n-loader'
+          },
+          {
+            test: /\.(json5?|ya?ml)$/, // target json, json5, yaml and yml files
+            type: 'javascript/auto',
+            loader: '@intlify/vue-i18n-loader'
+            //include: [ // Use `Rule.include` to specify the files of locale messages to be pre-compiled
+            //path.resolve(__dirname, 'src/locales')
+            //]
           },
           {
             test: /\.(png|jpe?g|gif|pdf)$/i,
@@ -324,7 +335,7 @@ const config = (env: NodeJS.ProcessEnv = {}): Configuration =>
       },
       resolve: {
         extensions: ['.tsx', '.ts', '.js', ".mjs", 'jsx', ".vue", ".json", ".wasm", ".cjs", ".svg"],
-        alias: temp
+        alias: aliases //{ ...temp, (isProd) ? ...{ "vue": "vue/dist/vue.runtime.esm-bundler.js", 'vue-i18n': 'vue-i18n/dist/vue-i18n.runtime.esm-bundler.js' } : ...{} }
       }
       //stats: (isServerBuild) ? 'normal' : 'verbose'
     }
