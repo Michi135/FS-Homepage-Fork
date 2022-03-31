@@ -160,7 +160,6 @@ export class Build
       const { devMid, devHot } = <ClientDevBundle>this.mClient
       this.mRouter.use(devMid, (req, res, next) =>
       {
-
         res.locals = res.locals || {}
         res.locals.webpack = res.locals.webpack || {}
         res.locals.webpack.devMiddleware = devMid.context

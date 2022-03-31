@@ -76,7 +76,7 @@ const tsConfig = <TsConfig>JSON.parse(stripJsonComments(tsConfigFile))
 const alias = tsConfig.compilerOptions.paths
 const aliasBasePath = join(configPath, '..', tsConfig.compilerOptions.baseUrl)
 
-let aliases: Record<string, string[] | string> = {}
+let aliases: Record<string, string[] | string | false> = {}
 
 for (let [key, value] of Object.entries(alias))
 {
@@ -128,7 +128,16 @@ const config = (env: NodeJS.ProcessEnv = {}): Configuration =>
   ]
 
   if (isProd)
-    aliases = { ...aliases, ...{ "vue": "vue/dist/vue.runtime.esm-bundler.js", 'vue-i18n': 'vue-i18n/dist/vue-i18n.runtime.esm-bundler.js' } }
+  {
+    aliases['vue'] = "vue/dist/vue.runtime.esm-bundler.js"
+    aliases['vue-i18n'] = 'vue-i18n/dist/vue-i18n.runtime.esm-bundler.js'
+  }
+  //aliases = { ...aliases, ...{ "vue": "vue/dist/vue.runtime.esm-bundler.js", 'vue-i18n': 'vue-i18n/dist/vue-i18n.runtime.esm-bundler.js' } }
+  if (!isServer)
+  {
+    aliases['crypto'] = false
+    //aliases['stream'] = 'stream-browserify'
+  }
 
   const dirname = resolve()
 

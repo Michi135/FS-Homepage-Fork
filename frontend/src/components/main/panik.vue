@@ -6,11 +6,11 @@
     aria-label="Zeitschrift Keine Panik"
   >
     <a
-      :href="pdf"
-      download
+    :href="pdf"
+    download
     ><p>
-      {{t('no')}}<br />{{t('click')}}
-      <span class="tw-text-blue-500">{{t('here')}}</span> {{t('dl')}}
+    {{ t('no') }}<br />{{ t('click') }}
+    <span class="tw-text-blue-500">{{ t('here') }}</span> {{ t('dl') }}
     </p></a>
   </iframe>
 </template>

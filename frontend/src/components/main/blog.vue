@@ -13,6 +13,8 @@
 
 <script lang="ts">
 import { defineComponent, ref } from 'vue'
+import { useRoute, useRouter } from 'vue-router'
+
 import { gql } from 'graphql-tag'
 import { useQuery } from '@vue/apollo-composable'
 
@@ -27,7 +29,12 @@ interface Result {
     content: {
       document: Array<Element>
     }
-  }>
+  }>,
+  post: {
+    content: {
+      document: Array<Element>
+    }
+  } | null
 }
 
 export default defineComponent({
@@ -37,20 +44,25 @@ export default defineComponent({
   setup()
   {
     const mok: Ref<undefined | Array<Element>> = ref(undefined)
-
+    const router = useRouter()
     const res = useQuery<Result>(gql`
+      query getPost($id: ID!)
       {
-        posts {
-          content {
-            document
-          }
+        post(where: {id: $id})
+        {
+          content {document}
         }
       }
-    `)
+    `, { id: useRoute().params.id }, { errorPolicy: 'all' })
 
     useQuerySSR(() =>
     {
-      mok.value = res.result.value!.posts[0].content.document
+      //console.log(res.result.value)
+
+      if (res.result.value!.post)
+        mok.value = res.result.value!.post.content.document
+      else
+        router.replace('/404')
     }, res)
 
     return {

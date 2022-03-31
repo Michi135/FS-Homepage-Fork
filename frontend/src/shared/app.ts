@@ -3,7 +3,7 @@ import { createBundledRouter } from './router'
 
 import { createI18n } from 'vue-i18n'
 import { merge } from 'lodash-es'
-//import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { createVuetify } from 'vuetify'
 import { aliases, mdi } from 'vuetify/lib/iconsets/mdi-svg'
 import { createPinia } from 'pinia'
@@ -73,7 +73,7 @@ function createBundledApp(root: Component, ctx?: Partial<State>)
     }
   }))
 
-  //app.component('font-awesome-icon', FontAwesomeIcon)
+  app.component('font-awesome-icon', FontAwesomeIcon)
 
   const out: BundledApp<typeof store, typeof i18n> = {
     app,

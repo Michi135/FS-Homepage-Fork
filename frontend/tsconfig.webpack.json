@@ -4,7 +4,8 @@
   },
   "files": [
     "environment.d.ts",
-    "custom.d.ts"
+    "custom.d.ts", 
+    "index.d.ts"
   ],
   "include": [
     "src/**/*"

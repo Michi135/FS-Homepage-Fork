@@ -85,7 +85,7 @@ export default defineComponent({
         }
       }
     `, { var: initialTime })
-    //TODO:: set initialTime's hours inside db to 16:xx to avoid filtering on same day 
+    //TODO:: set initialTime's hours inside db to 16:xx to avoid filtering on same day
     const ferien_sprechstunden: Ref<{
       timespan: Array<number>
       sprechstunden: Array<{ tag: string; betreuer: Array<string> }>

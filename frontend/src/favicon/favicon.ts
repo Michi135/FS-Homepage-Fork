@@ -49,8 +49,9 @@ export function createFaviconLink(input: string)
   else
   {
     let link = document.createElement('link')
-    link.rel = 'icon'
-    ;(link.href = input), (link.type = <string>type)
+    link.rel = 'icon';
+    (link.href = input),
+    (link.type = <string>type)
 
     return link
   }

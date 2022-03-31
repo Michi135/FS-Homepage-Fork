@@ -16,9 +16,9 @@ let headerRoutes: RouteRecordRaw[] = [
     path: "",
     component: () => import('@components/main/home.vue'/* webpackChunkName: "home" */),
     meta:
-        {
-          title: 'home'
-        }
+    {
+      title: 'home'
+    }
   },
   /*{
         path: "wahl",
@@ -33,71 +33,78 @@ title: "Hochschulwa(h)l",
     path: "vertreter",
     component: () => import('@components/main/vertreter.vue'/* webpackChunkName: "home" */),
     meta:
-        {
-          favicon: fav2,
-          title: "representatives"
-        }
+    {
+      favicon: fav2,
+      title: "representatives"
+    }
   },
   {
     path: "erstis",
     component: () => import('@components/main/erstis.vue'/* webpackChunkName: "home" */),
     meta:
-        {
-          favicon: studentSvg,
-          title: "freshers"
-        }
+    {
+      favicon: studentSvg,
+      title: "freshers"
+    }
   },
   {
     path: "keinePanik",
     component: () => import('@components/main/panik.vue'/* webpackChunkName: "home" */),
     meta:
-        {
-          title: "noPanic"
-        }
+    {
+      title: "noPanic"
+    }
   },
   {
     path: "externe",
     component: () => import('@components/main/externals.vue'/* webpackChunkName: "home" */),
     meta:
-        {
-          title: "externals"
-        }
+    {
+      title: "externals"
+    }
   },
   {
-    path: "blog",
+    path: "blog/:id",
     component: () => import('@components/main/blog.vue' /* webpackChunkName: "home" */),
     meta:
-        {
-          title: "blog"
-        }
+    {
+      title: "blog"
+    }
   }
 ]
 
 let footerRoutes: RouteRecordRaw[] = [
-
   {
     path: "impressum",
     component: () => import('@components/main/impressum.vue'/* webpackChunkName: "footer" */),
     meta:
-        {
-          title: "imprint"
-        }
+    {
+      title: "imprint"
+    }
   },
   {
     path: "sprechstunden",
     component: () => import('@components/main/sprechstunden.vue'/* webpackChunkName: "footer" */),
     meta:
-        {
-          title: "consultationHours"
-        }
+    {
+      title: "consultationHours"
+    }
   },
   {
     path: "kontakt",
     component: () => import('@components/main/kontakt.vue'/* webpackChunkName: "footer" */),
     meta:
-        {
-          title: "contact"
-        }
+    {
+      title: "contact"
+    }
+  },
+  {
+    path: "test",
+    component: () => import('@components/editor/editor.vue' /* webpackChunkName: "footer" */),
+    meta:
+    {
+      title: "test"
+    }
   }
 ]
 
@@ -106,9 +113,9 @@ let routes: RouteRecordRaw[] = [
     path: "",
     component: () => import('@components/404.vue'),
     meta:
-        {
-          title: "error404"
-        }
+    {
+      title: "error404"
+    }
   }
 ]
 export { headerRoutes, footerRoutes }

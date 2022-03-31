@@ -1,5 +1,6 @@
 {
     "de": {
+        "test": "Test",
         "home": "Home",
         "representatives": "Vertreter",
         "freshers": "Erstis",
@@ -12,6 +13,7 @@
         "blog": "Blog"
     },
     "en": {
+        "test": "Test",
         "home": "Home",
         "representatives": "Representatives",
         "freshers": "Freshers",

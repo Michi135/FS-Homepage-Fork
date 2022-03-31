@@ -208,6 +208,12 @@ export default function ssr(dev: boolean)
 
       doc.getElementById('app')!.innerHTML = await renderToString(app, context)
 
+      if (res.locals?.isUni)
+      {
+        const condScript = doc.createElement('script')
+        head.appendChild(condScript)
+      }
+
       head.innerHTML += `<script nonce="${res.locals.cspNonce}">window.__INITIAL_STATE__=${devalue(pinia.state.value)}</script>`
       head.innerHTML += `<script nonce="${res.locals.cspNonce}">${exportStates(apolloClients)}</script>`
 

@@ -7,12 +7,15 @@ import helmet, { contentSecurityPolicy } from 'helmet'
 import cors from 'cors'
 import crypto from 'crypto'
 
+import { Netmask } from 'netmask'
+
 import { Build } from '@shared/runtimeConfig'
 
 import type { IncomingMessage, ServerResponse } from 'http'
 
 const isDev = (process.env.NODE_ENV || 'development') === 'development'
 const server = express()
+const uniMask = new Netmask("132.180.0.1/16")
 
 //https://cheatsheetseries.owasp.org/cheatsheets/JSON_Web_Token_for_Java_Cheat_Sheet.html#token-sidejacking
 
@@ -42,12 +45,21 @@ function cleanExit(...cleanups: Function[])
     )
     server.use((req, res, next) =>
     {
+      const ip = req.headers["x-forwarded-for"]
+
+      if (typeof ip === "string")
+        res.locals.isUni = uniMask.contains(ip)
+      next()
+    })
+
+    server.use((req, res, next) =>
+    {
       res.locals.cspNonce = crypto.randomBytes(40).toString('base64url').substring(0, 40)
       next()
     })
 
     server.use(helmet({
-      contentSecurityPolicy: {
+      contentSecurityPolicy: (isDev) ? false : {
         directives: {
           scriptSrc: [...(contentSecurityPolicy.getDefaultDirectives()["script-src"]), (req: IncomingMessage, res: ServerResponse) =>
           {
