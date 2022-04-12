@@ -1,0 +1,47 @@
+{
+  "kind": "singleType",
+  "collectionName": "einstellungens",
+  "info": {
+    "singularName": "einstellungen",
+    "pluralName": "einstellungens",
+    "displayName": "Einstellungen",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "plakat": {
+      "type": "media",
+      "multiple": false,
+      "required": true,
+      "allowedTypes": [
+        "images"
+      ],
+      "pluginOptions": {}
+    },
+    "jahr": {
+      "pluginOptions": {},
+      "type": "integer",
+      "default": 2022,
+      "min": 2000,
+      "unique": true,
+      "required": true
+    },
+    "keinePanik": {
+      "type": "media",
+      "multiple": false,
+      "required": true,
+      "allowedTypes": [
+        "files"
+      ],
+      "pluginOptions": {}
+    },
+    "Ferien": {
+      "type": "boolean",
+      "default": false,
+      "required": true
+    }
+  }
+}

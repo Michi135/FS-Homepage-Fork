@@ -40,6 +40,7 @@ function cleanExit(...cleanups: Function[])
     server.use(json())
     server.use(cors(
       {
+        //origin: true
         //origin: ['https://fsmpi.uni-bayreuth.de']
       })
     )

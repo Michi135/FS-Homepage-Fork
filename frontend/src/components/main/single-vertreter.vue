@@ -3,8 +3,8 @@
     <div class="image-container">
       <img
         class="image"
-        :src="vertreter.portrait.url"
-        :alt="vertreter.nutzer_email.name"
+        :src="portraitUrl"
+        :alt="name"
       />
     </div>
     <i18n-t
@@ -15,7 +15,7 @@
     />
     <p
       class="value"
-      v-text="vertreter.nutzer_email.name"
+      v-text="name"
     />
 
     <i18n-t
@@ -26,7 +26,7 @@
     />
     <p
       class="value"
-      v-text="t(vertreter.rolle)"
+      v-text="t(rolle)"
     />
 
     <v-icon
@@ -36,11 +36,11 @@
     />
     <studiengang
       class="value"
-      :feld="vertreter.feld"
-      :grad="vertreter.grad"
-      :hauptfach="vertreter.hauptfach"
-      :zweitfach="vertreter.zweitfach"
-      :lehramt="vertreter.Lehramt"
+      :feld="feld"
+      :grad="grad"
+      :hauptfach="hauptfach"
+      :zweitfach="lehramt?.zweitfach"
+      :lehramt="lehramt?.schultyp"
     />
 
     <i18n-t
@@ -50,7 +50,7 @@
     />
     <p
       class="value"
-      v-text="vertreter.semester"
+      v-text="semester"
     />
 
     <v-icon
@@ -58,10 +58,10 @@
       color="orange darken-2"
       :icon="mdiEmail"
     />
-    <a :href="'mailto:' + vertreter.nutzer_email.email">
+    <a :href="'mailto:' + email">
       <p
         class="value"
-        v-text="vertreter.nutzer_email.email"
+        v-text="email"
       />
     </a>
   </div>
@@ -74,19 +74,52 @@ import studiengang from './studiengang.vue'
 import { mdiEmail, mdiSchool } from '@mdi/js'
 
 import type { PropType } from 'vue'
-import type { VertreterGQL } from '@dataInterfaces/IVertreter'
+import type { Faecher, Lehramt, Grad, Feld, Rolle } from '@dataInterfaces/IVertreter'
 
 export default defineComponent({
+  props: {
+    name: {
+      type: String,
+      required: true
+    },
+    email: {
+      type: String,
+      required: true
+    },
+    rolle: {
+      type: String as Rolle,
+      required: true
+    },
+    feld: {
+      type: String as Feld,
+      required: true
+    },
+    grad: {
+      type: String as Grad,
+      required: true
+    },
+    hauptfach: {
+      type: String as Faecher,
+      required: true
+    },
+    lehramt: {
+      type: Object as PropType<{ zweitfach: Faecher, schultyp: Lehramt }>,
+      required: false,
+      default: undefined
+    },
+    semester: {
+      type: Number,
+      required: true
+    },
+    portraitUrl: {
+      type: String,
+      required: true
+    }
+  },
   components: {
     studiengang
   },
   name: 'SingleVertreter',
-  props: {
-    vertreter: {
-      type: Object as PropType<VertreterGQL>,
-      required: true
-    }
-  },
   setup: () =>
   {
     const { t } = useI18n()
@@ -174,17 +207,17 @@ export default defineComponent({
 {
   "degreeCourse": "Studiengang",
   "semester": "Semester",
-  "HEAD": "Chef",
-  "VICE": "Vize",
-  "FINANCES": "Finanzen",
-  "NETWORKING": "Vernetzung",
-  "UNI-CINEMA": "Uni-Kino",
-  "PUBLIC RELATIONS": "Öffentlichkeitsarbeit",
-  "BEER COORDINATION": "Bierkoordination",
-  "PHYSICIST BAR": "Physikerbar",
-  "GRAPHICS": "Grafiken",
-  "SCRIPTS": "Skripten",
-  "ROOT": "Root"
+  "Chef": "Chef",
+  "Vize": "Vize",
+  "Finanzen": "Finanzen",
+  "Vernetzung": "Vernetzung",
+  "Uni_Kino": "Uni-Kino",
+  "Oeffentlichkeitsarbeit": "Öffentlichkeitsarbeit",
+  "Bierkoordination": "Bierkoordination",
+  "Physikerbar": "Physikerbar",
+  "Grafiken": "Grafiken",
+  "Skripten": "Skripten",
+  "Root": "Root"
 }
 </i18n>
 
@@ -192,16 +225,16 @@ export default defineComponent({
 {
   "degreeCourse": "Degree course",
   "semester": "Semester",
-  "HEAD": "Head",
-  "VICE": "Vice",
-  "FINANCES": "Finances",
-  "NETWORKING": "Networking",
-  "UNI-CINEMA": "Uni-Cinema",
-  "PUBLIC RELATIONS": "Public relations",
-  "BEER COORDINATION": "Beer coordination",
-  "PHYSICIST BAR": "Physicist bar",
-  "GRAPHICS": "Graphics",
-  "SCRIPTS": "Scripts",
-  "ROOT": "Root"
+  "Chef": "Head",
+  "Vize": "Vice",
+  "Finanzen": "Finances",
+  "Vernetzung": "Networking",
+  "Uni_Kino": "Uni-Cinema",
+  "Oeffentlichkeitsarbeit": "Public relations",
+  "Bierkoordination": "Beer coordination",
+  "Physikerbar": "Physicist bar",
+  "Grafiken": "Graphics",
+  "Skripten": "Scripts",
+  "Root": "Root"
 }
 </i18n>

@@ -150,8 +150,13 @@ export default function ssr(dev: boolean)
       res.contentType('html')
       res.charset = 'utf-8'
 
-      const language = getLanguage(req)
-
+      //const language = getLanguage(req)
+      let language: 'de' | 'en' = 'de'
+      {
+        const testLang = req.path.match(/^\/([^\/]*)/)
+        if (testLang?.length === 2 && ['en'].includes(testLang.at(1)!))
+          language = <'en'>testLang.at(1)!
+      }
       //@ts-ignore necessary in case there isn't a compiled main.js
       const { createDefaultApp } = <typeof App>(await import('@distServer/main.js'))
       const { router, app, pinia, store, i18n, apolloClients } = createDefaultApp({ language: language })

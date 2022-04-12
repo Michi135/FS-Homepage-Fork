@@ -9,11 +9,19 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@aws-sdk/client-s3": "^3.56.0",
+    "@aws-sdk/lib-storage": "^3.56.0",
     "@graphql-ts/schema": "^0.5.2",
-    "@keystone-6/auth": "^1.0.2",
+    "@keystone-6/auth": "^2.0.0",
     "@keystone-6/core": "^1.0.1",
-    "@keystone-6/fields-document": "^1.0.1",
+    "@keystone-6/fields-document": "^2.0.0",
+    "busboy": "^1.5.0",
     "helmet": "^5.0.2",
+    "mime-types": "^2.1.35",
     "typescript": "^4.5.5"
+  },
+  "devDependencies": {
+    "@types/busboy": "^1.5.0",
+    "@types/mime-types": "^2.1.1"
   }
 }

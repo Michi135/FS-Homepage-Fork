@@ -51,3 +51,56 @@ model Post {
   id      String @id @default(cuid())
   content Json   @default("[{\"type\":\"paragraph\",\"children\":[{\"text\":\"\"}]}]")
 }
+
+model Film {
+  id             String    @id @default(cuid())
+  titel          String    @unique @default("") @map("title")
+  datum          DateTime  @unique @map("date")
+  beschreibung   String    @default("") @map("description")
+  orte           Filmort[] @relation("Film_orte")
+  jahr           Int       @map("year")
+  dauer          Int       @map("duration")
+  genres         Genre[]   @relation("Film_genres")
+  bild_filesize  Int?
+  bild_extension String?
+  bild_width     Int?
+  bild_height    Int?
+  bild_mode      String?
+  bild_id        String?
+}
+
+model Filmort {
+  id             String @id @default(cuid())
+  ort            String @unique @default("") @map("location")
+  from_Film_orte Film[] @relation("Film_orte")
+}
+
+model Genre {
+  id                           String              @id @default(cuid())
+  genre                        String              @unique @default("") @map("genre")
+  from_Film_genres             Film[]              @relation("Film_genres")
+  from_GenreUebersetzung_genre GenreUebersetzung[] @relation("GenreUebersetzung_genre")
+}
+
+model Sprachen {
+  id                             String              @id @default(cuid())
+  sprach_code                    String              @unique @default("") @map("language_code")
+  from_GenreUebersetzung_sprache GenreUebersetzung[] @relation("GenreUebersetzung_sprache")
+}
+
+model GenreUebersetzung {
+  id           String    @id @default(cuid())
+  genre        Genre?    @relation("GenreUebersetzung_genre", fields: [genreId], references: [id])
+  genreId      String?   @map("genre")
+  sprache      Sprachen? @relation("GenreUebersetzung_sprache", fields: [spracheId], references: [id])
+  spracheId    String?   @map("sprache")
+  uebersetzung String    @default("") @map("translation")
+
+  @@index([genreId])
+  @@index([spracheId])
+}
+
+model tester {
+  id   String @id @default(cuid())
+  test Int?
+}

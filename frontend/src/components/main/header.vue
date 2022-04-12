@@ -113,7 +113,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, onMounted, ref, watch } from 'vue'
+import { defineComponent, onMounted, ref, watch, computed } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { storeToRefs } from 'pinia'
 
@@ -134,17 +134,15 @@ export default defineComponent({
 
     onMounted(() =>
     {
-      language.value = <string>globalI18n.locale.value
-      watch(localI18n.locale, () =>
-      {
-        language.value = localI18n.locale.value
-      })
-
       watch(language, (val, prevval) =>
       {
         globalI18n.locale.value = language.value
-        localStorage.setItem('lang', <string>globalI18n.locale.value)
       })
+    })
+
+    const routes = computed(() =>
+    {
+      return headerRoutes.get(language.value)!
     })
 
     return {
@@ -157,7 +155,7 @@ export default defineComponent({
       gerFlagSvg,
       engFlagSvg,
       navConfig: true,
-      routes: headerRoutes,
+      routes,
       basePaths
     }
   }

@@ -30,7 +30,7 @@ declare global {
 function createBundledApp(root: Component, ctx?: Partial<State>)
 {
   const app = (__IS_SERVER__ || __IS_SSR__) ? createSSRApp(root) : createApp(root)
-  const { router, localizedRoutes } = createBundledRouter()
+  const { router, localization } = createBundledRouter()
 
   const GraphqlVue = createGraphql()
   const pinia = createPinia()
@@ -58,7 +58,7 @@ function createBundledApp(root: Component, ctx?: Partial<State>)
       legacy: false,
       locale: store.language,
       fallbackLocale: ['en', 'de'],
-      messages: merge(localizedRoutes, Globali18n)
+      messages: merge(localization, Globali18n)
     })
 
   app.use(i18n)

@@ -1,0 +1,18 @@
+{
+  "collectionName": "components_uni_kino_ortes",
+  "info": {
+    "displayName": "orte",
+    "icon": "globe-africa"
+  },
+  "options": {},
+  "attributes": {
+    "laender": {
+      "type": "enumeration",
+      "enum": [
+        "USA",
+        "UK"
+      ],
+      "required": true
+    }
+  }
+}

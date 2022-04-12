@@ -37,9 +37,10 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
+import { computed, defineComponent } from 'vue'
 import { footerRoutes, basePaths } from '@shared/routes'
 import { useI18n } from 'vue-i18n'
+import { useStore } from '@shared/store'
 
 export default defineComponent({
   setup: () =>
@@ -47,8 +48,15 @@ export default defineComponent({
     const globalI18n = useI18n({ useScope: 'global' })
     const localI18n = useI18n()
 
+    const store = useStore()
+
+    const routes = computed(() =>
+    {
+      return footerRoutes.get(store.language)!
+    })
+
     return {
-      routes: footerRoutes,
+      routes,
       footerLogo: null,
       basePaths,
       tLocal: localI18n.t,

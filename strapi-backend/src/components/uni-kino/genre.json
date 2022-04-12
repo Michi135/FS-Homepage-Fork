@@ -1,0 +1,23 @@
+{
+  "collectionName": "components_uni_kino_genres",
+  "info": {
+    "displayName": "genre",
+    "icon": "bezier-curve",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "genre": {
+      "type": "enumeration",
+      "enum": [
+        "Krimi",
+        "Thriller",
+        "Tragikomödie",
+        "Kriegssatire",
+        "Drama",
+        "Kriegsfilm"
+      ],
+      "required": true
+    }
+  }
+}

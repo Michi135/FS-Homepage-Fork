@@ -66,10 +66,11 @@
         ref="editor"
         id="editor"
         @beforeinput.prevent="onInput"
+        @keydown="onKey"
       >
         <component
-          v-for="[k, v] in store.componentTree"
-          :key="k"
+          v-for="v in store.topLevelComponents"
+          :key="v.uuid"
           :is="v.component"
           v-bind="{...v.props, ...v.attributes}"
         >
@@ -83,7 +84,7 @@
 /* eslint-disable vue/no-unused-components */
 
 
-import { defineComponent, onMounted, onServerPrefetch, ref, watch } from 'vue'
+import { defineComponent, nextTick, onMounted, onServerPrefetch, ref, watch } from 'vue'
 import { faBold } from '@fortawesome/free-solid-svg-icons/faBold'
 import { faItalic } from '@fortawesome/free-solid-svg-icons/faItalic'
 import { faUnderline } from '@fortawesome/free-solid-svg-icons/faUnderline'
@@ -96,12 +97,14 @@ import { faRedo } from '@fortawesome/free-solid-svg-icons/faRedo'
 import { useStore } from './store'
 import { storeToRefs } from 'pinia'
 
+import { getDocumentRange } from './utils'
+
 import type { Ref } from "vue"
 import type { Effects, EffectString, Elements } from './store'
 
 import comp from './comp.vue'
 import para from './paragraph.vue'
-import { textNode } from './renderer'
+//import { textNode } from './renderer'
 import textnode from './textnode.vue'
 
 //https://dev.to/thormeier/build-your-own-wysiwyg-markdown-editor-for-vue-318j
@@ -261,41 +264,85 @@ export default defineComponent({
       return true
     }
 
+    function getTextNodesInRange(range: Range)
+    {
+
+    }
+
     function onInput(evt: InputEvent)
     {
-      const selection = document.getSelection()
-
-      if (!selection)
+      const range = getDocumentRange()
+      if (!range)
         return
 
-      const range = selection.getRangeAt(0)
       if (!editor.value!.contains(range.commonAncestorContainer))
         return
 
       switch (evt.inputType)
       {
-      case 'insertText':
+      /*case 'insertText':
       {
-        const node = store.getTextNode(range.startContainer)
+        //const node = store.getTextNode(range.startContainer)
+        const node = store.getComponentTextNode(range.startContainer)
         if (!node)
           return
         //@ts-ignore
-        node.child.proxy!.insertText(evt.data)
+        node.proxy!.insertText(evt.data)
 
         break
-      }
+      }*/
       case 'deleteContentBackward':
       {
-        const node = store.getTextNode(range.startContainer)
+        //const node = store.getTextNode(range.startContainer)
+        const node = store.getComponentTextNode(range.startContainer)
         if (!node)
           return
         //@ts-ignore
-        node.child.proxy!.removeText(evt.data)
+        node.proxy!.removeText(evt.data)
+        break
+      }
+      case 'insertParagraph':
+      {
+        //delete contents in-between range start and end
+        //
+        //get current text node or selection of text nodes
+        //get surrounding effects
+        //insert paragraph and split effects
+        const node = store.getComponentTextNode(range.startContainer)
+        if (!node)
+          return
+
+        const text = (<string>node.values.text);
+        (<string>node.values.text) = text.substring(0, range.startOffset)
+
+        const oldParagraph = node.parent!
+        const parent = oldParagraph.component.parent
+
+        let index = 0
+        if (parent)
+          index = parent.component.children.indexOf(oldParagraph.component) + 1
+        else
+          index = store.topLevelComponents.indexOf(oldParagraph.component) + 1
+
+        //empty paragraph with <br> or <span>
+        const newPara = store.addComponent('paragraph', { parentUUID: parent?.uuid, index: index })
+
+        //console.log(index)
+        const nextTextNode = store.addComponent('textnode', { parentUUID: newPara, values: { 'text': text.substring(range.endOffset) } })
+
+        nextTick(() => //set cursor to begin of new line
+        {
+          const range = getDocumentRange()!
+          const el = store.getComponentByID(newPara)!.proxy!.$el
+
+          range.setStart(el, 0)
+          range.setEnd(el, 0)
+        })
         break
       }
       }
       //console.log('-----------------------------')
-      //console.log(evt)
+      console.log(evt)
       //console.log('=============================')
     }
 
@@ -336,14 +383,29 @@ export default defineComponent({
       //renders.value.push({ comp: comp, to: editor.value!, props: { say: "Bye, World!" } })
     }
 
-    const test: { [key: string]: string } = { ['foo']: 'bar', ['id']: 'asdjflajd' }
+    function onKey(evt: KeyboardEvent)
+    {
+      /*const range = getDocumentRange()
+      if (!range)
+        return
+
+      if (/^.$/u.test(evt.key))
+      {
+        const node = store.getComponentTextNode(range.startContainer)
+        if (!node)
+          return
+        //@ts-ignore
+        node.proxy!.insertText(evt.key)
+        evt.preventDefault()
+      }*/
+    }
 
     return {
       faBold, faItalic, faUnderline, faHeading, faListUl, faListOl, faUndo, faRedo,
-      applyBold, applyItalic, applyUnderline, applyHeading, applyUl, applyOl, undo, redo,
+      applyBold, applyItalic, applyUnderline, applyHeading, applyUl, applyOl, undo, redo, onKey,
       addC, editor,
       effects,
-      onInput, store, test
+      onInput, store
     }
   }
 })

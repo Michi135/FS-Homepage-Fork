@@ -1,9 +1,11 @@
-import { config, list } from '@keystone-6/core';
+import { config, graphql, list } from '@keystone-6/core';
 import { statelessSessions } from '@keystone-6/core/session'
-import { text, select, integer, image, relationship, timestamp, password } from '@keystone-6/core/fields';
+import { text, select, integer, image, relationship, timestamp, password, virtual } from '@keystone-6/core/fields';
 import { document } from '@keystone-6/fields-document'
 import { createAuth } from '@keystone-6/auth'
 import helmet from 'helmet'
+
+import { stars } from './localization'
 
 const { withAuth } = createAuth({
     // Required options
@@ -31,8 +33,8 @@ type Session = {
 const session = statelessSessions({
     maxAge: 60 * 30,
     secret: '-- EXAMPLE COOKIE SECRET; CHANGE ME --',
-    sameSite: 'strict',
-    secure: true
+    //sameSite: 'strict',
+    //secure: true
 });
 
 const authentic = ({ session }: { session: Session }) => session?.data.name === 'Fachschaft';
@@ -71,14 +73,14 @@ const course_options =
 export default withAuth({
     server: {
         port: 4000,
-        //cors: { origin: false },
+        //cors: true,//{ origin: false },
         extendExpressApp: (app) => {
-            app.use(helmet(/*{ contentSecurityPolicy: false, crossOriginOpenerPolicy: false }*/))
+            app.use(helmet({ contentSecurityPolicy: false, crossOriginOpenerPolicy: false }))
         }
     },
     db: {
         provider: 'postgresql',
-        url: 'postgres://postgres:TestPassword@192.168.178.31/keystone',
+        url: 'postgres://postgres:asdf@localhost/keystone',
     },
     graphql: {
         path: '/v1/api/graphql',
@@ -254,6 +256,151 @@ export default withAuth({
               }),
             },
         }),
+        Film: list({
+            ...stdPermissions,
+            fields: {
+                titel: text({
+                    db: { map: 'title' },
+                    validation: { isRequired: true },
+                    isIndexed: 'unique'
+                }),
+                datum: timestamp({
+                    db: { map: 'date' },
+                    validation: { isRequired: true },
+                    isIndexed: 'unique'
+                }),
+                beschreibung: text({
+                    db: { map: 'description' },
+                    validation: { isRequired: true },
+                    ui: {
+                        displayMode: 'textarea'
+                    }
+                }),
+                orte: relationship({
+                    ref: 'Filmort',
+                    many: true
+                }),
+                jahr: integer({
+                    db: { map: 'year' },
+                    validation: { isRequired: true, min: 1900, max: 2100 }
+                }),
+                dauer: integer({
+                    db: { map: 'duration' },
+                    validation: { isRequired: true, min: 1 }
+                }),
+                genres: relationship({
+                    ref: 'Genre',
+                    many: true,
+                }),
+                bild: image({})
+            }
+        }),
+        Filmort: list({
+            ui: {
+                labelField: 'ort'
+            },
+            ...stdPermissions,
+            fields: {
+                ort: text({
+                    db: { map: 'location' },
+                    validation: { isRequired: true },
+                    isIndexed: 'unique'
+                })
+            }
+        }),
+        Genre: list({
+            ui: {
+                labelField: 'genre'
+            },
+            ...stdPermissions,
+            fields: {
+                genre: text({
+                    db: { map: 'genre' },
+                    validation: { isRequired: true },
+                    isIndexed: 'unique'
+                })
+            }
+        }),
+        Sprachen: list({
+            ui: {
+                labelField: 'sprach_code'
+            },
+            ...stdPermissions,
+            fields: {
+                sprach_code: text({
+                    db: { map: 'language_code' },
+                    validation: { isRequired: true },
+                    isIndexed: 'unique'
+                })
+            }
+        }),
+        GenreUebersetzung: list({
+            ...stdPermissions,
+            fields: {
+                genre: relationship({
+                    ref: 'Genre',
+                    db: { foreignKey: true }
+                }),
+                sprache: relationship({
+                    ref: 'Sprachen',
+                    db: { foreignKey: true }
+                }),
+                uebersetzung: text({
+                    db: { map: 'translation' },
+                    validation: { isRequired: true }
+                })
+            }
+        }),
+        FilmUebersetzung: list({
+            ...stdPermissions,
+            fields: {
+                film: relationship({
+                    ref: 'Film',
+                    db: { foreignKey: true }
+                }),
+                sprache: relationship({
+                    ref: 'Sprachen',
+                    db: { foreignKey: true }
+                }),
+                titel: text({
+                    db: { map: 'title' },
+                    validation: { isRequired: true },
+                    isIndexed: 'unique'
+                }),
+                beschreibung: text({
+                    db: { map: 'description' },
+                    validation: { isRequired: true },
+                    ui: {
+                        displayMode: 'textarea'
+                    }
+                }),
+                /*genres: virtual({//get translated genres
+                    field: graphql.field({
+                        type: graphql.object<{
+                            genres: Array<string>
+                        }>()({
+                            name: 'Genres',
+                            fields: {
+                                genres: graphql.field({ type: graphql.})
+                            }
+                        }),
+                        async resolve(item, args, context) {
+                          const { author } = await context.query.Post.findOne({
+                            where: { id: item.id.toString() },
+                            query: 'author { name }',
+                          });
+                          return author && author.name;
+                        },
+                      }),
+                })*/
+            }
+        }),
+        tester: list({
+            ...stdPermissions,
+            fields: { 
+                test: stars()
+            }
+        })
         /*global: list({
             ...stdPermissions,
             fields: {
@@ -267,7 +414,7 @@ export default withAuth({
         upload: 'local',
         local: {
             storagePath: 'public/images',
-            baseUrl: '/images'
+            baseUrl: '/v1/images'
         }
     },
     experimental: {

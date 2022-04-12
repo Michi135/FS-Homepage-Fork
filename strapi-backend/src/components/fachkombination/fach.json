@@ -1,0 +1,21 @@
+{
+  "collectionName": "components_fachkombination_faches",
+  "info": {
+    "displayName": "Fach",
+    "icon": "archive",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "fach": {
+      "type": "enumeration",
+      "enum": [
+        "Informatik",
+        "Physik",
+        "Technomathe",
+        "Mathe"
+      ],
+      "required": true
+    }
+  }
+}

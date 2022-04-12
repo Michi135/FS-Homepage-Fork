@@ -21,7 +21,7 @@ const errorlink = onError(({ graphQLErrors, networkError }) => {
 
 function genClients()
 {
-  const http = new HttpLink({ uri: (__IS_SERVER__) ? 'http://keystone:4000/v1/api/graphql' : '/v1/api/graphql', fetch, useGETForQueries: true, credentials: 'same-origin' })
+  const http = new HttpLink({ uri: /*__BACKEND_BASE_URL__ +*/ '/v1/graphql', fetch, useGETForQueries: true, credentials: 'same-origin' })
 
   const apolloOptions: ApolloClientOptions<NormalizedCacheObject> = {
     link: http,//authMiddleware.concat(http),

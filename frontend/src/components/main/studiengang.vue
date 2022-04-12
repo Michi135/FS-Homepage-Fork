@@ -61,28 +61,28 @@ export default defineComponent({
 
 <i18n locale="de">
 {
-  "MATH": "Mathe",
-  "PHYSICS": "Physik",
-  "COMPUTER SCIENCE": "Informatik",
-  "GYMNASIUM": "GYM",
-  "BACHELOR": "B.",
-  "MASTER": "M.",
-  "SCIENCE": "Sc.",
+  "Mathe": "Mathe",
+  "Physik": "Physik",
+  "Informatik": "Informatik",
+  "Gymnasium": "GYM",
+  "Bachelor": "B.",
+  "Master": "M.",
+  "Science": "Sc.",
   "lectureship": "LA",
-  "TECHNO MATH": "Technomathe"
+  "Technomathe": "Technomathe"
 }
 </i18n>
 
 <i18n locale="en">
 {
-  "MATH": "Math",
-  "PHYSICS": "Physics",
-  "COMPUTER SCIENCE": "Computer science",
-  "GYMNASIUM": "GYM",
-  "BACHELOR": "B.",
-  "MASTER": "M.",
-  "SCIENCE": "Sc.",
+  "Mathe": "Math",
+  "Physik": "Physics",
+  "Informatik": "Computer science",
+  "Gymnasium": "GYM",
+  "Bachelor": "B.",
+  "Master": "M.",
+  "Science": "Sc.",
   "lectureship": "LS",
-  "TECHNO MATH": "Techno math"
+  "Technomathe": "Techno math"
 }
 </i18n>

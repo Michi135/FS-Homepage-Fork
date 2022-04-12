@@ -1,0 +1,25 @@
+{
+  "collectionName": "components_fachkombination_lehramts",
+  "info": {
+    "displayName": "Lehramt",
+    "icon": "bullseye",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "zweitfach": {
+      "type": "component",
+      "repeatable": false,
+      "component": "fachkombination.fach",
+      "required": true
+    },
+    "schultyp": {
+      "type": "enumeration",
+      "enum": [
+        "Gymnasium"
+      ],
+      "default": "Gymnasium",
+      "required": true
+    }
+  }
+}

@@ -1,9 +1,9 @@
-<template :ref="parent">
+<template>
   {{ compValues.text }}
 </template>
 
 <script lang="ts">
-import { defineComponent, getCurrentInstance, onBeforeUpdate, onUpdated, ref, Ref } from "vue"
+import { defineComponent, getCurrentInstance, onBeforeUpdate, onMounted, onUpdated, ref, Ref } from "vue"
 import { useStore } from "./store"
 
 type Operation = 'none' | 'insert' | 'remove'
@@ -18,7 +18,7 @@ export default defineComponent({
   setup(props)
   {
     let oldRange: { startContainer: Node, start: number } | null = null
-    let parent: Ref<null | Node> = ref(null)
+    //let parent: Ref<null | Node> = ref(null)
     let op: Operation = 'none'
 
     const instance = getCurrentInstance()
@@ -58,8 +58,10 @@ export default defineComponent({
     })
 
     const store = useStore()
-    const compValues = store.getValuesByID(props.uuid)!
-    store.getComponentByID(props.uuid)!.proxy = instance!.proxy!
+    //const compValues = store.getValuesByID(props.uuid)!
+    const component = store.getComponentByID(props.uuid)!
+    const compValues = component.values
+    component.proxy = instance!.proxy!
 
     if (!compValues.text)
       compValues.text = ''
@@ -68,6 +70,10 @@ export default defineComponent({
     {
       compValues.text = value
     }*/
+    onMounted(() =>
+    {
+      store.nodes.set(instance!.proxy!.$el, component)
+    })
 
     function insertText(data: string)
     {
@@ -99,9 +105,18 @@ export default defineComponent({
 
       op = 'remove'
       compValues.text = compValues.text.substring(0, startOffset) + compValues.text.substring(range.endOffset)
+      if (compValues.text === '')
+      {
+        //remove this node
+        const parent = component.parent!.component
+        parent.children.splice(parent.children.indexOf(component), 1)
+        store.components.delete(props.uuid)
+        store.nodes.delete(instance!.proxy!.$el)
+        console.log("removed")
+      }
     }
 
-    return { compValues, parent, insertText, removeText }
+    return { compValues, insertText, removeText }
   }
 })
 </script>

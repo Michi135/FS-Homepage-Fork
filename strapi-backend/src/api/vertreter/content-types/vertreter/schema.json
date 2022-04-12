@@ -1,0 +1,97 @@
+{
+  "kind": "collectionType",
+  "collectionName": "vertreters",
+  "info": {
+    "singularName": "vertreter",
+    "pluralName": "vertreters",
+    "displayName": "Vertreter",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "anzeigeName": {
+      "pluginOptions": {},
+      "type": "string",
+      "required": true
+    },
+    "grad": {
+      "pluginOptions": {},
+      "type": "enumeration",
+      "enum": [
+        "Bachelor",
+        "Master"
+      ],
+      "required": true,
+      "default": "Bachelor"
+    },
+    "feld": {
+      "pluginOptions": {},
+      "type": "enumeration",
+      "enum": [
+        "Science"
+      ],
+      "default": "Science",
+      "required": true
+    },
+    "semester": {
+      "pluginOptions": {},
+      "default": 1,
+      "type": "integer",
+      "min": 1,
+      "required": true
+    },
+    "portrait": {
+      "type": "media",
+      "multiple": false,
+      "required": true,
+      "allowedTypes": [
+        "images"
+      ],
+      "pluginOptions": {}
+    },
+    "hauptfach": {
+      "type": "component",
+      "repeatable": false,
+      "pluginOptions": {},
+      "component": "fachkombination.fach",
+      "required": true
+    },
+    "lehramt": {
+      "type": "component",
+      "repeatable": false,
+      "pluginOptions": {},
+      "component": "fachkombination.lehramt",
+      "required": false
+    },
+    "position": {
+      "pluginOptions": {},
+      "type": "enumeration",
+      "enum": [
+        "Chef",
+        "Vize",
+        "Finanzen",
+        "Vernetzung",
+        "Uni-Kino",
+        "Öffentlichkeitsarbeit",
+        "Bierkoordination",
+        "Physikerbar",
+        "Grafiken",
+        "Root"
+      ],
+      "required": true
+    },
+    "email": {
+      "type": "email",
+      "required": true,
+      "unique": true
+    },
+    "aktiv": {
+      "type": "boolean",
+      "default": true,
+      "required": true
+    }
+  }
+}

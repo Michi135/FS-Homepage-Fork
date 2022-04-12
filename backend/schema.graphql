@@ -138,26 +138,6 @@ input VertreterWhereUniqueInput {
   id: ID
 }
 
-type LocalImageFieldOutput implements ImageFieldOutput {
-  id: ID!
-  filesize: Int!
-  width: Int!
-  height: Int!
-  extension: ImageExtension!
-  ref: String!
-  url: String!
-}
-
-type CloudImageFieldOutput implements ImageFieldOutput {
-  id: ID!
-  filesize: Int!
-  width: Int!
-  height: Int!
-  extension: ImageExtension!
-  ref: String!
-  url: String!
-}
-
 input VertreterWhereInput {
   AND: [VertreterWhereInput!]
   OR: [VertreterWhereInput!]
@@ -389,6 +369,361 @@ input PostCreateInput {
   content: JSON
 }
 
+type Film {
+  id: ID!
+  titel: String
+  datum: DateTime
+  beschreibung: String
+  orte(
+    where: FilmortWhereInput! = {}
+    orderBy: [FilmortOrderByInput!]! = []
+    take: Int
+    skip: Int! = 0
+  ): [Filmort!]
+  orteCount(where: FilmortWhereInput! = {}): Int
+  jahr: Int
+  dauer: Int
+  genres(
+    where: GenreWhereInput! = {}
+    orderBy: [GenreOrderByInput!]! = []
+    take: Int
+    skip: Int! = 0
+  ): [Genre!]
+  genresCount(where: GenreWhereInput! = {}): Int
+  bild: ImageFieldOutput
+}
+
+input FilmWhereUniqueInput {
+  id: ID
+  titel: String
+  datum: DateTime
+}
+
+type LocalImageFieldOutput implements ImageFieldOutput {
+  id: ID!
+  filesize: Int!
+  width: Int!
+  height: Int!
+  extension: ImageExtension!
+  ref: String!
+  url: String!
+}
+
+type CloudImageFieldOutput implements ImageFieldOutput {
+  id: ID!
+  filesize: Int!
+  width: Int!
+  height: Int!
+  extension: ImageExtension!
+  ref: String!
+  url: String!
+}
+
+input FilmWhereInput {
+  AND: [FilmWhereInput!]
+  OR: [FilmWhereInput!]
+  NOT: [FilmWhereInput!]
+  id: IDFilter
+  titel: StringFilter
+  datum: DateTimeFilter
+  beschreibung: StringFilter
+  orte: FilmortManyRelationFilter
+  jahr: IntFilter
+  dauer: IntFilter
+  genres: GenreManyRelationFilter
+}
+
+input FilmortManyRelationFilter {
+  every: FilmortWhereInput
+  some: FilmortWhereInput
+  none: FilmortWhereInput
+}
+
+input GenreManyRelationFilter {
+  every: GenreWhereInput
+  some: GenreWhereInput
+  none: GenreWhereInput
+}
+
+input FilmOrderByInput {
+  id: OrderDirection
+  titel: OrderDirection
+  datum: OrderDirection
+  beschreibung: OrderDirection
+  jahr: OrderDirection
+  dauer: OrderDirection
+}
+
+input FilmUpdateInput {
+  titel: String
+  datum: DateTime
+  beschreibung: String
+  orte: FilmortRelateToManyForUpdateInput
+  jahr: Int
+  dauer: Int
+  genres: GenreRelateToManyForUpdateInput
+  bild: ImageFieldInput
+}
+
+input FilmortRelateToManyForUpdateInput {
+  disconnect: [FilmortWhereUniqueInput!]
+  set: [FilmortWhereUniqueInput!]
+  create: [FilmortCreateInput!]
+  connect: [FilmortWhereUniqueInput!]
+}
+
+input GenreRelateToManyForUpdateInput {
+  disconnect: [GenreWhereUniqueInput!]
+  set: [GenreWhereUniqueInput!]
+  create: [GenreCreateInput!]
+  connect: [GenreWhereUniqueInput!]
+}
+
+input FilmUpdateArgs {
+  where: FilmWhereUniqueInput!
+  data: FilmUpdateInput!
+}
+
+input FilmCreateInput {
+  titel: String
+  datum: DateTime
+  beschreibung: String
+  orte: FilmortRelateToManyForCreateInput
+  jahr: Int
+  dauer: Int
+  genres: GenreRelateToManyForCreateInput
+  bild: ImageFieldInput
+}
+
+input FilmortRelateToManyForCreateInput {
+  create: [FilmortCreateInput!]
+  connect: [FilmortWhereUniqueInput!]
+}
+
+input GenreRelateToManyForCreateInput {
+  create: [GenreCreateInput!]
+  connect: [GenreWhereUniqueInput!]
+}
+
+type Filmort {
+  id: ID!
+  ort: String
+}
+
+input FilmortWhereUniqueInput {
+  id: ID
+  ort: String
+}
+
+input FilmortWhereInput {
+  AND: [FilmortWhereInput!]
+  OR: [FilmortWhereInput!]
+  NOT: [FilmortWhereInput!]
+  id: IDFilter
+  ort: StringFilter
+}
+
+input FilmortOrderByInput {
+  id: OrderDirection
+  ort: OrderDirection
+}
+
+input FilmortUpdateInput {
+  ort: String
+}
+
+input FilmortUpdateArgs {
+  where: FilmortWhereUniqueInput!
+  data: FilmortUpdateInput!
+}
+
+input FilmortCreateInput {
+  ort: String
+}
+
+type Genre {
+  id: ID!
+  genre: String
+}
+
+input GenreWhereUniqueInput {
+  id: ID
+  genre: String
+}
+
+input GenreWhereInput {
+  AND: [GenreWhereInput!]
+  OR: [GenreWhereInput!]
+  NOT: [GenreWhereInput!]
+  id: IDFilter
+  genre: StringFilter
+}
+
+input GenreOrderByInput {
+  id: OrderDirection
+  genre: OrderDirection
+}
+
+input GenreUpdateInput {
+  genre: String
+}
+
+input GenreUpdateArgs {
+  where: GenreWhereUniqueInput!
+  data: GenreUpdateInput!
+}
+
+input GenreCreateInput {
+  genre: String
+}
+
+type Sprachen {
+  id: ID!
+  sprach_code: String
+}
+
+input SprachenWhereUniqueInput {
+  id: ID
+  sprach_code: String
+}
+
+input SprachenWhereInput {
+  AND: [SprachenWhereInput!]
+  OR: [SprachenWhereInput!]
+  NOT: [SprachenWhereInput!]
+  id: IDFilter
+  sprach_code: StringFilter
+}
+
+input SprachenOrderByInput {
+  id: OrderDirection
+  sprach_code: OrderDirection
+}
+
+input SprachenUpdateInput {
+  sprach_code: String
+}
+
+input SprachenUpdateArgs {
+  where: SprachenWhereUniqueInput!
+  data: SprachenUpdateInput!
+}
+
+input SprachenCreateInput {
+  sprach_code: String
+}
+
+type GenreUebersetzung {
+  id: ID!
+  genre: Genre
+  sprache: Sprachen
+  uebersetzung: String
+}
+
+input GenreUebersetzungWhereUniqueInput {
+  id: ID
+}
+
+input GenreUebersetzungWhereInput {
+  AND: [GenreUebersetzungWhereInput!]
+  OR: [GenreUebersetzungWhereInput!]
+  NOT: [GenreUebersetzungWhereInput!]
+  id: IDFilter
+  genre: GenreWhereInput
+  sprache: SprachenWhereInput
+  uebersetzung: StringFilter
+}
+
+input GenreUebersetzungOrderByInput {
+  id: OrderDirection
+  uebersetzung: OrderDirection
+}
+
+input GenreUebersetzungUpdateInput {
+  genre: GenreRelateToOneForUpdateInput
+  sprache: SprachenRelateToOneForUpdateInput
+  uebersetzung: String
+}
+
+input GenreRelateToOneForUpdateInput {
+  create: GenreCreateInput
+  connect: GenreWhereUniqueInput
+  disconnect: Boolean
+}
+
+input SprachenRelateToOneForUpdateInput {
+  create: SprachenCreateInput
+  connect: SprachenWhereUniqueInput
+  disconnect: Boolean
+}
+
+input GenreUebersetzungUpdateArgs {
+  where: GenreUebersetzungWhereUniqueInput!
+  data: GenreUebersetzungUpdateInput!
+}
+
+input GenreUebersetzungCreateInput {
+  genre: GenreRelateToOneForCreateInput
+  sprache: SprachenRelateToOneForCreateInput
+  uebersetzung: String
+}
+
+input GenreRelateToOneForCreateInput {
+  create: GenreCreateInput
+  connect: GenreWhereUniqueInput
+}
+
+input SprachenRelateToOneForCreateInput {
+  create: SprachenCreateInput
+  connect: SprachenWhereUniqueInput
+}
+
+type tester {
+  id: ID!
+  test: Int
+}
+
+input testerWhereUniqueInput {
+  id: ID
+}
+
+input testerWhereInput {
+  AND: [testerWhereInput!]
+  OR: [testerWhereInput!]
+  NOT: [testerWhereInput!]
+  id: IDFilter
+  test: IntNullableFilter
+}
+
+input IntNullableFilter {
+  equals: Int
+  in: [Int!]
+  notIn: [Int!]
+  lt: Int
+  lte: Int
+  gt: Int
+  gte: Int
+  not: IntNullableFilter
+}
+
+input testerOrderByInput {
+  id: OrderDirection
+  test: OrderDirection
+}
+
+input testerUpdateInput {
+  test: Int
+}
+
+input testerUpdateArgs {
+  where: testerWhereUniqueInput!
+  data: testerUpdateInput!
+}
+
+input testerCreateInput {
+  test: Int
+}
+
 """
 The `JSON` scalar type represents JSON values as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf).
 """
@@ -438,6 +773,61 @@ type Mutation {
   updatePosts(data: [PostUpdateArgs!]!): [Post]
   deletePost(where: PostWhereUniqueInput!): Post
   deletePosts(where: [PostWhereUniqueInput!]!): [Post]
+  createFilm(data: FilmCreateInput!): Film
+  createFilms(data: [FilmCreateInput!]!): [Film]
+  updateFilm(where: FilmWhereUniqueInput!, data: FilmUpdateInput!): Film
+  updateFilms(data: [FilmUpdateArgs!]!): [Film]
+  deleteFilm(where: FilmWhereUniqueInput!): Film
+  deleteFilms(where: [FilmWhereUniqueInput!]!): [Film]
+  createFilmort(data: FilmortCreateInput!): Filmort
+  createFilmorts(data: [FilmortCreateInput!]!): [Filmort]
+  updateFilmort(
+    where: FilmortWhereUniqueInput!
+    data: FilmortUpdateInput!
+  ): Filmort
+  updateFilmorts(data: [FilmortUpdateArgs!]!): [Filmort]
+  deleteFilmort(where: FilmortWhereUniqueInput!): Filmort
+  deleteFilmorts(where: [FilmortWhereUniqueInput!]!): [Filmort]
+  createGenre(data: GenreCreateInput!): Genre
+  createGenres(data: [GenreCreateInput!]!): [Genre]
+  updateGenre(where: GenreWhereUniqueInput!, data: GenreUpdateInput!): Genre
+  updateGenres(data: [GenreUpdateArgs!]!): [Genre]
+  deleteGenre(where: GenreWhereUniqueInput!): Genre
+  deleteGenres(where: [GenreWhereUniqueInput!]!): [Genre]
+  createSprachen(data: SprachenCreateInput!): Sprachen
+  createSprachens(data: [SprachenCreateInput!]!): [Sprachen]
+  updateSprachen(
+    where: SprachenWhereUniqueInput!
+    data: SprachenUpdateInput!
+  ): Sprachen
+  updateSprachens(data: [SprachenUpdateArgs!]!): [Sprachen]
+  deleteSprachen(where: SprachenWhereUniqueInput!): Sprachen
+  deleteSprachens(where: [SprachenWhereUniqueInput!]!): [Sprachen]
+  createGenreUebersetzung(
+    data: GenreUebersetzungCreateInput!
+  ): GenreUebersetzung
+  createGenreUebersetzungs(
+    data: [GenreUebersetzungCreateInput!]!
+  ): [GenreUebersetzung]
+  updateGenreUebersetzung(
+    where: GenreUebersetzungWhereUniqueInput!
+    data: GenreUebersetzungUpdateInput!
+  ): GenreUebersetzung
+  updateGenreUebersetzungs(
+    data: [GenreUebersetzungUpdateArgs!]!
+  ): [GenreUebersetzung]
+  deleteGenreUebersetzung(
+    where: GenreUebersetzungWhereUniqueInput!
+  ): GenreUebersetzung
+  deleteGenreUebersetzungs(
+    where: [GenreUebersetzungWhereUniqueInput!]!
+  ): [GenreUebersetzung]
+  createtester(data: testerCreateInput!): tester
+  createTesters(data: [testerCreateInput!]!): [tester]
+  updatetester(where: testerWhereUniqueInput!, data: testerUpdateInput!): tester
+  updateTesters(data: [testerUpdateArgs!]!): [tester]
+  deletetester(where: testerWhereUniqueInput!): tester
+  deleteTesters(where: [testerWhereUniqueInput!]!): [tester]
   endSession: Boolean!
   authenticateUserWithPassword(
     email: String!
@@ -501,6 +891,56 @@ type Query {
   ): [Post!]
   post(where: PostWhereUniqueInput!): Post
   postsCount(where: PostWhereInput! = {}): Int
+  films(
+    where: FilmWhereInput! = {}
+    orderBy: [FilmOrderByInput!]! = []
+    take: Int
+    skip: Int! = 0
+  ): [Film!]
+  film(where: FilmWhereUniqueInput!): Film
+  filmsCount(where: FilmWhereInput! = {}): Int
+  filmorts(
+    where: FilmortWhereInput! = {}
+    orderBy: [FilmortOrderByInput!]! = []
+    take: Int
+    skip: Int! = 0
+  ): [Filmort!]
+  filmort(where: FilmortWhereUniqueInput!): Filmort
+  filmortsCount(where: FilmortWhereInput! = {}): Int
+  genres(
+    where: GenreWhereInput! = {}
+    orderBy: [GenreOrderByInput!]! = []
+    take: Int
+    skip: Int! = 0
+  ): [Genre!]
+  genre(where: GenreWhereUniqueInput!): Genre
+  genresCount(where: GenreWhereInput! = {}): Int
+  sprachens(
+    where: SprachenWhereInput! = {}
+    orderBy: [SprachenOrderByInput!]! = []
+    take: Int
+    skip: Int! = 0
+  ): [Sprachen!]
+  sprachen(where: SprachenWhereUniqueInput!): Sprachen
+  sprachensCount(where: SprachenWhereInput! = {}): Int
+  genreUebersetzungs(
+    where: GenreUebersetzungWhereInput! = {}
+    orderBy: [GenreUebersetzungOrderByInput!]! = []
+    take: Int
+    skip: Int! = 0
+  ): [GenreUebersetzung!]
+  genreUebersetzung(
+    where: GenreUebersetzungWhereUniqueInput!
+  ): GenreUebersetzung
+  genreUebersetzungsCount(where: GenreUebersetzungWhereInput! = {}): Int
+  testers(
+    where: testerWhereInput! = {}
+    orderBy: [testerOrderByInput!]! = []
+    take: Int
+    skip: Int! = 0
+  ): [tester!]
+  tester(where: testerWhereUniqueInput!): tester
+  testersCount(where: testerWhereInput! = {}): Int
   keystone: KeystoneMeta!
   authenticatedItem: AuthenticatedItem
 }

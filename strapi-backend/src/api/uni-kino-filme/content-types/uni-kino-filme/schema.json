@@ -1,0 +1,117 @@
+{
+  "kind": "collectionType",
+  "collectionName": "uni_kino_filmes",
+  "info": {
+    "singularName": "uni-kino-filme",
+    "pluralName": "uni-kino-filmes",
+    "displayName": "Uni Kino Filme",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {
+    "i18n": {
+      "localized": true
+    }
+  },
+  "attributes": {
+    "titel": {
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "type": "string",
+      "required": true
+    },
+    "datum": {
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "type": "datetime",
+      "unique": true,
+      "required": true,
+      "default": "2022-04-01T18:00:00.000Z"
+    },
+    "beschreibung": {
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "type": "text",
+      "required": true
+    },
+    "filmort": {
+      "displayName": "orte",
+      "type": "component",
+      "repeatable": true,
+      "pluginOptions": {
+        "i18n": {
+          "localized": false
+        }
+      },
+      "component": "uni-kino.orte",
+      "required": true
+    },
+    "jahr": {
+      "pluginOptions": {
+        "i18n": {
+          "localized": false
+        }
+      },
+      "type": "integer",
+      "min": 1900,
+      "default": 2010,
+      "required": true
+    },
+    "dauer": {
+      "pluginOptions": {
+        "i18n": {
+          "localized": false
+        }
+      },
+      "type": "integer",
+      "min": 1,
+      "required": true,
+      "default": 1
+    },
+    "genre": {
+      "displayName": "genre",
+      "type": "component",
+      "repeatable": true,
+      "pluginOptions": {
+        "i18n": {
+          "localized": false
+        }
+      },
+      "component": "uni-kino.genre",
+      "required": true
+    },
+    "bild": {
+      "type": "media",
+      "multiple": false,
+      "required": true,
+      "allowedTypes": [
+        "images"
+      ],
+      "pluginOptions": {
+        "i18n": {
+          "localized": false
+        }
+      }
+    },
+    "trailerlink": {
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "type": "string",
+      "required": false
+    }
+  }
+}
