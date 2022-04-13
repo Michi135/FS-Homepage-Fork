@@ -75,27 +75,6 @@ export default defineComponent({
     }
     `)
 
-    /*const res = useQuery<{ vertreters: Array<VertreterGQL> }>(gql`
-      {
-        vertreters {
-          nutzer_email {
-            name
-            email
-          }
-          rolle
-          grad
-          feld
-          hauptfach
-          zweitfach
-          Lehramt
-          semester
-          portrait {
-            url
-          }
-        }
-      }
-    `)*/
-
     const items: Record<string, number> =
     {
       /*"HEAD": 11,

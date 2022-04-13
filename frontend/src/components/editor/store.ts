@@ -1,11 +1,12 @@
 import { defineStore } from 'pinia'
 import { ComponentPublicInstance } from 'vue'
-import { randomUUID as nodeRandomUUID } from 'crypto'
+//import { randomUUID as nodeRandomUUID } from 'crypto'
 
-function randomUUID()
+/*function randomUUID()
 {
   return (__IS_SERVER__) ? nodeRandomUUID() : crypto.randomUUID()
-}
+}*/
+import { v4 } from 'uuid'
 
 export type HEADER_LEVEL = 1 | 2 | 3 | 4 | 5 | 6
 export type HEADING = `H${HEADER_LEVEL}`
@@ -71,7 +72,7 @@ export const useStore = defineStore('editor', {
     //TODO:: infer types based on component
     addComponent(component: string, params?: Partial<AddComponentParamsOptional>)
     {
-      const uuid = randomUUID()
+      const uuid = v4()
 
       if (!params)
         params = {}

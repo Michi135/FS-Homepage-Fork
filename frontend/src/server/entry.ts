@@ -46,10 +46,12 @@ function cleanExit(...cleanups: Function[])
     )
     server.use((req, res, next) =>
     {
-      const ip = req.headers["x-forwarded-for"]
+      const ip = req.headers["x-real-ip"]
 
       if (typeof ip === "string")
         res.locals.isUni = uniMask.contains(ip)
+      else
+        res.locals.isUni = false
       next()
     })
 

@@ -12,15 +12,14 @@ import type * as App from '@shared/app'
 import { exportStates } from '@vue/apollo-ssr'
 import { brotliCompressSync, gzipSync } from 'zlib'
 import devalue from '@nuxt/devalue'
-
+import jsonwt from 'jsonwebtoken'
+const { sign } = jsonwt
 
 import fsExtra from 'fs-extra'
-
 const { readJson, readFile } = fsExtra
 
 //TODO:: improve
 import { createRequire } from 'module'
-
 const require = createRequire(import.meta.url)
 
 
@@ -43,6 +42,14 @@ const chunks: Record<string, string> = {
 
 let initialHtml: string | undefined
 let initialManifest: Record<string, string> | undefined
+let networkToken: string | undefined
+
+function getNetworkToken()
+{
+  if (!networkToken) //TODO:: env secret, shared between frontendserver and backendserver
+    networkToken = sign({ fromServer: true }, 'klandfgjklandfskjhgaksjdnlkösajkdfoijasldkjflkasdnfasoiehjo')
+  return networkToken
+}
 
 async function loadDom(dev?: devMiddleware)
 {
@@ -157,9 +164,15 @@ export default function ssr(dev: boolean)
         if (testLang?.length === 2 && ['en'].includes(testLang.at(1)!))
           language = <'en'>testLang.at(1)!
       }
+
+      let args = { ctx: { language: language, isUniNetwork: res.locals!.isUni } }
+
+      if (res.locals?.isUni) //TODO:: wieder entkommentieren
+        args = Object.assign(args, { networkToken: getNetworkToken() })
+
       //@ts-ignore necessary in case there isn't a compiled main.js
       const { createDefaultApp } = <typeof App>(await import('@distServer/main.js'))
-      const { router, app, pinia, store, i18n, apolloClients } = createDefaultApp({ language: language })
+      const { router, app, pinia, store, i18n, apolloClients } = createDefaultApp(args)
 
       router.push(req.url)
       await router.isReady()
@@ -213,12 +226,11 @@ export default function ssr(dev: boolean)
 
       doc.getElementById('app')!.innerHTML = await renderToString(app, context)
 
-      if (res.locals?.isUni)
+      /*if (res.locals?.isUni)
       {
         const condScript = doc.createElement('script')
         head.appendChild(condScript)
-      }
-
+      }*/
       head.innerHTML += `<script nonce="${res.locals.cspNonce}">window.__INITIAL_STATE__=${devalue(pinia.state.value)}</script>`
       head.innerHTML += `<script nonce="${res.locals.cspNonce}">${exportStates(apolloClients)}</script>`
 

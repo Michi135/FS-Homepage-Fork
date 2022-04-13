@@ -27,12 +27,14 @@ declare global {
   }
 }
 
-function createBundledApp(root: Component, ctx?: Partial<State>)
+type BundleArgs = { ctx?: Partial<State>, networkToken?: string }
+
+function createBundledApp(root: Component, args: BundleArgs = {})
 {
   const app = (__IS_SERVER__ || __IS_SSR__) ? createSSRApp(root) : createApp(root)
   const { router, localization } = createBundledRouter()
 
-  const GraphqlVue = createGraphql()
+  const GraphqlVue = createGraphql(args.networkToken)
   const pinia = createPinia()
 
   if (!__IS_SERVER__ && __IS_SSR__ && window.__INITIAL_STATE__)
@@ -49,8 +51,8 @@ function createBundledApp(root: Component, ctx?: Partial<State>)
   app.use(pinia)
 
   const store = useStore(pinia)
-  if (__IS_SERVER__ && ctx)
-    store.$patch(ctx)
+  if (__IS_SERVER__ && args.ctx)
+    store.$patch(args.ctx)
 
   const i18n = createI18n(
     {
@@ -95,9 +97,9 @@ export interface BundledApp<S extends Store<any>, P extends I18n<any>> {
     apolloClients: ApolloClients
 }
 
-function createDefaultApp(ctx?: Partial<State>)
+function createDefaultApp(args: BundleArgs = {})
 {
-  return createBundledApp(app, ctx)
+  return createBundledApp(app, args)
 }
 
 export { createBundledApp, createDefaultApp }

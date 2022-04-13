@@ -5,11 +5,10 @@
     v-intersect="onIntersect"
   >
     <v-img
-      :class="{ right: image.orientation === 'right', left: image.orientation === 'left' }"
+      :class="{ right: orientation === 'right', left: orientation === 'left' }"
       class="tw-mx-4 img"
       contain
-      v-if="image"
-      :src="image?.img"
+      :src="image"
     ></v-img>
     <div style="overflow: hidden;">
       <h1>{{ `${title} (${formatedDate} Uhr)` }}</h1>
@@ -66,9 +65,16 @@ export default defineComponent({
       required: true
     },
     image: {
-      type: Object as PropType<{ img: string, orientation: 'left' | 'right' }>,
+      type: String,
+      required: true
+    },
+    orientation: {
+      type: String as PropType<'left' | 'right'>,
       required: false,
-      default: undefined
+      default: () =>
+      {
+        'right'
+      }
     }
   },
   setup(props)
@@ -81,7 +87,8 @@ export default defineComponent({
       intersecting.value = entries
       //console.log(`entry: ${entries}; observer: ${observer}`)
     }
-
+    //TODO:: add links for youtube with https://www.youtube-nocookie.com/embed/{video-id}
+    //drowpdown iframe
     return { formatedDate, onIntersect, intersecting }
   }
 })

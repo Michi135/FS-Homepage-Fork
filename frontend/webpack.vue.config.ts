@@ -135,7 +135,7 @@ const config = (env: NodeJS.ProcessEnv = {}): Configuration =>
   //aliases = { ...aliases, ...{ "vue": "vue/dist/vue.runtime.esm-bundler.js", 'vue-i18n': 'vue-i18n/dist/vue-i18n.runtime.esm-bundler.js' } }
   if (!isServer)
   {
-    aliases['crypto'] = false
+    //aliases['crypto'] = false
     //aliases['stream'] = 'stream-browserify'
   }
 
@@ -205,14 +205,14 @@ const config = (env: NodeJS.ProcessEnv = {}): Configuration =>
             type: 'javascript/auto',
             loader: '@intlify/vue-i18n-loader'
           },
-          {
+          /*{
             test: /\.(json5?|ya?ml)$/, // target json, json5, yaml and yml files
             type: 'javascript/auto',
             loader: '@intlify/vue-i18n-loader'
             //include: [ // Use `Rule.include` to specify the files of locale messages to be pre-compiled
             //path.resolve(__dirname, 'src/locales')
             //]
-          },
+          },*/
           {
             test: /\.(png|jpe?g|gif|pdf)$/i,
             type: 'asset',
@@ -304,7 +304,8 @@ const config = (env: NodeJS.ProcessEnv = {}): Configuration =>
           __IS_SERVER__: isServerBuild,
           __VUE_OPTIONS_API__: true,
           __VUE_PROD_DEVTOOLS__: false,
-          __VUE_I18N_LEGACY_API__: false
+          __VUE_I18N_LEGACY_API__: false,
+          __BACKEND_BASE_URL__: ''
         })
         //new LicenseWebpackPlugin({
         //}) as any,
@@ -314,8 +315,9 @@ const config = (env: NodeJS.ProcessEnv = {}): Configuration =>
           name: 'runtime'
         },
         emitOnErrors: false,
-        splitChunks: (isServerBuild) ?
-          {
+        concatenateModules: (isServer) ? true : undefined,
+        splitChunks: (isServerBuild) ? false
+          /*{
             cacheGroups: {
               main: {
                 name: "main",
@@ -323,7 +325,7 @@ const config = (env: NodeJS.ProcessEnv = {}): Configuration =>
                 enforce: true
               }
             }
-          } :
+          }*/ :
           {
             chunks: "all",
             cacheGroups: {

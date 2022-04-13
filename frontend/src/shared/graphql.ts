@@ -1,10 +1,9 @@
-import { InMemoryCache, HttpLink, ApolloClient } from '@apollo/client/core'
+import { InMemoryCache, HttpLink, ApolloClient, ApolloLink } from '@apollo/client/core'
 import type { ApolloClientOptions, NormalizedCacheObject } from '@apollo/client/core'
 import fetch from 'cross-fetch'
 import { ApolloClients } from '@vue/apollo-composable'
 import type { ApolloClients as SSRApolloClients } from '@vue/apollo-ssr'
 import type { App } from 'vue'
-
 
 /*import { onError } from '@apollo/client/link/error'
 
@@ -19,12 +18,26 @@ const errorlink = onError(({ graphQLErrors, networkError }) => {
   if (networkError) console.log(`[Network error]: ${networkError}`)
 })*/
 
-function genClients()
+function networkMiddleware(networkToken: string)
 {
-  const http = new HttpLink({ uri: /*__BACKEND_BASE_URL__ +*/ '/v1/graphql', fetch, useGETForQueries: true, credentials: 'same-origin' })
+  return new ApolloLink((operation, forward) =>
+  {
+    operation.setContext(({ headers = {} }) => ({
+      headers: {
+        ...headers,
+        'network-token': networkToken
+      }
+    }))
+    return forward(operation)
+  })
+}
+
+function genClients(networkToken?: string)
+{
+  const http = new HttpLink({ uri: /*__BACKEND_BASE_URL__ +*/ 'http://www.fsmpi.uni-bayreuth.de/v1/graphql', fetch, useGETForQueries: true, credentials: 'same-origin' })
 
   const apolloOptions: ApolloClientOptions<NormalizedCacheObject> = {
-    link: http,//authMiddleware.concat(http),
+    link: (__IS_SERVER__ && networkToken) ? networkMiddleware(networkToken).concat(http) : http,
     cache: !__IS_SERVER__
     //@ts-ignore
       ? new InMemoryCache().restore((<Object>window.__APOLLO_STATE__).default)
@@ -50,9 +63,9 @@ function genClients()
   return clients
 }
 
-export function createGraphql()
+export function createGraphql(networkToken?: string)
 {
-  const clients = genClients()
+  const clients = genClients(networkToken)
   return {
     clients,
     install(app: App)

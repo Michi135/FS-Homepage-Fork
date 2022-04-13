@@ -32,7 +32,7 @@
         }
       },
       "type": "datetime",
-      "unique": true,
+      "unique": false,
       "required": true,
       "default": "2022-04-01T18:00:00.000Z"
     },

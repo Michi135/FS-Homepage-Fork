@@ -16,7 +16,7 @@
           Kinofeeling ab und an Popcorn angeboten werden.
         </p>
         <p>
-          Die gezeigten Filme wurden stets im vergangenen Semester durch Studierende der Universität
+          Die gezeigten Filme wurden stets in den vergangenen Semester durch Studierende der Universität
           mitbestimmt und werden durch vorhergehende Kurzfilme abgerundet.
         </p>
         <p>
@@ -27,9 +27,18 @@
           Specials bieten wir zusätzlich auch noch Glühwein (Winter) oder Cocktails (Sommer) an. Das
           Sommerspecial ist außerdem im Innenhof des NW2-Gebäudes, also OPEN AIR!
         </p>
-        <template v-if="!uniNetz">
+        <template v-if="!store.isUniNetwork">
           <p>Die Termine für dieses Semester sind:</p>
           <p>
+            <template v-for="(date, i) in formatedDate">
+              <template v-if="i !== formatedDate.length - 1">
+                {{ date + '/ ' }}
+              </template>
+              <template v-else>
+                {{ 'und ' + date + ' ' }}
+              </template>
+            </template>
+
             03.05. / 17.05. / 31.05. / 14.06. / 28.06. und 12.07. (Sommerspecial) jeweils um 20 Uhr.
           </p>
           <p>
@@ -41,15 +50,16 @@
           <p>Das Programm für Sommersemester 2022 ist:</p>
           <div style="height: 2em;"></div>
           <template
-            v-for="(movie, i) in films"
+            v-for="(movie, i) in filmtranslation"
             :key="i"
           >
             <movie
               class="tw-py-3"
               v-bind="movie"
+              :orientation="( i % 2) ? 'left' : 'right'"
             >
             </movie>
-            <hr v-if="i !== films.length - 1">
+            <hr v-if="i !== filmtranslation.length - 1">
           </template>
         </template>
       </div>
@@ -61,35 +71,74 @@
 import { useQuerySSR } from "@shared/vue-apollo-ssr"
 import { useQuery } from "@vue/apollo-composable"
 import gql from "graphql-tag"
-import { defineComponent, Ref, ref } from "vue"
+import { computed, defineComponent, ref, watch } from "vue"
+import { useI18n } from 'vue-i18n'
+import { useStore } from '@shared/store'
+import dateFormat from "dateformat"
+
 import movie from './movie.vue'
 
 interface Movie {
-    title: string
-    day: Date,
-    description: string
-    locations: string[]
-    year: number,
-    screenTime: number,
-    genres: string[],
-    image?: {
-      img: string,
-      orientation: 'left' | 'right'
+  title: string
+  description: string
+  day: Date,
+  locations: string[]
+  year: number,
+  screenTime: number,
+  genres: string[],
+  image: string,
+  link: string
+}
+
+type Genre =
+  'Krimi' | 'Thriller' | 'Tragikomödie' |
+  'Kriegssatire' | 'Drama' | 'Kriegsfilm'
+
+type GraphqlFilmeData = {
+  attributes: {
+    titel: string
+    datum: string
+    beschreibung: string
+    filmort: [
+      {
+        laender: string
+      }
+    ]
+    jahr: number
+    dauer: number
+    genre: [
+      {
+        genre: Genre
+      }
+    ]
+    bild: {data: {attributes: {url: string}}}
+    trailerlink: string
+    localizations: {
+      data: [{
+        attributes: {
+          titel: string
+          locale: 'en'
+          beschreibung: string
+          trailerlink: string
+        }
+      }]
     }
+  }
 }
 
-interface Film {
-  titel: string,
-  datum: string, //should be date but is string
-  beschreibung: string,
-  orte: Array<{ ort: string }>,
-  jahr: number,
-  dauer: number,
-  genres: Array<{ genre: string }>
-  bild?: { url: string }
+type GraphqlFilmePayload = {
+  data: GraphqlFilmeData[]
 }
 
-type Films = Array<Film>
+type GraphqlFilme = {
+  uniKinoFilmes: GraphqlFilmePayload
+}
+
+type KinoDates = {
+  uniKinoDates: string[]
+}
+
+type GraphqlQuery = KinoDates & GraphqlFilme
 
 export default defineComponent({
   components: {
@@ -97,66 +146,137 @@ export default defineComponent({
   },
   setup()
   {
-    const res = useQuery<{ films: Films, }>(gql`
+    const store = useStore()
+    const { locale } = useI18n()
+
+    const res = useQuery<GraphqlQuery>(gql`
+    {
+      uniKinoDates
+      uniKinoFilmes
       {
-        films {
-          titel
-          datum
-          beschreibung
-          orte {
-            ort
-          }
-          jahr
-          dauer
-          genres {
-            genre
-          }
-          bild {
-            url
+        data
+        {
+          attributes
+          {
+            localizations{data{attributes{titel locale beschreibung trailerlink}}}
+            beschreibung
+            titel
+            datum
+            filmort { laender }
+            jahr
+            dauer
+            genre { genre }
+            bild {data{attributes{url}}}
+            trailerlink
           }
         }
       }
-    `)
+    }`, null, { errorPolicy: 'all' })
 
-    const films: Ref<Array<Movie>> = ref([])
-
-    let i: 'left' | 'right' = 'left'
-    const process_films = () =>
+    function copyStdLocale(data: GraphqlFilmeData): Movie
     {
-      films.value = res.result!.value!.films.map((val): Movie =>
-      {
-        if (i === 'left')
-          i = 'right'
-        else
-          i = 'left'
+      const { titel, beschreibung, datum, filmort,
+        jahr, dauer, genre, bild, trailerlink } = data.attributes
 
-        return {
-          title: val.titel,
-          day: new Date(val.datum),
-          description: val.beschreibung,
-          locations: val.orte.map((ort) =>
-          {
-            return ort.ort
-          }),
-          year: val.jahr,
-          screenTime: val.dauer,
-          genres: val.genres.map((genre) =>
-          {
-            return genre.genre
-          }),
-          image: (val.bild) ? {
-            img: val.bild.url,
-            orientation: i
-          } : undefined
-        }
-      })
+      return {
+        title: titel,
+        day: new Date(datum),
+        locations: filmort.map((ort) =>
+        {
+          return ort.laender
+        }),
+        year: jahr,
+        screenTime: dauer,
+        genres: genre.map(({ genre }) =>
+        {
+          return genre
+        }),
+        image: bild.data.attributes.url,
+        description: beschreibung,
+        link: trailerlink
+      }
     }
 
-    useQuerySSR(process_films, res)
+    function copyLocale(data: GraphqlFilmeData, lang?: 'en' | 'de')
+    {
+      if (!lang || lang === 'de')
+        return copyStdLocale(data)
 
-    const uniNetz = true
+      const localized = data.attributes.localizations.data.find((val) =>
+      {
+        return val.attributes.locale === lang
+      })
 
-    return { uniNetz, films }
+      if (!localized) return copyStdLocale(data)
+
+      const { datum, filmort,
+        jahr, dauer, genre, bild } = data.attributes
+
+      const { titel, beschreibung, trailerlink } = localized.attributes
+
+      return {
+        title: titel,
+        day: new Date(datum),
+        locations: filmort.map((ort) =>
+        {
+          return ort.laender
+        }),
+        year: jahr,
+        screenTime: dauer,
+        genres: genre.map(({ genre }) =>
+        {
+          return genre
+        }),
+        image: bild.data.attributes.url,
+        description: beschreibung,
+        link: trailerlink
+      }
+    }
+
+    const films = ref<GraphqlFilmeData[]>([])
+    const filmtranslation = computed<Movie[]>(() =>
+    {
+      if (films.value.length === 0)
+        return []
+
+      const sorted = [...films.value].sort((a, b) =>
+      {
+        return new Date(a.attributes.datum).getTime() - new Date(b.attributes.datum).getTime()
+      })
+
+      return sorted.map((val) =>
+      {
+        return copyLocale(val, <'en' | 'de'>locale.value)
+      })
+    })
+
+    const filmDates = ref<string[]>([])
+
+    //TODO Grenzfall im template oben, falls nur ein Termin steht
+    //TODO Integration von Sommerspecial in weiteren iterationen
+    const formatedDate = computed(() =>
+    {
+      return filmDates.value.map((val) =>
+      {
+        return dateFormat(new Date(val), 'dd.mm.')
+      })
+    })
+
+    const process_films = () =>
+    {
+      films.value = res.result.value!.uniKinoFilmes?.data
+    }
+    const process_film_dates = () =>
+    {
+      filmDates.value = res.result.value!.uniKinoDates
+    }
+
+    useQuerySSR(() =>
+    {
+      process_film_dates(), process_films()
+    }, res)
+
+    return { store, filmtranslation, formatedDate }
   }
 })
 </script>

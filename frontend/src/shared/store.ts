@@ -6,11 +6,13 @@ const defaultState: {
   defaultTitle: string
   language: 'de' | 'en'
   initialTime: Date
+  isUniNetwork: boolean
 } = {
   defaultFavicon: defFav,
   defaultTitle: "FSMPI",
   language: "de",
-  initialTime: new Date()
+  initialTime: new Date(),
+  isUniNetwork: false
   //x2: ""
 }
 

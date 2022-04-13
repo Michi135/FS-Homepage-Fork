@@ -1,6 +1,7 @@
 'use strict';
 
 const { ApolloError } = require('apollo-server-errors');
+const { verify } = require('jsonwebtoken')
 
 /*export class MyError extends ApolloError {
 
@@ -12,6 +13,32 @@ const { ApolloError } = require('apollo-server-errors');
   }
 
 }*/
+function isValidIp(context)
+{
+  return context.http.request.header['x-real-ip'] === '192.168.178.32'
+}
+
+function isValidJwt(context)
+{
+  const jwt = context.http.request.header['network-token']
+  //console.log(jwt)
+  if (!jwt)
+    return false
+  try {
+    const token = verify(jwt, 'klandfgjklandfskjhgaksjdnlkösajkdfoijasldkjflkasdnfasoiehjo')
+  }
+  catch (err) {
+    return false
+  }
+  return true
+}
+
+function checkUniNetwork(context)
+{
+  if (!isValidIp(context) && !isValidJwt(context))
+    throw new ApolloError('activate uni vpn', 'WRONG_NETWORK')
+}
+
 
 module.exports = {
   /**
@@ -23,62 +50,64 @@ module.exports = {
    register({ strapi }) {
     const extensionService = strapi.plugin('graphql').service('extension');
 
+    //console.log(extensionService.shadowCRUD('api::uni-kino-filme.uni-kino-filme').field('datum'))
+
     extensionService.use({
+      //const res = 
       resolversConfig: {
         'Query.uniKinoFilmes': {
           policies: [
             (context, { strapi }) => {
-              //context.http.throw(407, 'Nicht im Uni-Netz')
-              //console.log(context)
-              //console.log(strapi)
-              console.log(context.http.request)
 
-              if (context.http.request.header['x-real-ip'] !== '192.168.178.32')
-                throw new ApolloError('activate uni vpn', 'WRONG_NETWORK')
+              checkUniNetwork(context)
 
               return true;
             }
           ],
           auth: false
-          /*middlewares: [
-            async (next, parent, args, context, info) => {
-              
-              console.log(context.koaContext.request)
-
-              throw new ApolloError('activate uni vpn', 'WRONG_NETWORK')
-              // call the next resolver
-              const res = await next(parent, args, context, info);
-              
-              
-              //context.koaContext.throw(407, 'Wrong network')
-              //context.http.throw(407, 'Wrong network')
-              console.log(context)
-
-              return res;
-            }
-          ]*/
-            /**
-             * Basic middleware example #1
-             * Log resolving time in console
-             */
-            /*
-            },*/
-            /**
-             * Basic middleware example #3
-             * change the 'name' attribute of parent with id 1 to 'foobar'
-             */
-            /*(resolve, parent, ...rest) => {
-              if (parent.id === 1) {
-                return resolve({...parent, name: 'foobar' }, ...rest);
-              }
-
-              return resolve(parent, ...rest);
-            }*/
-          
-          //auth: false,
         },
-      }
+        'UniKinoFilme.localizations': {
+          policies: [
+            (context, { strapi }) => {
+              checkUniNetwork(context)
+
+              return true;
+            }
+          ],
+          auth: false
+        }
+      },
     })
+
+    const extension = ({ nexus }) => ({
+      // Nexus
+      types: [
+        nexus.extendType({
+          type: 'Query',
+          definition(t) {
+            t.field('uniKinoDates', {
+              type: nexus.nonNull(nexus.list('DateTime'))
+            })
+          }
+        })
+      ],
+      resolvers: {
+        Query: {
+          uniKinoDates: {
+            async resolve() {
+              const res = (await strapi.service('api::uni-kino-filme.uni-kino-filme').find()).results.map(({datum}) => { return datum })
+              return res;
+            },
+          },
+        },
+      },
+      resolversConfig: {
+        'Query.uniKinoDates': {
+          auth: false,
+        },
+      },
+    });
+    extensionService.use(extension)
   },
 
   /**
