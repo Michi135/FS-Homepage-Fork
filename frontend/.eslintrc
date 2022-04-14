@@ -18,7 +18,8 @@
         "semi": ["error", "never"],
         "no-trailing-spaces": "error",
         "space-in-parens": "error",
-        "comma-dangle": "error"
+        "comma-dangle": "error",
+        "vue/attribute-hyphenation": "off"
     },
     "parserOptions": {
         "parser": "@typescript-eslint/parser",

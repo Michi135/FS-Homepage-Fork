@@ -1,18 +1,22 @@
 <template>
-  <iframe
-    :src="pdf"
-    width="100%"
-    height="100%"
-    aria-label="Zeitschrift Keine Panik"
-  >
-    <a
-    :href="pdf"
-    download
-    ><p>
-    {{ t('no') }}<br />{{ t('click') }}
-    <span class="tw-text-blue-500">{{ t('here') }}</span> {{ t('dl') }}
-    </p></a>
-  </iframe>
+  <div>
+    <v-no-ssr>
+      <iframe
+        :src="pdf"
+        width="100%"
+        height="100%"
+        aria-label="Zeitschrift Keine Panik"
+      >
+        <a
+        :href="pdf"
+        download
+        ><p>
+        {{ t('no') }}<br />{{ t('click') }}
+        <span class="tw-text-blue-500">{{ t('here') }}</span> {{ t('dl') }}
+        </p></a>
+      </iframe>
+    </v-no-ssr>
+  </div>
 </template>
 
 <script lang="ts">

@@ -127,7 +127,7 @@ import engFlagSvg from 'svg-country-flags/svg/gb.svg'
 export default defineComponent({
   setup: () =>
   {
-    const isOpen = ref<Boolean>(false)
+    const isOpen = ref<boolean>(false)
     const globalI18n = useI18n({ useScope: 'global' })
     const localI18n = useI18n()
     const { language } = storeToRefs(useStore())
@@ -147,7 +147,6 @@ export default defineComponent({
 
     return {
       language,
-      switchValue: false,
       tLocal: localI18n.t,
       tGlobal: globalI18n.t,
       isOpen,

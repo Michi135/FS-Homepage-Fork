@@ -4,31 +4,35 @@
       <div style="max-width: 1100px; margin: 0 auto">
         <h2><b>Uni Kino</b></h2>
         <div style="height: 3em;"></div>
-        <p>
-          Neben der allgemeinen Fachschaftsarbeit organisiert die Fachschaft MPI bereits seit 1992 das Uni-
-          Kino an der Universität Bayreuth. Dort zeigen wir euch während der klassischen Vorlesungszeit,
-          jeden zweiten Dienstag einen Film im H17 und H18.
-        </p>
-        <p>
-          Die normalerweise mit recht trockenem und mathematischem Stoff assoziierten Hörsäle verwandeln
-          sich an diesen Tagen dank Beamer und großer Soundanlagen in echte Kinosäle! Dabei bieten wir
-          auch diverse Snacks und Getränke an. In Kooperation mit der FS-Kuwi kann sogar für das perfekte
-          Kinofeeling ab und an Popcorn angeboten werden.
-        </p>
-        <p>
-          Die gezeigten Filme wurden stets in den vergangenen Semester durch Studierende der Universität
-          mitbestimmt und werden durch vorhergehende Kurzfilme abgerundet.
-        </p>
-        <p>
-          Und das alles könnt ihr schon für den kleinen Unkostenbeitrag von 3€ erleben!
-        </p>
-        <p>
-          Aber sogar dieser Unkostenbeitrag entfällt bei unseren Sommer- und Weihnachtsspecials! Bei diesen
-          Specials bieten wir zusätzlich auch noch Glühwein (Winter) oder Cocktails (Sommer) an. Das
-          Sommerspecial ist außerdem im Innenhof des NW2-Gebäudes, also OPEN AIR!
-        </p>
+        <i18n-t
+          keypath="p[0]"
+          tag="p"
+        >
+        </i18n-t>
+        <i18n-t
+          keypath="p[1]"
+          tag="p"
+        ></i18n-t>
+        <i18n-t
+          keypath="p[2]"
+          tag="p"
+        >
+        </i18n-t>
+        <i18n-t
+          keypath="p[3]"
+          tag="p"
+        >
+        </i18n-t>
+        <i18n-t
+          keypath="p[4]"
+          tag="p"
+        >
+        </i18n-t>
         <template v-if="!store.isUniNetwork">
-          <p>Die Termine für dieses Semester sind:</p>
+          <i18n-t
+            keypath="p[5.1]"
+            tag="p"
+          ></i18n-t>
           <p>
             <template v-for="(date, i) in formatedDate">
               <template v-if="i !== formatedDate.length - 1">
@@ -38,16 +42,19 @@
                 {{ 'und ' + date + ' ' }}
               </template>
             </template>
-
             03.05. / 17.05. / 31.05. / 14.06. / 28.06. und 12.07. (Sommerspecial) jeweils um 20 Uhr.
           </p>
-          <p>
-            Leider können wir auf Grund rechtlicher Rahmenbedingungen das konkrete Programm nur
-            campusintern veröffentlichen.
-          </p>
+          <i18n-t
+            keypath="p[5.2]"
+            tag="p"
+          >
+          </i18n-t>
         </template>
         <template v-else>
-          <p>Das Programm für Sommersemester 2022 ist:</p>
+          <i18n-t
+            keypath="p[6]"
+            tag="p"
+          ></i18n-t>
           <div style="height: 2em;"></div>
           <template
             v-for="(movie, i) in filmtranslation"
@@ -71,7 +78,7 @@
 import { useQuerySSR } from "@shared/vue-apollo-ssr"
 import { useQuery } from "@vue/apollo-composable"
 import gql from "graphql-tag"
-import { computed, defineComponent, ref, watch } from "vue"
+import { computed, defineComponent, ref } from "vue"
 import { useI18n } from 'vue-i18n'
 import { useStore } from '@shared/store'
 import dateFormat from "dateformat"
@@ -152,7 +159,7 @@ export default defineComponent({
     const res = useQuery<GraphqlQuery>(gql`
     {
       uniKinoDates
-      uniKinoFilmes
+      uniKinoFilmes (sort: "datum")
       {
         data
         {
@@ -239,12 +246,17 @@ export default defineComponent({
       if (films.value.length === 0)
         return []
 
-      const sorted = [...films.value].sort((a, b) =>
+      /*const sorted = [...films.value].sort((a, b) =>
       {
         return new Date(a.attributes.datum).getTime() - new Date(b.attributes.datum).getTime()
       })
 
       return sorted.map((val) =>
+      {
+        return copyLocale(val, <'en' | 'de'>locale.value)
+      })*/
+
+      return films.value.map((val) =>
       {
         return copyLocale(val, <'en' | 'de'>locale.value)
       })
@@ -268,7 +280,10 @@ export default defineComponent({
     }
     const process_film_dates = () =>
     {
-      filmDates.value = res.result.value!.uniKinoDates
+      filmDates.value = [...res.result.value!.uniKinoDates].sort((a, b) =>
+      {
+        return new Date(a).getTime() - new Date(b).getTime()
+      })
     }
 
     useQuerySSR(() =>
@@ -339,3 +354,46 @@ hr {
     border: 0;
 }
 </style>
+
+<i18n locale="de">
+{
+  "p[0]": "Neben der allgemeinen Fachschaftsarbeit organisiert die Fachschaft MPI bereits seit 1992 das Uni-\
+          Kino an der Universität Bayreuth. Dort zeigen wir euch während der klassischen Vorlesungszeit, \
+          jeden zweiten Dienstag einen Film im H17 und H18.",
+  "p[1]": "Die normalerweise mit recht trockenem und mathematischem Stoff assoziierten Hörsäle verwandeln \
+          sich an diesen Tagen dank Beamer und großer Soundanlagen in echte Kinosäle! Dabei bieten wir \
+          auch diverse Snacks und Getränke an. In Kooperation mit der FS-Kuwi kann sogar für das perfekte \
+          Kinofeeling ab und an Popcorn angeboten werden.",
+  "p[2]": "Die gezeigten Filme wurden in den vergangenen Semester stets durch Studierende der Universität \
+          mitbestimmt und werden durch vorhergehende Kurzfilme abgerundet.",
+  "p[3]": "Und das alles könnt ihr schon für den kleinen Unkostenbeitrag von 3€ erleben!",
+  "p[4]": "Aber sogar dieser Unkostenbeitrag entfällt bei unseren Sommer- und Weihnachtsspecials! Bei diesen \
+          Specials bieten wir zusätzlich auch noch Glühwein (Winter) oder Cocktails (Sommer) an. Das \
+          Sommerspecial ist außerdem im Innenhof des NW2-Gebäudes, also OPEN AIR!",
+  "p[5.1]": "Die Termine für dieses Semester sind:",
+  "p[5.2]": "Leider können wir auf Grund rechtlicher Rahmenbedingungen das konkrete Programm nur \
+            campusintern veröffentlichen.",
+  "p[6]": "Das Programm für das Sommersemester 2022 ist:"
+}
+</i18n>
+
+<i18n locale="en">
+{
+  "p[0]": "In addition to the general student council work, the student council MPI has been organizing the Uni-\
+          Cinema at the University of Bayreuth since 1992. There we show you during the classical lecture period, \
+          every second tuesday a film in the H17 and H18.",
+  "p[1]": "The lecture halls normally associated with quite dry and mathematical material are transformed into real movie \
+          theaters thanks to beamers and large sound systems! At the same time we \
+          also offer various snacks and drinks. In cooperation with the FS-Kuwi we can even offer popcorn for the perfect \
+          cinema feeling from time to time.",
+  "p[2]": "In past semesters, the films shown have always been co-directed by students at the university and are rounded \
+          out by preceding short films.",
+  "p[3]": "And you can experience all this for the small fee of 3€!",
+  "p[4]": "But even this expense contribution is waived for our summer and christmas specials! During these specials we \
+          also offer mulled wine (winter) or cocktails (summer). The \
+          Summer Special is also in the courtyard of the NW2 building, therefore OPEN AIR!",
+  "p[5.1]": "The dates for this semester are:",
+  "p[5.2]": "Unfortunately, due to legal constraints, we can only publish the specific program internally within the campus.",
+  "p[6]": "The program for summer semester 2022 is:"
+}
+</i18n>

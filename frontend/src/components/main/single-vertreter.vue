@@ -31,7 +31,6 @@
 
     <v-icon
       large
-      color="orange darken-2"
       :icon="mdiSchool"
     />
     <studiengang
@@ -55,7 +54,6 @@
 
     <v-icon
       large
-      color="orange darken-2"
       :icon="mdiEmail"
     />
     <a :href="'mailto:' + email">

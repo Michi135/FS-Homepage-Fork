@@ -11,6 +11,7 @@ import { useI18n } from 'vue-i18n'
 import { useStore } from '@shared/store'
 import { createFaviconLink } from '../favicon/favicon'
 import 'tailwindcss/tailwind.css'
+import 'vuetify/lib/styles/main.css'
 import { storeToRefs } from 'pinia'
 import { getKeyPath } from '@shared/routes'
 
