@@ -1,7 +1,8 @@
 import { InMemoryCache, HttpLink, ApolloClient, ApolloLink } from '@apollo/client/core'
-import type { ApolloClientOptions, NormalizedCacheObject } from '@apollo/client/core'
 import fetch from 'cross-fetch'
 import { ApolloClients } from '@vue/apollo-composable'
+
+import type { ApolloClientOptions, NormalizedCacheObject } from '@apollo/client/core'
 import type { ApolloClients as SSRApolloClients } from '@vue/apollo-ssr'
 import type { App } from 'vue'
 

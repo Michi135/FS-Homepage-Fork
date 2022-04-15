@@ -24,7 +24,7 @@ const renderer = (props: { children: JSX.Element[] | ComponentOptions | Componen
     else return <>{ h(children) }</>
 }*/
 
-const textNode = defineComponent({
+/*const textNode = defineComponent({
     props: {
         uuid: {
             type: String,
@@ -67,4 +67,4 @@ const textNode = defineComponent({
     }
 })
 
-export { textNode }
+export { textNode }*/

@@ -162,7 +162,7 @@ const config = (env: NodeJS.ProcessEnv = {}): Configuration =>
           module: isServerBuild
         },
         library: {
-          type: (isServerBuild) ? 'module' : 'commonjs'
+          type: 'module'
         },
         module: isServerBuild,
         filename: (isServerBuild) ? '[name].js' : (isProd) ? '[name].[contenthash].js' : '[name].js',
@@ -174,7 +174,7 @@ const config = (env: NodeJS.ProcessEnv = {}): Configuration =>
         chunkFormat: isServerBuild ? 'module' : undefined
       },
       experiments: {
-        outputModule: isServerBuild
+        outputModule: true
       },
       externals: [
         isServerBuild ? nodeExternals(

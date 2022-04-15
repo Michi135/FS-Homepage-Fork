@@ -1,10 +1,7 @@
 import type { RouteComponent, RouteRecordRaw } from 'vue-router'
 import fav2 from '@static/favicon2.svg'
 import studentSvg from '@components/main/student.svg'
-//import localizedTitels from './localizedTitels.json'
 import localizedRoutes from './localizedRoutes.json'
-
-//type LocalizedRoutes = Record<string, Record<string, string>>
 
 const defaultLayout = () => import('@components/main/content.vue'/* webpackChunkName: "home" */)
 const homeComponent = () => import('@components/main/home.vue'/* webpackChunkName: "home" */)
@@ -132,8 +129,8 @@ export function getKeyPath(key: string, language: 'de' | 'en' = 'de')
 }
 
 addHeaderRoute('home', homeComponent)
-addHeaderRoute('representatives', vertreterComponent)
-addHeaderRoute('freshers', erstisComponent)
+addHeaderRoute('representatives', vertreterComponent, { favicon: fav2 })
+addHeaderRoute('freshers', erstisComponent, { favicon: studentSvg })
 addHeaderRoute('noPanic', keinePanikComponent)
 addHeaderRoute('externals', externeComponent)
 addHeaderRoute('blog', blogComponent)

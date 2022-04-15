@@ -21,7 +21,6 @@
         <p>
           <v-icon
             large
-            color="orange darken-2"
             :icon="mdiEmail"
           />
           fsmpi@uni-bayreuth.de
@@ -30,7 +29,6 @@
       <p>
         <v-icon
           large
-          color="orange darken-2"
           :icon="mdiPhone"
         /> 0921/55-3101
       </p>

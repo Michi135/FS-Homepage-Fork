@@ -1,17 +1,14 @@
 import { createDefaultContext } from '@shared/context'
-import { renderToString, SSRContext } from '@vue/server-renderer'
+import { renderToString } from '@vue/server-renderer'
 //import { getStyles } from './cdn.config'
 import { getMeta } from './meta.config'
-import type { RouteLocationNormalized } from 'vue-router'
 import { createFaviconLink } from '../favicon/favicon'
-import type { NextFunction, Request, Response } from 'express'
-import type { Stats, Compiler } from 'webpack'
 import { JSDOM } from 'jsdom'
 import { join, resolve } from 'path'
-import type * as App from '@shared/app'
 import { exportStates } from '@vue/apollo-ssr'
 import { brotliCompressSync, gzipSync } from 'zlib'
 import devalue from '@nuxt/devalue'
+
 import jsonwt from 'jsonwebtoken'
 const { sign } = jsonwt
 
@@ -22,6 +19,10 @@ const { readJson, readFile } = fsExtra
 import { createRequire } from 'module'
 const require = createRequire(import.meta.url)
 
+
+import type { NextFunction, Request, Response } from 'express'
+import type { Stats, Compiler } from 'webpack'
+import type * as App from '@shared/app'
 
 interface devMiddleware {
     stats: Stats,
@@ -97,7 +98,7 @@ async function loadManifest(dev?: devMiddleware)
   return (initialManifest!)
 }
 
-function swap<A extends keyof any, B extends keyof any>(json: Record<A, B>)
+/*function swap<A extends keyof any, B extends keyof any>(json: Record<A, B>)
 {
   var ret: Record<B, A> = new Object as Record<B, A>
   for (var key in json)
@@ -105,43 +106,28 @@ function swap<A extends keyof any, B extends keyof any>(json: Record<A, B>)
     ret[json[key]] = key
   }
   return ret
-}
-
+}*/
+/*
 const supportedLanguages =
     ['de',
       'en']
-
-function getLanguage(req: Request)
+*/
+/*function getLanguage(req: Request)
 {
   const lang = req.acceptsLanguages(supportedLanguages)
   return <'en' | 'de'>(lang ? lang : 'en')
-}
-
-function loadFavicon(route: RouteLocationNormalized, context: SSRContext)
-{
-  const favicon = (route.meta.favicon) ? route.meta.favicon : context.state.defaultFavicon
-
-  return createFaviconLink(favicon)
-}
+}*/
 
 function loadDevMiddleWare(res: Response)
 {
-
   const devMiddleware = res.locals?.webpack?.devMiddleware
-
   return (!!devMiddleware) ? <devMiddleware>devMiddleware : undefined
-}
-
-function loadTitle(route: RouteLocationNormalized, context: SSRContext)
-{
-  return (route.meta.title) ? route.meta.title : context.state.defaultTitle
 }
 
 export default function ssr(dev: boolean)
 {
   return async function (req: Request, res: Response, next: NextFunction)
   {
-
     if (!req.accepts('html') || req.method !== 'GET')
       return next()
 
@@ -180,20 +166,12 @@ export default function ssr(dev: boolean)
       const currentRoute = router.currentRoute.value
       if (!currentRoute.matched.length) return res.status(404).end()
 
-      const context: SSRContext = { ...(await contextLoad) }
       const manifest = await manifestLoad
       const dom = new JSDOM(await domLoad)
-
-      context.state = { ...store.$state }
 
       const doc = dom.window.document
       const head = doc.head
       doc.children[0].setAttribute('lang', language)
-      head.innerHTML += `<title>${i18n.global.t(loadTitle(currentRoute, context))}</title>`
-      const emptyExports = doc.createElement('script')
-      emptyExports.nonce = res.locals.cspNonce
-      emptyExports.innerHTML = `var exports = {};`
-      head.appendChild(emptyExports)
 
       const chunk = chunks[req.url]
       if (chunk)
@@ -220,11 +198,14 @@ export default function ssr(dev: boolean)
         nodeImg.setAttribute('as', 'image')
         head.appendChild(nodeImg)
       }
-      head.innerHTML += getMeta()
-      //head.innerHTML += getStyles();
-      head.innerHTML += loadFavicon(currentRoute, context)
 
+      const context = await contextLoad
       doc.getElementById('app')!.innerHTML = await renderToString(app, context)
+
+      head.innerHTML += `<title>${context.title}</title>`
+      head.innerHTML += getMeta()
+      head.innerHTML += createFaviconLink(context.favicon)
+      //head.innerHTML += getStyles();
 
       /*if (res.locals?.isUni)
       {

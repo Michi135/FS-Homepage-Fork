@@ -77,6 +77,7 @@ function cleanExit(...cleanups: Function[])
     {
       return res.status(200).send(`User-agent: AdsBot-Google
     Disallow: /`)
+    //TODO:: improve discoverability with sitemap
     })
 
     const httpServer = createServer(server)
