@@ -63,7 +63,7 @@ export function getFoorterRoutes(lang: 'de' | 'en')
   return footerRoutes.get(lang)!
 }
 
-function addHeaderRoute(key: string, component: RouteComponent | Lazy<RouteComponent>, misc: { favicon?: string} = {})
+function addHeaderRoute(key: string, component: RouteComponent | Lazy<RouteComponent>, misc: { favicon?: string } = {})
 {
   //headerKeys.push(key)
   for (var [lang, translations] of Object.entries(localizedRoutes))
@@ -88,7 +88,7 @@ function addHeaderRoute(key: string, component: RouteComponent | Lazy<RouteCompo
   }
 }
 
-function addFooterRoute(key: string, component: RouteComponent | Lazy<RouteComponent>, misc: { favicon?: string} = {})
+function addFooterRoute(key: string, component: RouteComponent | Lazy<RouteComponent>, misc: { favicon?: string } = {})
 {
   //headerKeys.push(key)
   for (var [lang, translations] of Object.entries(localizedRoutes))

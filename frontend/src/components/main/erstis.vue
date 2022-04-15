@@ -95,7 +95,6 @@
             :rows="stunden"
             :data="sprechstunden"
             :breakpoint="550"
-            :translation="translation"
             :first-header-cell="{ value: 'Termin', show: 'SMALL' }"
           ></table-comp>
           <i18n-t
@@ -129,13 +128,14 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
+import { computed, defineComponent } from 'vue'
 import { useI18n } from 'vue-i18n'
 
-import type { Ref } from 'vue'
-
-import { rT } from './translation'
 import tableComp from './dynamicTable.vue'
+
+type TableCell = string[]
+type TableRow = Record<string, TableCell>
+type Table = Record<string, TableRow>
 
 export default defineComponent({
   components: {
@@ -143,15 +143,14 @@ export default defineComponent({
   },
   setup()
   {
-    let sprechstunden: Record<string, Record<string, Ref<string>[]>> = {}
-
     const tGlobal = useI18n({ useScope: 'global' }).t
     const tLocal = useI18n()
-    const { t, locale } = tLocal
+    const { t } = tLocal
 
-    const categories = ['event', 'location']
-    const stunden = [
-      '12.10 | ab 17:00',
+    const categories = computed(() => [t('event'), t('location')])
+
+    const stunden = computed(() => [
+      `12.10 | ${t('ab')} 17:00`,
       '13.10 | 19:00',
       '14.10 | 16:00-17:00',
       '18.10 | 16:00',
@@ -161,64 +160,58 @@ export default defineComponent({
       '27.10 | 17:00',
       '10.11 | 18:00',
       '19. - 21.11'
-    ]
+    ])
 
-    sprechstunden[categories[0]] = {
-      [stunden[0]]: [rT(() => t('Erstsemestergrillen'), locale).result],
-      [stunden[1]]: [rT(() => '1. ' + t('Kneipentour'), locale).result],
-      [stunden[2]]: [rT(() => 'CMlife-' + t('Einführung'), locale).result],
-      [stunden[3]]: [
-        rT(() => t('Vorstellung'), locale).result,
-        rT(() => t('Führung'), locale).result,
-        rT(() => t('Erstitüten'), locale).result
+    const sprechstunden = computed(() =>
+    {
+      let a: TableRow = {}
+      let b: TableRow = {}
+
+      a[0] = [t('Erstsemestergrillen')]
+      a[1] = ['1. ' + t('Kneipentour')],
+      a[2] = ['CMlife-' + t('Einführung')],
+      a[3] = [
+        t('Vorstellung'),
+        t('Führung'),
+        t('Erstitüten')
       ],
-      [stunden[4]]: [
-        rT(() => t('Immatrikulationsstunde'), locale).result,
-        rT(() => t('Campusabend'), locale).result
+      a[4] = [
+        t('Immatrikulationsstunde'),
+        t('Campusabend')
       ],
-      [stunden[5]]: [rT(() => '2. ' + t('Kneipentour'), locale).result],
-      [stunden[6]]: [
-        rT(() => t('Sitzung'), locale).result,
-        rT(() => t('Spieleabend'), locale).result
+      a[5] = ['2. ' + t('Kneipentour')],
+      a[6] = [
+        t('Sitzung'),
+        t('Spieleabend')
       ],
-      [stunden[7]]: [rT(() => '1. ' + t('buddy'), locale).result],
-      [stunden[8]]: [rT(() => '2. ' + t('buddy'), locale).result],
-      [stunden[9]]: [rT(() => t('Wochenende'), locale).result]
-    }
+      a[7] = ['1. ' + t('buddy')],
+      a[8] = ['2. ' + t('buddy')],
+      a[9] = [t('Wochenende')]
 
-    //[rT(() => , locale).result],
+      b[0] = [t('grillplatz')],
+      b[1] = [t('Anmeldung')],
+      b[2] = ['Online / ' + t('linkage')],
+      b[3] = ['H18 | NW2'],
+      b[4] = ['Audimax'],
+      b[5] = [t('Anmeldung')],
+      b[6] = ['H17 | NW2'],
+      b[7] = [t('Anmeldung')],
+      b[8] = [t('Anmeldung')],
+      b[9] = [t('Anmeldung')]
 
-    sprechstunden[categories[1]] = {
-      [stunden[0]]: [rT(() => t('grillplatz'), locale).result],
-      [stunden[1]]: [rT(() => t('Anmeldung'), locale).result],
-      [stunden[2]]: [rT(() => 'Online / ' + t('linkage'), locale).result],
-      [stunden[3]]: [rT(() => 'H18 | NW2', locale).result],
-      [stunden[4]]: [rT(() => 'Audimax', locale).result],
-      [stunden[5]]: [rT(() => t('Anmeldung'), locale).result],
-      [stunden[6]]: [rT(() => 'H17 | NW2', locale).result],
-      [stunden[7]]: [rT(() => t('Anmeldung'), locale).result],
-      [stunden[8]]: [rT(() => t('Anmeldung'), locale).result],
-      [stunden[9]]: [rT(() => t('Anmeldung'), locale).result]
-    }
+      let z: Table = {}
+      z[0] = a
+      z[1] = b
 
-    const translation: Record<string, () => string> = {
-      'event': () => t('event'),
-      'location': () => t('location'),
-      'wednesday': () => tGlobal('wednesday'),
-      'thursday': () => tGlobal('thursday'),
-      '12.10 | ab 17:00': () =>
-      {
-        return '12.10 | ' + t('ab') + ' 17:00'
-      }
-    }
+      return z
+    })
 
     return {
       t,
       tGlobal,
       categories,
       stunden,
-      sprechstunden,
-      translation
+      sprechstunden
     }
   }
 })

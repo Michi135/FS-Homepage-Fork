@@ -6,12 +6,12 @@ declare module '@vue/runtime-dom' {
 
 type ExtractComponentProps<T> = T extends new (...args: any) => { $props: infer P } ? P : {};
 
-/*declare module 'vue-router' {
+import 'vue-router'
+declare module 'vue-router' {
   interface RouteMeta {
-    favicon?: any,
-    title: string,
-    languages?: string[]
+    title?: string,
+    favicon?: any
   }
-}*/
+}
 
 export {}

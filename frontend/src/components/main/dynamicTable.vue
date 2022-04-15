@@ -1,5 +1,8 @@
 <template>
-  <div id="dynTable">
+  <div
+    id="dynTable"
+    :class="classId"
+  >
     <table>
       <colgroup>
         <col />
@@ -15,7 +18,7 @@
             @mouseenter="mouseEnter"
             @mouseleave="mouseLeave"
           >
-            {{ optTranslate(firstHeaderCell.value) }}
+            {{ firstHeaderCell.value }}
           </th>
           <th
             v-else
@@ -28,32 +31,32 @@
             @mouseenter="mouseEnter"
             @mouseleave="mouseLeave"
           >
-            {{ optTranslate(column) }}
+            {{ column }}
           </th>
         </tr>
       </thead>
-      <tbody :id="id">
+      <tbody>
         <tr
-          v-for="row in rows"
+          v-for="(row, i) in rows"
           :key="row"
         >
           <td
             @mouseenter="mouseEnter"
             @mouseleave="mouseLeave"
           >
-            {{ optTranslate(row) }}
+            {{ row }}
           </td>
           <td
-            v-for="column in columns"
+            v-for="(column, j) in columns"
             :key="column"
             @mouseenter="mouseEnter"
             @mouseleave="mouseLeave"
           >
             <template
-              v-for="dataPoint in data[column][row]"
+              v-for="dataPoint in data[j][i]"
               :key="dataPoint"
             >
-              <p>{{ optTranslate(dataPoint.value) }}</p>
+              <p>{{ dataPoint }}</p>
             </template>
           </td>
         </tr>
@@ -63,10 +66,9 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, getCurrentInstance, onBeforeUnmount, onMounted, watch } from 'vue'
-import { useI18n } from 'vue-i18n'
+import { computed, defineComponent, getCurrentInstance, onBeforeUnmount, onMounted, watch, onServerPrefetch, useSSRContext } from 'vue'
 
-import type { Ref, PropType } from 'vue'
+import type { PropType } from 'vue'
 //https://colorlib.com/wp/css3-table-templates/
 //https://colorlib.com/etc/tb/Table_Highlight_Vertical_Horizontal/index.html
 
@@ -81,13 +83,8 @@ export default defineComponent({
       required: true
     },
     data: {
-      type: Object as PropType<Record<string, Record<string, Ref<string>[]>>>,
+      type: Object as PropType<Record<string, Record<string, string[]>>>,
       required: true
-    },
-    translation: {
-      type: Object as PropType<Record<string, (() => string)>>,
-      required: false,
-      default: undefined
     },
     breakpoint: {
       type: Number,
@@ -106,15 +103,87 @@ export default defineComponent({
   {
     //https://www.npmjs.com/package/@thi.ng/sparse
     //https://adamlynch.com/flexible-data-tables-with-css-grid/
-    const { locale } = useI18n({ useScope: 'global' })
 
-    const optTranslate = (value: string) =>
-    {
-      return (props.translation?.[value]) ? props.translation[value]() : value
-    }
-
+    let tableLabelStyle: HTMLStyleElement
     let tableStyle: HTMLStyleElement
-    const id = 'table_' + getCurrentInstance()!.uid.toString()
+    const classId = 'table_' + getCurrentInstance()!.uid.toString()
+
+    const calcStyle = computed(() =>
+    {
+      let str = `@media only screen and (max-width: ${props.breakpoint}px) { `
+      for (let i = 0; i < props.columns.length; ++i)
+        str += ` .${classId} td:nth-of-type(${i + 2}):before { content: "${props.columns[i]}"; } `
+      if (props.firstHeaderCell.show === 'BOTH' || props.firstHeaderCell.show === 'SMALL')
+        str += ` .${classId} td:nth-of-type(1):before { content: "${props.firstHeaderCell.value}"; } `
+      str += `}`
+      return str
+    })
+    const tableStr = computed(() =>
+    {
+      const prefix = `#dynTable.${classId}`
+
+      return`
+      @media only screen and (min-width: ${props.breakpoint + 1}px) {
+        ${prefix} tr:nth-of-type(odd) td {
+          background: #eee;
+        }
+        ${prefix} tr:nth-of-type(even) td {
+          background: grey;
+        }
+        ${prefix} tr:hover td {
+          background: #e68e0b;
+        }
+      }
+      @media only screen and (max-width: ${props.breakpoint}px) {
+        ${prefix} table, ${prefix} thead, ${prefix} tbody, ${prefix} th, ${prefix} td, ${prefix} tr {
+          display: block;
+        }
+        ${prefix} thead tr {
+          position: absolute;
+          top: -9999px;
+          left: -9999px;
+        }
+        ${prefix} tr {
+          border: 1px solid #ccc;
+        }
+        ${prefix} td {
+          border: none;
+          position: relative;
+          padding-left: 50%;
+        }
+        ${prefix} td:before {
+          position: absolute;
+          top: 6px;
+          left: 6px;
+          width: 45%;
+          padding-right: 10px;
+          white-space: nowrap;
+          display: inline-flex;
+          flex-direction: column;
+          justify-content: center;
+          height: calc(88%);
+        }
+        ${prefix} tr:nth-of-type(odd) td:not(:hover) {
+          background: #eee;
+        }
+        ${prefix} tr:nth-of-type(even) td:not(:hover) {
+          background: grey;
+        }
+        ${prefix} td:hover {
+          background: #e68e0b;
+        }
+      }`.replace(/\r?\n|\r|\t/gm, '').replace(/ {2,}/gm, ' ')
+    })
+    onServerPrefetch(() =>
+    {
+      const styles: Record<string, string> = {}
+      styles[`${classId}_label`] = calcStyle.value,
+      styles[`${classId}_table`] = tableStr.value
+
+      Object.assign(useSSRContext()!, {
+        styles: styles
+      })
+    })
 
     const setColor = (
       ev: MouseEvent,
@@ -175,37 +244,45 @@ export default defineComponent({
 
     onMounted(() =>
     {
-      const calcStyle = () =>
+      const head = document.querySelector('head')!
+
+      const tempTableLabelStyle = <HTMLStyleElement | null>document.getElementById(`${classId}_label`)
+      const tempTableStyle = <HTMLStyleElement | null>document.getElementById(`${classId}_table`)
+
+      if (tempTableLabelStyle)
+        tableLabelStyle = tempTableLabelStyle
+      else
       {
-        let str = `@media only screen and (max-width: ${props.breakpoint}px) {
-        #${id}`
-        for (let i = 0; i < props.columns.length; ++i)
-          str += ` td:nth-of-type(${i + 2}):before { content: "${optTranslate(props.columns[i])}"; } `
-        if (props.firstHeaderCell.show === 'BOTH' || props.firstHeaderCell.show === 'SMALL')
-          str += ` td:nth-of-type(1):before { content: "${optTranslate(props.firstHeaderCell.value)}"; } `
-        str += `}`
-        return str
+        tableLabelStyle = document.createElement('style')
+        tableLabelStyle.id = `${classId}_label`
+        tableLabelStyle.innerHTML = calcStyle.value
+        head.appendChild(tableLabelStyle)
       }
 
-      const head = document.querySelector('head')!
-      tableStyle = document.createElement('style')
-      tableStyle.innerHTML = calcStyle()
-      head.appendChild(tableStyle)
-
-      watch(locale, () =>
+      if (tempTableStyle)
+        tableStyle = tempTableStyle
+      else
       {
-        tableStyle.innerHTML = calcStyle()
+        tableStyle = document.createElement('style')
+        tableStyle.id = `${classId}_table`
+        tableStyle.innerHTML = tableStr.value
+        head.appendChild(tableStyle)
+      }
+
+      watch(calcStyle, (val) =>
+      {
+        tableLabelStyle.innerHTML = val
       })
     })
 
     onBeforeUnmount(() =>
     {
+      tableLabelStyle.remove()
       tableStyle.remove()
     })
 
     return {
-      optTranslate,
-      id,
+      classId,
       mouseEnter: (ev: MouseEvent) =>
       {
         if (window.innerWidth > props.breakpoint)
@@ -247,81 +324,6 @@ export default defineComponent({
     padding: 6px;
     border: 1px solid #ccc;
     text-align: left;
-  }
-
-  @media only screen and (min-width: 761px) {
-    tr:nth-of-type(odd) td {
-      background: #eee;
-    }
-    tr:nth-of-type(even) td {
-      background: grey;
-    }
-    tr:hover td {
-      background: #e68e0b;
-    }
-  }
-
-  @media only screen and (max-width: 760px) {
-    //,
-    //(min-device-width: 768px) and (max-device-width: 1024px) {
-    /* Force table to not be like tables anymore */
-    table,
-    thead,
-    tbody,
-    th,
-    td,
-    tr {
-      display: block;
-    }
-    /* Hide table headers (but not display: none;, for accessibility) */
-    thead tr {
-      position: absolute;
-      top: -9999px;
-      left: -9999px;
-    }
-
-    tr {
-      border: 1px solid #ccc;
-    }
-
-    td {
-      // Behave  like a "row"
-      border: none;
-      //border-bottom: 1px solid #eee;
-      position: relative;
-      padding-left: 50%;
-    }
-
-    td:before {
-      // Now like a table header
-      position: absolute;
-      // Top/left values mimic padding
-      top: 6px;
-      left: 6px;
-      width: 45%;
-      padding-right: 10px;
-      white-space: nowrap;
-      display: inline-flex;
-      flex-direction: column;
-      justify-content: center;
-      height: calc(100% - 12px);
-    }
-
-    /*td:hover:before {
-      background: black;
-    }
-    */
-
-    tr:nth-of-type(odd) td:not(:hover) {
-      background: #eee;
-    }
-    tr:nth-of-type(even) td:not(:hover) {
-      background: grey;
-    }
-
-    td:hover {
-      background: #e68e0b;
-    }
   }
 }
 </style>

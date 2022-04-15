@@ -12,10 +12,10 @@ const metaEntries: MetaEntry[] =
         "content": "width=device-width, initial-scale=1.0"
 
       },
-      {
+      /*{
         "http-equiv": "X-UA-Compatible",
         "content": "ie=edge"
-      },
+      },*/
       {
         "name": "description",
         "content": "Fachschaft Mathe/Physik/Informatik"

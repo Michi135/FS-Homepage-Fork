@@ -124,6 +124,20 @@ function loadDevMiddleWare(res: Response)
   return (!!devMiddleware) ? <devMiddleware>devMiddleware : undefined
 }
 
+function addStyles(dom: JSDOM, styles: Record<string, string>)
+{
+  const doc = dom.window.document
+  const head = doc.head
+
+  for (let [id, css] of Object.entries(styles))
+  {
+    const node = doc.createElement('style')
+    node.id = id
+    node.innerHTML = css
+    head.append(node)
+  }
+}
+
 export default function ssr(dev: boolean)
 {
   return async function (req: Request, res: Response, next: NextFunction)
@@ -143,14 +157,12 @@ export default function ssr(dev: boolean)
       res.contentType('html')
       res.charset = 'utf-8'
 
-      //const language = getLanguage(req)
       let language: 'de' | 'en' = 'de'
       {
         const testLang = req.path.match(/^\/([^\/]*)/)
         if (testLang?.length === 2 && ['en'].includes(testLang.at(1)!))
           language = <'en'>testLang.at(1)!
       }
-
       let args = { ctx: { language: language, isUniNetwork: res.locals!.isUni } }
 
       if (res.locals?.isUni) //TODO:: wieder entkommentieren
@@ -158,7 +170,7 @@ export default function ssr(dev: boolean)
 
       //@ts-ignore necessary in case there isn't a compiled main.js
       const { createDefaultApp } = <typeof App>(await import('@distServer/main.js'))
-      const { router, app, pinia, store, i18n, apolloClients } = createDefaultApp(args)
+      const { router, app, pinia, apolloClients } = createDefaultApp(args)
 
       router.push(req.url)
       await router.isReady()
@@ -202,6 +214,7 @@ export default function ssr(dev: boolean)
       const context = await contextLoad
       doc.getElementById('app')!.innerHTML = await renderToString(app, context)
 
+      addStyles(dom, context.styles)
       head.innerHTML += `<title>${context.title}</title>`
       head.innerHTML += getMeta()
       head.innerHTML += createFaviconLink(context.favicon)

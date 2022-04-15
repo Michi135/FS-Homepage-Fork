@@ -2,7 +2,12 @@
   <div>
     <div class="tw-m-3.5">
       <div style="max-width: 1100px; margin: 0 auto">
-        <h2><b>Uni Kino</b></h2>
+        <h2>
+          <i18n-t
+            keypath="cinema"
+            tag="b"
+          ></i18n-t>
+        </h2>
         <div style="height: 3em;"></div>
         <i18n-t
           keypath="p[0]"
@@ -357,6 +362,7 @@ hr {
 
 <i18n locale="de">
 {
+  "cinema": "Uni Kino",
   "p[0]": "Neben der allgemeinen Fachschaftsarbeit organisiert die Fachschaft MPI bereits seit 1992 das Uni-\
           Kino an der Universität Bayreuth. Dort zeigen wir euch während der klassischen Vorlesungszeit, \
           jeden zweiten Dienstag einen Film im H17 und H18.",
@@ -379,6 +385,7 @@ hr {
 
 <i18n locale="en">
 {
+  "cinema": "Uni cinema",
   "p[0]": "In addition to the general student council work, the student council MPI has been organizing the Uni-\
           Cinema at the University of Bayreuth since 1992. There we show you during the classical lecture period, \
           every second tuesday a film in the H17 and H18.",

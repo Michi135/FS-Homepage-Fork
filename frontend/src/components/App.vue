@@ -28,11 +28,11 @@ export default defineComponent({
 
     const title = computed(() =>
     {
-      return t(<string | undefined>route.meta.title ?? defaultTitle.value)
+      return t(route.meta.title ?? defaultTitle.value)
     })
     const favicon = computed(() =>
     {
-      return <string | undefined>route.meta.favicon ?? defaultFavicon.value
+      return route.meta.favicon ?? defaultFavicon.value
     })
 
     onServerPrefetch(() =>
@@ -63,7 +63,7 @@ export default defineComponent({
 
       watch(locale, () =>
       {
-        router.replace('/' + getKeyPath(<string>route.meta.title, language.value))
+        router.replace('/' + getKeyPath(route.meta.title!, language.value))
         document.children[0].setAttribute('lang', <'de' | 'en'>locale.value)
       })
 
