@@ -1,13 +1,11 @@
 import { join } from "path"
-
-import type { Request, Response } from 'express'
-
-
 import mime from "mime"
 import fsExtra from "fs-extra"
 
 const { getType } = mime
 const { pathExists } = fsExtra
+
+import type { Request, Response } from 'express'
 
 export function fileRequest(basePath: string)
 {

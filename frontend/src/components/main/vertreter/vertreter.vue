@@ -26,7 +26,7 @@ import { useQuery } from '@vue/apollo-composable'
 import { gql } from 'graphql-tag'
 
 import { useQuerySSR } from '@shared/vue-apollo-ssr'
-import SingleVertreter from '@components/main/single-vertreter.vue'
+import SingleVertreter from './single-vertreter.vue'
 
 import type { VertreterGQL, Faecher, Lehramt, Grad, Feld, Rolle } from '@dataInterfaces/IVertreter'
 

@@ -22,7 +22,7 @@ import { useI18n } from 'vue-i18n'
 
 import type { Ref } from 'vue'
 
-import tableComp from './dynamicTable.vue'
+import tableComp from '../dynamicTable.vue'
 //import table from "./dashboard/table.vue";
 //https://colorlib.com/wp/css3-table-templates/
 //https://colorlib.com/etc/tb/Table_Highlight_Vertical_Horizontal/index.html

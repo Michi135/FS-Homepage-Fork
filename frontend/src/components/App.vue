@@ -9,9 +9,10 @@ import { defineComponent, onMounted, onServerPrefetch, useSSRContext, watch, com
 import { useRouter, useRoute } from 'vue-router'
 import { useI18n } from 'vue-i18n'
 import { useStore } from '@shared/store'
-import { createFaviconLink } from '../favicon/favicon'
+import { createFaviconLink } from '@shared/favicon'
 import { storeToRefs } from 'pinia'
 import { getKeyPath } from '@shared/routes'
+import { determineLanguage } from '@shared/util'
 
 import 'tailwindcss/tailwind.css'
 import 'vuetify/lib/styles/main.css'
@@ -70,13 +71,8 @@ export default defineComponent({
       router.afterEach(({ meta, path }, from, failure) =>
       {
         if (failure) return
-        {
-          const testLang = path.match(/^\/([^\/]*)/)
-          if (testLang?.length === 2 && ['en'].includes(testLang.at(1)!))
-            language.value = <'en'>testLang.at(1)!
-          else
-            language.value = 'de'
-        }
+
+        language.value = determineLanguage(path)
       })
     })
   }

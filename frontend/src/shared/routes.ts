@@ -1,11 +1,12 @@
-import type { RouteComponent, RouteRecordRaw } from 'vue-router'
 import fav2 from '@static/favicon2.svg'
 import studentSvg from '@components/main/student.svg'
 import localizedRoutes from './localizedRoutes.json'
 
-const defaultLayout = () => import('@components/main/content.vue'/* webpackChunkName: "home" */)
+import type { RouteComponent, RouteRecordRaw } from 'vue-router'
+
+const defaultLayout = () => import('@components/main/layout/content.vue'/* webpackChunkName: "home" */)
 const homeComponent = () => import('@components/main/home.vue'/* webpackChunkName: "home" */)
-const vertreterComponent = () => import('@components/main/vertreter.vue'/* webpackChunkName: "home" */)
+const vertreterComponent = () => import('@components/main/vertreter/vertreter.vue'/* webpackChunkName: "home" */)
 const erstisComponent = () => import('@components/main/erstis.vue'/* webpackChunkName: "home" */)
 const keinePanikComponent = () => import('@components/main/panik.vue'/* webpackChunkName: "home" */)
 const externeComponent = () => import('@components/main/externals.vue'/* webpackChunkName: "home" */)
@@ -14,7 +15,7 @@ const uniKinoComponent = () => import('@components/main/uniKino.vue' /* webpackC
 
 
 const impressumComponent = () => import('@components/main/impressum.vue'/* webpackChunkName: "footer" */)
-const sprechstundenComponent = () => import('@components/main/sprechstunden.vue'/* webpackChunkName: "footer" */)
+const sprechstundenComponent = () => import('@components/main/sprechstunden/sprechstunden.vue'/* webpackChunkName: "footer" */)
 const kontaktComponent = () => import('@components/main/kontakt.vue'/* webpackChunkName: "footer" */)
 const testComponent = () => import('@components/editor/editor.vue' /* webpackChunkName: "footer" */)
 const wahlComponent = () => import('@components/main/hochschulwahl.vue'/* webpackChunkName: "home" */)

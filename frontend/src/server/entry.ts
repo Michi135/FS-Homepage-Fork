@@ -9,7 +9,7 @@ import crypto from 'crypto'
 
 import { Netmask } from 'netmask'
 
-import { Build } from '@shared/runtimeConfig'
+import { Build } from './runtimeConfig'
 
 import type { IncomingMessage, ServerResponse } from 'http'
 
