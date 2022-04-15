@@ -132,10 +132,7 @@ import { computed, defineComponent } from 'vue'
 import { useI18n } from 'vue-i18n'
 
 import tableComp from './dynamicTable.vue'
-
-type TableCell = string[]
-type TableRow = Record<string, TableCell>
-type Table = Record<string, TableRow>
+import type { TableRow, Table } from './dynamicTable.vue'
 
 export default defineComponent({
   components: {

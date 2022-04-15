@@ -66,11 +66,16 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, getCurrentInstance, onBeforeUnmount, onMounted, watch, onServerPrefetch, useSSRContext } from 'vue'
+import { computed, defineComponent, getCurrentInstance,
+  onBeforeUnmount, onMounted, watch, onServerPrefetch, useSSRContext } from 'vue'
 
 import type { PropType } from 'vue'
 //https://colorlib.com/wp/css3-table-templates/
 //https://colorlib.com/etc/tb/Table_Highlight_Vertical_Horizontal/index.html
+
+export type TableCell = string[]
+export type TableRow = Record<string, TableCell>
+export type Table = Record<string, TableRow>
 
 export default defineComponent({
   props: {
@@ -83,7 +88,7 @@ export default defineComponent({
       required: true
     },
     data: {
-      type: Object as PropType<Record<string, Record<string, string[]>>>,
+      type: Object as PropType<Table>,
       required: true
     },
     breakpoint: {
