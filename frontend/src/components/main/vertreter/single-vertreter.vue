@@ -16,7 +16,7 @@
     <p
       class="value"
       v-text="name"
-    />
+    ></p>
 
     <i18n-t
       keypath="role"
@@ -27,7 +27,7 @@
     <p
       class="value"
       v-text="t(rolle)"
-    />
+    ></p>
 
     <v-icon
       large
@@ -50,7 +50,7 @@
     <p
       class="value"
       v-text="semester"
-    />
+    ></p>
 
     <v-icon
       large
@@ -60,7 +60,7 @@
       <p
         class="value"
         v-text="email"
-      />
+      ></p>
     </a>
   </div>
 </template>
@@ -85,19 +85,19 @@ export default defineComponent({
       required: true
     },
     rolle: {
-      type: String as Rolle,
+      type: String as PropType<Rolle>,
       required: true
     },
     feld: {
-      type: String as Feld,
+      type: String as PropType<Feld>,
       required: true
     },
     grad: {
-      type: String as Grad,
+      type: String as PropType<Grad>,
       required: true
     },
     hauptfach: {
-      type: String as Faecher,
+      type: String as PropType<Faecher>,
       required: true
     },
     lehramt: {
@@ -120,8 +120,8 @@ export default defineComponent({
   name: 'SingleVertreter',
   setup: () =>
   {
-    const { t } = useI18n()
     const tGlobal = useI18n({ useScope: 'global' }).t
+    const { t } = useI18n()
 
     return {
       t,
