@@ -121,22 +121,21 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from 'vue'
+import { computed, defineComponent } from 'vue'
 import { useI18n } from 'vue-i18n'
+import ei from '@shared/Queries/einstellungen'
 
 export default defineComponent({
   setup: () =>
   {
-    const fachschaftsimage = ref<string>('')
+    const res = ei()
+    const fachschaftsimage = computed(() =>
+    {
+      return res.result.value?.einstellungen.data.attributes.plakat.data.attributes.url
+    })
+
     const tGlobal = useI18n({ useScope: 'global' }).t
-
     const { t } = useI18n()
-
-    import('@static/img/plakat.jpg' /* webpackPackPreload: true */).then(
-      (value) =>
-      {
-        fachschaftsimage.value = value.default
-      })
 
     return { t, tGlobal, fachschaftsimage }
   }

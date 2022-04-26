@@ -39,14 +39,14 @@
             tag="p"
           ></i18n-t>
           <p>
-            <template v-for="(date, i) in formatedDate">
+            <!--template v-for="(date, i) in formatedDate">
               <template v-if="i !== formatedDate.length - 1">
                 {{ date + '/ ' }}
               </template>
               <template v-else>
                 {{ 'und ' + date + ' ' }}
               </template>
-            </template>
+            </template-->
             03.05. / 17.05. / 31.05. / 14.06. / 28.06. und 12.07. (Sommerspecial) jeweils um 20 Uhr.
           </p>
           <i18n-t
@@ -80,7 +80,6 @@
 </template>
 
 <script lang="ts">
-import { useQuerySSR } from "@shared/vue-apollo-ssr"
 import { useQuery } from "@vue/apollo-composable"
 import gql from "graphql-tag"
 import { computed, defineComponent, ref } from "vue"
@@ -245,56 +244,32 @@ export default defineComponent({
       }
     }
 
-    const films = ref<GraphqlFilmeData[]>([])
     const filmtranslation = computed<Movie[]>(() =>
     {
-      if (films.value.length === 0)
+      const films = res.result.value?.uniKinoFilmes.data
+      if (!films || films.length === 0)
         return []
 
-      /*const sorted = [...films.value].sort((a, b) =>
-      {
-        return new Date(a.attributes.datum).getTime() - new Date(b.attributes.datum).getTime()
-      })
-
-      return sorted.map((val) =>
-      {
-        return copyLocale(val, <'en' | 'de'>locale.value)
-      })*/
-
-      return films.value.map((val) =>
+      return films.map((val) =>
       {
         return copyLocale(val, <'en' | 'de'>locale.value)
       })
     })
-
-    const filmDates = ref<string[]>([])
 
     //TODO Grenzfall im template oben, falls nur ein Termin steht
     //TODO Integration von Sommerspecial in weiteren iterationen
     const formatedDate = computed(() =>
     {
-      return filmDates.value.map((val) =>
+      const filmDates = [...res.result.value!.uniKinoDates].sort((a, b) =>
+      {
+        return new Date(a).getTime() - new Date(b).getTime()
+      })
+
+      return filmDates.map((val) =>
       {
         return dateFormat(new Date(val), 'dd.mm.')
       })
     })
-
-    const process_films = () =>
-    {
-      films.value = res.result.value!.uniKinoFilmes?.data
-    }
-    const process_film_dates = () =>
-    {
-      filmDates.value = [...res.result.value!.uniKinoDates].sort((a, b) =>
-      {
-        return new Date(a).getTime() - new Date(b).getTime()
-      })
-    }
-
-    useQuerySSR(() =>
-    {
-      process_film_dates(), process_films()
-    }, res)
 
     return { store, filmtranslation, formatedDate }
   }

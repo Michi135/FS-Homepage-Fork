@@ -11,7 +11,7 @@ import { createPinia } from 'pinia'
 import app from '@components/App.vue'
 import { createGraphql } from '@shared/graphql'
 import { useStore } from '@shared/store'
-import Globali18n from './i18nGlobal.json'
+import Globali18n from './Translations/i18nGlobal.json'
 
 import type { App, Component } from 'vue'
 import type { Router } from 'vue-router'

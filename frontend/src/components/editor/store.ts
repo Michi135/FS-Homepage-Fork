@@ -45,14 +45,14 @@ const defaultState: {
   //compValues: Map<string, Record<any, any>>
   topLevelComponents: Array<Component>
   components: Map<string, Component>
-  nodes: Map<Node, Component>
+  //nodes: Map<Node, Component>
 } = {
   effects: new Set<Effects>(),
   pending: null,
   //compValues: new Map<string, {}>(),
   topLevelComponents: new Array<Component>(),
-  components: new Map<string, Component>(),
-  nodes: new Map<Node, Component>()
+  components: new Map<string, Component>()
+  //nodes: new Map<Node, Component>()
 }
 
 export type State = typeof defaultState;
@@ -114,17 +114,31 @@ export const useStore = defineStore('editor', {
       }
       this.components.set(uuid, tree)
 
-      return uuid
+      return { uuid: uuid, comp: tree }
+    },
+    removeComponent(uuid: string)
+    {
+      const comp = this.components.get(uuid)
+      if (!comp)
+        return
+
+      const parent = comp.parent
+      if (parent)
+      {
+        const children = parent.component.children
+        children.splice(children.indexOf(comp), 1)
+      }
+      this.components.delete(uuid)
     }
   },
   getters: {
-    getComponentTextNode(state)
+    /*getComponentTextNode(state)
     {
       return (node: Node) =>
       {
         return this.nodes.get(node)
       }
-    },
+    },*/
     /*getTextNode(state)
     {
       return (node: Node) =>

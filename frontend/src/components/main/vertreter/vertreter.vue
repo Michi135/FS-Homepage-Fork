@@ -20,12 +20,11 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from 'vue'
+import { computed, defineComponent, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useQuery } from '@vue/apollo-composable'
 import { gql } from 'graphql-tag'
 
-import { useQuerySSR } from '@shared/vue-apollo-ssr'
 import SingleVertreter from './single-vertreter.vue'
 
 import type { VertreterGQL, Faecher, Lehramt, Grad, Feld, Rolle } from '@dataInterfaces/IVertreter'
@@ -49,7 +48,6 @@ export default defineComponent({
   setup: () =>
   {
     const { t } = useI18n()
-    const vertreter = ref(new Array<Vertreter>())
 
     const res = useQuery<{ vertreters: VertreterGQL }>(gql`
     {
@@ -101,9 +99,12 @@ export default defineComponent({
       "Root": 1
     }
 
-    useQuerySSR(() =>
+    const vertreter = computed(() =>
     {
-      vertreter.value = [...res.result.value!.vertreters.data].sort((a, b) =>
+      if (!res.result.value)
+        return []
+
+      return [...res.result.value.vertreters.data].sort((a, b) =>
       {
         return items[b.attributes.position] - items[a.attributes.position]
       }).map((val) =>
@@ -128,7 +129,7 @@ export default defineComponent({
 
         return vertreter
       })
-    }, res)
+    })
 
     return { vertreter, t }
   }

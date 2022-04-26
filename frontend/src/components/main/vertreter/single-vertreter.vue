@@ -133,7 +133,7 @@ export default defineComponent({
 })
 </script>
 
-<style lang="less" scoped>
+<style lang="less">
 .vertreter-container {
   background: rgb(51, 49, 48);
   display: grid;

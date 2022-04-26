@@ -68,13 +68,16 @@
         @beforeinput.prevent="onInput"
         @keydown="onKey"
       >
-        <component
+        <template
           v-for="v in store.topLevelComponents"
           :key="v.uuid"
-          :is="v.component"
-          v-bind="{...v.props, ...v.attributes}"
         >
-        </component>
+          <component
+            :is="v.component"
+            v-bind="{...v.props, ...v.attributes}"
+          >
+          </component>
+        </template>
       </div>
     </div>
   </div>
@@ -231,7 +234,7 @@ export default defineComponent({
     onMounted(() =>
     {
       const paraId = store.addComponent('paragraph')
-      const textId = store.addComponent('textnode', { parentUUID: paraId, values: { 'text': 'Hello, World!' } })
+      const textId = store.addComponent('textnode', { parentUUID: paraId.uuid, values: { 'text': 'Hello, World!' } })
     })
 
     function applyElementEffect(tag: string)
@@ -271,6 +274,7 @@ export default defineComponent({
 
     function onInput(evt: InputEvent)
     {
+      return
       const range = getDocumentRange()
       if (!range)
         return
@@ -328,12 +332,12 @@ export default defineComponent({
         const newPara = store.addComponent('paragraph', { parentUUID: parent?.uuid, index: index })
 
         //console.log(index)
-        const nextTextNode = store.addComponent('textnode', { parentUUID: newPara, values: { 'text': text.substring(range.endOffset) } })
+        const nextTextNode = store.addComponent('textnode', { parentUUID: newPara.uuid, values: { 'text': text.substring(range.endOffset) } })
 
         nextTick(() => //set cursor to begin of new line
         {
           const range = getDocumentRange()!
-          const el = store.getComponentByID(newPara)!.proxy!.$el
+          const el = store.getComponentByID(newPara.uuid)!.proxy!.$el
 
           range.setStart(el, 0)
           range.setEnd(el, 0)
@@ -385,6 +389,7 @@ export default defineComponent({
 
     function onKey(evt: KeyboardEvent)
     {
+      console.log('Onkey editor')
       /*const range = getDocumentRange()
       if (!range)
         return

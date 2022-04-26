@@ -3,7 +3,7 @@ import express, { json } from 'express'
 import { createServer } from 'http'
 import process from 'process'
 
-import helmet, { contentSecurityPolicy } from 'helmet'
+import helmet, { contentSecurityPolicy, crossOriginEmbedderPolicy } from 'helmet'
 import cors from 'cors'
 import crypto from 'crypto'
 
@@ -46,7 +46,7 @@ function cleanExit(...cleanups: Function[])
     )
     server.use((req, res, next) =>
     {
-      const ip = req.headers["x-real-ip"]
+      const ip = req.headers["x-forwarded-for"]
 
       if (typeof ip === "string")
         res.locals.isUni = uniMask.contains(ip)
@@ -71,7 +71,8 @@ function cleanExit(...cleanups: Function[])
           }]
         }
       },
-      crossOriginOpenerPolicy: false
+      crossOriginEmbedderPolicy: false
+      //crossOriginOpenerPolicy: false
     }))
     server.use('/robots.txt', (req, res) =>
     {

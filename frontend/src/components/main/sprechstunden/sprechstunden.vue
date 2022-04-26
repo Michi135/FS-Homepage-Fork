@@ -1,15 +1,18 @@
 <template>
   <div id="sprechstunden">
     <br />
-    <ferien-comp v-if="ferien"></ferien-comp>
-    <normal-comp v-else></normal-comp>
+    <template v-if="ferien !== undefined">
+      <ferien-comp v-if="ferien === true"></ferien-comp>
+      <normal-comp v-else></normal-comp>
+    </template>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
+import { computed, defineComponent } from 'vue'
 import ferienComp from './feriensprechstunden.vue'
 import normalComp from './normalSprechstunden.vue'
+import ei from '@shared/Queries/einstellungen'
 
 export default defineComponent({
   components: {
@@ -18,7 +21,12 @@ export default defineComponent({
   },
   setup: () =>
   {
-    const ferien = true
+    const res = ei()
+
+    const ferien = computed(() =>
+    {
+      return res.result.value?.einstellungen.data.attributes.Ferien
+    })
 
     return {
       ferien

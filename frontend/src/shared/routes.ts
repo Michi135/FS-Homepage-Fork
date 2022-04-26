@@ -9,16 +9,15 @@ const homeComponent = () => import('@components/main/home.vue'/* webpackChunkNam
 const vertreterComponent = () => import('@components/main/vertreter/vertreter.vue'/* webpackChunkName: "home" */)
 const erstisComponent = () => import('@components/main/erstis.vue'/* webpackChunkName: "home" */)
 const keinePanikComponent = () => import('@components/main/panik.vue'/* webpackChunkName: "home" */)
-const externeComponent = () => import('@components/main/externals.vue'/* webpackChunkName: "home" */)
-const blogComponent = () => import('@components/main/blog.vue' /* webpackChunkName: "home" */)
+//const blogComponent = () => import('@components/main/blog.vue' /* webpackChunkName: "home" */)
 const uniKinoComponent = () => import('@components/main/uniKino.vue' /* webpackChunkName: "home" */)
-
+const sprechstundenComponent = () => import('@components/main/sprechstunden/sprechstunden.vue'/* webpackChunkName: "home" */)
 
 const impressumComponent = () => import('@components/main/impressum.vue'/* webpackChunkName: "footer" */)
-const sprechstundenComponent = () => import('@components/main/sprechstunden/sprechstunden.vue'/* webpackChunkName: "footer" */)
 const kontaktComponent = () => import('@components/main/kontakt.vue'/* webpackChunkName: "footer" */)
-const testComponent = () => import('@components/editor/editor.vue' /* webpackChunkName: "footer" */)
-const wahlComponent = () => import('@components/main/hochschulwahl.vue'/* webpackChunkName: "home" */)
+const externeComponent = () => import('@components/main/externals.vue'/* webpackChunkName: "footer" */)
+//const testComponent = () => import('@components/editor/editor.vue' /* webpackChunkName: "footer" */)
+//const wahlComponent = () => import('@components/main/hochschulwahl.vue'/* webpackChunkName: "home" */)
 
 export const basePaths = {
   home: '/',
@@ -69,17 +68,8 @@ function addHeaderRoute(key: string, component: RouteComponent | Lazy<RouteCompo
   //headerKeys.push(key)
   for (var [lang, translations] of Object.entries(localizedRoutes))
   {
-    let path = ""
-    if (lang && lang !== 'de')
-      path += lang + '/'
-
-    if (!(<Translation>translations)[key])
-      path += key
-    else
-      path += (<Translation>translations)[key].route
-
     headerRoutes.get(lang)!.push({
-      path: path,
+      path: getKeyPath(key, <'de' | 'en' | undefined>lang),
       component: component,
       meta: {
         title: key,//(<Translation>translations)[key].title
@@ -94,6 +84,7 @@ function addFooterRoute(key: string, component: RouteComponent | Lazy<RouteCompo
   //headerKeys.push(key)
   for (var [lang, translations] of Object.entries(localizedRoutes))
   {
+    //TODO::check
     /*let path = ""
     if (lang && lang !== 'de')
       path += lang + '/'
@@ -131,17 +122,17 @@ export function getKeyPath(key: string, language: 'de' | 'en' = 'de')
 
 addHeaderRoute('home', homeComponent)
 addHeaderRoute('representatives', vertreterComponent, { favicon: fav2 })
+addHeaderRoute('consultationHours', sprechstundenComponent)
 addHeaderRoute('freshers', erstisComponent, { favicon: studentSvg })
 addHeaderRoute('noPanic', keinePanikComponent)
-addHeaderRoute('externals', externeComponent)
-addHeaderRoute('blog', blogComponent)
-addHeaderRoute('election', wahlComponent, { favicon: require('@components/main/wal.svg') })
+//addHeaderRoute('blog', blogComponent)
+//addHeaderRoute('election', wahlComponent, { favicon: require('@components/main/wal.svg') })
 addHeaderRoute('uniCinema', uniKinoComponent, { favicon: require('@components/main/filmkamera.svg') })
 
 addFooterRoute('imprint', impressumComponent)
-addFooterRoute('consultationHours', sprechstundenComponent)
 addFooterRoute('contact', kontaktComponent)
-addFooterRoute('test', testComponent)
+addFooterRoute('externals', externeComponent)
+//addFooterRoute('test', testComponent)
 
 export function routerCompilation(): RouteRecordRaw[]
 {

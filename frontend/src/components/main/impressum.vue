@@ -10,7 +10,14 @@
     </p>
     <br />
     <h2>Vertreten durch</h2>
-    <p>{{ chef }}<br /></p>
+    <p>
+      <template
+        v-for="chef in responsible?.chef"
+        :key="chef"
+      >
+        {{ chef }} <br />
+      </template>
+    </p>
     <br />
     <h2>Kontakt</h2>
     <p>
@@ -22,7 +29,7 @@
     <h2>Verantwortlich f&uuml;r den Inhalt nach &sect; 55 Abs. 2 RStV</h2>
     <p>
       <template
-        v-for="oe in oeA"
+        v-for="oe in responsible?.oeA"
         :key="oe"
       >
         {{ oe }} <br />
@@ -98,14 +105,48 @@
   </div>
 </template>
 <script lang="ts">
-import { defineComponent } from 'vue'
+import { defineComponent, computed } from 'vue'
+import { useQuery } from '@vue/apollo-composable'
+import gql from 'graphql-tag'
+
+type Person = {
+  attributes: {
+    anzeigeName: string
+  }
+}
+
+type ResultType = {
+  chef: {
+    data: Person[]
+  }
+  oea: {
+    data: Person[]
+  }
+}
 
 export default defineComponent({
   setup: () =>
   {
-    const oeA = ['Olivia Kammerer', 'Sophie Meissner']
-    const chef = 'Julia Schwarz'
-    return { oeA, chef }
+    const res = useQuery<ResultType>(gql`{
+    chef: vertreters(filters:{position:{eq: "Chef"} aktiv: {eq: true}})
+      {data{attributes{anzeigeName}}}
+    oea: vertreters(filters:{position:{eq: "Öffentlichkeitsarbeit"} aktiv: {eq: true}})
+      {data{attributes{anzeigeName}}}
+    }`)
+
+    const responsible = computed(() =>
+    {
+      const result = res.result.value
+      if (!result)
+        return null
+
+      return {
+        oeA: result.oea.data.map((val) => val.attributes.anzeigeName),
+        chef: result.chef.data.map((val) => val.attributes.anzeigeName)
+      }
+    })
+
+    return { responsible }
   }
 })
 </script>

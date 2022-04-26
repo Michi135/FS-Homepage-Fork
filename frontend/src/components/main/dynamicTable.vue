@@ -136,7 +136,7 @@ export default defineComponent({
           background: grey;
         }
         ${prefix} tr:hover td {
-          background: #e68e0b;
+          background: #cca366;
         }
       }
       @media only screen and (max-width: ${props.breakpoint}px) {
@@ -175,7 +175,7 @@ export default defineComponent({
           background: grey;
         }
         ${prefix} td:hover {
-          background: #e68e0b;
+          background: #cca366;
         }
       }`.replace(/\r?\n|\r|\t/gm, '').replace(/ {2,}/gm, ' ')
     })
@@ -233,17 +233,17 @@ export default defineComponent({
         if (target.tagName === 'TH') return
 
         target.style.backgroundColor = backgroundColorActive
-        target.style.color =
+        /*target.style.color =
             '#' +
             (Number(`0x1${backgroundColorActive.substring(1)}`) ^ 0xffffff)
               .toString(16)
               .substring(1)
-              .toUpperCase()
+              .toUpperCase()*/
       }
       else
       {
         target.style.backgroundColor = ''
-        target.style.color = ''
+        //target.style.color = ''
       }
     }
 
@@ -291,7 +291,7 @@ export default defineComponent({
       mouseEnter: (ev: MouseEvent) =>
       {
         if (window.innerWidth > props.breakpoint)
-          setColor(ev, '#e68e0b', '#909090', '#995c00')
+          setColor(ev, '#cca366', '#909090', '#c68524')
       },
       mouseLeave: (ev: MouseEvent) => setColor(ev)
     }

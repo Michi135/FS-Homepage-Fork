@@ -30,16 +30,28 @@ interface devMiddleware {
     outputFileSystem: Compiler['outputFileSystem']
 };
 
+//TODO:: fix
 const chunks: Record<string, string> = {
   "/": "home",
   "/vertreter": "home",
   "/keinePanik": "home",
-  "/externe": "home",
+  "/externeLinks": "footer",
   "/impressum": "footer",
-  "/sprechstunden": "footer",
+  "/sprechstunden": "home",
   "/kontakt": "footer",
   "/erstis": "home",
-  "/wahl": "home"
+  "/wahl": "home",
+  "/uniKino": "home",
+
+  "/en": "home",
+  "/en/representatives": "home",
+  "/en/freshers": "home",
+  "/en/noPanic": "home",
+  "/en/externalLinks": "footer",
+  "/en/imprint": "footer",
+  "/en/consultationHours": "home",
+  "/en/contact": "footer",
+  "/en/uniCinema": "home"
 }
 
 let initialHtml: string | undefined
@@ -159,9 +171,10 @@ export default function ssr(dev: boolean)
       res.charset = 'utf-8'
 
       const language: 'de' | 'en' = determineLanguage(req.path)
+
       let args = { ctx: { language: language, isUniNetwork: res.locals!.isUni } }
 
-      if (res.locals?.isUni) //TODO:: wieder entkommentieren
+      if (res.locals?.isUni)
         args = Object.assign(args, { networkToken: getNetworkToken() })
 
       //@ts-ignore necessary in case there isn't a compiled main.js
@@ -197,7 +210,7 @@ export default function ssr(dev: boolean)
         head.appendChild(nodeJs)
       }
 
-      if (req.url === "/")
+      /*if (req.url === "/")
       {
         const preloadImg = manifest['plakat.jpg']
         const nodeImg = doc.createElement("link")
@@ -205,7 +218,7 @@ export default function ssr(dev: boolean)
         nodeImg.setAttribute('rel', 'preload')
         nodeImg.setAttribute('as', 'image')
         head.appendChild(nodeImg)
-      }
+      }*/
 
       const context = await contextLoad
       doc.getElementById('app')!.innerHTML = await renderToString(app, context)

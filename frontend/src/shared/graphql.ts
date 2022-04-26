@@ -35,7 +35,7 @@ function networkMiddleware(networkToken: string)
 
 function genClients(networkToken?: string)
 {
-  const http = new HttpLink({ uri: /*__BACKEND_BASE_URL__ +*/ 'http://www.fsmpi.uni-bayreuth.de/v1/graphql', fetch, useGETForQueries: true, credentials: 'same-origin' })
+  const http = new HttpLink({ uri: /*__BACKEND_BASE_URL__ +*/ 'https://www.fsmpi.uni-bayreuth.de/v1/graphql', fetch, useGETForQueries: true, credentials: 'same-origin' })
 
   const apolloOptions: ApolloClientOptions<NormalizedCacheObject> = {
     link: (__IS_SERVER__ && networkToken) ? networkMiddleware(networkToken).concat(http) : http,

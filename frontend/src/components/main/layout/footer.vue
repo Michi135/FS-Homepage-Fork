@@ -3,7 +3,6 @@
     <div
       class="tw-relative tw-max-w-6xl tw-mx-auto tw-flex tw-flex-col md:tw-flex-row tw-justify-between"
     >
-      <div>{{ tLocal('updated') }}: 10.03.2022</div>
       <div>
         <!--router-link
           v-if="footerLogo"

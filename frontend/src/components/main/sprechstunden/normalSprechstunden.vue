@@ -7,6 +7,7 @@
       keypath="consHours"
     />
     <table-comp
+      v-if="sprechstunden"
       :columns="tage"
       :rows="stunden"
       :data="sprechstunden"
@@ -18,12 +19,35 @@
 <script lang="ts">
 import { computed, defineComponent } from 'vue'
 import { useI18n } from 'vue-i18n'
+import { useQuery } from '@vue/apollo-composable'
 
 import tableComp from '../dynamicTable.vue'
 import type { TableRow, Table } from '../dynamicTable.vue'
+import gql from 'graphql-tag'
 //import table from "./dashboard/table.vue";
 //https://colorlib.com/wp/css3-table-templates/
 //https://colorlib.com/etc/tb/Table_Highlight_Vertical_Horizontal/index.html
+
+type Slot = [{ name: string }] | undefined
+type Day = {
+  slot0: Slot
+  slot1: Slot
+  slot2: Slot
+}
+
+type Sprechstunden = {
+  sprechstunden: {
+    data: {
+      attributes: {
+        Montag: Partial<Day>,
+        Dienstag: Partial<Day>,
+        Mittwoch: Partial<Day>,
+        Donnerstag: Partial<Day>
+      }
+    }
+  }
+}
+
 
 export default defineComponent({
   components: {
@@ -36,31 +60,45 @@ export default defineComponent({
     const { t } = useI18n({ useScope: 'global' })
     const { locale } = useI18n()
 
+    const res = useQuery<Sprechstunden>(gql`
+    {sprechstunden{data{attributes{
+      Montag{slot0{name}slot1{name}slot2{name}}
+      Dienstag{slot0{name}slot1{name}slot2{name}}
+      Mittwoch{slot0{name}slot1{name}slot2{name}}
+      Donnerstag{slot0{name}slot1{name}slot2{name}}
+    }}}}
+    `)
+
     const tage = computed(() => [t('monday'), t('tuesday'), t('wednesday'), t('thursday')])
     const stunden = ['13:00', '14:00', '15:00']
 
     const sprechstunden = computed(() =>
     {
+      const value = res.result.value
+      if (!value)
+        return null
+
       let a: TableRow = {}
       let b: TableRow = {}
       let c: TableRow = {}
       let d: TableRow = {}
 
-      a[0] = ['Sophie'],
-      a[1] = ['Julia'],
-      a[2] = ['Lena']
+      const sp = value.sprechstunden.data.attributes
 
-      b[0] = ['Charlotte'],
-      b[1] = ['Olivia', 'Masell'],
-      b[2] = ['Elias']
+      function assign(row: TableRow, day: Partial<Day> | undefined)
+      {
+        if (!day)
+          return
 
-      c[0] = ['Marius', 'Olli'],
-      c[1] = ['Michelle'],
-      c[2] = ['Lennart']
+        row[0] = day.slot0?.map((val) => val.name) ?? []
+        row[1] = day.slot1?.map((val) => val.name) ?? []
+        row[2] = day.slot2?.map((val) => val.name) ?? []
+      }
 
-      d[0] = ['Maike'],
-      d[1] = ['Armin'],
-      d[2] = ['Dennis']
+      assign(a, sp.Montag)
+      assign(b, sp.Dienstag)
+      assign(c, sp.Mittwoch)
+      assign(d, sp.Donnerstag)
 
       let z: Table = {}
       z[0] = a

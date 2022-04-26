@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div v-if="pdf">
     <v-no-ssr>
       <iframe
         :src="pdf"
@@ -20,13 +20,19 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
+import { computed, defineComponent } from 'vue'
 import { useI18n } from 'vue-i18n'
+import ei from '@shared/Queries/einstellungen'
 
 export default defineComponent({
   setup: () =>
   {
-    const pdf = require('@static/panik/KeinePanik21.pdf')
+    const res = ei()
+
+    const pdf = computed(() =>
+    {
+      return res.result.value?.einstellungen.data.attributes.keinePanik.data.attributes.url
+    })
     const { t } = useI18n()
 
     return { pdf, t }

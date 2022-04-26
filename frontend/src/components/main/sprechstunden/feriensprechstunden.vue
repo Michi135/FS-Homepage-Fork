@@ -7,14 +7,15 @@
       tag="h1"
     />
     <i18n-t
+      v-if="ferien_sprechstunden"
       keypath="t[1]"
       tag="h1"
     >
       <template #from>
-        {{ ferien_sprechstunden.timespan[0] }}
+        {{ ferien_sprechstunden.timespan.von }}
       </template>
       <template #to>
-        {{ ferien_sprechstunden.timespan[1] }}
+        {{ ferien_sprechstunden.timespan.bis }}
       </template>
     </i18n-t>
     <br /><br />
@@ -24,6 +25,7 @@
     />
     <br />
     <div
+      v-if="ferien_sprechstunden"
       style="
           background: rgb(51, 49, 48);
           color: rgb(192, 192, 192);
@@ -38,13 +40,13 @@
         v-for="(sprechstunde, index) in ferien_sprechstunden.sprechstunden"
         :key="index"
       >
-        <div v-text="sprechstunde.tag" />
+        <div v-text="sprechstunde.tag"></div>
         <div>
           <p
             v-for="(betreuer, index2) in sprechstunde.betreuer"
             :key="index2"
             v-text="betreuer"
-          />
+          ></p>
         </div>
       </div>
     </div>
@@ -52,64 +54,86 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from 'vue'
+import { computed, defineComponent } from 'vue'
 import { useQuery } from '@vue/apollo-composable'
 import { gql } from 'graphql-tag'
 import dateFormat from 'dateformat'
 import { useI18n } from 'vue-i18n'
 
-import { useQuerySSR } from '@shared/vue-apollo-ssr'
-import { useStore } from '@shared/store'
+//import { useStore } from '@shared/store'
 
-import type { Ref } from 'vue'
-
-interface FerienTag {
+type Feriensprechstunde = {
   tag: Date
-  person: Array<{ name: string }>
+  Personen: Array<{ Name: string }>
+}
+
+type Feriensprechstunden = {
+  feriensprechstunden: {
+    data: {
+      attributes: {
+        Feriensprechstunde: Feriensprechstunde[]
+        von: string,
+        bis: string
+      }
+    }
+  }
 }
 
 export default defineComponent({
   setup()
   {
     const t = useI18n()
-    const { initialTime } = useStore()
-
-    const res = useQuery<{ feriensprechstundens: Array<FerienTag>, }>(gql`
-      query futureConsultationHours ($var: DateTime)
+    //const { initialTime } = useStore()
+    const res = useQuery<Feriensprechstunden>(gql`
+      query nextFSS($date: Date!)
       {
-        feriensprechstundens(orderBy: {tag: asc}, where: {tag: {gte: $var}} ) {
-          tag
-          person {
-            name
+        feriensprechstunden
+        {
+          data
+          {
+            attributes
+            {
+              Feriensprechstunde(sort: "tag", filters: {tag: {gt: $date}})
+              {
+                tag
+                Personen
+                {
+                  Name
+                }
+              }
+              von
+              bis
+            }
           }
         }
       }
-    `, { var: initialTime })
+    `, { date: dateFormat(new Date(), "isoDate") })
     //TODO:: set initialTime's hours inside db to 16:xx to avoid filtering on same day
-    const ferien_sprechstunden: Ref<{
-      timespan: Array<number>
-      sprechstunden: Array<{ tag: string; betreuer: Array<string> }>
-    }> = ref({
-      timespan: [14, 16],
-      sprechstunden: []
-    })
 
-    const process_ferien = () =>
+    const ferien_sprechstunden = computed(() =>
     {
-      ferien_sprechstunden.value.sprechstunden =
-        res.result!.value!.feriensprechstundens.map((val) =>
-        {
-          return {
-            tag: dateFormat(val.tag, 'dd.mm'),
-            betreuer: val.person.map((per) =>
-            {
-              return per.name
-            })
-          }
-        })
-    }
+      const attributes = res.result?.value?.feriensprechstunden.data.attributes
+      if (!attributes)
+        return null
 
-    useQuerySSR(process_ferien, res)
+      const sprechstunden = attributes.Feriensprechstunde.map((val) =>
+      {
+        return {
+          tag: dateFormat(val.tag, 'dd.mm'),
+          betreuer: val.Personen.map((per) =>
+          {
+            return per.Name
+          })
+        }
+      })
+      const von = Date.parse(`1970-01-01T${attributes.von}`)
+      const bis = Date.parse(`1970-01-01T${attributes.bis}`)
+
+      return {
+        timespan: { von: dateFormat(von, 'H'), bis: dateFormat(bis, 'H') },
+        sprechstunden: sprechstunden
+      }
+    })
 
     return {
       ferien_sprechstunden,
