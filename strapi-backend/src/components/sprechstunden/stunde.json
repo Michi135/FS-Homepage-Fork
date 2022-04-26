@@ -1,0 +1,14 @@
+{
+  "collectionName": "components_sprechstunden_stundes",
+  "info": {
+    "displayName": "Stunde",
+    "icon": "clock"
+  },
+  "options": {},
+  "attributes": {
+    "name": {
+      "type": "string",
+      "required": true
+    }
+  }
+}

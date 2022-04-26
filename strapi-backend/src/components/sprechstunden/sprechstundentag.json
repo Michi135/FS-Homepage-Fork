@@ -1,0 +1,25 @@
+{
+  "collectionName": "components_sprechstunden_sprechstundentags",
+  "info": {
+    "displayName": "Sprechstundentag",
+    "icon": "audio-description"
+  },
+  "options": {},
+  "attributes": {
+    "slot0": {
+      "type": "component",
+      "repeatable": true,
+      "component": "sprechstunden.stunde"
+    },
+    "slot1": {
+      "type": "component",
+      "repeatable": true,
+      "component": "sprechstunden.stunde"
+    },
+    "slot2": {
+      "type": "component",
+      "repeatable": true,
+      "component": "sprechstunden.stunde"
+    }
+  }
+}

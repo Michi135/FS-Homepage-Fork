@@ -15,7 +15,7 @@ module.exports = ({env}) => [
       contentSecurityPolicy: {
         useDefaults: true,
         directives: {
-          'connect-src': ["'self'", 'https:', 'http:'],
+          'connect-src': ["'self'", 'https:'],
           'img-src': ["'self'", 'data:', 'blob:', env('S3_ENDPOINT')],
           'media-src': ["'self'", 'data:', 'blob:', env('S3_ENDPOINT')],
           upgradeInsecureRequests: null,

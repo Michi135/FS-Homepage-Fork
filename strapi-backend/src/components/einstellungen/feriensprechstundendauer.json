@@ -1,0 +1,21 @@
+{
+  "collectionName": "components_einstellungen_feriensprechstundendauers",
+  "info": {
+    "displayName": "Feriensprechstundendauer",
+    "icon": "cog"
+  },
+  "options": {},
+  "attributes": {
+    "Von": {
+      "type": "time",
+      "default": "14:00",
+      "required": true,
+      "unique": false
+    },
+    "Bis": {
+      "type": "time",
+      "required": true,
+      "default": "16:00"
+    }
+  }
+}

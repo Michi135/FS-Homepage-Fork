@@ -1,0 +1,41 @@
+{
+  "kind": "singleType",
+  "collectionName": "sprechstundens",
+  "info": {
+    "singularName": "sprechstunden",
+    "pluralName": "sprechstundens",
+    "displayName": "Sprechstunden",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "Montag": {
+      "displayName": "Sprechstundentag",
+      "type": "component",
+      "repeatable": false,
+      "component": "sprechstunden.sprechstundentag",
+      "required": false
+    },
+    "Dienstag": {
+      "type": "component",
+      "repeatable": false,
+      "component": "sprechstunden.sprechstundentag",
+      "required": false
+    },
+    "Mittwoch": {
+      "type": "component",
+      "repeatable": false,
+      "component": "sprechstunden.sprechstundentag",
+      "required": false
+    },
+    "Donnerstag": {
+      "type": "component",
+      "repeatable": false,
+      "component": "sprechstunden.sprechstundentag",
+      "required": false
+    }
+  }
+}

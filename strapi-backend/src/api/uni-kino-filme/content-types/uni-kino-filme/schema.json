@@ -112,6 +112,17 @@
       },
       "type": "string",
       "required": false
+    },
+    "archivSemester": {
+      "type": "component",
+      "repeatable": false,
+      "pluginOptions": {
+        "i18n": {
+          "localized": false
+        }
+      },
+      "component": "uni.semester",
+      "required": false
     }
   }
 }

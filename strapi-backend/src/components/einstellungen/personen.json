@@ -1,0 +1,14 @@
+{
+  "collectionName": "components_einstellungen_personens",
+  "info": {
+    "displayName": "Personen",
+    "icon": "angry"
+  },
+  "options": {},
+  "attributes": {
+    "Name": {
+      "type": "string",
+      "required": true
+    }
+  }
+}

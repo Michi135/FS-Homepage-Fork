@@ -1,0 +1,33 @@
+{
+  "kind": "singleType",
+  "collectionName": "feriensprechstundens",
+  "info": {
+    "singularName": "feriensprechstunden",
+    "pluralName": "feriensprechstundens",
+    "displayName": "Feriensprechstunden",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "Feriensprechstunde": {
+      "displayName": "Feriensprechstunde",
+      "type": "component",
+      "repeatable": true,
+      "component": "einstellungen.feriensprechstunde",
+      "required": true
+    },
+    "von": {
+      "type": "time",
+      "default": "14:00",
+      "required": true
+    },
+    "bis": {
+      "type": "time",
+      "default": "16:00",
+      "required": true
+    }
+  }
+}

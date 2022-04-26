@@ -28,6 +28,17 @@ export default {
       // 'zh-Hans',
       // 'zh',
     ],
+    translations: {
+      de: {
+        'Physik': 'Physik',
+        'anzeigeName': 'Anzeigename',
+        'grad': 'Grad',
+        'feld': 'Feld',
+        'semester': 'Semester',
+        'portrait': 'Portrait',
+        'hauptfach': 'Hauptfach'
+      }
+    }
   },
   bootstrap(app) {
     console.log(app);

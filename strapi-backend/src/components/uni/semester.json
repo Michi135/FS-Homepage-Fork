@@ -1,0 +1,25 @@
+{
+  "collectionName": "components_uni_semesters",
+  "info": {
+    "displayName": "Semester",
+    "icon": "address-card"
+  },
+  "options": {},
+  "attributes": {
+    "Semester": {
+      "type": "enumeration",
+      "enum": [
+        "WiSe",
+        "SoSe"
+      ],
+      "required": true,
+      "default": "WiSe"
+    },
+    "Jahr": {
+      "type": "integer",
+      "default": 2000,
+      "required": true,
+      "unique": false
+    }
+  }
+}

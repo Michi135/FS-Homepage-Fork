@@ -1,0 +1,24 @@
+{
+  "collectionName": "components_einstellungen_feriensprechstundes",
+  "info": {
+    "displayName": "Feriensprechstunde",
+    "icon": "border-all",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "tag": {
+      "type": "date",
+      "default": "2022-04-23",
+      "required": true,
+      "unique": false
+    },
+    "Personen": {
+      "displayName": "Personen",
+      "type": "component",
+      "repeatable": true,
+      "component": "einstellungen.personen",
+      "required": true
+    }
+  }
+}
