@@ -4,9 +4,6 @@
 			"path": "frontend"
 		},
 		{
-			"path": "backend"
-		},
-		{
 			"path": "strapi-backend"
 		}
 	]
