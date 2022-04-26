@@ -24,6 +24,7 @@ const require = createRequire(import.meta.url)
 import type { NextFunction, Request, Response } from 'express'
 import type { Stats, Compiler } from 'webpack'
 import type * as App from '@shared/app'
+import { env } from 'process'
 
 interface devMiddleware {
     stats: Stats,
@@ -61,7 +62,7 @@ let networkToken: string | undefined
 function getNetworkToken()
 {
   if (!networkToken) //TODO:: env secret, shared between frontendserver and backendserver
-    networkToken = sign({ fromServer: true }, 'klandfgjklandfskjhgaksjdnlkösajkdfoijasldkjflkasdnfasoiehjo')
+    networkToken = sign({ fromServer: true }, env.JWT_SECRET_SHARED ?? 'DEFAULT_JWT_SECRET')
   return networkToken
 }
 
@@ -173,6 +174,9 @@ export default function ssr(dev: boolean)
       const language: 'de' | 'en' = determineLanguage(req.path)
 
       let args = { ctx: { language: language, isUniNetwork: res.locals!.isUni } }
+
+      if (res.locals.isUni)
+        console.log('Inside Network')
 
       if (res.locals?.isUni)
         args = Object.assign(args, { networkToken: getNetworkToken() })

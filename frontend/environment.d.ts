@@ -6,6 +6,7 @@ declare global {
       rendering?: 'ssr' | 'csr'
       minimize?: 'false' | 'true'
       babel?: 'false' | 'true'
+      JWT_SECRET_SHARED?: string
     }
   }
 

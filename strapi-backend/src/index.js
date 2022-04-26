@@ -15,34 +15,9 @@ const uniMask = new Netmask("132.180.0.1/16")
   }
 
 }*/
-function isValidIp(context)
-{
-  return uniMask.contains(context.http.request.header["x-forwarded-for"])
-}
 
-function isValidJwt(context)
-{
-  const jwt = context.http.request.header['network-token']
-  //console.log(jwt)
-  if (!jwt)
-    return false
-  try {
-    const token = verify(jwt, 'klandfgjklandfskjhgaksjdnlkösajkdfoijasldkjflkasdnfasoiehjo')
-  }
-  catch (err) {
-    return false
-  }
-  return true
-}
-
-function checkUniNetwork(context)
-{
-  if (!isValidIp(context) && !isValidJwt(context))
-    throw new ApolloError('activate uni vpn', 'WRONG_NETWORK')
-}
-
-
-module.exports = {
+module.exports = ({ env }) => ({
+  
   /**
    * An asynchronous register function that runs before
    * your application is initialized.
@@ -51,6 +26,32 @@ module.exports = {
    */
    register({ strapi }) {
     const extensionService = strapi.plugin('graphql').service('extension');
+
+    function isValidIp(context)
+    {
+      return uniMask.contains(context.http.request.header["x-forwarded-for"])
+    }
+    
+    function isValidJwt(context)
+    {
+      const jwt = context.http.request.header['network-token']
+      //console.log(jwt)
+      if (!jwt)
+        return false
+      try {
+        const token = verify(jwt, env(JWT_SECRET_SHARED, 'DEFAULT_JWT_SECRET'))
+      }
+      catch (err) {
+        return false
+      }
+      return true
+    }
+    
+    function checkUniNetwork(context)
+    {
+      if (!isValidIp(context) && !isValidJwt(context))
+        throw new ApolloError('activate uni vpn', 'WRONG_NETWORK')
+    }
 
     //console.log(extensionService.shadowCRUD('api::uni-kino-filme.uni-kino-filme').field('datum'))
 
@@ -120,4 +121,4 @@ module.exports = {
    * run jobs, or perform some special logic.
    */
   bootstrap(/*{ strapi }*/) {},
-};
+});
