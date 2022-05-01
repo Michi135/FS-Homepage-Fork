@@ -16,15 +16,14 @@ const uniMask = new Netmask("132.180.0.1/16")
 
 }*/
 
-module.exports = ({ env }) => ({
-  
+module.exports = {
   /**
    * An asynchronous register function that runs before
    * your application is initialized.
    *
    * This gives you an opportunity to extend code.
    */
-   register({ strapi }) {
+   register({ strapi, env }) {
     const extensionService = strapi.plugin('graphql').service('extension');
 
     function isValidIp(context)
@@ -121,4 +120,4 @@ module.exports = ({ env }) => ({
    * run jobs, or perform some special logic.
    */
   bootstrap(/*{ strapi }*/) {},
-});
+};

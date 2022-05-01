@@ -4,6 +4,6 @@ module.exports = ({ env }) => ({
   app: {
     keys: env.array('APP_KEYS'),
   },
-  url: env('URL', 'http://localhost'),
+  url: env('URL_SERVER', 'http://localhost:1337'),
   proxy: true
 });

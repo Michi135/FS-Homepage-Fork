@@ -7,5 +7,5 @@ module.exports = ({ env }) => ({
   },
   port: 7000,
   host: 'localhost',
-  url: 'http://backend.fsmpi.lan'
+  url: env('URL_ADMIN', 'http://localhost:7000/admin'),
 });
