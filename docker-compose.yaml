@@ -5,43 +5,34 @@ volumes:
 services:
 
   common-frontend:
-	environment:
-	  - BUCKET=bucket
-	  - BUCKET_BASE_URL=localhost
-	  - BUCKET_PORT=9000
-	env-file:
-	  - shared.env
     build: ./nginx
     ports:
+      - "80:80"
       - "443:443"
     networks:
       homepage-network:
         ipv4_address: 172.23.2.10
-		
+
   strapi:
-	environment:
-	  - HOST=localhost
-	  - PORT=1337
-	  - URL=http://www.fsmpi.uni-bayreuth.de/v1
-	  - S3_REGION=de
-	  - S3_BUCKET=bucket
-	  - S3_ENDPOINT=http://www.fsmpi.uni-bayreuth.de
-	env-file:
-	  - shared.env
-	  - strapi.env
+    environment:
+      - HOST=strapi
+      - PORT=1337
+      - URL_ADMIN=http://backend.fsmpi.lan/admin
+    env_file:
+      - shared.env
     build: ./strapi-backend
     image: strapi:1.0.0
-    working_dir: "/var/strapi"
+    #working_dir: "/opt"
     #stdin_open: true
     #tty: true
     volumes:
-      - ./backend:/var/strapi
-      - /var/strapi/build
-	  - /var/strapi/.cache
-      - node_modules_backend:/var/strapi/node_modules
+      - ./strapi-backend/config:/opt/app/config
+      - ./strapi-backend/src:/opt/app/src
+      - ./strapi-backend/package.json:/opt/package.json
+      - ./strapi-backend/package-lock.json:/opt/package-lock.json
+      - ./strapi-backend/.env:/opt/app/.env
     ports:
-	  - "1337"
-      - "7000"
+      - "1337:1337"
     networks:
       homepage-network:
         ipv4_address: 172.23.2.40
@@ -52,6 +43,7 @@ services:
     working_dir: "/var/vuecms"
     volumes:
       - ./frontend:/var/vuecms
+      - /var/vuecms/dist-ssr
       - node_modules_frontend:/var/vuecms/node_modules
     ports:
       - "5000"
@@ -66,8 +58,6 @@ networks:
       driver: default
       config:
         - subnet: 172.23.2.0/24
-		
-
   #https-portal:
    # image: steveltn/https-portal:1.13
     #ports:  # Syntax: 'HOST:CONTAINER'
