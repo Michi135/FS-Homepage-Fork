@@ -5,21 +5,7 @@ volumes:
 services:
 
   common-frontend:
-    environment:
-      - BUCKET=bucket
-      - BUCKET_BASE_URL=localhost
-      - BUCKET_PORT=9000
-    env_file:
-      - shared.env
-    build: ./nginx 
-      #context: ./nginx
-      #dockerfile: ./nginx/Dockerfile
-      #volumes:
-      #- ./strapi-backend/config:/opt/app/config
-      #- ./strapi-backend/src:/opt/app/src
-      #- ./strapi-backend/package.json:/opt/package.json
-      #- ./strapi-backend/package-lock.json:/opt/package-lock.json
-      #- ./strapi-backend/.env:/opt/app/.env
+    build: ./nginx
     ports:
       - "80:80"
       - "443:443"
@@ -31,14 +17,9 @@ services:
     environment:
       - HOST=strapi
       - PORT=1337
-      - URL_SERVER=https://www.fsmpi.uni-bayreuth.de/v1
-      - S3_REGION=de
-      - S3_BUCKET=bucket
-      - S3_ENDPOINT=http://www.fsmpi.uni-bayreuth.de
       - URL_ADMIN=http://backend.fsmpi.lan/admin
     env_file:
       - shared.env
-      - strapi.env
     build: ./strapi-backend
     image: strapi:1.0.0
     #working_dir: "/opt"
