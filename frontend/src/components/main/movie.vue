@@ -34,7 +34,8 @@
           <youtube
             v-if="youtubeId"
             :id="youtubeId"
-            kind="embed"
+            kind="link"
+            :description="title"
           ></youtube>
         </v-expansion-panel-text>
       </v-expansion-panel>

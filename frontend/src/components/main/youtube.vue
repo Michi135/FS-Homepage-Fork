@@ -2,7 +2,8 @@
   <a
     v-if="kind === 'link'"
     :href="'https://www.youtube.com/watch?v=' + id"
-  ></a>
+    style="color: var(--color-primary);"
+  ><strong>{{ description + '  ' }}</strong><font-awesome-icon :icon="faExternalLink" /></a>
   <v-responsive
     v-else
     :aspect-ratio="16/9"
@@ -17,6 +18,7 @@
 
 <script lang='ts'>
 import { defineComponent, PropType } from "vue"
+import { faExternalLink } from '@fortawesome/free-solid-svg-icons/faExternalLink'
 
 export type Kind = 'embed' | 'link'
 
@@ -33,11 +35,19 @@ export default defineComponent({
       {
         return 'link'
       }
+    },
+    description: {
+      type: String,
+      required: false,
+      default: () =>
+      {
+        return null
+      }
     }
   },
   setup()
   {
-
+    return { faExternalLink }
   }
 })
 </script>
