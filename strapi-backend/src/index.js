@@ -5,6 +5,7 @@ const { verify } = require('jsonwebtoken')
 const { Netmask } = require('netmask')
 
 const uniMask = new Netmask("132.180.0.1/16")
+const fsLanMask = new Netmask("172.16.0.1/16")
 /*export class MyError extends ApolloError {
 
   constructor(message) {
@@ -28,7 +29,8 @@ module.exports = {
 
     function isValidIp(context)
     {
-      return uniMask.contains(context.http.request.header["x-forwarded-for"])
+      return uniMask.contains(context.http.request.header["x-real-ip"]) ||		    
+             fsLanMask.contains(context.http.request.header["x-real-ip"])
     }
     
     function isValidJwt(context)

@@ -2,13 +2,13 @@
   <div v-if="pdf">
     <v-no-ssr>
       <iframe
-        :src="pdf"
+        :src="'/v1' + pdf"
         width="100%"
         height="100%"
         aria-label="Zeitschrift Keine Panik"
       >
         <a
-        :href="pdf"
+        :href="'/v1' + pdf"
         download
         ><p>
         {{ t('no') }}<br />{{ t('click') }}

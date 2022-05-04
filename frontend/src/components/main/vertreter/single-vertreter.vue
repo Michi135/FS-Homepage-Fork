@@ -3,7 +3,7 @@
     <div class="image-container">
       <img
         class="image"
-        :src="portraitUrl"
+        :src="'/v1' + portraitUrl"
         :alt="name"
       />
     </div>

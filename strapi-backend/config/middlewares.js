@@ -7,8 +7,8 @@ module.exports = ({env}) => [
         useDefaults: true,
         directives: {
           'connect-src': ["'self'", 'https:', 'http:'],
-          'img-src': ["'self'", 'data:', 'blob:', env('S3_ENDPOINT')],
-          'media-src': ["'self'", 'data:', 'blob:', env('S3_ENDPOINT')],
+          'img-src': ["'self'", 'data:', 'blob:', env('S3_ENDPOINT'), 'https://fsmpi.uni-bayreuth.de'],
+          'media-src': ["'self'", 'data:', 'blob:', env('S3_ENDPOINT'), 'https://fsmpi.uni-bayreuth.de'],
           upgradeInsecureRequests: null,
         },
       },
@@ -26,6 +26,11 @@ module.exports = ({env}) => [
   'strapi::query',
   'strapi::body',
   'strapi::session',
-  'strapi::favicon',
-  'strapi::public',
+  'strapi::favicon',	
+  {
+    name: 'strapi::public',
+    config: {
+      defaultIndex: false
+    },
+  },
 ];

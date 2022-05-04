@@ -16,6 +16,7 @@ import type { IncomingMessage, ServerResponse } from 'http'
 const isDev = (process.env.NODE_ENV || 'development') === 'development'
 const server = express()
 const uniMask = new Netmask("132.180.0.1/16")
+const fsLanMask = new Netmask("172.16.0.1/16")
 
 //https://cheatsheetseries.owasp.org/cheatsheets/JSON_Web_Token_for_Java_Cheat_Sheet.html#token-sidejacking
 
@@ -46,10 +47,10 @@ function cleanExit(...cleanups: Function[])
     )
     server.use((req, res, next) =>
     {
-      const ip = req.headers["x-forwarded-for"]
+      const ip = req.headers["x-real-ip"]
 
       if (typeof ip === "string")
-        res.locals.isUni = uniMask.contains(ip)
+        res.locals.isUni = uniMask.contains(ip) || fsLanMask.contains(ip)
       else
         res.locals.isUni = false
       next()

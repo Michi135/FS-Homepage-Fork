@@ -2,13 +2,16 @@ version: "3.7"
 volumes:
   node_modules_frontend: {}
   node_modules_backend: {}
+  strapi_uploads:
+    external: true
 services:
 
   common-frontend:
     build: ./nginx
     ports:
       - "80:80"
-      - "443:443"
+      - "8000:8000"
+      #- "443:443"
     networks:
       homepage-network:
         ipv4_address: 172.23.2.10
@@ -17,7 +20,8 @@ services:
     environment:
       - HOST=strapi
       - PORT=1337
-      - URL_ADMIN=http://backend.fsmpi.lan/admin
+      - URL_ADMIN=http://web.fsmpi:8000/admin
+      - URL_SERVER=https://fsmpi.uni-bayreuth.de/v1
     env_file:
       - shared.env
     build: ./strapi-backend
@@ -31,6 +35,7 @@ services:
       - ./strapi-backend/package.json:/opt/package.json
       - ./strapi-backend/package-lock.json:/opt/package-lock.json
       - ./strapi-backend/.env:/opt/app/.env
+      - strapi_uploads:/opt/app/public/uploads
     ports:
       - "1337:1337"
     networks:

@@ -12,7 +12,7 @@
       }"
       class="img"
       contain
-      :src="image"
+      :src="'/v1' + image"
     ></v-img>
     <div style="overflow: hidden;">
       <h1>{{ `${title} (${formatedDate} Uhr)` }}</h1>
