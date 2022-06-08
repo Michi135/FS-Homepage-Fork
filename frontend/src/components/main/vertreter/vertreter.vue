@@ -51,7 +51,7 @@ export default defineComponent({
 
     const res = useQuery<{ vertreters: VertreterGQL }>(gql`
     {
-      vertreters (filters: {aktiv: {eq: true}})
+      vertreters (filters: {aktiv: {eq: true}}, pagination: {pageSize: 100})
       {
         data {
           attributes {

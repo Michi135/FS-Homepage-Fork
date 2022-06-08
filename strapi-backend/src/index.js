@@ -24,7 +24,7 @@ module.exports = {
    *
    * This gives you an opportunity to extend code.
    */
-   register({ strapi, env }) {
+   register({ strapi }) {
     const extensionService = strapi.plugin('graphql').service('extension');
 
     function isValidIp(context)
@@ -40,7 +40,7 @@ module.exports = {
       if (!jwt)
         return false
       try {
-        const token = verify(jwt, env(JWT_SECRET_SHARED, 'DEFAULT_JWT_SECRET'))
+        const token = verify(jwt, process.env["JWT_SECRET_SHARED"] ?? 'DEFAULT_JWT_SECRET')
       }
       catch (err) {
         return false

@@ -79,7 +79,8 @@
         "Bierkoordination",
         "Physikerbar",
         "Grafiken",
-        "Root"
+        "Root",
+        "Skripten"
       ],
       "required": true
     },

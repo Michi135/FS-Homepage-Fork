@@ -17,7 +17,8 @@
         "Öffentlichkeitsarbeit",
         "Bierkoordination",
         "Physikerbar",
-        "Grafiken"
+        "Grafiken",
+        "Skripten"
       ],
       "required": true
     },
