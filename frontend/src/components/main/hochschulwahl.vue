@@ -4,16 +4,10 @@
       <div style="max-width: 1100px; margin: 0 auto">
         <h2><b>Hochschulwahl</b></h2>
         <br />
+        Jedes Jahr auf neue finden die Festspiele in Bayreuth statt.
+        Eben genauso finden die Wahlen an der Uni Bayreuth statt.
+        <br />
         <p>
-          Ihr denkt die Bundestagswahl ist die einzige Wahl in diesem Jahr?<br />Falsch:
-          In einer kleinen Universität in Franken werden auch sämtliche
-          Studierenden zur Wahl gebeten.
-          <br />
-          <span class="comment">
-            (Tatsächlich ist das nichts besonderes, denn das ist jedes Jahr so.
-            Aber nur alle vier Jahre funktioniert dieser Spruch.)
-          </span>
-          <br />
           Was diese Hochschulwahl genau ist, also wen ihr in welche Gremien
           wählen könnt, was ihr dafür tun müsst und zuletzt wie das Wählen auch
           euch das Studium angenehmer machen kann, erfahrt ihr auf dieser Seite.
@@ -96,10 +90,7 @@
           Der Senat beschließt Rechtsvorschriften in Forschung und Förderung und
           Gleichstellungsfragen, bestimmt Forschungsschwerpunkte, beschließt
           Vorschläge für Einrichtung und Aufhebung von Studiengängen und nimmt
-          zur Berufung von Professoren Stellung. Hier könnt ihr aus den Listen
-          der politischen Hochschulgruppen
-          <span class="comment">(dazu später mehr)</span> die studentischen
-          Mitglieder wählen.
+          zur Berufung von Professoren Stellung.
         </p>
         <br />
         <p class="tw-text-2xl">
@@ -127,8 +118,7 @@
           Hochschulleitung ein, beschließt außerdem über den Entwicklungsplan,
           Gliederung der Fakultäten, Einrichtung und Abschaffung von
           Studiengängen und nimmt Stellung zu verschiedenen die Uni betreffenden
-          Sachverhalten. Die zwei studentischen Mitglieder könnt ihr auch hier
-          wieder aus den Listen der Hochschulgruppen wählen.
+          Sachverhalten. Zudem kommt es dieses Jahr zu einer Urabstimmung zum Thema Parkraum an der Uni.
         </p>
         <br />
         <p class="tw-text-2xl">
@@ -143,15 +133,10 @@
           alle möglichen weiteren universitätsweiten Gremien entsannt, die sich
           z.B. mit dem Semesterticket oder dem Mensaumbau beschäftigen.
           <br />
-          Das StuPa setzt sich zusammen aus zwölf Fachschaftsvertreter*innen
-          <span class="comment">(zwei pro Fachschaft)</span>, zwölf Mitgliedern
-          aus den Hochschulgruppen, den zwei Mitgliedern aus dem Hochschulrat
-          und den drei Mitgliedern aus dem Senat. Die Vertreter, die über Senat
-          und Hochschulrat in das StuPa kommen, habt ihr bei diesen Gremien
-          schon gewählt, eure beiden Fachschaftsvertreter über die
-          Fakultätsratliste, fehlen also noch die zwölf weiteren Vertreter. Auch
-          hierfür stellen die politischen Hochschulgruppen Listen auf, die ihr
-          dann wählen könnt.
+          Das StuPa setzt sich zusammen aus 14 Fachschaftsvertreter*innen
+          <span class="comment">(zwei pro Fachschaft)</span>
+          und 19 Mitgliedern aus den Hochschulgruppen. Aus den Reihen des StuPas wiederum werden seit
+          diesem Jahr die studentischen Mitglieder im Senat und Hochschulrat vom StuPa gewählt.
         </p>
         <br /><br />
         <h2><b>Wen</b> kann ich nun wählen?</h2>
@@ -163,25 +148,19 @@
           Namen “Alberner Tross” aufgestellt. <br />Diese sieht wie folgt aus:
         </p>
         <br />
-        <ol>
-          <li>Julia Schwarz</li>
-          <li>Armin Rödiger</li>
-          <li>Charlotte Geiger</li>
-          <li>Lennart Reinstorf</li>
-          <li>Elias Laumeyer</li>
-          <li>Marcel Schalling</li>
-          <li>Sophie Meißner</li>
-          <li>Michelle Reimann</li>
-          <li>Olivia Kammerer</li>
-          <li>Marius Kaiser</li>
-          <li>Maike Schelhorn</li>
-          <li>Oliver Zahn</li>
-          <li>Dennis Streicher</li>
+        <ol v-if="v.length > 0">
+          <li
+            v-for="(p, i) in v"
+            :key="i"
+          >
+            {{ p }}
+          </li>
         </ol>
         <br />
         <p>
           Für die Wahl des Fakultätsrats habt ihr 2 Stimmen
-          <span class="comment">(So viele, wie studentische Vertreter im Fakultätsrat)</span>. Ihr könnt diese beiden Stimmen entweder aufteilen auf wen immer ihr
+          <span class="comment">(So viele, wie studentische Vertreter im Fakultätsrat)</span>.
+          Ihr könnt diese beiden Stimmen entweder aufteilen auf wen immer ihr
           besonders mögt, beide Stimmen einer einzigen beliebigen Person der
           Liste geben, oder ihr kreuzt einfach oben die gesamte Liste an. Das
           ist äquivalent mit dem Wählen der ersten beiden Personen.
@@ -189,7 +168,7 @@
           Wen empfehlen wir zu wählen? Tatsächlich einfach möglichst Leute, die
           weit oben stehen. Wir haben die Liste extra so erstellt, dass die, die
           einen Posten wollen, auch am weitesten oben stehen. Aus diesem Grund
-          sind Julia und Armin ganz oben, da die beiden eben in den Fakultätsrat
+          sind {{ v[0] + " und " + v[1] }} ganz oben, da die beiden eben in den Fakultätsrat
           gehen wollen. Auf den Plätzen danach sind all die, die am besten auch
           durch die Wahl bestätigt werden sollten, da sie sich um die Finanzen
           kümmern
@@ -200,12 +179,10 @@
             konkrete Personen anzukreuzen.</b>
         </p>
         <br />
-        <h1>Alle anderen Gremien</h1>
+        <h1>Stimmenabgabe</h1>
         <p>
-          Da alle anderen Gremien
-          <span class="comment">(Senat, Hochschulrat, StuPa)</span>
-          universitätsweit sind, könnt ihr hier die Kandidaten der
-          Hochschulgruppen wählen. Dies sind Vereinigungen von
+          Da das Studierendenparlament universitätsweit ist, könnt ihr hier die
+          Kandidaten der Hochschulgruppen wählen. Dies sind Vereinigungen von
           hochschulpolitisch interessierten Studierenden, die sich normalerweise
           an der einen oder anderen allgemeinpolitischen Partei anlehnen. Diese
           veröffentlichen typischerweise Wahlprogramme und konkurrieren dann für
@@ -213,7 +190,7 @@
           z.B
           <a
             class="link"
-            href="https://www.uni-bayreuth.de/de/universitaet/organisation/hochschulwahl/index.html"
+            href="https://www.uni-bayreuth.de/hochschulwahl#de5b9f82"
           >auf der Seite der Uni</a>
           und Links zu den einzelenen Gruppen
           <router-link
@@ -223,8 +200,7 @@
             hier
           </router-link> auf unserer
           Website. Auch hier gilt für alle Wahlen: Ihr habt so viele Stimmen zu
-          vergeben, wie Plätze zu vergeben sind. Das heißt drei Stimmen für den
-          Senat, zwei für den Hochschulrat und zwölf für das StuPa. Ihr könnt
+          vergeben, wie Plätze zu vergeben sind. Das heißt 14 Stück. Ihr könnt
           hierbei auch Personen verschiedener Listen
           <span class="comment">(=verschiedener Hochschulgruppen)</span> wählen
           <span class="comment"><b>(Panaschieren)</b></span> und aber auch
@@ -235,32 +211,12 @@
         <br /><br />
         <h2><b>Wie</b> kann ich wählen?</h2>
         <p>
-          Wegen der aktuellen Situation findet die Wahl ausschließlich als
-          Briefwahl statt. Das heißt, sofern eure Korrespondenzadresse in CMlife
-          richtig hinterlegt ist
-          <span class="important">(Zur Sicherheit nochmal checken!)</span>,
-          bekommt ihr sämtliche Wahlunterlagen per Post an diese Adresse
-          geschickt. Diese gilt es auszupacken und dann gemäß den beiliegenden
-          Anweisungen auszufüllen und in die mitgeschickten Umschläge zu
-          verpacken und wegzuschicken.
+          Die Wahl findet am 22. Juni 2022 in Präsenz an der Uni Bayreuth statt.
+          Wenn ihr wahlberechtigt an der Fakultät MPI seid, könnt ihr eure Stimme
+          im S80 abgeben. Das Wahlbüro ist von 9 Uhr bis 18 Uhr geöffnet.
+          Zur Motivation backen wir für alle Wähler Waffeln mit Puderzucker. Außerdem schenken wir kostenlosen Kaffee aus!
         </p>
         <p>
-          Keine Sorge: Ihr müsst kein Porto bezahlen. Wichtig dabei ist: Die
-          Unterlagen müssen bis
-          <span class="important">spätestens am 16. Juni 2021, 18.00 Uhr im Wahlamt</span>
-          vorliegen. Das heißt schickt die Sachen einfach schnellstmöglich los,
-          dann vergesst ihr das nicht.
-          <span class="comment">(Keine Sorge, wir werden auch nochmal Erinnerungsmails
-            verschicken)</span>.
-          <br />
-          In normalen Semestern
-          <span class="comment">(wenn die Wahl in einem Seminarraum an der Uni stattfindet)</span>
-          backen wir für alle Wähler Waffeln mit Puderzucker. Leider geht das
-          dieses Jahr nicht, was euch aber natürlich nicht vom Wählen abhalten
-          soll. Keine Sorge, sobald die Situation es wieder erlaubt, werden wir
-          uns entsprechend revanchieren.
-          <span class="comment">(Vorausgesetzt ihr geht auch alle schön fleißig wählen 😉)</span>
-          <br />
           Was sonst noch bleibt: Wenn ihr Fragen habt bezüglich der Wahl, helfen
           wir euch gerne weiter. Unsere Kontaktmöglichkeiten findet ihr
           <router-link
@@ -284,7 +240,26 @@ import { defineComponent } from 'vue'
 
 export default defineComponent({
   setup()
-  {}
+  {
+    const v =
+    [
+      "Sophie Meißner",
+      "Olivia Kammerer",
+      "Timm Bugla",
+      "Marcel Schalling",
+      "Mila Reihl",
+      "Martin Treutterer",
+      "Johannes Lindner",
+      "Clara Gremmelspacher",
+      "Daniel Hadirahardjo",
+      "Elias Laumeyer",
+      "Michael Ziegler",
+      "Valerian Allingham",
+      "Ghofrane Kamoun",
+      "Teresa Schlösser"
+    ]
+    return { v }
+  }
 })
 </script>
 

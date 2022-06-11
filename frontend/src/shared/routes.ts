@@ -17,7 +17,8 @@ const impressumComponent = () => import('@components/main/impressum.vue'/* webpa
 const kontaktComponent = () => import('@components/main/kontakt.vue'/* webpackChunkName: "footer" */)
 const externeComponent = () => import('@components/main/externals.vue'/* webpackChunkName: "footer" */)
 //const testComponent = () => import('@components/editor/editor.vue' /* webpackChunkName: "footer" */)
-//const wahlComponent = () => import('@components/main/hochschulwahl.vue'/* webpackChunkName: "home" */)
+const wahlComponent = () => import('@components/main/hochschulwahl.vue'/* webpackChunkName: "home" */)
+const partyComponent = () => import('@components/main/nw2_party.vue' /* webpackChunkName: "home" */)
 
 export const basePaths = {
   home: '/',
@@ -126,8 +127,9 @@ addHeaderRoute('consultationHours', sprechstundenComponent)
 addHeaderRoute('freshers', erstisComponent, { favicon: studentSvg })
 addHeaderRoute('noPanic', keinePanikComponent)
 //addHeaderRoute('blog', blogComponent)
-//addHeaderRoute('election', wahlComponent, { favicon: require('@components/main/wal.svg') })
+addHeaderRoute('election', wahlComponent, { favicon: require('@components/main/wal.svg') })
 addHeaderRoute('uniCinema', uniKinoComponent, { favicon: require('@components/main/filmkamera.svg') })
+addHeaderRoute('party', partyComponent, { favicon: require('@components/main/party.svg') })
 
 addFooterRoute('imprint', impressumComponent)
 addFooterRoute('contact', kontaktComponent)

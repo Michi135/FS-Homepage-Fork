@@ -13,6 +13,13 @@
       :data="sprechstunden"
       :breakpoint="760"
     ></table-comp>
+    <div style="height: 1.5em"></div>
+    <i18n-t
+      tag="p"
+      keypath="ahmet"
+      style="color: white"
+    >
+    </i18n-t>
   </div>
 </template>
 
@@ -121,11 +128,13 @@ export default defineComponent({
 <i18n locale="de">
 {
   "consHours": "Sprechstunden der FSMPI",
+  "ahmet": "An jedem Mittwoch findet eine außerordentliche Sprechstunde von Ahmet zwischen 8 und 9 Uhr statt."
 }
 </i18n>
 
 <i18n locale="en">
 {
   "consHours": "Consultation hours of the FSMPI",
+  "ahmet": "Every wednesday there will be a extraordinary consultation hour by Ahmet from 8 till 9 o'clock."
 }
 </i18n>

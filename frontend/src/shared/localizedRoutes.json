@@ -52,6 +52,10 @@
         "uniCinema": {
             "route": "unikino",
             "title": "Uni Kino"
+        },
+        "party": {
+            "route": "nw2-party",
+            "title": "NW2-Party"
         }
     },
     "en": {
@@ -104,6 +108,10 @@
         "uniCinema": {
             "route": "uniCinema",
             "title": "Uni cinema"
+        },
+        "party": {
+            "route": "nw2-party",
+            "title": "NW2-Party"
         }
     }
 }

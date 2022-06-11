@@ -14,7 +14,7 @@ import HtmlWebpackPlugin from 'html-webpack-plugin'
 import { TsConfig } from './tsConfigType'
 import type { BrotliOptions } from 'zlib'
 import { constants } from 'zlib'
-import { VuetifyLoaderPlugin } from 'vuetify-loader'
+import { VuetifyPlugin } from 'webpack-plugin-vuetify'
 import PurgeCSSPlugin from 'purgecss-webpack-plugin'
 import glob from 'glob'
 
@@ -294,7 +294,7 @@ const config = (env: NodeJS.ProcessEnv = {}): Configuration =>
       plugins: [ //@ts-ignore
         //new SpeedMeasurePlugin({ granularLoaderData: true }),
         new VueLoaderPlugin(),
-        new VuetifyLoaderPlugin({}),
+        new VuetifyPlugin({}),
         new MiniCssExtractPlugin({
           filename: (isProd) ? '[name].[contenthash].css' : '[name].css'
         }),

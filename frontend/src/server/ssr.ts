@@ -43,6 +43,7 @@ const chunks: Record<string, string> = {
   "/erstis": "home",
   "/wahl": "home",
   "/uniKino": "home",
+  "/nw2-parts": "home",
 
   "/en": "home",
   "/en/representatives": "home",
@@ -52,7 +53,8 @@ const chunks: Record<string, string> = {
   "/en/imprint": "footer",
   "/en/consultationHours": "home",
   "/en/contact": "footer",
-  "/en/uniCinema": "home"
+  "/en/uniCinema": "home",
+  "/en/nw2-party": "home"
 }
 
 let initialHtml: string | undefined
