@@ -3,32 +3,54 @@
     <div class="tw-m-3.5">
       <div style="max-width: 1100px; margin: 0 auto">
         <h2><b>Hochschulwahl</b></h2>
-        <br />
-        Jedes Jahr auf neue finden die Festspiele in Bayreuth statt.
-        Eben genauso finden die Wahlen an der Uni Bayreuth statt.
-        <br />
-        <p>
-          Was diese Hochschulwahl genau ist, also wen ihr in welche Gremien
-          wählen könnt, was ihr dafür tun müsst und zuletzt wie das Wählen auch
-          euch das Studium angenehmer machen kann, erfahrt ihr auf dieser Seite.
-          Eine Kurzzusammenfassung findet ihr in Form unserer Präsentation
-          <a
-            class="link"
-            href="https://fsmpi.github.io/hs-wahl/"
-          >hier</a>.
-        </p>
-        <br /><br />
-        <h2>
-          <b>Welche</b> Gremien werden gewählt und <b>wie</b> nützen sie mir?
-        </h2>
-        <br />
+        <div style="height: 1.5em"></div>
+        <i18n-t
+          tag="p"
+          keypath="p[0]"
+        >
+        </i18n-t>
+        <i18n-t
+          tag="p"
+          keypath="p[1]"
+        >
+          <template #here>
+            <i18n-t
+              tag="a"
+              keypath="here"
+              class="link"
+              href="https://fsmpi.github.io/hs-wahl/"
+            >
+            </i18n-t>
+          </template>
+        </i18n-t>
+        <div style="height: 3em"></div>
+        <i18n-t
+          tag="h2"
+          keypath="h[0]"
+        >
+          <template #which>
+            <i18n-t
+              tag="b"
+              keypath="which"
+            ></i18n-t>
+          </template>
+          <template #how>
+            <i18n-t
+              tag="b"
+              keypath="how"
+            ></i18n-t>
+          </template>
+        </i18n-t>
+        <div style="height: 1.5em"></div>
         <h1>Der Fakultätsrat</h1>
         <p>
           Jede Fakultät hat einen davon. Er wird von ihrem eigenen Dekanat
           verwaltet.
-          <br />Er setzt sich wie folgt zusammen:
         </p>
-        <br />
+        <p>
+          Er setzt sich wie folgt zusammen:
+        </p>
+        <div style="height: 1.5em"></div>
         <div>
           <ul>
             <li>Dekan</li>
@@ -42,7 +64,7 @@
               2 Studierendenvertreter
             </li>
           </ul>
-          <br />
+          <div style="height: 1.5em"></div>
           <p>
             Hier kommen wir ins Spiel, denn diese beiden Vertreter könnt ihr
             wählen. Dafür reichen wir
@@ -57,7 +79,9 @@
           helfen also mit bei der Erstibetreuung, organisieren das Unikino, oder
           kümmern sich um die Organisation von Veranstaltungen wie Partys oder
           das Fakultätsfest.
-          <br />
+        </p>
+        <div style="height: 1.5em"></div>
+        <p>
           Warum ist eure Stimme für uns so wichtig? Im Fakultätsrat werden alle
           Sachen beschlossen, die ganz konkret viele Bereiche eures Studiums
           beeinflussen. Zum Beispiel die Prüfungsordnungen, die Verteilung von
@@ -68,12 +92,12 @@
           nötig. Schließlich wollen wir auch möglichst <b>alle</b> Studierenden
           vertreten.
         </p>
-        <br />
+        <div style="height: 1.5em"></div>
         <p class="tw-text-2xl">
           Der Senat
         </p>
         <p>Der Senat der Uni besteht aus:</p>
-        <br />
+        <div style="height: 1.5em"></div>
         <ul>
           <li>5 Vertreter der Hochschullehrer</li>
           <li>2 wissenschaftlichen Mitarbeitern</li>
@@ -85,19 +109,19 @@
             Präsident als Vorsitz <span class="comment">(ohne Stimmrecht)</span>
           </li>
         </ul>
-        <br />
+        <div style="height: 1.5em"></div>
         <p>
           Der Senat beschließt Rechtsvorschriften in Forschung und Förderung und
           Gleichstellungsfragen, bestimmt Forschungsschwerpunkte, beschließt
           Vorschläge für Einrichtung und Aufhebung von Studiengängen und nimmt
           zur Berufung von Professoren Stellung.
         </p>
-        <br />
+        <div style="height: 1.5em"></div>
         <p class="tw-text-2xl">
           Der Hochschulrat
         </p>
         <p>Der Hochschulrat besteht aus:</p>
-        <br />
+        <div style="height: 1.5em"></div>
         <div>
           <ul>
             <li>4 Vertretern der Hochschullehrer</li>
@@ -110,7 +134,7 @@
             (nicht hochschulangehörige Mitglieder)
           </p>
         </div>
-        <br />
+        <div style="height: 1.5em"></div>
         <p>
           Er beschließt die Grundordnung der Universität und deren Änderungen,
           wählt den Präsidenten und weitere Mitglieder der Hochschulleitung bzw.
@@ -120,7 +144,7 @@
           Studiengängen und nimmt Stellung zu verschiedenen die Uni betreffenden
           Sachverhalten. Zudem kommt es dieses Jahr zu einer Urabstimmung zum Thema Parkraum an der Uni.
         </p>
-        <br />
+        <div style="height: 1.5em"></div>
         <p class="tw-text-2xl">
           Das Studierendenparlament <span class="comment">(kurz StuPa)</span>
         </p>
@@ -132,22 +156,28 @@
           der Uni, oder die Klimawoche. Auch werden vom Stupa aus Vertreter in
           alle möglichen weiteren universitätsweiten Gremien entsannt, die sich
           z.B. mit dem Semesterticket oder dem Mensaumbau beschäftigen.
-          <br />
+        </p>
+        <div style="height: 1.5em"></div>
+        <p>
           Das StuPa setzt sich zusammen aus 14 Fachschaftsvertreter*innen
           <span class="comment">(zwei pro Fachschaft)</span>
           und 19 Mitgliedern aus den Hochschulgruppen. Aus den Reihen des StuPas wiederum werden seit
           diesem Jahr die studentischen Mitglieder im Senat und Hochschulrat vom StuPa gewählt.
         </p>
-        <br /><br />
+        <div style="height: 3em"></div>
         <h2><b>Wen</b> kann ich nun wählen?</h2>
-        <br />
+        <div style="height: 1.5em"></div>
         <h1>Fakultätsrat</h1>
         <p>
           Für den Fakultätsrat haben wir
           <span class="comment">(die Fachschaft)</span> eine Liste unter dem
-          Namen “Alberner Tross” aufgestellt. <br />Diese sieht wie folgt aus:
+          Namen “Alberner Tross” aufgestellt.
         </p>
-        <br />
+        <div style="height: 1.5em"></div>
+        <p>
+          Diese sieht wie folgt aus:
+        </p>
+        <div style="height: 1.5em"></div>
         <ol v-if="v.length > 0">
           <li
             v-for="(p, i) in v"
@@ -156,7 +186,7 @@
             {{ p }}
           </li>
         </ol>
-        <br />
+        <div style="height: 1.5em"></div>
         <p>
           Für die Wahl des Fakultätsrats habt ihr 2 Stimmen
           <span class="comment">(So viele, wie studentische Vertreter im Fakultätsrat)</span>.
@@ -164,7 +194,9 @@
           besonders mögt, beide Stimmen einer einzigen beliebigen Person der
           Liste geben, oder ihr kreuzt einfach oben die gesamte Liste an. Das
           ist äquivalent mit dem Wählen der ersten beiden Personen.
-          <br />
+        </p>
+        <div style="height: 1.5em"></div>
+        <p>
           Wen empfehlen wir zu wählen? Tatsächlich einfach möglichst Leute, die
           weit oben stehen. Wir haben die Liste extra so erstellt, dass die, die
           einen Posten wollen, auch am weitesten oben stehen. Aus diesem Grund
@@ -178,7 +210,17 @@
           <b>Einfach den Haken bei der Liste “Alberner Tross” setzen anstatt
             konkrete Personen anzukreuzen.</b>
         </p>
-        <br />
+        <div style="height: 1.5em"></div>
+        <div
+          class="tw-flex tw-justify-center"
+          v-if="image"
+        >
+          <img :src="image">
+        </div>
+        <div
+          style="height: 1.5em"
+          v-if="image"
+        ></div>
         <h1>Stimmenabgabe</h1>
         <p>
           Da das Studierendenparlament universitätsweit ist, könnt ihr hier die
@@ -208,7 +250,7 @@
           Person geben <span class="comment"><b>(Häufeln)</b></span>. Die genauen Gegebenheiten findet ihr auch direkt auf dem
           Wahlzettel.
         </p>
-        <br /><br />
+        <div style="height: 3em"></div>
         <h2><b>Wie</b> kann ich wählen?</h2>
         <p>
           Die Wahl findet am 22. Juni 2022 in Präsenz an der Uni Bayreuth statt.
@@ -225,7 +267,9 @@
           >
             hier
           </router-link>.
-          <br />
+        </p>
+        <div style="height: 1.5em"></div>
+        <p>
           Sonst bleibt uns nur noch zu sagen:
           <span class="important">Geht wählen!</span> Ihr helft uns und damit
           auch euch selbst! Wir freuen uns auf eine hohe Wahlbeteiligung!
@@ -236,11 +280,20 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
+import { defineComponent, ref } from 'vue'
+import { useI18n } from 'vue-i18n'
 
 export default defineComponent({
   setup()
   {
+    const image = ref<string | null>(null)
+    const { t } = useI18n({ useScope: "local" })
+
+    import('@static/stupa_wahl.jpg').catch().then((val) =>
+    {
+      image.value = val.default
+    })
+
     const v =
     [
       "Sophie Meißner",
@@ -258,7 +311,7 @@ export default defineComponent({
       "Ghofrane Kamoun",
       "Teresa Schlösser"
     ]
-    return { v }
+    return { v, image, t }
   }
 })
 </script>
@@ -310,3 +363,33 @@ h2 {
   line-height: 2.25rem;
 }
 </style>
+
+<i18n locale="de">
+{
+  "p[0]": "Jedes Jahr auf neue finden die Festspiele in Bayreuth statt. \
+          Eben genauso finden die Wahlen an der Uni Bayreuth statt.",
+  "p[1]": "Was diese Hochschulwahl genau ist, also wen ihr in welche Gremien \
+          wählen könnt, was ihr dafür tun müsst und zuletzt wie das Wählen auch \
+          euch das Studium angenehmer machen kann, erfahrt ihr auf dieser Seite. \
+          Eine Kurzzusammenfassung findet ihr in Form unserer Präsentation {here}.",
+  "here": "hier",
+  "which": "Welche",
+  "how": "wie",
+  "h[0]": "{which} Gremien werden gewählt und {how} nützen sie mir?",
+}
+</i18n>
+
+<i18n locale="en">
+{
+  "p[0]": "Jedes Jahr auf neue finden die Festspiele in Bayreuth statt. \
+          Eben genauso finden die Wahlen an der Uni Bayreuth statt.",
+  "p[1]": "Was diese Hochschulwahl genau ist, also wen ihr in welche Gremien \
+          wählen könnt, was ihr dafür tun müsst und zuletzt wie das Wählen auch \
+          euch das Studium angenehmer machen kann, erfahrt ihr auf dieser Seite. \
+          Eine Kurzzusammenfassung findet ihr in Form unserer Präsentation {here}.",
+  "here": "here",
+  "which": "Which",
+  "how": "how",
+  "h[0]": "{which} Gremien werden gewählt und {how} nützen sie mir?",
+}
+</i18n>
