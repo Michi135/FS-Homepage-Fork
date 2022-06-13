@@ -31,6 +31,12 @@
           />
         </router-link>
       </nav>
+      <i18n-t
+        tag="button"
+        @click="toTop"
+        keypath="top"
+      >
+      </i18n-t>
     </div>
   </footer>
 </template>
@@ -54,12 +60,18 @@ export default defineComponent({
       return footerRoutes.get(store.language)!
     })
 
+    const toTop = () =>
+    {
+      window.scrollTo(0, 0)
+    }
+
     return {
       routes,
       footerLogo: null,
       basePaths,
       tLocal: localI18n.t,
-      tGlobal: globalI18n.t
+      tGlobal: globalI18n.t,
+      toTop
     }
   }
 })
@@ -77,12 +89,14 @@ export default defineComponent({
 
 <i18n locale="de">
 {
-  "updated": "Zuletzt aktualisiert"
+  "updated": "Zuletzt aktualisiert",
+  "top": "Nach oben"
 }
 </i18n>
 
 <i18n locale="en">
 {
-  "updated": "Last updated"
+  "updated": "Last updated",
+  "top": "To the top"
 }
 </i18n>
