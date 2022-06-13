@@ -89,6 +89,10 @@
             <i18n-t
               tag="li"
               keypath="li[6]"
+            ></i18n-t>
+            <i18n-t
+              tag="li"
+              keypath="li[7]"
               class="important"
             ></i18n-t>
           </ul>
