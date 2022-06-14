@@ -43,6 +43,8 @@ services:
         ipv4_address: 172.23.2.40
 
   vuecms:
+    env_file:
+      - shared.env
     build: ./frontend
     image: vuecms:1.0.0
     working_dir: "/var/vuecms"
