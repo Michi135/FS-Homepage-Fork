@@ -32,7 +32,7 @@
     "graphql-tag": "^2.12.6",
     "helmet": "^5.0.2",
     "html-webpack-plugin": "^5.3.2",
-    "jsdom": "^19.0.0",
+    "jsdom": "^20.0.0",
     "jsonwebtoken": "^8.5.1",
     "lodash-es": "^4.17.21",
     "mime": "^3.0.0",
