@@ -53,6 +53,12 @@
             keypath="p[5.2]"
             tag="p"
           >
+            <template #hier>
+              <a
+                :href="t('inet')"
+                :hreflang="locale"
+              >hier</a>
+            </template>
           </i18n-t>
         </template>
         <template v-else>
@@ -159,6 +165,7 @@ export default defineComponent({
   {
     const store = useStore()
     const { locale } = useI18n()
+    const { t } = useI18n({ useScope: "local" })
 
     const res = useQuery<GraphqlQuery>(gql`
     {
@@ -271,7 +278,7 @@ export default defineComponent({
       })
     })
 
-    return { store, filmtranslation, formatedDate }
+    return { store, filmtranslation, formatedDate, locale, t }
   }
 })
 </script>
@@ -333,13 +340,20 @@ hr {
     height: 1px;
     border: 0;
 }
+
+a {
+  color: lightblue;
+}
+a:hover {
+  color: var(--color-primary);
+}
 </style>
 
 <i18n locale="de">
 {
   "cinema": "Uni Kino",
-  "p[0]": "Neben der allgemeinen Fachschaftsarbeit organisiert die Fachschaft MPI bereits seit 1992 das Uni-\
-          Kino an der Universität Bayreuth. Dort zeigen wir euch während der klassischen Vorlesungszeit, \
+  "p[0]": "Neben der allgemeinen Fachschaftsarbeit organisiert die Fachschaft MPI bereits seit 1992 das Uni-Kino \
+          an der Universität Bayreuth. Dort zeigen wir euch während der klassischen Vorlesungszeit, \
           jeden zweiten Dienstag einen Film im H17 und H18.",
   "p[1]": "Die normalerweise mit recht trockenem und mathematischem Stoff assoziierten Hörsäle verwandeln \
           sich an diesen Tagen dank Beamer und großer Soundanlagen in echte Kinosäle! Dabei bieten wir \
@@ -353,16 +367,19 @@ hr {
           Sommerspecial ist außerdem im Innenhof des NW2-Gebäudes, also OPEN AIR!",
   "p[5.1]": "Die Termine für dieses Semester sind:",
   "p[5.2]": "Leider können wir auf Grund rechtlicher Rahmenbedingungen das konkrete Programm nur \
-            campusintern veröffentlichen.",
-  "p[6]": "Das Programm für das Sommersemester 2022 ist:"
+            campusintern veröffentlichen. Dafür müsst ihr euch im Netz der Uni-Bayreuth befinden. \
+            D.h. entweder in Eduroam oder über den Proxy der Uni Bayreuth. \
+            Eine Anleitung hierzu findet ihr {hier}.",
+  "p[6]": "Das Programm für das Sommersemester 2022 ist:",
+  "inet": "https://www.its.uni-bayreuth.de/de/internet-und-email/index.html"
 }
 </i18n>
 
 <i18n locale="en">
 {
   "cinema": "Uni cinema",
-  "p[0]": "In addition to the general student council work, the student council MPI has been organizing the Uni-\
-          Cinema at the University of Bayreuth since 1992. There we show you during the classical lecture period, \
+  "p[0]": "In addition to the general student council work, the student council MPI has been organizing the Uni-Cinema \
+          at the University of Bayreuth since 1992. There we show you during the classical lecture period, \
           every second tuesday a film in the H17 and H18.",
   "p[1]": "The lecture halls normally associated with quite dry and mathematical material are transformed into real movie \
           theaters thanks to beamers and large sound systems! At the same time we \
@@ -375,7 +392,11 @@ hr {
           also offer mulled wine (winter) or cocktails (summer). The \
           Summer Special is also in the courtyard of the NW2 building, therefore OPEN AIR!",
   "p[5.1]": "The dates for this semester are:",
-  "p[5.2]": "Unfortunately, due to legal constraints, we can only publish the specific program internally within the campus.",
-  "p[6]": "The program for summer semester 2022 is:"
+  "p[5.2]": "Unfortunately, due to legal constraints, we can only publish the specific program internally within the campus. \
+            For this you have to be in the network of the Uni-Bayreuth. \
+            I.e. either in Eduroam or via the proxy of the University of Bayreuth. \
+            You can find instructions regarding this {hier}.",
+  "p[6]": "The program for summer semester 2022 is:",
+  "inet": "https://www.its.uni-bayreuth.de/en/internet-und-email/index.html"
 }
 </i18n>

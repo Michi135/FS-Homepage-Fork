@@ -616,7 +616,7 @@ h2 {
           kümmern {b} \
           oder die Fachschaft im StuPa vertreten wollen. Kurz gesagt: Wenn ihr \
           nicht wisst, wen ihr wählen sollt: {c}",
-  "h[4]": "Stimmenabgabe",
+  "h[4]": "Studierendenparlament",
   "p[19]": "Da das Studierendenparlament universitätsweit ist, könnt ihr hier die \
           Kandidaten der Hochschulgruppen wählen. Dies sind Vereinigungen von \
           hochschulpolitisch interessierten Studierenden, die sich normalerweise \
@@ -749,7 +749,7 @@ h2 {
           are all the ones who should best be confirmed by the election as well, since \
           they want to take care of the finances {b} or represent the Student Council in \
           the StuPa. In a nutshell: If you don't know who to vote for: {c}",
-  "h[4]": "Voting",
+  "h[4]": "Student Parliament",
   "p[19]": "Since the student parliament is university-wide, you can vote for the candidates \
           of the university groups there. These are associations of students interested in \
           university politics, usually leaning towards one or another general political \
