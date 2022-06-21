@@ -29,8 +29,13 @@ module.exports = {
 
     function isValidIp(context)
     {
-      return uniMask.contains(context.http.request.header["x-real-ip"]) ||		    
-             fsLanMask.contains(context.http.request.header["x-real-ip"])
+      const real_ip = context.http.request.header["x-real-ip"]
+
+      if (!real_ip)
+        return false
+
+      return uniMask.contains(real_ip) ||	    
+             fsLanMask.contains(real_ip)
     }
     
     function isValidJwt(context)

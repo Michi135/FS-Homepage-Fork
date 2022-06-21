@@ -57,7 +57,7 @@
               <a
                 :href="t('inet')"
                 :hreflang="locale"
-              >hier</a>
+              >{{ t('here') }}</a>
             </template>
           </i18n-t>
         </template>
@@ -371,7 +371,8 @@ a:hover {
             D.h. entweder in Eduroam oder über den Proxy der Uni Bayreuth. \
             Eine Anleitung hierzu findet ihr {hier}.",
   "p[6]": "Das Programm für das Sommersemester 2022 ist:",
-  "inet": "https://www.its.uni-bayreuth.de/de/internet-und-email/index.html"
+  "inet": "https://www.its.uni-bayreuth.de/de/internet-und-email/index.html",
+  "here": "hier",
 }
 </i18n>
 
@@ -397,6 +398,7 @@ a:hover {
             I.e. either in Eduroam or via the proxy of the University of Bayreuth. \
             You can find instructions regarding this {hier}.",
   "p[6]": "The program for summer semester 2022 is:",
-  "inet": "https://www.its.uni-bayreuth.de/en/internet-und-email/index.html"
+  "inet": "https://www.its.uni-bayreuth.de/en/internet-und-email/index.html",
+  "here": "here",
 }
 </i18n>
