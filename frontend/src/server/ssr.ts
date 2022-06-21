@@ -43,7 +43,7 @@ const chunks: Record<string, string> = {
   "/erstis": "home",
   "/wahl": "home",
   "/uniKino": "home",
-  "/nw2-parts": "home",
+  "/nw2-party": "home",
 
   "/en": "home",
   "/en/representatives": "home",
@@ -184,7 +184,7 @@ export default function ssr(dev: boolean)
         args = Object.assign(args, { networkToken: getNetworkToken() })
 
       //@ts-ignore necessary in case there isn't a compiled main.js
-      const { createDefaultApp } = <typeof App>(await import('@distServer/main.js'))
+      const { createDefaultApp, nw2PartyEvent } = <typeof App>(await import('@distServer/main.js'))
       const { router, app, pinia, apolloClients } = createDefaultApp(args)
 
       router.push(req.url)
@@ -199,6 +199,15 @@ export default function ssr(dev: boolean)
       const doc = dom.window.document
       const head = doc.head
       doc.children[0].setAttribute('lang', language)
+
+      if (req.url === "/nw2-party" || req.url === '/en/nw2-party')
+      {
+        const node = doc.createElement('script')
+        node.type = "application/ld+json"
+        node.innerHTML = JSON.stringify(nw2PartyEvent)
+        node.nonce = res.locals.cspNonce
+        head.appendChild(node)
+      }
 
       const chunk = chunks[req.url]
       if (chunk)

@@ -103,3 +103,4 @@ function createDefaultApp(args: BundleArgs = {})
 }
 
 export { createBundledApp, createDefaultApp }
+export { default as nw2PartyEvent } from '@static/nw2Event'
