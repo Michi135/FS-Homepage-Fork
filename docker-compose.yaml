@@ -1,7 +1,6 @@
 version: "3.7"
 volumes:
   node_modules_frontend: {}
-  node_modules_backend: {}
   strapi_uploads:
     external: true
 services:
@@ -30,11 +29,6 @@ services:
     #stdin_open: true
     #tty: true
     volumes:
-      - ./strapi-backend/config:/opt/app/config
-      - ./strapi-backend/src:/opt/app/src
-      - ./strapi-backend/package.json:/opt/package.json
-      - ./strapi-backend/package-lock.json:/opt/package-lock.json
-      - ./strapi-backend/.env:/opt/app/.env
       - strapi_uploads:/opt/app/public/uploads
     ports:
       - "1337:1337"
