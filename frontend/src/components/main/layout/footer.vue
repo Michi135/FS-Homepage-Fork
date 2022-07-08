@@ -43,7 +43,7 @@
 
 <script lang="ts">
 import { computed, defineComponent } from 'vue'
-import { getCategoryRoutes, basePaths } from '@shared/routes'
+import { routes as appRoutes } from '@client/routes'
 import { useI18n } from 'vue-i18n'
 import { useStore } from '@shared/store'
 
@@ -57,7 +57,7 @@ export default defineComponent({
 
     const routes = computed(() =>
     {
-      return getCategoryRoutes('footer', store.language)
+      return appRoutes.getCategoryRoutes('footer', store.language)
     })
 
     const toTop = () =>
@@ -68,7 +68,7 @@ export default defineComponent({
     return {
       routes,
       footerLogo: null,
-      basePaths,
+      basePaths: appRoutes.basePaths,
       tLocal: localI18n.t,
       tGlobal: globalI18n.t,
       toTop

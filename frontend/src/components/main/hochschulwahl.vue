@@ -445,7 +445,7 @@
 <script lang="ts">
 import { defineComponent, ref, computed } from 'vue'
 import { useI18n } from 'vue-i18n'
-import { getKeyPath } from '@shared/routes'
+import { VueRoutes } from '@client/routes'
 
 export default defineComponent({
   setup()
@@ -454,11 +454,11 @@ export default defineComponent({
     const { t, locale } = useI18n({ useScope: "local" })
     const extern = computed(() =>
     {
-      return '/' + getKeyPath('externals', <"de" | "en">locale.value)
+      return '/' + VueRoutes.getKeyPath('externals', <"de" | "en">locale.value)
     })
     const kontakt = computed(() =>
     {
-      return '/' + getKeyPath('contact', <"de" | "en">locale.value)
+      return '/' + VueRoutes.getKeyPath('contact', <"de" | "en">locale.value)
     })
 
     import('@static/stupa_wahl.jpg').catch().then((val) =>
@@ -483,7 +483,7 @@ export default defineComponent({
       "Ghofrane Kamoun",
       "Teresa Schlösser"
     ]
-    return { v, image, t, getKeyPath, extern, kontakt }
+    return { v, image, t, getKeyPath: VueRoutes.getKeyPath, extern, kontakt }
   }
 })
 </script>

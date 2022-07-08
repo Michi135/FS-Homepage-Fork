@@ -11,7 +11,7 @@ import { useI18n } from 'vue-i18n'
 import { useStore } from '@shared/store'
 import { createFaviconLink } from '@shared/favicon'
 import { storeToRefs } from 'pinia'
-import { getKeyPath } from '@shared/routes'
+import { VueRoutes } from '@client/routes'
 import { determineLanguage } from '@shared/util'
 
 import 'tailwindcss/tailwind.css'
@@ -64,7 +64,7 @@ export default defineComponent({
 
       watch(locale, () =>
       {
-        router.replace('/' + getKeyPath(route.meta.title!, language.value))
+        router.replace('/' + VueRoutes.getKeyPath(route.meta.title!, language.value))
         document.children[0].setAttribute('lang', <'de' | 'en'>locale.value)
       })
 

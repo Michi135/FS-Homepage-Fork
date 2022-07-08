@@ -117,7 +117,7 @@ import { defineComponent, onMounted, ref, watch, computed } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { storeToRefs } from 'pinia'
 
-import { basePaths, getCategoryRoutes } from '@shared/routes'
+import { routes as appRoutes } from '@client/routes'
 import { useStore } from '@shared/store'
 import trossSvg from '@static/img/tross.svg'
 
@@ -142,7 +142,7 @@ export default defineComponent({
 
     const routes = computed(() =>
     {
-      return getCategoryRoutes('header', language.value)
+      return appRoutes.getCategoryRoutes('header', language.value)
     })
 
     return {
@@ -155,7 +155,7 @@ export default defineComponent({
       engFlagSvg,
       navConfig: true,
       routes,
-      basePaths
+      basePaths: appRoutes.basePaths
     }
   }
 })

@@ -47,6 +47,9 @@
       ],
       "@shared/*": [
         "src/shared/*"
+      ],
+      "@client/*": [
+        "src/client/*"
       ]
     },
     /* Visit https://aka.ms/tsconfig.json to read more about this file */

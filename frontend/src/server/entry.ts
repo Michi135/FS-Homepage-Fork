@@ -11,6 +11,8 @@ import { Netmask } from 'netmask'
 
 import { Build } from './runtimeConfig'
 
+import { getSiteMap } from './sitemap'
+
 import type { IncomingMessage, ServerResponse } from 'http'
 
 import fsExtra from 'fs-extra'
@@ -87,9 +89,29 @@ function cleanExit(...cleanups: Function[])
     }))
     server.use('/robots.txt', (req, res) =>
     {
-      return res.status(200).send(`User-agent: AdsBot-Google
-    Disallow: /`)
-    //TODO:: improve discoverability with sitemap
+      res.contentType("text/plain")
+      return res.status(200).send(`User-agent: *
+Allow: /
+      
+Sitemap: https://fsmpi.uni-bayreuth.de/sitemap.xml`)
+    })
+
+    server.get('/sitemap.xml', async function(req, res)
+    {
+      res.header('Content-Type', 'application/xml')
+      //res.header('Content-Encoding', 'gzip')
+      // if we have a cached entry send it
+
+      try
+      {
+        res.send(await getSiteMap())
+        return
+      }
+      catch (e)
+      {
+        console.error(e)
+        res.status(500).end()
+      }
     })
 
     const httpServer = createServer(server)
