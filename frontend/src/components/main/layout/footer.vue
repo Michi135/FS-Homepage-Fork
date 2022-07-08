@@ -43,7 +43,7 @@
 
 <script lang="ts">
 import { computed, defineComponent } from 'vue'
-import { footerRoutes, basePaths } from '@shared/routes'
+import { getCategoryRoutes, basePaths } from '@shared/routes'
 import { useI18n } from 'vue-i18n'
 import { useStore } from '@shared/store'
 
@@ -57,7 +57,7 @@ export default defineComponent({
 
     const routes = computed(() =>
     {
-      return footerRoutes.get(store.language)!
+      return getCategoryRoutes('footer', store.language)
     })
 
     const toTop = () =>

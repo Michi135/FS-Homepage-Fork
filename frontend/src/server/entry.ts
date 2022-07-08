@@ -13,7 +13,17 @@ import { Build } from './runtimeConfig'
 
 import type { IncomingMessage, ServerResponse } from 'http'
 
+import fsExtra from 'fs-extra'
+import path from 'path'
+const { existsSync } = fsExtra
+const { resolve, dirname } = path
+
 const isDev = (process.env.NODE_ENV || 'development') === 'development'
+
+//if (!isDev && )
+const baseDir = dirname(resolve("./package.json"))
+console.log(existsSync(baseDir + "/dist-ssr/dist/manifest.json") && existsSync(baseDir + "/dist-ssr/server/main.js"))// && )
+
 const server = express()
 const uniMask = new Netmask("132.180.0.1/16")
 const fsLanMask = new Netmask("172.16.0.1/16")

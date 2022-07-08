@@ -56,6 +56,10 @@
         "party": {
             "route": "nw2-party",
             "title": "NW2-Party"
+        },
+        "veranstaltungen": {
+            "route": "veranstaltungen",
+            "title": "Veranstaltungen"
         }
     },
     "en": {
@@ -112,6 +116,10 @@
         "party": {
             "route": "nw2-party",
             "title": "NW2-Party"
+        },
+        "veranstaltungen": {
+            "route": "events",
+            "title": "Events"
         }
     }
 }

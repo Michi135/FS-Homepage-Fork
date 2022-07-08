@@ -1,4 +1,4 @@
-import type { ObjectId } from "mongoose"
+/*import type { ObjectId } from "mongoose"
 
 export interface IFile {
 
@@ -8,4 +8,4 @@ export interface IFile {
     filename: string
     md5: string
     contentType: string
-}
+}*/

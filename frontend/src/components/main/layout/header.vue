@@ -117,7 +117,7 @@ import { defineComponent, onMounted, ref, watch, computed } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { storeToRefs } from 'pinia'
 
-import { headerRoutes, basePaths } from '@shared/routes'
+import { basePaths, getCategoryRoutes } from '@shared/routes'
 import { useStore } from '@shared/store'
 import trossSvg from '@static/img/tross.svg'
 
@@ -142,7 +142,7 @@ export default defineComponent({
 
     const routes = computed(() =>
     {
-      return headerRoutes.get(language.value)!
+      return getCategoryRoutes('header', language.value)
     })
 
     return {

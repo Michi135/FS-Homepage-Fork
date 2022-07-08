@@ -38,7 +38,7 @@ export default defineComponent({
 
     onServerPrefetch(() =>
     {
-      const ctx = useSSRContext()
+      const ctx = useSSRContext()!
       Object.assign(ctx, { title: title.value, favicon: favicon.value })
     })
 

@@ -1,5 +1,5 @@
 import { createRouter, createMemoryHistory, createWebHistory } from "vue-router"
-import { routerCompilation } from './routes'
+import { routerCompilation, keyRoutes } from './routes'
 import localizedRoutes from './localizedRoutes.json'
 
 function createLocalizedRoutes()
@@ -12,6 +12,8 @@ function createLocalizedRoutes()
     for (let [key, { title }] of Object.entries(values))
       out[lang][key] = title
   }
+  //console.log(out)
+
   return out
 }
 
