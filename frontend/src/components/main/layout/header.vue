@@ -26,7 +26,6 @@
       </p>
     </div>
     <div
-      v-if="navConfig"
       class="tw-relative tw-z-50 tw-flex tw-flex-row md:tw-hidden"
     >
       <button
@@ -53,12 +52,14 @@
       </button>
     </div>
     <div
-      v-if="navConfig"
-      class="tw-flex tw-justify-end tw-flex-col md:tw-flex-row popup tw-transition-all tw-rounded-lg tw-bg-gray-100 tw-absolute tw-pt-6 md:tw-relative md:tw-opacity-100 md:tw-h-auto md:tw-bg-transparent md:tw-pt-0"
+      class="tw-flex tw-justify-end tw-flex-col
+      md:tw-flex-row popup tw-rounded-lg
+       tw-bg-gray-100 tw-absolute tw-pt-6 md:tw-relative
+        md:tw-h-auto md:tw-bg-transparent md:tw-pt-0 ab"
       :class="
         isOpen
-          ? 'tw-z-40 tw-opacity-100 tw-h-auto'
-          : 'tw-z-0 tw-overflow-hidden tw-h-0 tw-opacity-0'
+          ? 'ak-visible'
+          : 'ak-hidden'
       "
     >
       <h4 class="tw-px-8 custom-uppercase tw-text-gray-600 md:tw-hidden">
@@ -153,7 +154,6 @@ export default defineComponent({
       navLogo: trossSvg,
       gerFlagSvg,
       engFlagSvg,
-      navConfig: true,
       routes,
       basePaths: appRoutes.basePaths
     }
@@ -188,6 +188,19 @@ export default defineComponent({
       top: 0;
       right: 0;
       box-shadow: none;
+    }
+  }
+
+  @media (max-width: 768px)
+  {
+    .ab {
+      transition: opacity 0.5s ease;
+    }
+    .ak-visible {
+      opacity: 1;
+    }
+    .ak-hidden {
+      opacity: 0;
     }
   }
 }
