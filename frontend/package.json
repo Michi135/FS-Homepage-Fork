@@ -1,7 +1,7 @@
 {
   "name": "simple-vue-3-cms",
-  "version": "0.9.9",
-  "description": "WIP",
+  "version": "1.0.0",
+  "description": "Frontend of the FSMPI website",
   "private": true,
   "license": "UNLICENSED",
   "type": "module",
@@ -9,12 +9,12 @@
     "name": "Oliver Zahn"
   },
   "dependencies": {
-    "@apollo/client": "^3.6.0-beta.13",
+    "@apollo/client": "^3.6.9",
     "@fortawesome/fontawesome-svg-core": "^6.1.1",
     "@fortawesome/free-brands-svg-icons": "^6.0.0",
     "@fortawesome/free-solid-svg-icons": "^6.0.0",
     "@fortawesome/vue-fontawesome": "^3.0.0-5",
-    "@mdi/js": "^6.5.95",
+    "@mdi/js": "^7.0.96",
     "@nuxt/devalue": "^2.0.0",
     "@vue/apollo-composable": "^4.0.0-alpha.16",
     "@vue/apollo-ssr": "^4.0.0-alpha.16",
@@ -43,7 +43,7 @@
     "nodemon": "^2.0.15",
     "pinia": "^2.0.11",
     "sitemap": "^7.1.1",
-    "strip-json-comments": "^4.0.0",
+    "strip-json-comments": "^5.0.0",
     "tsconfig-paths": "^4.0.0",
     "uuid": "^8.3.2",
     "validator": "^13.6.0",
@@ -52,7 +52,7 @@
     "vue-router": "^4.0.11",
     "vuetify": "^3.0.0-beta.3",
     "webpack": "^5.67.0",
-    "webpack-plugin-vuetify": "^2.0.0-alpha.10"
+    "webpack-plugin-vuetify": "^2.0.0-alpha.11"
   },
   "scripts": {
     "build": "npm run build:ts && npm run build:vue",
@@ -63,7 +63,7 @@
     "start:dev": "cross-env NODE_ENV=development tsnd -r tsconfig-paths/register ./src/server/entry.ts ",
     "start:prod": "cross-env NODE_ENV=production node --experimental-specifier-resolution=node --loader ts-paths-esm-loader ./src/server/entry.ts",
     "patch": "ts-node ./patch.ts",
-    "start:esm": "env NODE_ENV=development tsnd -r ts-node/esm -r tsconfig-paths/register ./src/server/entry.ts",
+    "start:esm": "cross-env NODE_ENV=development tsnd -r ts-node/esm -r tsconfig-paths/register ./src/server/entry.ts",
     "fix": "npx eslint \"./src/**/*.{vue, ts}\" --fix",
     "lint": "npx eslint \"./src/**/*.{vue, ts}\""
   },
@@ -113,7 +113,7 @@
     "ts-loader": "^9.2.6",
     "ts-node": "^10.2.1",
     "ts-node-dev": "^2.0.0",
-    "ts-paths-esm-loader": "^1.0.1",
+    "ts-paths-esm-loader": "^1.3.1",
     "typescript": "^4.4.3",
     "vue-loader": "^17.0.0",
     "webpack-cli": "^4.9.0",
