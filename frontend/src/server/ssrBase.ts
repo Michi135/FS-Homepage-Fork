@@ -18,6 +18,7 @@ import type { Request, Response } from 'express'
 //export type AppType = typeof App
 
 import { env } from 'process'
+import type { SSRContext } from '@shared/ssrContext'
 
 //TODO:: fix
 const chunks: Record<string, string> = {
@@ -74,7 +75,7 @@ const supportedLanguages =
   return <'en' | 'de'>(lang ? lang : 'en')
 }*/
 
-function addStyles(dom: JSDOM, styles: Record<string, string>)
+function addStyles(dom: JSDOM, styles: SSRContext["styles"])
 {
   const doc = dom.window.document
   const head = doc.head
@@ -88,17 +89,35 @@ function addStyles(dom: JSDOM, styles: Record<string, string>)
   }
 }
 
+function addEvents(dom: JSDOM, events: SSRContext["events"], nonce: string)
+{
+  const doc = dom.window.document
+  const head = doc.head
+
+  for (let [id, event] of Object.entries(events))
+  {
+    const node = doc.createElement('script')
+    node.id = id
+    node.type = "application/ld+json"
+    node.innerHTML = JSON.stringify(event)
+    node.nonce = nonce
+    head.append(node)
+  }
+}
+
 export default async function ssr(htmlBlueprint: string, manifest: Record<string, string>, bundle: any, req: Request, res: Response)
 {
   const contextLoad = createDefaultContext()
   const language: 'de' | 'en' = determineLanguage(req.path)
 
-  let args = { ctx: { language: language, isUniNetwork: res.locals!.isUni } }
+  const nonce: string = res.locals.cspNonce
+
+  let args = { ctx: { language: language, isUniNetwork: res.locals!.isUni, nonce: nonce } }
 
   if (res.locals?.isUni)
     args = Object.assign(args, { networkToken: getNetworkToken() })
 
-  const { createDefaultApp, nw2PartyEvent } = bundle
+  const { createDefaultApp } = bundle
   const { router, app, pinia, apolloClients } = createDefaultApp(args)
 
   router.push(req.url)
@@ -112,15 +131,6 @@ export default async function ssr(htmlBlueprint: string, manifest: Record<string
   const doc = dom.window.document
   const head = doc.head
   doc.children[0].setAttribute('lang', language)
-
-  if (req.url === "/nw2-party" || req.url === '/en/nw2-party')
-  {
-    const node = doc.createElement('script')
-    node.type = "application/ld+json"
-    node.innerHTML = JSON.stringify(nw2PartyEvent)
-    node.nonce = res.locals.cspNonce
-    head.appendChild(node)
-  }
 
   const chunk = chunks[req.url]
   if (chunk)
@@ -148,13 +158,14 @@ export default async function ssr(htmlBlueprint: string, manifest: Record<string
     }*/
 
   const context = await contextLoad
+  context.nonce = nonce
   doc.getElementById('app')!.innerHTML = await renderToString(app, context)
 
-  if (context.styles)
-    addStyles(dom, context.styles)
+  addStyles(dom, context.styles)
+  addEvents(dom, context.events, nonce)
   head.innerHTML += `<title>${context.title}</title>`
   head.innerHTML += getMeta()
-  head.innerHTML += createFaviconLink(context.favicon)
+  head.innerHTML += createFaviconLink(context.favicon!)
   //head.innerHTML += getStyles();
 
   /*if (res.locals?.isUni)
@@ -162,8 +173,8 @@ export default async function ssr(htmlBlueprint: string, manifest: Record<string
       const condScript = doc.createElement('script')
       head.appendChild(condScript)
     }*/
-  head.innerHTML += `<script nonce="${res.locals.cspNonce}">window.__INITIAL_STATE__=${devalue(pinia.state.value)}</script>`
-  head.innerHTML += `<script nonce="${res.locals.cspNonce}">${exportStates(apolloClients)}</script>`
+  head.innerHTML += `<script nonce="${nonce}">window.__INITIAL_STATE__=${devalue(pinia.state.value)}</script>`
+  head.innerHTML += `<script nonce="${nonce}">${exportStates(apolloClients)}</script>`
 
   const document = dom.serialize()
 

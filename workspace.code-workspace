@@ -5,6 +5,9 @@
 		},
 		{
 			"path": "strapi-backend"
+		},
+		{
+			"path": "nginx"
 		}
 	]
 }

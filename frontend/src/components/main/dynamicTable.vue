@@ -66,10 +66,10 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, getCurrentInstance,
-  onBeforeUnmount, onMounted, watch, onServerPrefetch, useSSRContext } from 'vue'
-
+import { computed, defineComponent, getCurrentInstance } from 'vue'
 import type { PropType } from 'vue'
+
+import { registerStyle } from '@client/dynamicTag'
 //https://colorlib.com/wp/css3-table-templates/
 //https://colorlib.com/etc/tb/Table_Highlight_Vertical_Horizontal/index.html
 
@@ -108,9 +108,6 @@ export default defineComponent({
   {
     //https://www.npmjs.com/package/@thi.ng/sparse
     //https://adamlynch.com/flexible-data-tables-with-css-grid/
-
-    let tableLabelStyle: HTMLStyleElement
-    let tableStyle: HTMLStyleElement
     const classId = 'table_' + getCurrentInstance()!.uid.toString()
 
     const calcStyle = computed(() =>
@@ -179,16 +176,6 @@ export default defineComponent({
         }
       }`.replace(/\r?\n|\r|\t/gm, '').replace(/ {2,}/gm, ' ')
     })
-    onServerPrefetch(() =>
-    {
-      const styles: Record<string, string> = {}
-      styles[`${classId}_label`] = calcStyle.value,
-      styles[`${classId}_table`] = tableStr.value
-
-      Object.assign(useSSRContext()!, {
-        styles: styles
-      })
-    })
 
     const setColor = (
       ev: MouseEvent,
@@ -247,44 +234,8 @@ export default defineComponent({
       }
     }
 
-    onMounted(() =>
-    {
-      const head = document.querySelector('head')!
-
-      const tempTableLabelStyle = <HTMLStyleElement | null>document.getElementById(`${classId}_label`)
-      const tempTableStyle = <HTMLStyleElement | null>document.getElementById(`${classId}_table`)
-
-      if (tempTableLabelStyle)
-        tableLabelStyle = tempTableLabelStyle
-      else
-      {
-        tableLabelStyle = document.createElement('style')
-        tableLabelStyle.id = `${classId}_label`
-        tableLabelStyle.innerHTML = calcStyle.value
-        head.appendChild(tableLabelStyle)
-      }
-
-      if (tempTableStyle)
-        tableStyle = tempTableStyle
-      else
-      {
-        tableStyle = document.createElement('style')
-        tableStyle.id = `${classId}_table`
-        tableStyle.innerHTML = tableStr.value
-        head.appendChild(tableStyle)
-      }
-
-      watch(calcStyle, (val) =>
-      {
-        tableLabelStyle.innerHTML = val
-      })
-    })
-
-    onBeforeUnmount(() =>
-    {
-      tableLabelStyle.remove()
-      tableStyle.remove()
-    })
+    registerStyle(`${classId}_label`, calcStyle)
+    registerStyle(`${classId}_table`, tableStr)
 
     return {
       classId,

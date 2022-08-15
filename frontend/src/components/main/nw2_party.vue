@@ -45,20 +45,18 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from 'vue'
+import { defineComponent } from 'vue'
 import { useI18n } from 'vue-i18n'
-
+import { registerEvent } from '@client/dynamicTag'
+import nw2Party from '@static/nw2Event'
+import img from '@static/party_plakat_2022_2.jpg'
 
 export default defineComponent({
   setup()
   {
     useI18n({ useScope: "local" })
+    registerEvent('nw2-party', nw2Party)
 
-    const img = ref<string | null>(null)
-    import('@static/party_plakat_2022_2.jpg').then((val) =>
-    {
-      img.value = val.default
-    }).catch()
     return { img }
   }
 })

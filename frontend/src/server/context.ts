@@ -1,16 +1,19 @@
-import { SSRContext } from '@vue/server-renderer'
 import { resolve } from 'path'
 
 import fsExtra from 'fs-extra'
+import { ensureContext } from '@shared/ssrContext'
+
 const { pathExists, readJSON } = fsExtra
 
-async function createDefaultContext(): Promise<SSRContext>
+async function createDefaultContext()
 {
   const filename = 'context.json'
   const fullPath = resolve(".", filename)
+  let context
   if (await pathExists(fullPath))
-    return await readJSON(fullPath)
-  else return {}
+    context = await readJSON(fullPath)
+
+  return ensureContext(context)
 }
 
 export { createDefaultContext }

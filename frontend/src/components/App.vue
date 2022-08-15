@@ -5,7 +5,8 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, onMounted, onServerPrefetch, useSSRContext, watch, computed } from 'vue'
+import { defineComponent, onMounted, onServerPrefetch, watch, computed } from 'vue'
+import { useSSRContext } from '@shared/ssrContext'
 import { useRouter, useRoute } from 'vue-router'
 import { useI18n } from 'vue-i18n'
 import { useStore } from '@shared/store'
@@ -38,8 +39,9 @@ export default defineComponent({
 
     onServerPrefetch(() =>
     {
-      const ctx = useSSRContext()!
-      Object.assign(ctx, { title: title.value, favicon: favicon.value })
+      const ctx = useSSRContext()
+      ctx.title = title.value
+      ctx.favicon = favicon.value
     })
 
     onMounted(() =>

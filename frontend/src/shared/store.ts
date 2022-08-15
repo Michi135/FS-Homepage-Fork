@@ -7,12 +7,14 @@ const defaultState: {
   language: 'de' | 'en'
   initialTime: Date
   isUniNetwork: boolean
+  nonce: string
 } = {
   defaultFavicon: defFav,
   defaultTitle: "FSMPI",
   language: "de",
   initialTime: new Date(),
-  isUniNetwork: false
+  isUniNetwork: false,
+  nonce: ""
   //x2: ""
 }
 
