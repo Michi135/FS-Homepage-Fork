@@ -88,7 +88,7 @@ for (let [key, value] of Object.entries(alias))
   value.forEach((value) =>
   {
     if (value.endsWith('*'))
-      value = value.substr(0, value.length - 1);
+      value = value.substring(0, value.length - 1);
 
     (<string[]>aliases[key]).push(join(aliasBasePath, value))
   })

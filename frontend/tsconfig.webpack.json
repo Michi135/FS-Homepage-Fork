@@ -2,11 +2,6 @@
   "ts-node": {
     "files": true
   },
-  "files": [
-    "environment.d.ts",
-    "custom.d.ts", 
-    "index.d.ts"
-  ],
   "include": [
     "src/**/*"
   ],
@@ -14,10 +9,13 @@
     "node_modules"
   ],
   "compilerOptions": {
+    "declaration": true,
+    "declarationDir": "./dist/",
     "experimentalDecorators": true,
     "typeRoots": [
       "node_modules/@types",
-      "src/types"
+      "src/types",
+      "types"
     ],
     "baseUrl": "./",
     "paths": {

@@ -5,22 +5,26 @@
       "tsconfig-paths/register"
     ]
   },
+  "tsc-alias": {
+    "resolveFullPaths": true
+  },
+  "rootDir": "./src",
   "files": [
-    "environment.d.ts",
-    "custom.d.ts", 
-    "index.d.ts"
+    "src/server/entryProduction.ts"
   ],
-  "include": [
-    "src/**/*",
-  ],
+  /*"include": [
+    "src/**//*",
+  ],*/
   "exclude": [
-    "node_modules"
+    "node_modules",
+    "dist-ssr/server/main.js"
   ],
   "compilerOptions": {
     "experimentalDecorators": true,
     "typeRoots": [
       "node_modules/@types",
-      "src/types"
+      "src/types",
+      "types"
     ],
     "baseUrl": "./",
     "paths": {
@@ -63,9 +67,9 @@
     "jsx": "preserve", /* Specify JSX code generation: 'preserve', 'react-native', or 'react'. */
     // "declaration": true,                   /* Generates corresponding '.d.ts' file. */
     // "declarationMap": true,                /* Generates a sourcemap for each corresponding '.d.ts' file. */
-    "sourceMap": true, /* Generates corresponding '.map' file. */
+    "sourceMap": false, /* Generates corresponding '.map' file. */
     // "outFile": "./",                       /* Concatenate and emit output to single file. */
-    "outDir": "./dist/", /* Redirect output structure to the directory. */
+    "outDir": "./production/", /* Redirect output structure to the directory. */
     //"rootDir": "./src/",                    /* Specify the root directory of input files. Use to control the output directory structure with --outDir. */
     // "composite": true,                     /* Enable project compilation */
     // "tsBuildInfoFile": "./",               /* Specify file to store incremental compilation information */

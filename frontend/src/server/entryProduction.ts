@@ -9,7 +9,7 @@ import crypto from 'crypto'
 
 import { Netmask } from 'netmask'
 
-import { Build } from './runtimeConfig'
+import ssr from './ssrProduction'
 
 import { getSiteMap } from './sitemapF'
 
@@ -17,20 +17,44 @@ import type { IncomingMessage, ServerResponse } from 'http'
 
 import fsExtra from 'fs-extra'
 import path from 'path'
-const { existsSync } = fsExtra
-const { resolve, dirname } = path
+const { readJson } = fsExtra
+const { resolve, join } = path
 
-const isDev = (process.env.NODE_ENV || 'development') === 'development'
+import { fileRequest } from './fileRequest'
+import { fileURLToPath } from 'url'
+
+import type { Express } from 'express-serve-static-core'
+
+process.env.NODE_ENV = 'production'
+
+//const isDev = ( || 'development') === 'development'
 
 //if (!isDev && )
-const baseDir = dirname(resolve("./package.json"))
-console.log(existsSync(baseDir + "/dist-ssr/dist/manifest.json") && existsSync(baseDir + "/dist-ssr/server/main.js"))// && )
+//const baseDir = dirname(resolve("./package.json"))
+//console.log(existsSync(baseDir + "/dist-ssr/dist/manifest.json") && existsSync(baseDir + "/dist-ssr/server/main.js"))// && )
 
 const server = express()
 const uniMask = new Netmask("132.180.0.1/16")
 const fsLanMask = new Netmask("172.16.0.1/16")
 
 //https://cheatsheetseries.owasp.org/cheatsheets/JSON_Web_Token_for_Java_Cheat_Sheet.html#token-sidejacking
+
+function manifestRoutes(manifest: Record<string, string>)
+{
+  let routes: string[] = new Array<string>()
+  for (let key in manifest)
+  {
+    routes.push(manifest[key])
+  }
+  return routes
+}
+
+async function staticContent(expressApp: Express)
+{
+  const manifest: Record<string, string> = await readJson(resolve("dist-ssr", 'dist', 'manifest.json'), { encoding: 'utf-8' })
+  const ressourceRequest = fileRequest(join(fileURLToPath(import.meta.url), "..", "..", "..", "dist-ssr"))
+  expressApp.get(manifestRoutes(manifest), ressourceRequest)
+}
 
 function cleanExit(...cleanups: Function[])
 {
@@ -48,8 +72,6 @@ function cleanExit(...cleanups: Function[])
 {
   try
   {
-    const build = new Build(isDev).build()
-
     server.use(json())
     server.use(cors(
       {
@@ -75,7 +97,7 @@ function cleanExit(...cleanups: Function[])
     })
 
     server.use(helmet({
-      contentSecurityPolicy: (isDev) ? false : {
+      contentSecurityPolicy: {
         directives: {
           scriptSrc: [...(contentSecurityPolicy.getDefaultDirectives()["script-src"]), (req: IncomingMessage, res: ServerResponse) =>
           {
@@ -130,9 +152,8 @@ Sitemap: https://fsmpi.uni-bayreuth.de/sitemap.xml`)
     process.on('SIGINT', exitHandler)
     process.on('SIGTERM', exitHandler)
 
-
-    server.use(await build)
-
+    await staticContent(server)
+    server.use(ssr())
   }
   catch (reason)
   {

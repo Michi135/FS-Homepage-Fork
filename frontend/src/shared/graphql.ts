@@ -1,4 +1,5 @@
-import { InMemoryCache, HttpLink, ApolloClient, ApolloLink } from '@apollo/client/core'
+import { InMemoryCache, ApolloClient, ApolloLink } from '@apollo/client/core'
+import { createHttpLink } from '@apollo/client/link/http'
 import fetch from 'cross-fetch'
 import { ApolloClients } from '@vue/apollo-composable'
 
@@ -35,7 +36,7 @@ function networkMiddleware(networkToken: string)
 
 function genClients(networkToken?: string)
 {
-  const http = new HttpLink({ uri: (__IS_SERVER__) ? 'http://strapi:1337/graphql' : 'https://fsmpi.uni-bayreuth.de/v1/graphql', fetch, useGETForQueries: true, credentials: 'same-origin' })
+  const http = createHttpLink({ uri: (__IS_SERVER__) ? 'http://strapi:1337/graphql' : 'https://fsmpi.uni-bayreuth.de/v1/graphql', fetch, useGETForQueries: true, credentials: 'same-origin' })
 
   const apolloOptions: ApolloClientOptions<NormalizedCacheObject> = {
     link: (__IS_SERVER__ && networkToken) ? networkMiddleware(networkToken).concat(http) : http,

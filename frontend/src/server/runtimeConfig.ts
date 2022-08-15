@@ -2,7 +2,7 @@ import webpackDevMiddleware from 'webpack-dev-middleware'
 import webpackHotMiddleware from 'webpack-hot-middleware'
 import configFunction from '../../webpack.vue.config'
 import { Router } from 'express'
-import ssr from './ssr'
+import ssr from './ssrHMR'
 import { fileRequest } from './fileRequest'
 import { join, resolve } from 'path'
 import { fileURLToPath } from 'url'
@@ -178,7 +178,7 @@ export class Build
     {
       return res.status(404).end()
     })
-    this.mRouter.use(ssr(this.mDev))
+    this.mRouter.use(ssr())
     this.mRouter.use((req, res) =>
     {
       return res.status(404).end()

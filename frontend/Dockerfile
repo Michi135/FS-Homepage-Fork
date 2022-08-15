@@ -19,4 +19,5 @@ EXPOSE 5000
 RUN chown -R node:node /var/vuecms
 USER node
 
+RUN npm run build
 CMD ["npm", "run", "start:prod"]
