@@ -1,4 +1,6 @@
-export default {
+import type { Strapi } from "@strapi/strapi";
+
+const app: Strapi = {
   config: {
     locales: [
       // 'ar',
@@ -40,7 +42,10 @@ export default {
       }
     }
   },
+  //@ts-ignore
   bootstrap(app) {
     console.log(app);
   },
 };
+
+export default app

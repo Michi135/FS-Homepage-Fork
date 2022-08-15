@@ -1,8 +1,9 @@
-'use strict';
+import type { Strapi } from '@strapi/strapi'
+import type { Context } from 'koa'
 
-const { ApolloError } = require('apollo-server-errors');
-const { verify } = require('jsonwebtoken')
-const { Netmask } = require('netmask')
+import { ApolloError } from 'apollo-server-errors'
+import { verify } from 'jsonwebtoken'
+import { Netmask } from 'netmask'
 
 const uniMask = new Netmask("132.180.0.1/16")
 const fsLanMask = new Netmask("172.16.0.1/16")
@@ -17,17 +18,17 @@ const fsLanMask = new Netmask("172.16.0.1/16")
 
 }*/
 
-module.exports = {
+export default {
   /**
    * An asynchronous register function that runs before
    * your application is initialized.
    *
    * This gives you an opportunity to extend code.
    */
-   register({ strapi }) {
+   register({ strapi }: { strapi : Strapi}) {
     const extensionService = strapi.plugin('graphql').service('extension');
 
-    function isValidIp(context)
+    function isValidIp(context: Context)
     {
       const real_ip = context.http.request.header["x-real-ip"]
 
@@ -38,9 +39,9 @@ module.exports = {
              fsLanMask.contains(real_ip)
     }
     
-    function isValidJwt(context)
+    function isValidJwt(context: Context)
     {
-      const jwt = context.http.request.header['network-token']
+      const jwt: string | undefined = context.http.request.header['network-token']
       //console.log(jwt)
       if (!jwt)
         return false
@@ -53,7 +54,7 @@ module.exports = {
       return true
     }
     
-    function checkUniNetwork(context)
+    function checkUniNetwork(context: Context)
     {
       if (!isValidIp(context) && !isValidJwt(context))
         throw new ApolloError('activate uni vpn', 'WRONG_NETWORK')
@@ -104,8 +105,7 @@ module.exports = {
         Query: {
           uniKinoDates: {
             async resolve() {
-              const res = (await strapi.service('api::uni-kino-filme.uni-kino-filme').find()).results.map(({datum}) => { return datum })
-              return res;
+              return (await strapi.db.query('api::uni-kino-filme.uni-kino-filme').findMany({})).map(({datum}) => { return datum })
             },
           },
         },

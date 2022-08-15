@@ -1,12 +1,11 @@
-'use strict';
-
 /**
  *  vertreter controller
  */
 
-const { createCoreController } = require('@strapi/strapi').factories;
+import { factories } from '@strapi/strapi'
 
-module.exports = createCoreController('api::vertreter.vertreter'/*, {
+export default factories.createCoreController('api::vertreter.vertreter');
+/*, {
     async find(ctx) {
         console.log('YES')
 
@@ -14,4 +13,4 @@ module.exports = createCoreController('api::vertreter.vertreter'/*, {
 
         return { data, meta }
     }
-}*/);
+}*/

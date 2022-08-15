@@ -1,12 +1,12 @@
-'use strict';
-
 /**
- * einstellungen router.
+ * vertreter router.
  */
 
-const { createCoreRouter } = require('@strapi/strapi').factories;
+import { factories } from '@strapi/strapi'
 
-module.exports = createCoreRouter('api::einstellungen.einstellungen'/*, {
+export default factories.createCoreRouter('api::vertreter.vertreter');
+
+/*, {
     config: {
         find: {
             middlewares: [
@@ -18,4 +18,4 @@ module.exports = createCoreRouter('api::einstellungen.einstellungen'/*, {
             ]
         }
     }
-}*/);
+}*/
