@@ -1,5 +1,10 @@
 <template>
   <div class="content tw-flex tw-flex-col">
+    <v-progress-linear
+      v-if="loading"
+      indeterminate
+      color="var(--color-primary)"
+    ></v-progress-linear>
     <primeheader class="tw-flex-none" />
     <div
       class="tw-flex-1 bgrd"
@@ -26,11 +31,18 @@ import { defineComponent } from 'vue'
 import primeheader from './header.vue'
 import primefooter from './footer.vue'
 
+import { useGlobalQueryLoading } from '@vue/apollo-composable'
+
 export default defineComponent({
   //name: 'content',
   components: {
     primeheader,
     primefooter
+  },
+  setup()
+  {
+    const loading = useGlobalQueryLoading()
+    return { loading }
   }
 })
 </script>
