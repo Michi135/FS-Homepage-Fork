@@ -38,7 +38,11 @@ type Vertreter = {
   hauptfach: Faecher,
   lehramt?: { zweitfach: Faecher, schultyp: Lehramt }
   semester: number,
-  portraitUrl: string
+  portraitUrl: string,
+  placeholder: {
+    width: number,
+    height: number
+  }
 }
 
 export default defineComponent({
@@ -59,7 +63,7 @@ export default defineComponent({
             grad
             feld
             semester
-            portrait {data{attributes{url}}}
+            portrait {data{attributes{url width height}}}
             hauptfach{fach}
             lehramt {
               zweitfach {fach}
@@ -119,7 +123,11 @@ export default defineComponent({
           grad: temp.grad,
           hauptfach: temp.hauptfach.fach,
           semester: temp.semester,
-          portraitUrl: temp.portrait.data.attributes.url
+          portraitUrl: temp.portrait.data.attributes.url,
+          placeholder: {
+            width: temp.portrait.data.attributes.width,
+            height: temp.portrait.data.attributes.height
+          }
         }
         if (temp.lehramt)
           vertreter.lehramt = {

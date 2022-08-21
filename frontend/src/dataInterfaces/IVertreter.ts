@@ -12,7 +12,7 @@ type VertreterGQL = {
             grad: Grad
             feld: Feld
             semester: number
-            portrait: { data: { attributes: { url: string }}}
+            portrait: { data: { attributes: { url: string, width: number, height: number }}}
             hauptfach: { fach: Faecher }
             lehramt?: {
                 zweitfach: { fach: Faecher }

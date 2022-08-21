@@ -1,10 +1,26 @@
 <template>
   <div class="vertreter-container">
     <div class="image-container">
+      <div
+        v-if="placeholder && !loadedImg"
+        class="tw-flex tw-items-center tw-justify-center"
+        :style="{width: Math.min(120, placeholder.width) + 'px' }"
+      >
+        <v-progress-circular
+          v-if="placeholder"
+          :size="Math.min(120, placeholder.width) - 10"
+          indeterminate
+          color="var(--color-primary)"
+          overflow="hidden"
+        ></v-progress-circular>
+      </div>
       <img
         class="image"
+        :class="{'tw-hidden': !loadedImg}"
         :src="'/v1' + portraitUrl"
         :alt="name"
+        @load="() => { loadedImg = true }"
+        @error="() => { loadedImg = true }"
       />
     </div>
     <i18n-t
@@ -66,7 +82,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
+import { defineComponent, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 import studiengang from './studiengang.vue'
 import { mdiEmail, mdiSchool } from '@mdi/js'
@@ -112,6 +128,11 @@ export default defineComponent({
     portraitUrl: {
       type: String,
       required: true
+    },
+    placeholder: {
+      type: Object as PropType<{width: number, height: number}>,
+      required: false,
+      default: undefined
     }
   },
   components: {
@@ -123,11 +144,14 @@ export default defineComponent({
     const tGlobal = useI18n({ useScope: 'global' }).t
     const { t } = useI18n()
 
+    const loadedImg = ref<boolean>(false)
+
     return {
       t,
       tGlobal,
       mdiEmail,
-      mdiSchool
+      mdiSchool,
+      loadedImg
     }
   }
 })
@@ -148,7 +172,7 @@ export default defineComponent({
   border-color: rgb(255, 115, 0);
   border-style: outset;
 
-  overflow: auto;
+  overflow: hidden;
   align-content: space-between;
 
   @media only screen and (max-width: 460px) {
