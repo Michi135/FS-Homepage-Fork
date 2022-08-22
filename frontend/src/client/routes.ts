@@ -21,7 +21,7 @@ const externeComponent = () => import('@components/main/externals.vue'/* webpack
 //const testComponent = () => import('@components/editor/editor.vue' /* webpackChunkName: "footer" */)
 const wahlComponent = () => import('@components/main/hochschulwahl.vue'/* webpackChunkName: "home" */)
 const partyComponent = () => import('@components/main/nw2_party.vue' /* webpackChunkName: "home" */)
-const veranstaltungComponent = () => import('@components/main/veranstaltungen.vue' /* webpackChunkName: "home" */)
+//const veranstaltungComponent = () => import('@components/main/veranstaltungen.vue' /* webpackChunkName: "home" */)
 
 type Lazy<T> = () => Promise<T>
 type Translation = Record<string, { route: string, title: string }>
@@ -94,7 +94,7 @@ routes.addRoute('noPanic', { component: keinePanikComponent })
 routes.addRoute('election', { component: wahlComponent, options: { favicon: require('@components/main/wal.svg') } })
 routes.addRoute('uniCinema', { component: uniKinoComponent, options: { favicon: require('@components/main/filmkamera.svg') } })
 routes.addRoute('party', { component: partyComponent, options: { favicon: require('@components/main/party.svg') } })
-routes.addRoute('veranstaltungen', { component: veranstaltungComponent })
+//routes.addRoute('veranstaltungen', { component: veranstaltungComponent })
 
 routes.addRoute('imprint', { component: impressumComponent })
 routes.addRoute('contact', { component: kontaktComponent })
@@ -104,7 +104,7 @@ routes.addRoute('externals', { component: externeComponent })
 routes.registerCategory([
   'home', 'representatives', 'consultationHours',
   'freshers', 'noPanic', 'election', 'uniCinema',
-  'party', 'veranstaltungen'
+  'party' //'veranstaltungen'
 ], 'header')
 
 routes.registerCategory([

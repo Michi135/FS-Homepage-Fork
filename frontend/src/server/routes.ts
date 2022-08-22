@@ -31,7 +31,7 @@ routes.addRoute('noPanic')
 routes.addRoute('election')
 routes.addRoute('uniCinema')
 routes.addRoute('party')
-routes.addRoute('veranstaltungen')
+//routes.addRoute('veranstaltungen')
 
 routes.addRoute('imprint')
 routes.addRoute('contact')
@@ -41,7 +41,7 @@ routes.addRoute('externals')
 routes.registerCategory([
   'home', 'representatives', 'consultationHours',
   'freshers', 'noPanic', 'election', 'uniCinema',
-  'party', 'veranstaltungen'
+  'party' //'veranstaltungen'
 ], 'header')
 
 routes.registerCategory([
