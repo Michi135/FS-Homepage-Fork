@@ -97,21 +97,6 @@
             :breakpoint="550"
             :first-header-cell="{ value: 'Termin', show: 'SMALL' }"
           ></table-comp>
-          <i18n-t
-            tag="div"
-            class="tw-text-red-500"
-            keypath="corona"
-          >
-            <template #br>
-              <br />
-            </template>
-            <template #link>
-              <a
-                class="link"
-                href="https://elearning.uni-bayreuth.de/course/view.php?id=20051#section-1"
-              >-> {{ tGlobal('link') }}</a>
-            </template>
-          </i18n-t>
         </div>
         <br /><br />
         <i18n-t
@@ -147,16 +132,16 @@ export default defineComponent({
     const categories = computed(() => [t('event'), t('location')])
 
     const stunden = computed(() => [
-      `12.10 | ${t('ab')} 17:00`,
-      '13.10 | 19:00',
-      '14.10 | 16:00-17:00',
-      '18.10 | 16:00',
-      '18.10 | 18:00',
-      '21.10 | 19:00',
-      '25.10 | 19:00',
-      '27.10 | 17:00',
-      '10.11 | 18:00',
-      '19. - 21.11'
+      `11.10 | ${t('ab')} 17:00`,
+      '12.10 | 19:00',
+      '17.10 | 16:00',
+      '17.10 | 18:00',
+      '20.10 | 19:00',
+      '24.10 | 18:00',
+      '25.10 | 07:00',
+      '27.10 | 19:00',
+      '04.11 - 06.11',
+      '09.11 | xx:xx'
     ])
 
     const sprechstunden = computed(() =>
@@ -166,35 +151,37 @@ export default defineComponent({
 
       a[0] = [t('Erstsemestergrillen')]
       a[1] = ['1. ' + t('Kneipentour')],
-      a[2] = ['CMlife-' + t('Einführung')],
-      a[3] = [
+      a[2] = [
         t('Vorstellung'),
         t('Führung'),
         t('Erstitüten')
       ],
-      a[4] = [
+      a[3] = [
         t('Immatrikulationsstunde'),
         t('Campusabend')
       ],
-      a[5] = ['2. ' + t('Kneipentour')],
-      a[6] = [
+      a[4] = ['2. ' + t('Kneipentour')],
+      a[5] = [
         t('Sitzung'),
         t('Spieleabend')
       ],
-      a[7] = ['1. ' + t('buddy')],
-      a[8] = ['2. ' + t('buddy')],
-      a[9] = [t('Wochenende')]
+      a[6] = [t('frühstück')],
+      a[7] = [t('shake')]
+      //a[6] = ['1. ' + t('buddy')],
+      //a[7] = ['2. ' + t('buddy')],
+      a[8] = [t('Wochenende')],
+      a[9] = [t('sdf')]
 
-      b[0] = [t('grillplatz')],
+      b[0] = ['tbd'],
       b[1] = [t('Anmeldung')],
-      b[2] = ['Online / ' + t('linkage')],
-      b[3] = ['H18 | NW2'],
-      b[4] = ['Audimax'],
-      b[5] = [t('Anmeldung')],
-      b[6] = ['H17 | NW2'],
-      b[7] = [t('Anmeldung')],
-      b[8] = [t('Anmeldung')],
-      b[9] = [t('Anmeldung')]
+      b[2] = ['tbd | NW2'],
+      b[3] = ['Audimax'],
+      b[4] = [t('Anmeldung')],
+      b[5] = ['tbd | NW2'],
+      b[6] = [t('fachschaft')]
+      b[7] = ['tbd | NW2'],
+      b[8] = ['tbd'],
+      b[9] = [t('fachschaft')]
 
       let z: Table = {}
       z[0] = a
@@ -316,7 +303,7 @@ export default defineComponent({
   "h[7]": "Erstifrühstück",
   "p[7]": "Ein kleines, aber feines Frühstück in der Uni auf Kosten der \
           Fachschaft.",
-  "dates": "Termine für das Semester WS 2021/22",
+  "dates": "Termine für das Semester WS 2022/23 (noch nicht festgelegt)",
   "event": "Veranstaltung",
   "location": "Ort",
   "ab": "ab",
@@ -346,7 +333,11 @@ export default defineComponent({
           Campus-Uni Bayreuth und der dort angesiedelten Fachschaft machen. \
           Oder, falls ihr von weiter herkommt oder die Pandemie gerade keinen \
           persönlichen Kontakt zulässt, schreibt uns einfach eine Mail \
-          ({mail})."
+          ({mail}).",
+  "fachschaft": "Fachschaft",
+  "sdf": "Schlacht der Fakultäten",
+  "frühstück": "Frühstück",
+  "shake": "Shakekurs"
 }
 </i18n>
 
@@ -386,7 +377,7 @@ export default defineComponent({
           Over foods and drinks you're able to get into conversations with other students.",
   "h[7]": "Freshers breakfast",
   "p[7]": "A small but fine breakfast in the uni at the expense of the student council.",
-  "dates": "Dates for the semester WS 2021/22",
+  "dates": "Dates for the semester WS 2022/23 (not yet fixed)",
   "event": "Event",
   "location": "Location",
   "ab": "from",
@@ -412,6 +403,10 @@ export default defineComponent({
           as the student council will do our best to make your entry to your studies as easy as possible. \
           If there are any open questions feel free to visit our office (NW II, between H 20 \
           and S 78) where you can paint yourself a picture of the beautifull campus uni Bayreuth and the here settled student council. \
-          Or if you're coming from farther away or if theirs no possibility of direct contact due to the pandemic leave us a mail ({mail})."
+          Or if you're coming from farther away or if theirs no possibility of direct contact due to the pandemic leave us a mail ({mail}).",
+  "fachschaft": "Student council",
+  "sdf": "Battle of the faculties",
+  "frühstück": "Breakfast",
+  "shake": "shake course"
 }
 </i18n>
