@@ -19,6 +19,7 @@
         :class="{'tw-hidden': !loadedImg}"
         :src="'/v1' + portraitUrl"
         :alt="name"
+        ref="img"
         @load="() => { loadedImg = true }"
         @error="() => { loadedImg = true }"
       />
@@ -82,7 +83,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from 'vue'
+import { defineComponent, onMounted, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 import studiengang from './studiengang.vue'
 import { mdiEmail, mdiSchool } from '@mdi/js'
@@ -143,15 +144,22 @@ export default defineComponent({
   {
     const tGlobal = useI18n({ useScope: 'global' }).t
     const { t } = useI18n()
+    const img = ref<HTMLImageElement | null>(null)
 
     const loadedImg = ref<boolean>(false)
+
+    onMounted(() =>
+    {
+      loadedImg.value = loadedImg.value || img.value!.complete
+    })
 
     return {
       t,
       tGlobal,
       mdiEmail,
       mdiSchool,
-      loadedImg
+      loadedImg,
+      img
     }
   }
 })

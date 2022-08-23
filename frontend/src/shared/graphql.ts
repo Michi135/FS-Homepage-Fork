@@ -1,5 +1,6 @@
-import { InMemoryCache, ApolloClient, ApolloLink } from '@apollo/client/core'
+import { InMemoryCache, ApolloClient } from '@apollo/client/core'
 import { createHttpLink } from '@apollo/client/link/http'
+import { ApolloLink } from '@apollo/client/link/core/ApolloLink'
 import fetch from 'cross-fetch'
 import { ApolloClients } from '@vue/apollo-composable'
 

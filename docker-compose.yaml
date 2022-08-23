@@ -45,6 +45,7 @@ services:
     volumes:
       - ./frontend:/var/vuecms
       - /var/vuecms/dist-ssr
+      - /var/vuecms/production
       - node_modules_frontend:/var/vuecms/node_modules
     ports:
       - "5000"
