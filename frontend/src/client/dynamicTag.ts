@@ -21,9 +21,8 @@ function makeScriptTag(id: string, type: string, content: string, nonce: string)
 {
   let element = document.createElement('script')
 
-  element = document.createElement('script')
   element.id = id
-  element.type = "application/ld+json"
+  element.type = type
   element.nonce = nonce
   element.innerHTML = content
   return element
