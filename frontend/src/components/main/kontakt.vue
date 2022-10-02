@@ -16,7 +16,13 @@
         tag="p"
       />
       <br />
-      <p>- {{ t('message') }}</p>
+      <a
+        href="https://elearning.uni-bayreuth.de/course/view.php?id=20051"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <p>- {{ t('message') }}</p>
+      </a>
       <a href="mailto:fsmpi@uni-bayreuth.de">
         <p>
           <v-icon
@@ -26,12 +32,14 @@
           fsmpi@uni-bayreuth.de
         </p>
       </a>
-      <p>
-        <v-icon
-          large
-          :icon="mdiPhone"
-        /> 0921/55-3101
-      </p>
+      <a href="tel:+49921553101">
+        <p>
+          <v-icon
+            large
+            :icon="mdiPhone"
+          /> 0921/55-3101
+        </p>
+      </a>
       <br />
       <div class="tw-flex tw-justify-center tw-flex-wrap">
         <div class="tw-basis-full">

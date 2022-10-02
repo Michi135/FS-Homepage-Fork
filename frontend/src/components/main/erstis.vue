@@ -172,7 +172,7 @@ export default defineComponent({
       a[8] = [t('Wochenende')],
       a[9] = [t('sdf')]
 
-      b[0] = ['tbd'],
+      b[0] = [t('nw2Innen')],
       b[1] = [t('Anmeldung')],
       b[2] = ['tbd | NW2'],
       b[3] = ['Audimax'],
@@ -337,7 +337,8 @@ export default defineComponent({
   "fachschaft": "Fachschaft",
   "sdf": "Schlacht der Fakultäten",
   "frühstück": "Frühstück",
-  "shake": "Shakekurs"
+  "shake": "Shakekurs",
+  "nw2Innen": "NW2-Innenhof"
 }
 </i18n>
 
@@ -407,6 +408,7 @@ export default defineComponent({
   "fachschaft": "Student council",
   "sdf": "Battle of the faculties",
   "frühstück": "Breakfast",
-  "shake": "shake course"
+  "shake": "shake course",
+  "nw2Innen": "NW2-inner courtyard"
 }
 </i18n>
