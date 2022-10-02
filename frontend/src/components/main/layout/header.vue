@@ -201,6 +201,7 @@ export default defineComponent({
     }
     .ak-hidden {
       opacity: 0;
+      pointer-events: none;
     }
   }
 }
