@@ -57,7 +57,7 @@
     "webpack-plugin-vuetify": "^2.0.0-alpha.11"
   },
   "scripts": {
-    "build": "npm run build:vue && npm run build:ts && shx cp -r ./dist-ssr/dist ./production/dist-ssr/dist",
+    "build": "shx rm -r ./production && npm run build:vue && npm run build:ts && shx cp -r ./dist-ssr/dist ./production/dist-ssr/dist",
     "build:ts": "cross-env NODE_ENV=production tsc --project tsconfig.json && tsc-alias -p tsconfig.json",
     "build:vue": "cross-env NODE_ENV=production node --experimental-specifier-resolution=node --loader ts-paths-esm-loader ./src/server/build.ts",
     "start": "npm run start:devWorkaround",

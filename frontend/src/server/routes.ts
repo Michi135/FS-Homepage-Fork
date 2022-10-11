@@ -1,4 +1,4 @@
-import localizedRoutes from '@shared/localizedRoutes.json'
+import localizedRoutes from '@shared/localizedRoutes'
 import { Routes } from "@shared/routes"
 
 type Language = 'de' | 'en'

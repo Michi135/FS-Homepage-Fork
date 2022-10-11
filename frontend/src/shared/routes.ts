@@ -1,4 +1,4 @@
-import localizedRoutes from './localizedRoutes.json'
+import localizedRoutes from './localizedRoutes'
 
 type Language = 'de' | 'en'
 

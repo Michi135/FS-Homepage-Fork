@@ -1,6 +1,6 @@
 import fav2 from '@static/favicon2.svg'
 import studentSvg from '@components/main/student.svg'
-import localizedRoutes from '@shared/localizedRoutes.json'
+import localizedRoutes from '@shared/localizedRoutes'
 
 import type { RouteComponent, RouteRecordRaw } from 'vue-router'
 
