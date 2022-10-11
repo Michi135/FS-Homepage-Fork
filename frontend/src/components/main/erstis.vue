@@ -174,12 +174,12 @@ export default defineComponent({
 
       b[0] = [t('nw2Innen')],
       b[1] = [t('Anmeldung')],
-      b[2] = ['tbd | NW2'],
+      b[2] = ['H18 | NW2'],
       b[3] = ['Audimax'],
       b[4] = [t('Anmeldung')],
-      b[5] = ['tbd | NW2'],
+      b[5] = ['H20 | NW2'],
       b[6] = [t('fachschaft')]
-      b[7] = ['tbd | NW2'],
+      b[7] = ['H16 | NW2'],
       b[8] = ['tbd'],
       b[9] = [t('fachschaft')]
 
