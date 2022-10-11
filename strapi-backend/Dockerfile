@@ -6,6 +6,7 @@ ENV NODE_ENV=${NODE_ENV}
 WORKDIR /opt/
 COPY ./package.json ./
 COPY ./package-lock.json ./
+COPY ./patches ./patches
 ENV PATH /opt/node_modules/.bin:$PATH
 RUN npm i
 WORKDIR /opt/app
