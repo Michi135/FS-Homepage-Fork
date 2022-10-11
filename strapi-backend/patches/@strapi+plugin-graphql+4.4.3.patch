@@ -1,0 +1,13 @@
+diff --git a/node_modules/@strapi/plugin-graphql/server/bootstrap.js b/node_modules/@strapi/plugin-graphql/server/bootstrap.js
+index 458227e..4c5a82f 100644
+--- a/node_modules/@strapi/plugin-graphql/server/bootstrap.js
++++ b/node_modules/@strapi/plugin-graphql/server/bootstrap.js
+@@ -127,7 +127,7 @@ module.exports = async ({ strapi }) => {
+           };
+ 
+           // allow graphql playground to load without authentication
+-          if (ctx.request.method === 'GET') return next();
++          //if (ctx.request.method === 'GET') return next();
+ 
+           return strapi.auth.authenticate(ctx, next);
+         },
