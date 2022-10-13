@@ -17,7 +17,18 @@
     <div style="overflow: hidden;">
       <h1>{{ `${title} (${formatedDate} Uhr)` }}</h1>
       <div style="height: 1.8em;"></div>
-      <p>{{ description }}</p>
+      <template
+        v-for="(line, i) in desc"
+        :key="i"
+      >
+        <div
+          v-if="line.length === 0"
+          style="height: 1.1em;"
+        ></div>
+        <p v-else>
+          {{ line }}
+        </p>
+      </template>
       <div style="height: 1.8em;"></div>
       <p>
         {{ `${locations.join('/')}, ${year}, ${screenTime} min, ${genreTranslated}` }}
@@ -142,12 +153,17 @@ export default defineComponent({
       }).join('/')
     })
 
+    const desc = computed(() =>
+    {
+      return props.description.split(/\r?\n/)
+    })
+
     /*const open = computed({
       get: () => props.opened,
       set: (value: any) => emit('update:opened', value)
     })*/
 
-    return { formatedDate, onIntersect, intersecting, youtubeId, mdiChevronUp, genreTranslated }
+    return { formatedDate, onIntersect, intersecting, youtubeId, mdiChevronUp, genreTranslated, desc }
   }
 })
 </script>
