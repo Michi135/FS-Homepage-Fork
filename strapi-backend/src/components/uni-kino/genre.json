@@ -15,7 +15,13 @@
         "Tragikomödie",
         "Kriegssatire",
         "Drama",
-        "Kriegsfilm"
+        "Kriegsfilm",
+        "Bibliographie", 
+        "Komödie",
+        "Gesellschaftssatire",
+        "Musikfilm",
+        "Animationsfilm",
+        "Action"
       ],
       "required": true
     }

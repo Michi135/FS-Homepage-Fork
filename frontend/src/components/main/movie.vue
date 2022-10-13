@@ -192,7 +192,13 @@ export default defineComponent({
   "Krimi": "Krimi",
   "Thriller": "Thriller",
   "Tragikomoedie": "Tragikomödie",
-  "Kriegssatire": "Kriegssatire"
+  "Kriegssatire": "Kriegssatire",
+  "Bibliographie": "Bibliographie",
+  "Komoedie": "Komödie",
+  "Gesellschaftssatire": "Gesellschaftssatire",
+  "Musikfilm": "Musikfilm",
+  "Animationsfilm": "Animationsfilm",
+  "Action": "Action"
 }
 </i18n>
 
@@ -201,6 +207,12 @@ export default defineComponent({
   "Krimi": "Crime",
   "Thriller": "Thriller",
   "Tragikomoedie": "Tragicomedy",
-  "Kriegssatire": "War satire"
+  "Kriegssatire": "War satire",
+  "Bibliographie": "Bibliography",
+  "Komoedie": "Comedy",
+  "Gesellschaftssatire": "Society satire",
+  "Musikfilm": "Music film",
+  "Animationsfilm": "Animation film",
+  "Action": "Action"
 }
 </i18n>

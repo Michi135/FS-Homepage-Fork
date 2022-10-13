@@ -1,10 +1,12 @@
 <template>
-  <div v-if="pdf">
+  <div
+    v-if="pdf"
+    style="width: 100%; height: 100%"
+  >
     <v-no-ssr>
       <iframe
         :src="'/v1' + pdf"
-        width="100%"
-        height="100%"
+        style="width: 100%; height: 100%"
         aria-label="Zeitschrift Keine Panik"
       >
         <a

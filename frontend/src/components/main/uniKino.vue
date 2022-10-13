@@ -109,7 +109,9 @@ interface Movie {
 
 type Genre =
   'Krimi' | 'Thriller' | 'Tragikomödie' |
-  'Kriegssatire' | 'Drama' | 'Kriegsfilm'
+  'Kriegssatire' | 'Drama' | 'Kriegsfilm' |
+  'Bibliographie' | 'Komödie' | 'Gesellschaftssatire' |
+  'Musikfilm' | 'Animationsfilm' | 'Action'
 
 type GraphqlFilmeData = {
   attributes: {

@@ -10,7 +10,9 @@
       "type": "enumeration",
       "enum": [
         "USA",
-        "UK"
+        "UK",
+        "SWE",
+        "DNK"
       ],
       "required": true
     }
