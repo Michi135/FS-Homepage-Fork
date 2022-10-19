@@ -1,6 +1,6 @@
-import img1x1 from "@static/party_plakat_2022_1x1.jpg"
-import img4x3 from "@static/party_plakat_2022_4x3.jpg"
-import img16x9 from "@static/party_plakat_2022_16x9.jpg"
+import img1x1 from "@static/party_plakat_2022WS_1x1.jpg"
+import img4x3 from "@static/party_plakat_2022WS_4x3.jpg"
+import img16x9 from "@static/party_plakat_2022WS_16x9.jpg"
 
 import type { Event, WithContext, Place } from "schema-dts"
 
@@ -27,12 +27,15 @@ const NW2: Place = {
 
 const fsUrl = "https://fsmpi.uni-bayreuth.de"
 
+const startDate = "2022-11-17T21:30+" + timeoffset(false)
+const endDate = "2022-07-01T03:00+" + timeoffset(false)
+
 const event: WithContext<Event> = {
   "@context": "https://schema.org",
   "@type": "Event",
   "name": "NW2-Party",
-  "startDate": "2022-06-30T21:30+" + timeoffset(),
-  "endDate": "2022-07-01T03:00+" + timeoffset(),
+  "startDate": startDate,
+  "endDate": endDate,
   "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
   "eventStatus": "https://schema.org/EventScheduled",
   "location": NW2,
@@ -47,8 +50,8 @@ const event: WithContext<Event> = {
     "price": "5",
     "priceCurrency": "EUR",
     "availability": "https://schema.org/InStoreOnly",
-    "validFrom": "2022-06-30T21:30+" + timeoffset(),
-    "validThrough": "2022-07-01T03:00+" + timeoffset()
+    "validFrom": startDate,
+    "validThrough": endDate
   },
   "performer": {
     "@type": "PerformingGroup",

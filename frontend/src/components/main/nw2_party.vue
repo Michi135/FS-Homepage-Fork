@@ -28,11 +28,6 @@
           keypath="p[4]"
         ></i18n-t>
         <div style="height: 1.5em;"></div>
-        <i18n-t
-          tag="p"
-          keypath="p[5]"
-        ></i18n-t>
-        <div style="height: 1.5em;"></div>
         <div class="tw-flex tw-justify-center">
           <img
             v-if="img"
@@ -49,7 +44,7 @@ import { defineComponent } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { registerEvent } from '@client/dynamicTag'
 import nw2Party from '@static/nw2Event'
-import img from '@static/party_plakat_2022_2.jpg'
+import img from '@static/party_plakat_2022WS.jpg'
 
 export default defineComponent({
   setup()
@@ -96,27 +91,23 @@ export default defineComponent({
 
 <i18n locale="de">
 {
-  "p[0]": "Am 30. Juni findet endlich wieder die legendäre NW2-Party statt!",
+  "p[0]": "Am 17. November findet endlich wieder die legendäre NW2-Party statt!",
   "p[1]": "Lasst eure Ohren von satten Bässen zu Rock, Metal, Alternative und Indie massieren, \
           während ihr an der Physikerbar die Künste unserer Shaker bewundert.🤘",
-  "p[2]": "Los geht's am 30.06. um 21:30 Uhr und in der ersten Stunde kann mit Bier für 1€ \
+  "p[2]": "Los geht's am 17.11. um 21:30 Uhr und in der ersten Stunde kann mit Bier für 1€ \
           ordentlich angeheizt werden!",
-  "p[3]": "Wer auf Nummer sicher gehen möchte, kann sich bis 23 Uhr bei uns am Covid-Bike einem schnellen \
-          Coronatest unterziehen um eure Freunde, Kommilitonen und sonstige Metalheads zu schützen.",
-  "p[4]": "Wir freuen uns auf euer Erscheinen und ROCK ON!",
-  "p[5]": "Einlass ab 18 Jahren 🔞"
+  "p[3]": "Wir freuen uns auf euer Erscheinen und ROCK ON!",
+  "p[4]": "Einlass ab 18 Jahren 🔞"
 }
 </i18n>
 
 <i18n locale="en">
 {
-  "p[0]": "On June 30, the legendary NW2 party will finally take place again!",
+  "p[0]": "On november 17, the legendary NW2 party will finally take place again!",
   "p[1]": "Let your ears be massaged by rich bass to rock, metal, alternative and indie, \
           while you admire the arts of our shakers at the physicist bar.🤘",
-  "p[2]": "It starts on 30.06. at 21:30 o'clock and in the first hour can be properly heated with beer for 1€!",
-  "p[3]": "If you want to be on the safe side, you can take a quick coronatest at the Covid bike \
-          until 11pm to protect your friends, fellow students and other metalheads.",
-  "p[4]": "We look forward to seeing you there and ROCK ON!",
-  "p[5]": "Minimum Age 18+ 🔞"
+  "p[2]": "It starts on 17.11. at 21:30 o'clock and in the first hour can be properly heated with beer for 1€!",
+  "p[3]": "We look forward to seeing you there and ROCK ON!",
+  "p[4]": "Minimum Age 18+ 🔞"
 }
 </i18n>

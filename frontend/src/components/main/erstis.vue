@@ -180,7 +180,7 @@ export default defineComponent({
       b[5] = ['H20 | NW2'],
       b[6] = [t('fachschaft')]
       b[7] = ['H16 | NW2'],
-      b[8] = ['tbd'],
+      b[8] = [''],
       b[9] = [t('fachschaft')]
 
       let z: Table = {}
@@ -303,7 +303,7 @@ export default defineComponent({
   "h[7]": "Erstifrühstück",
   "p[7]": "Ein kleines, aber feines Frühstück in der Uni auf Kosten der \
           Fachschaft.",
-  "dates": "Termine für das Semester WS 2022/23 (noch nicht festgelegt)",
+  "dates": "Termine für das Semester WS 2022/23",
   "event": "Veranstaltung",
   "location": "Ort",
   "ab": "ab",
@@ -378,7 +378,7 @@ export default defineComponent({
           Over foods and drinks you're able to get into conversations with other students.",
   "h[7]": "Freshers breakfast",
   "p[7]": "A small but fine breakfast in the uni at the expense of the student council.",
-  "dates": "Dates for the semester WS 2022/23 (not yet fixed)",
+  "dates": "Dates for the semester WS 2022/23",
   "event": "Event",
   "location": "Location",
   "ab": "from",
