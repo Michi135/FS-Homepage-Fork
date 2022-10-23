@@ -411,6 +411,7 @@ import vue from '@vitejs/plugin-vue'
 import vueI18n from '@intlify/unplugin-vue-i18n/vite'
 import vuetify from 'vite-plugin-vuetify'
 import tsconfigPaths from 'vite-tsconfig-paths'
+import { defineConfig } from 'vite'
 
 type Options = {
   isProd: boolean
@@ -418,6 +419,150 @@ type Options = {
   noMinimize: boolean
   isServer: boolean
 }
+
+const configure = defineConfig(async ({ command, mode, ssrBuild }) =>
+{
+
+  //  const options: Partial<Options> = env.
+
+  const { isProd, isSSR, isServer } = { isProd: true, isSSR: false, isServer: false }
+
+  const environment = isProd ? 'production' : 'development'
+
+  const dir = dirname(fileURLToPath(import.meta.url))
+
+  return {
+    base: '/dist/',
+    mode: environment,
+    resolve: {
+      extensions: ['.tsx', '.ts', '.js', ".mjs", 'jsx', ".vue", ".json", ".wasm", ".cjs", ".svg", '.jpg'],
+      alias: {
+        "@static": join(dir, "src/static"),
+        vue: 'vue/dist/vue.esm-bundler.js'
+        //'vue/server-renderer' : resolve(dir, "./node_modules/vue/server-renderer/index.js"),
+        //'vue': resolve(dir, "./node_modules/vue/dist/vue.runtime.esm-bundler.js"),
+        //'vue-i18n': resolve(dir, './node_modules/vue-i18n/dist/vue-i18n.runtime.esm-bundler.js')
+      }
+    },
+    esbuild: {
+      tsconfigRaw: await readFile(
+        new URL('./tsconfig.webpack.json', import.meta.url),
+        'utf-8'
+      )
+    },
+    ssr: {
+      noExternal: [/\.css$/, /\?vue&type=style/, /^vuetify/, /@vue\/apollo-composable/]
+    },
+    server: {
+      cors: true
+    },
+    build: {
+      manifest: true,
+      ssrManifest: true,
+      ssr: isSSR && isServer,
+      outDir: resolve(
+        isSSR ? (isServer ? 'dist-ssr/server' : 'dist-ssr/dist') : 'dist'
+      ),
+      /*lib: {
+        entry: isServer
+          ? resolve('src', 'shared', 'app.ts')
+          : resolve('src', 'client', 'main.ts')
+      },*/
+      //filename: (isServer) ? '[name].mjs' : (isProd) ? '[name].[hash].mjs' : '[name].mjs',
+      rollupOptions: {
+        /*plugins: [
+          aliasRollup({
+            entries: [
+              { find: /@static\/(.*)/, replacement: resolve(dir, './src/static/$1') }
+            ],
+          })
+        ],*/
+        output: {
+          manualChunks: (id) =>
+          {
+            if (id.includes('node_modules/vuetify'))
+            {
+              return 'vendor_vuetify'
+            }
+            else if (id.includes('node_modules/@vue'))
+            {
+              return 'vendor_vue'
+            }
+            else if (id.includes('node_modules'))
+            {
+              return 'vendor_general'
+            }
+          },
+          //esmodule:
+          entryFileNames: (isServer) ? '[name].mjs' : (isProd) ? '[name].[hash].mjs' : '[name].mjs',
+          chunkFileNames: `[name].[hash].mjs`
+        },
+        input: isServer
+          ? resolve('src', 'shared', 'app.ts')
+          : resolve('src', 'client', 'main.ts'),
+        external(id, parent, isResolved)
+        {
+          if (isServer)
+          {
+            //console.log(id)
+            //if (id.includes('node_modules'))
+            {
+              for (let k of [/\.(?!(?:jsx?|json|tsx?|mjs|c?js)$).{1,5}$/i, '@vue/apollo-composable', /vuetify\/lib\/.*$/i])
+              {
+                if (typeof k === 'string')
+                {
+                  if (id === k) return false
+                }
+                else if (k instanceof RegExp)
+                {
+                  if (id.match(k)) return false
+                }
+              }
+              //return true
+            }
+            for (let k of [/^node:/])
+            {
+              if (typeof k === 'string')
+              {
+                if (id === k) return true
+              }
+              else if (k instanceof RegExp)
+              {
+                if (id.match(k)) return true
+              }
+            }
+          }
+          return false
+        }
+      }
+    },
+    plugins: [
+      vue(),
+      vueI18n({
+        // if you want to use Vue I18n Legacy API, you need to set `compositionOnly: false`
+        // compositionOnly: false,
+
+        // you need to set i18n resource including paths !
+        include: resolve(dir, './src/shared/Translations/**')
+      }),
+      vuetify(),
+      tsconfigPaths(
+        {
+          projects: ['./tsconfig.webpack.json'],
+          //extensions: ['.ts', '.tsx', '.js', '.jsx', '.mjs', '.jpg', '.css', '.vue', '.css', '.less'],
+          loose: true
+        })
+    ],
+    define: {
+      __IS_SSR__: isSSR,
+      __IS_DEV__: !isProd,
+      __IS_SERVER__: isServer,
+      __VUE_OPTIONS_API__: true,
+      __VUE_PROD_DEVTOOLS__: false,
+      __VUE_I18N_LEGACY_API__: false
+    }
+  }
+})
 
 async function configFunction(options: Partial<Options> = {}): Promise<UserConfig>
 {
@@ -452,8 +597,8 @@ async function configFunction(options: Partial<Options> = {}): Promise<UserConfi
       resolve: {
         extensions: ['.tsx', '.ts', '.js', ".mjs", 'jsx', ".vue", ".json", ".wasm", ".cjs", ".svg", '.jpg'],
         alias: {
-          "@static": join(dir, "src/static"),
-          vue: 'vue/dist/vue.esm-bundler.js'
+          "@static": join(dir, "src/static")
+          //vue: 'vue/dist/vue.esm-bundler.js'
           //'vue/server-renderer' : resolve(dir, "./node_modules/vue/server-renderer/index.js"),
           //'vue': resolve(dir, "./node_modules/vue/dist/vue.runtime.esm-bundler.js"),
           //'vue-i18n': resolve(dir, './node_modules/vue-i18n/dist/vue-i18n.runtime.esm-bundler.js')
@@ -574,4 +719,4 @@ async function configFunction(options: Partial<Options> = {}): Promise<UserConfi
   return await config()
 }
 
-export default configFunction
+export default configure
