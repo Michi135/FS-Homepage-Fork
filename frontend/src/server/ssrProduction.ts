@@ -1,6 +1,6 @@
 import ssrBase from './ssrBase'
 //@ts-ignore
-import * as bundle from '@distServer/main.js'
+import * as bundle from '@distServer/app.mjs'
 
 import { resolve } from 'path'
 

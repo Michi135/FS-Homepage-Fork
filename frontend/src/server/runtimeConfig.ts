@@ -1,4 +1,4 @@
-import configFunction from '../../vite.config'
+import { configFunction } from '../../vite.config'
 import { Router } from 'express'
 import ssr from './ssrHMR'
 import { fileRequest } from './fileRequest'
@@ -35,38 +35,13 @@ export interface ProdBundle {
 
 export async function clientBundle(isDev: boolean)
 {
-  const client = await clientConfig(isDev)
-
-  /*
-  if (isDev)
-  {
-    return <ClientDevBundle>{
-      devMid: await createViteServer({
-        server: { middlewareMode: true },
-        appType: 'custom',
-        ...client
-      })
-    }
-  }
-  */
-  //console.log("Client finished building")
   if (isDev)
     return
 
+  const client = await clientConfig(isDev)
+
   return <ProdBundle>{
-    //@ts-ignore
-    compileInstance: build(client)
-    /*compileInstance: new Promise<void>((resolve, reject) =>
-    {
-      clientCompiler.run((error, stats) =>
-      {
-        console.log("Client finished building")
-        //writeJSON('./stats/stats.json', stats?.toJson())
-        if (stats?.hasErrors())
-          reject(stats?.compilation.errors)
-        resolve()
-      })
-    })*/
+    compileInstance: build({ ...client, configFile: false })
   }
 }
 
@@ -88,8 +63,7 @@ export async function serverBundle(isDev: boolean)
     }
   }
   return <ProdBundle>{
-    //@ts-ignore
-    compileInstance: build(server)
+    compileInstance: build({ ...server, configFile: false })
   }
 }
 
@@ -109,7 +83,7 @@ export class Build
   public readonly mDev: boolean
   private mBuilt: boolean
   private mClient: ReturnType<typeof clientBundle>
-  //private mServer: ReturnType<typeof serverBundle>
+  private mServer: ReturnType<typeof serverBundle>
   private mRouter: Router = Router()
 
   constructor(development: boolean)
@@ -118,7 +92,7 @@ export class Build
     this.mBuilt = development
 
     this.mClient = clientBundle(development)
-    //this.mServer = serverBundle(development)
+    this.mServer = serverBundle(development)
   }
 
   async build()
@@ -130,11 +104,12 @@ export class Build
         if (!this.mDev)
         {
           await (<ProdBundle>await this.mClient).compileInstance
-          //await (<ProdBundle>await this.mServer).compileInstance
+          await (<ProdBundle>await this.mServer).compileInstance
         }
         console.log("Building process finished")
       }
-      await this.constructRouter()
+      //TODO:: fix router
+      //await this.constructRouter()
       return this.mRouter
     }
     catch (reason)
@@ -147,14 +122,6 @@ export class Build
   {
     if (this.mDev)
     {
-      //const { devMid } = <ClientDevBundle>await this.mClient
-      //this.mRouter.use(devMid.middlewares, (req, res, next) =>
-      /*{
-        res.locals = res.locals || {}
-        res.locals.vite = devMid
-        return next()
-      })*/
-      /*
       const { devMid } = <ServerDevBundle>await this.mServer
       this.mRouter.use(devMid.middlewares, (req, res, next) =>
       {
@@ -162,7 +129,6 @@ export class Build
         res.locals.vite = devMid
         return next()
       })
-      */
     }
     else
     {
