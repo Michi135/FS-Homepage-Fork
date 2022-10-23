@@ -1,59 +1,62 @@
-import webpackDevMiddleware from 'webpack-dev-middleware'
-import webpackHotMiddleware from 'webpack-hot-middleware'
-import configFunction from '../../webpack.vue.config'
+import configFunction from '../../vite.config'
 import { Router } from 'express'
 import ssr from './ssrHMR'
 import { fileRequest } from './fileRequest'
 import { join, resolve } from 'path'
 import { fileURLToPath } from 'url'
+import { merge } from 'lodash-es'
 
 import fsExtra from "fs-extra"
-import webpackM from 'webpack'
+
+import { createServer as createViteServer, build } from 'vite'
+
+import type { ViteDevServer } from 'vite'
 
 const { readJson, writeJSON } = fsExtra
-const { webpack } = webpackM
 
-export function clientConfig(development: boolean)
+
+export async function clientConfig(development: boolean)
 {
-  const mode = (development) ? 'development' : 'production'
-
-  return configFunction({ rendering: 'ssr', mode: mode })
+  return await configFunction({ isProd: !development, isSSR: true, isServer: false })
 }
 
-export function serverConfig(development: boolean)
+export async function serverConfig(development: boolean)
 {
-  const mode = (development) ? 'development' : 'production'
-  return configFunction({ rendering: 'ssr', target: 'server', mode: mode })
+  return await configFunction({ isProd: !development, isSSR: true, isServer: true })
 }
 
 export interface ClientDevBundle {
-    devMid: ReturnType<typeof webpackDevMiddleware>,
-    devHot: ReturnType<typeof webpackHotMiddleware>
+  devMid: ViteDevServer,
 }
 
 export interface ProdBundle {
-    compileInstance: Promise<void>
+    compileInstance: ReturnType<typeof build>
 }
 
-export function clientBundle(isDev: boolean)
+export async function clientBundle(isDev: boolean)
 {
-  const client = clientConfig(isDev)
-  const clientCompiler = webpack(client)
+  const client = await clientConfig(isDev)
 
+  /*
   if (isDev)
   {
     return <ClientDevBundle>{
-      devMid: webpackDevMiddleware(clientCompiler,
-        {
-          publicPath: (client.output!.publicPath as string)
-          //serverSideRender: true,
-        }),
-      devHot: webpackHotMiddleware(clientCompiler)
+      devMid: await createViteServer({
+        server: { middlewareMode: true },
+        appType: 'custom',
+        ...client
+      })
     }
   }
+  */
+  //console.log("Client finished building")
+  if (isDev)
+    return
 
   return <ProdBundle>{
-    compileInstance: new Promise<void>((resolve, reject) =>
+    //@ts-ignore
+    compileInstance: build(client)
+    /*compileInstance: new Promise<void>((resolve, reject) =>
     {
       clientCompiler.run((error, stats) =>
       {
@@ -63,42 +66,30 @@ export function clientBundle(isDev: boolean)
           reject(stats?.compilation.errors)
         resolve()
       })
-    })
+    })*/
   }
 }
 
 export interface ServerDevBundle {
-    devMid: ReturnType<typeof webpackDevMiddleware>,
+    devMid: ViteDevServer,
 }
 
-export function serverBundle(isDev: boolean)
+export async function serverBundle(isDev: boolean)
 {
-
-  const server = serverConfig(isDev)
-  const serverCompiler = webpack(server)
-
+  const server = await serverConfig(isDev)
   if (isDev)
   {
     return <ServerDevBundle>{
-      devMid: webpackDevMiddleware(serverCompiler,
-        {
-          publicPath: (server.output!.publicPath as string),
-          writeToDisk: true
-          //serverSideRender: true
-        })
+      devMid: await createViteServer({
+        appType: 'custom',
+        configFile: false,
+        ...merge(server, { server: { middlewareMode: true } })
+      })
     }
   }
   return <ProdBundle>{
-    compileInstance: new Promise<void>((resolve, reject) =>
-    {
-      serverCompiler.run((error, stats) =>
-      {
-        console.log("Server finished building")
-        if (stats?.hasErrors())
-          reject(stats?.compilation.errors)
-        resolve()
-      })
-    })
+    //@ts-ignore
+    compileInstance: build(server)
   }
 }
 
@@ -118,7 +109,7 @@ export class Build
   public readonly mDev: boolean
   private mBuilt: boolean
   private mClient: ReturnType<typeof clientBundle>
-  private mServer: ReturnType<typeof serverBundle>
+  //private mServer: ReturnType<typeof serverBundle>
   private mRouter: Router = Router()
 
   constructor(development: boolean)
@@ -127,7 +118,7 @@ export class Build
     this.mBuilt = development
 
     this.mClient = clientBundle(development)
-    this.mServer = serverBundle(development)
+    //this.mServer = serverBundle(development)
   }
 
   async build()
@@ -138,10 +129,9 @@ export class Build
       {
         if (!this.mDev)
         {
-          await (<ProdBundle>this.mClient).compileInstance
+          await (<ProdBundle>await this.mClient).compileInstance
+          //await (<ProdBundle>await this.mServer).compileInstance
         }
-
-        await (<ProdBundle>this.mServer).compileInstance
         console.log("Building process finished")
       }
       await this.constructRouter()
@@ -157,16 +147,22 @@ export class Build
   {
     if (this.mDev)
     {
-      const { devMid, devHot } = <ClientDevBundle>this.mClient
-      this.mRouter.use(devMid, (req, res, next) =>
+      //const { devMid } = <ClientDevBundle>await this.mClient
+      //this.mRouter.use(devMid.middlewares, (req, res, next) =>
+      /*{
+        res.locals = res.locals || {}
+        res.locals.vite = devMid
+        return next()
+      })*/
+      /*
+      const { devMid } = <ServerDevBundle>await this.mServer
+      this.mRouter.use(devMid.middlewares, (req, res, next) =>
       {
         res.locals = res.locals || {}
-        res.locals.webpack = res.locals.webpack || {}
-        res.locals.webpack.devMiddleware = devMid.context
+        res.locals.vite = devMid
         return next()
       })
-      this.mRouter.use(devHot)
-      this.mRouter.use((<ServerDevBundle>this.mServer).devMid)
+      */
     }
     else
     {

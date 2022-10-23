@@ -3,7 +3,10 @@
     "files": true,
     "require": [
       "tsconfig-paths/register"
-    ]
+    ],
+    "moduleTypes": {
+      "postcss.config.ts": "cjs"
+    }
   },
   "tsc-alias": {
     "resolveFullPaths": true

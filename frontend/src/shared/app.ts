@@ -11,7 +11,9 @@ import { createPinia } from 'pinia'
 import app from '@components/App.vue'
 import { createGraphql } from '@shared/graphql'
 import { useStore } from '@shared/store'
-import Globali18n from './Translations/i18nGlobal.json'
+//import Globali18n from './Translations/i18nGlobal.json'
+
+import messages from '@intlify/unplugin-vue-i18n/messages'
 
 import type { App, Component } from 'vue'
 import type { Router } from 'vue-router'
@@ -60,7 +62,7 @@ function createBundledApp(root: Component, args: BundleArgs = {})
       legacy: false,
       locale: store.language,
       fallbackLocale: ['en', 'de'],
-      messages: merge(localization, Globali18n)
+      messages: merge(localization, messages)
     })
 
   app.use(i18n)

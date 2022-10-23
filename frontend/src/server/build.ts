@@ -1,3 +1,6 @@
 import { Build } from './runtimeConfig'
 
-const build = new Build(false).build()
+const build = new Build(true).build().catch((e: any) =>
+{
+  console.error(e)
+})

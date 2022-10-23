@@ -1,6 +1,9 @@
 import fav2 from '@static/favicon2.svg'
 import studentSvg from '@components/main/student.svg'
 import localizedRoutes from '@shared/localizedRoutes'
+import wahlSvg from '@components/main/wal.svg'
+import kameraSvg from '@components/main/filmkamera.svg'
+import partySvg from '@components/main/party.svg'
 
 import type { RouteComponent, RouteRecordRaw } from 'vue-router'
 
@@ -91,9 +94,9 @@ routes.addRoute('consultationHours', { component: sprechstundenComponent })
 routes.addRoute('freshers', { component: erstisComponent, options: { favicon: studentSvg } })
 routes.addRoute('noPanic', { component: keinePanikComponent })
 //routes.addRoute('blog', blogComponent)
-routes.addRoute('election', { component: wahlComponent, options: { favicon: require('@components/main/wal.svg') } })
-routes.addRoute('uniCinema', { component: uniKinoComponent, options: { favicon: require('@components/main/filmkamera.svg') } })
-routes.addRoute('party', { component: partyComponent, options: { favicon: require('@components/main/party.svg') } })
+routes.addRoute('election', { component: wahlComponent, options: { favicon: wahlSvg } })
+routes.addRoute('uniCinema', { component: uniKinoComponent, options: { favicon: kameraSvg } })
+routes.addRoute('party', { component: partyComponent, options: { favicon: partySvg } })
 //routes.addRoute('veranstaltungen', { component: veranstaltungComponent })
 
 routes.addRoute('imprint', { component: impressumComponent })

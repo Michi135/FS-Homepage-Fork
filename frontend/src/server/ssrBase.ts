@@ -132,6 +132,7 @@ export default async function ssr(htmlBlueprint: string, manifest: Record<string
   const head = doc.head
   doc.children[0].setAttribute('lang', language)
 
+  /*
   const chunk = chunks[req.url]
   if (chunk)
   {
@@ -160,6 +161,7 @@ export default async function ssr(htmlBlueprint: string, manifest: Record<string
   const context = await contextLoad
   context.nonce = nonce
   doc.getElementById('app')!.innerHTML = await renderToString(app, context)
+  console.log(context)
 
   addStyles(dom, context.styles)
   addEvents(dom, context.events, nonce)

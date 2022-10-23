@@ -1,6 +1,9 @@
 {
   "ts-node": {
-    "files": true
+    "files": true,
+    "moduleTypes": {
+      "postcss.config.ts": "cjs"
+    }
   },
   "include": [
     "src/**/*"
