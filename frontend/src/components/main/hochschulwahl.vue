@@ -24,6 +24,8 @@
               keypath="here"
               class="link"
               :href="t('link')"
+              target="_blank"
+              rel="noopener noreferrer"
             >
             </i18n-t>
           </template>
@@ -356,6 +358,8 @@
             <a
               class="link"
               :href="t('uniLink')"
+              target="_blank"
+              rel="noopener noreferrer"
             >{{ t('misc[0]') }}</a>
           </template>
           <template #b>
@@ -454,11 +458,11 @@ export default defineComponent({
     const { t, locale } = useI18n({ useScope: "local" })
     const extern = computed(() =>
     {
-      return '/' + VueRoutes.getKeyPath('externals', <"de" | "en">locale.value)
+      return '/' + VueRoutes.getKeyPath('externals', locale.value  as SupportedLanguages)
     })
     const kontakt = computed(() =>
     {
-      return '/' + VueRoutes.getKeyPath('contact', <"de" | "en">locale.value)
+      return '/' + VueRoutes.getKeyPath('contact', locale.value as SupportedLanguages)
     })
 
     import('@static/stupa_wahl.jpg').catch().then((val) =>

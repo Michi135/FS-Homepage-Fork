@@ -4,12 +4,13 @@ import type { SSRContext as VueContext } from "@vue/server-renderer"
 
 export type SSRContext =
 {
-    styles: Record<string, string>
-    //id, event
-    events: Record<string, WithContext<Event>>
-    title?: string
-    favicon?: string
-    nonce: string
+  styles: Record<string, string>
+  //id, event
+  events: Record<string, WithContext<Event>>
+  title?: string
+  favicon?: string
+  nonce: string,
+  modules?: Set<string>
 } & VueContext
 
 export function ensureContext(context: any)

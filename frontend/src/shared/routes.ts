@@ -1,7 +1,5 @@
 import localizedRoutes from './localizedRoutes'
 
-type Language = 'de' | 'en'
-
 type Lazy<T> = () => Promise<T>
 type Translation = Record<string, { route: string, title: string }>
 
@@ -17,9 +15,9 @@ export class Routes<T, S = undefined>
   keyRoutes = new Set<string>()
   defaultRoutes: T[] = []
   registeredCategories: Record<string, string[]> = {}
-  local_routes: Map<Language, Map<string, T>> = new Map()
+  local_routes: Map<SupportedLanguages, Map<string, T>> = new Map()
 
-  static getKeyPath(key: string, language: Language = 'de')
+  static getKeyPath(key: string, language: SupportedLanguages = 'de')
   {
     const entry = <Translation>localizedRoutes[language]
     let path = ""
@@ -77,12 +75,12 @@ export class Routes<T, S = undefined>
     return this.defaultRoutes.concat(this.allLocalRoutes())
   }
 
-  getRoute(key: string, lang: Language)
+  getRoute(key: string, lang: SupportedLanguages)
   {
     return this.local_routes.get(lang)?.get(key)
   }
 
-  getCategoryRoutes(category: string, lang: Language)
+  getCategoryRoutes(category: string, lang: SupportedLanguages)
   {
     return this.getCategory(category)?.map((val) =>
     {

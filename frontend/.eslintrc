@@ -1,8 +1,10 @@
 {
+    "root": true,
     "extends": [
-        "plugin:vue/vue3-strongly-recommended"
+        "plugin:vue/vue3-strongly-recommended",
+        "plugin:@intlify/vue-i18n/recommended"
     ],
-    "plugins": [],
+    "plugins": ["@typescript-eslint"],
     "rules": {
         "brace-style": ["error", "allman"],
         "vue/multi-word-component-names": 0,
@@ -12,18 +14,44 @@
             "singleline": "never",
             "multiline": "always"
           }],
-        "indent": ["error", 2],
+        "indent": "off",
+        "@typescript-eslint/indent": ["error", 2],
         "object-curly-spacing": ["error", "always"],
         "array-bracket-spacing": ["error", "never"],
         "semi": ["error", "never"],
         "no-trailing-spaces": "error",
         "space-in-parens": "error",
         "comma-dangle": "error",
-        "vue/attribute-hyphenation": "off"
+        "vue/attribute-hyphenation": "off",
+        "@intlify/vue-i18n/no-unused-keys": [
+            "warn",
+            {
+                "extensions": [".js", ".vue"]
+            }
+        ]
     },
     "parserOptions": {
         "parser": "@typescript-eslint/parser",
         "sourceType": "module"
     },
-    "ignorePatterns": ["/dist-ssr/**/*.js", "./node_modules/**", "/intermediate/**/*.js"]
+    "ignorePatterns": ["/dist-ssr/**/*.js", "./node_modules/**", "/intermediate/**/*.js"],
+    "overrides": [
+        {
+            "files": ["*.json", "*.json5"],
+            "extends": ["plugin:@intlify/vue-i18n/base"]
+        },
+        {
+            "files": ["*.yaml", "*.yml"],
+            "extends": ["plugin:@intlify/vue-i18n/base"]
+        }
+    ],
+    "settings": {
+        "vue-i18n": {
+            "localeDir": {
+                "pattern": "./src/shared/Translations/*.{json,json5,yaml,yml}",
+                "localeKey": "key"
+            },
+            "messageSyntaxVersion": "^9.0.0"
+        }
+    }
 }

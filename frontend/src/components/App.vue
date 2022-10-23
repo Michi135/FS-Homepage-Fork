@@ -67,7 +67,7 @@ export default defineComponent({
       watch(locale, () =>
       {
         router.replace('/' + VueRoutes.getKeyPath(route.meta.title!, language.value))
-        document.children[0].setAttribute('lang', <'de' | 'en'>locale.value)
+        document.children[0].setAttribute('lang', locale.value as SupportedLanguages)
       })
 
       router.afterEach(({ meta, path }, from, failure) =>

@@ -4,7 +4,7 @@ import defFav from '@static/favicon.svg'
 const defaultState: {
   defaultFavicon: any
   defaultTitle: string
-  language: 'de' | 'en'
+  language: SupportedLanguages
   initialTime: Date
   isUniNetwork: boolean
   nonce: string
@@ -26,7 +26,7 @@ export type State = typeof defaultState;
 export const useStore = defineStore('main', {
   state: () => defaultState,
   actions: {
-    setLanguage(lang: 'de' | 'en')
+    setLanguage(lang: SupportedLanguages)
     {
       this.language = lang
     }

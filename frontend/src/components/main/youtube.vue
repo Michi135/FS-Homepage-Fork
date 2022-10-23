@@ -3,6 +3,8 @@
     v-if="kind === 'link'"
     :href="'https://www.youtube.com/watch?v=' + id"
     style="color: var(--color-primary);"
+    target="_blank"
+    rel="noopener noreferrer"
   ><strong>{{ description + '  ' }}</strong><font-awesome-icon :icon="faExternalLink" /></a>
   <v-responsive
     v-else

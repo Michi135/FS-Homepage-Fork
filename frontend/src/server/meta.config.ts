@@ -1,5 +1,5 @@
 interface MetaEntry {
-    [key: string]: string
+  [key: string]: string
 }
 
 const metaEntries: MetaEntry[] =

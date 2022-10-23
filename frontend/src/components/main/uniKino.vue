@@ -57,6 +57,8 @@
               <a
                 :href="t('inet')"
                 :hreflang="locale"
+                target="_blank"
+                rel="noopener noreferrer"
               >{{ t('here') }}</a>
             </template>
           </i18n-t>
@@ -261,7 +263,7 @@ export default defineComponent({
 
       return films.map((val) =>
       {
-        return copyLocale(val, <'en' | 'de'>locale.value)
+        return copyLocale(val, locale.value as SupportedLanguages)
       })
     })
 

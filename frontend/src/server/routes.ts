@@ -1,8 +1,6 @@
 import localizedRoutes from '@shared/localizedRoutes'
 import { Routes } from "@shared/routes"
 
-type Language = 'de' | 'en'
-
 export class ServerRoutes extends Routes<string, undefined>
 {
   constructor()
@@ -14,9 +12,9 @@ export class ServerRoutes extends Routes<string, undefined>
   {
     this.keyRoutes.add(key)
     for (var [lang, translations] of Object.entries(localizedRoutes))
-    this.local_routes.
-      get(lang as Language)!.
-      set(key, Routes.getKeyPath(key, <Language | undefined>lang))
+      this.local_routes.
+        get(lang as SupportedLanguages)!.
+        set(key, Routes.getKeyPath(key, <SupportedLanguages | undefined>lang))
   }
 }
 

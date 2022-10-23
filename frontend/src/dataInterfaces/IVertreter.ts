@@ -6,22 +6,22 @@ type Rolle = "Chef" | "Vize" | "Finanzen" | "Networking" | "Uni_Kino" | "Oeffent
 
 
 type VertreterGQL = {
-    data: [{
-        attributes: {
-            anzeigeName: string
-            grad: Grad
-            feld: Feld
-            semester: number
-            portrait: { data: { attributes: { url: string, width: number, height: number }}}
-            hauptfach: { fach: Faecher }
-            lehramt?: {
-                zweitfach: { fach: Faecher }
-                schultyp: Lehramt
-            }
-            position: Rolle
-            email: string
-        }
-    }]
+  data: [{
+    attributes: {
+      anzeigeName: string
+      grad: Grad
+      feld: Feld
+      semester: number
+      portrait: { data: { attributes: { url: string, width: number, height: number }}}
+      hauptfach: { fach: Faecher }
+      lehramt?: {
+        zweitfach: { fach: Faecher }
+        schultyp: Lehramt
+      }
+      position: Rolle
+      email: string
+    }
+  }]
 }
 
 export {

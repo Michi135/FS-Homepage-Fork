@@ -37,15 +37,15 @@ function networkMiddleware(networkToken: string)
 
 function genClients(networkToken?: string)
 {
-  const http = createHttpLink({ uri: (__IS_SERVER__) ? 'http://strapi:1337/graphql' : 'https://fsmpi.uni-bayreuth.de/v1/graphql', fetch, useGETForQueries: true, credentials: 'same-origin' })
+  const http = createHttpLink({ uri: (import.meta.env.SSR) ? 'http://strapi:1337/graphql' : 'https://fsmpi.uni-bayreuth.de/v1/graphql', fetch, useGETForQueries: true, credentials: 'same-origin' })
 
   const apolloOptions: ApolloClientOptions<NormalizedCacheObject> = {
-    link: (__IS_SERVER__ && networkToken) ? networkMiddleware(networkToken).concat(http) : http,
-    cache: !__IS_SERVER__
+    link: (import.meta.env.SSR && networkToken) ? networkMiddleware(networkToken).concat(http) : http,
+    cache: !import.meta.env.SSR
     //@ts-ignore
       ? new InMemoryCache().restore((<Object>window.__APOLLO_STATE__).default)
       : new InMemoryCache(),
-    ...(__IS_SERVER__ ? {
+    ...(import.meta.env.SSR ? {
       // Set this on the server to optimize queries when SSR
       ssrMode: true
     } : {
@@ -54,11 +54,11 @@ function genClients(networkToken?: string)
     })
   }
 
-  if (!__IS_SERVER__)
-        Array.from(window!.document!.getElementsByTagName('script'))!.find((val)=>
-        {
-          return val.text.startsWith("window.__APOLLO_STATE__")
-        })!.remove()
+  if (!import.meta.env.SSR)
+    Array.from(window!.document!.getElementsByTagName('script'))!.find((val)=>
+    {
+      return val.text.startsWith("window.__APOLLO_STATE__")
+    })!.remove()
 
   let clients: SSRApolloClients = {}
   clients["default"] = new ApolloClient(apolloOptions)

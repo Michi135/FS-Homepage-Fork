@@ -30,7 +30,7 @@ export interface ClientDevBundle {
 }
 
 export interface ProdBundle {
-    compileInstance: ReturnType<typeof build>
+  compileInstance: ReturnType<typeof build>
 }
 
 export async function clientBundle(isDev: boolean)
@@ -46,7 +46,7 @@ export async function clientBundle(isDev: boolean)
 }
 
 export interface ServerDevBundle {
-    devMid: ViteDevServer,
+  devMid: ViteDevServer,
 }
 
 export async function serverBundle(isDev: boolean)

@@ -22,7 +22,7 @@ function createBundledRouter()
   return {
     router:
       createRouter({
-        history: __IS_SERVER__ ? createMemoryHistory() : createWebHistory(),
+        history: import.meta.env.SSR ? createMemoryHistory() : createWebHistory(),
         routes: routes.routerCompilation()
       }),
     localization: createLocalizedRoutes()

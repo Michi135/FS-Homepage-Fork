@@ -7,8 +7,6 @@ import partySvg from '@components/main/party.svg'
 
 import type { RouteComponent, RouteRecordRaw } from 'vue-router'
 
-type Language = 'de' | 'en'
-
 const defaultLayout = () => import('@components/main/layout/content.vue'/* webpackChunkName: "home" */)
 const homeComponent = () => import('@components/main/home.vue'/* webpackChunkName: "home" */)
 const vertreterComponent = () => import('@components/main/vertreter/vertreter.vue'/* webpackChunkName: "home" */)
@@ -59,14 +57,14 @@ export class VueRoutes extends Routes<RouteRecordRaw, Data>
     //headerKeys.push(key)
     for (var [lang, translations] of Object.entries(localizedRoutes))
     {
-    this.local_routes.get(lang as Language)!.set(key, {
-      path: Routes.getKeyPath(key, <Language | undefined>lang),
-      component: data.component,
-      meta: {
-        title: key,//(<Translation>translations)[key].title
-        ...data.options
-      }
-    })
+      this.local_routes.get(lang as SupportedLanguages)!.set(key, {
+        path: Routes.getKeyPath(key, <SupportedLanguages | undefined>lang),
+        component: data.component,
+        meta: {
+          title: key,//(<Translation>translations)[key].title
+          ...data.options
+        }
+      })
     }
   }
 

@@ -31,6 +31,8 @@ type Options = {
 
 export async function configFunction(options: Partial<Options> = {}): Promise<UserConfig>
 {
+  const configRelative  = './tsconfig.vite.json'
+
   const dir = dirname(fileURLToPath(import.meta.url))
   const { isProd, isSSR, noMinimize, isServer } =
   {
@@ -57,7 +59,7 @@ export async function configFunction(options: Partial<Options> = {}): Promise<Us
     },
     esbuild: {
       tsconfigRaw: await readFile(
-        new URL('./tsconfig.webpack.json', import.meta.url),
+        new URL(configRelative, import.meta.url),
         'utf-8'
       )
     },
@@ -146,15 +148,13 @@ export async function configFunction(options: Partial<Options> = {}): Promise<Us
       vuetify(),
       tsconfigPaths(
         {
-          projects: ['./tsconfig.vite.json'],
+          projects: [configRelative],
           //extensions: ['.ts', '.tsx', '.js', '.jsx', '.mjs', '.jpg', '.css', '.vue', '.css', '.less'],
           loose: true
         })
     ],
     define: {
       __IS_SSR__: isSSR,
-      __IS_DEV__: !isProd,
-      __IS_SERVER__: isServer,
       __VUE_OPTIONS_API__: true,
       __VUE_PROD_DEVTOOLS__: false,
       __VUE_I18N_LEGACY_API__: false

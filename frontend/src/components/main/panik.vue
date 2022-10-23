@@ -12,10 +12,12 @@
         <a
         :href="'/v1' + pdf"
         download
-        ><p>
+        >
+        <p>
         {{ t('no') }}<br />{{ t('click') }}
         <span class="tw-text-blue-500">{{ t('here') }}</span> {{ t('dl') }}
-        </p></a>
+        </p>
+        </a>
       </iframe>
     </v-no-ssr>
   </div>

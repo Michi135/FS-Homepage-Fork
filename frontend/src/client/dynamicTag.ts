@@ -13,7 +13,7 @@ function trySetWatch<T>(data: T | Ref<T>, element: HTMLElement, fn?: (val: Unwra
 
   watch(data, (val) =>
   {
-      element!.innerHTML = (fn) ? fn(val) : <string><unknown>val
+    element!.innerHTML = (fn) ? fn(val) : <string><unknown>val
   })
 }
 

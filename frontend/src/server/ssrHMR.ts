@@ -13,7 +13,7 @@ import fsExtra from 'fs-extra'
 const { readFile } = fsExtra
 
 interface devMiddleware {
-    vite: ViteDevServer
+  vite: ViteDevServer
 };
 
 function loadDevMiddleWare(res: Response)

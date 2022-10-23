@@ -25,7 +25,7 @@ import type { State } from '@shared/store'
 
 declare global {
   interface Window {
-      __INITIAL_STATE__?: Record<string, StateTree>
+    __INITIAL_STATE__?: Record<string, StateTree>
   }
 }
 
@@ -33,13 +33,13 @@ type BundleArgs = { ctx?: Partial<State>, networkToken?: string }
 
 function createBundledApp(root: Component, args: BundleArgs = {})
 {
-  const app = (__IS_SERVER__ || __IS_SSR__) ? createSSRApp(root) : createApp(root)
+  const app = (import.meta.env.SSR || __IS_SSR__) ? createSSRApp(root) : createApp(root)
   const { router, localization } = createBundledRouter()
 
   const GraphqlVue = createGraphql(args.networkToken)
   const pinia = createPinia()
 
-  if (!__IS_SERVER__ && __IS_SSR__ && window.__INITIAL_STATE__)
+  if (!import.meta.env.SSR && __IS_SSR__ && window.__INITIAL_STATE__)
   {
     pinia.state.value = window.__INITIAL_STATE__
 
@@ -53,7 +53,7 @@ function createBundledApp(root: Component, args: BundleArgs = {})
   app.use(pinia)
 
   const store = useStore(pinia)
-  if (__IS_SERVER__ && args.ctx)
+  if (import.meta.env.SSR && args.ctx)
     store.$patch(args.ctx)
 
   const i18n = createI18n(
@@ -91,12 +91,12 @@ function createBundledApp(root: Component, args: BundleArgs = {})
 }
 
 export interface BundledApp<S extends Store<any>, P extends I18n<any>> {
-    app: App<Element>;
-    router: Router;
-    pinia: Pinia,
-    store: S
-    i18n: P;
-    apolloClients: ApolloClients
+  app: App<Element>;
+  router: Router;
+  pinia: Pinia,
+  store: S
+  i18n: P;
+  apolloClients: ApolloClients
 }
 
 function createDefaultApp(args: BundleArgs = {})

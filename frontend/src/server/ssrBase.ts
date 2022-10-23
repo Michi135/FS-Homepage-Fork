@@ -108,7 +108,7 @@ function addEvents(dom: JSDOM, events: SSRContext["events"], nonce: string)
 export default async function ssr(htmlBlueprint: string, manifest: Record<string, string>, bundle: any, req: Request, res: Response)
 {
   const contextLoad = createDefaultContext()
-  const language: 'de' | 'en' = determineLanguage(req.path)
+  const language = determineLanguage(req.path)
 
   const nonce: string = res.locals.cspNonce
 
