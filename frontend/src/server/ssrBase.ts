@@ -9,6 +9,11 @@ import { exportStates } from '@vue/apollo-ssr'
 import { brotliCompressSync, gzipSync } from 'zlib'
 import devalue from '@nuxt/devalue'
 
+import { basename } from 'path'
+
+import mime from 'mime'
+const { getType } = mime
+
 import jsonwt from 'jsonwebtoken'
 const { sign } = jsonwt
 
@@ -20,32 +25,6 @@ import type { Request, Response } from 'express'
 import { env } from 'process'
 import type { SSRContext } from '@shared/ssrContext'
 
-//TODO:: fix
-const chunks: Record<string, string> = {
-  "/": "home",
-  "/vertreter": "home",
-  "/keinePanik": "home",
-  "/externeLinks": "footer",
-  "/impressum": "footer",
-  "/sprechstunden": "home",
-  "/kontakt": "footer",
-  "/erstis": "home",
-  "/wahl": "home",
-  "/uniKino": "home",
-  "/nw2-party": "home",
-
-  "/en": "home",
-  "/en/representatives": "home",
-  "/en/freshers": "home",
-  "/en/noPanic": "home",
-  "/en/externalLinks": "footer",
-  "/en/imprint": "footer",
-  "/en/consultationHours": "home",
-  "/en/contact": "footer",
-  "/en/uniCinema": "home",
-  "/en/nw2-party": "home"
-}
-
 let networkToken: string | undefined
 
 function getNetworkToken()
@@ -53,6 +32,63 @@ function getNetworkToken()
   if (!networkToken) //TODO:: env secret, shared between frontendserver and backendserver
     networkToken = sign({ fromServer: true }, env.JWT_SECRET_SHARED ?? 'DEFAULT_JWT_SECRET')
   return networkToken
+}
+
+function renderPreloadLinks(modules: Set<string>, manifest: Record<string, Array<string>>)
+{
+  let links = ''
+  const seen = new Set()
+  modules.forEach((id) =>
+  {
+    const files = manifest[id]
+    if (files)
+    {
+      files.forEach((file) =>
+      {
+        if (!seen.has(file))
+        {
+          seen.add(file)
+          const filename = basename(file)
+          if (manifest[filename])
+          {
+            for (const depFile of manifest[filename])
+            {
+              links += renderPreloadLink(depFile)
+              seen.add(depFile)
+            }
+          }
+          links += renderPreloadLink(file)
+        }
+      })
+    }
+  })
+  return links
+}
+
+function renderPreloadLink(file: string)
+{
+  if (file.match(/\.[mc]?js/))
+  {
+    return `<link rel="modulepreload" crossorigin href="${file}">`
+  }
+  else if (file.endsWith('.css'))
+  {
+    return `<link rel="stylesheet" href="${file}">`
+  }
+
+  const type = getType(file)
+  if (!type)
+    throw new Error("Missing mime type")
+
+  if (type.startsWith('font'))
+  {
+    return ` <link rel="preload" href="${file}" as="font" type="${type}">`
+  }
+  else if (type.startsWith('image'))
+  {
+    return ` <link rel="preload" href="${file}" as="image" type="${type}">`
+  }
+  throw new Error("Unhandeled mime type")
 }
 
 /*function swap<A extends keyof any, B extends keyof any>(json: Record<A, B>)
@@ -105,7 +141,7 @@ function addEvents(dom: JSDOM, events: SSRContext["events"], nonce: string)
   }
 }
 
-export default async function ssr(htmlBlueprint: string, manifest: Record<string, string>, bundle: any, req: Request, res: Response)
+export default async function ssr(htmlBlueprint: string | JSDOM, manifest: Record<string, Array<string>>, bundle: any, req: Request, res: Response)
 {
   const contextLoad = createDefaultContext()
   const language = determineLanguage(req.path)
@@ -126,7 +162,7 @@ export default async function ssr(htmlBlueprint: string, manifest: Record<string
   const currentRoute = router.currentRoute.value
   if (!currentRoute.matched.length) return res.status(404).end()
 
-  const dom = new JSDOM(htmlBlueprint)
+  const dom = (htmlBlueprint instanceof JSDOM) ? htmlBlueprint : new JSDOM(htmlBlueprint)
 
   const doc = dom.window.document
   const head = doc.head
@@ -161,7 +197,11 @@ export default async function ssr(htmlBlueprint: string, manifest: Record<string
   const context = await contextLoad
   context.nonce = nonce
   doc.getElementById('app')!.innerHTML = await renderToString(app, context)
-  console.log(context)
+
+  if (manifest && context.modules)
+  {
+    doc.head.innerHTML += renderPreloadLinks(context.modules, manifest)
+  }
 
   addStyles(dom, context.styles)
   addEvents(dom, context.events, nonce)

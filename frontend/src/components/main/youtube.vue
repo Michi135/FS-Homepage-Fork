@@ -5,7 +5,7 @@
     style="color: var(--color-primary);"
     target="_blank"
     rel="noopener noreferrer"
-  ><strong>{{ description + '  ' }}</strong><font-awesome-icon :icon="faExternalLink" /></a>
+  ><strong>{{ description + '  ' }}</strong><v-icon :icon="mdiOpenInNew"></v-icon></a>
   <v-responsive
     v-else
     :aspect-ratio="16/9"
@@ -20,7 +20,7 @@
 
 <script lang='ts'>
 import { defineComponent, PropType } from "vue"
-import { faExternalLink } from '@fortawesome/free-solid-svg-icons/faExternalLink'
+import { mdiOpenInNew } from "@mdi/js"
 
 export type Kind = 'embed' | 'link'
 
@@ -49,7 +49,7 @@ export default defineComponent({
   },
   setup()
   {
-    return { faExternalLink }
+    return { mdiOpenInNew }
   }
 })
 </script>

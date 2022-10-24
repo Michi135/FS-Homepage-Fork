@@ -1,16 +1,11 @@
 import ssrBase from "./ssrBase"
-
-import { join, resolve } from 'path'
+//import { createRequire } from 'module'
+//const require = createRequire(import.meta.url)
+import { JSDOM } from 'jsdom'
 
 import type { NextFunction, Request, Response } from 'express'
-
-import { createRequire } from 'module'
-const require = createRequire(import.meta.url)
-
 import type { ViteDevServer } from 'vite'
 
-import fsExtra from 'fs-extra'
-const { readFile } = fsExtra
 
 interface devMiddleware {
   vite: ViteDevServer
@@ -21,32 +16,8 @@ function loadDevMiddleWare(res: Response)
   return <devMiddleware>{ vite: res.locals!.vite }
 }
 
-async function loadDom(dev: devMiddleware)
-{
-  console.log()
+import rawHtml from '../indexHtml'
 
-  return readFile(
-    resolve('./src/', 'index.html'),
-    'utf-8'
-  )
-}
-
-
-async function loadManifest(dev: devMiddleware)
-{
-  /*
-  return await new Promise<Record<string, string>>((resolve, reject) =>
-  {
-    outputFileSystem!.readFile(join(outputPath!, 'manifest.json'), (error, result) =>
-    {
-      if (error)
-        reject(error)
-      resolve(JSON.parse(result! as string))
-    })
-  })
-  */
-  return {}
-}
 
 export default function ssr()
 {
@@ -61,15 +32,12 @@ export default function ssr()
     const devMiddleware = loadDevMiddleWare(res)
     try
     {
-      //delete require.cache[require.resolve('@distServer/main.mjs')]
+      const html = await devMiddleware.vite.transformIndexHtml(req.originalUrl, rawHtml)
+      const dom = new JSDOM(html)
+      dom.window.document.head.innerHTML += `<script type="module" src="/src/client/main.ts"></script>`
 
-      const domLoad = loadDom(devMiddleware)
-      const html = devMiddleware.vite.transformIndexHtml(req.originalUrl, await domLoad)
-      //const manifestLoad = loadManifest(devMiddleware)
-
-      //@ts-ignore necessary in case there isn't a compiled main.js
       const bundle = await devMiddleware.vite.ssrLoadModule('src/shared/app.ts')
-      ssrBase(await html, {}, bundle, req, res)
+      ssrBase(dom, {}, bundle, req, res)
     }
     catch (error)
     {

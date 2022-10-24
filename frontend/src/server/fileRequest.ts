@@ -9,7 +9,6 @@ import type { Request, Response } from 'express'
 
 export function fileRequest(basePath: string)
 {
-
   return async (req: Request, res: Response) =>
   {
     const distPath = join(basePath, req.url)

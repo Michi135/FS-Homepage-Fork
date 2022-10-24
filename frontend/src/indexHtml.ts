@@ -1,3 +1,5 @@
+export default
+`
 <!DOCTYPE html>
 <html>
 
@@ -9,3 +11,4 @@
 </body>
 
 </html>
+`

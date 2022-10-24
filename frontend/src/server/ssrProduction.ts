@@ -1,30 +1,14 @@
 import ssrBase from './ssrBase'
 //@ts-ignore
 import * as bundle from '@distServer/app.mjs'
+import ssrManifest from '@distClient/ssr-manifest.json'
+import manifest from '@distClient/manifest.json'
+import html from '../indexHtml'
 
-import { resolve } from 'path'
-
-import fsExtra from 'fs-extra'
-const { readJson, readFile } = fsExtra
+import { JSDOM } from 'jsdom'
 
 import type { NextFunction, Request, Response } from 'express'
 
-let initialHtml: string | undefined
-let initialManifest: Record<string, string> | undefined
-
-async function loadDom()
-{
-  if (typeof initialHtml === "undefined")
-    initialHtml = (await readFile('./dist-ssr/dist/test.html', { encoding: 'utf-8' }))
-  return initialHtml
-}
-
-async function loadManifest()
-{
-  if (typeof initialManifest === "undefined")
-    initialManifest = await readJson(resolve("dist-ssr", 'dist', 'manifest.json'), { encoding: 'utf-8' })
-  return (initialManifest!)
-}
 
 export default function ssr()
 {
@@ -35,9 +19,13 @@ export default function ssr()
 
     try
     {
-      const domLoad = loadDom()
-      const manifestLoad = loadManifest()
-      ssrBase(await domLoad, await manifestLoad, bundle, req, res)
+      const dom = new JSDOM(html)
+      dom.window.document.head.innerHTML +=
+      `
+        <link rel="stylesheet" href="/dist/${manifest['src/client/main.ts'].css}" />
+        <script type="module" src="/dist/${manifest["src/client/main.ts"].file}"></script>
+      `
+      ssrBase(dom, ssrManifest, bundle, req, res)
     }
     catch (error)
     {

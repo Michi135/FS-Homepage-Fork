@@ -21,6 +21,7 @@ import vueI18n from '@intlify/vite-plugin-vue-i18n'
 import vuetify from 'vite-plugin-vuetify'
 import tsconfigPaths from 'vite-tsconfig-paths'
 import { defineConfig } from 'vite'
+import { visualizer } from "rollup-plugin-visualizer"
 
 type Options = {
   isProd: boolean
@@ -80,6 +81,12 @@ export async function configFunction(options: Partial<Options> = {}): Promise<Us
         output: {
           manualChunks: (id) =>
           {
+            /*
+            if (id.includes('node_modules'))
+            {
+              return 'vendor_general'
+            }
+
             if (id.includes('node_modules/vuetify'))
             {
               return 'vendor_vuetify'
@@ -88,10 +95,7 @@ export async function configFunction(options: Partial<Options> = {}): Promise<Us
             {
               return 'vendor_vue'
             }
-            else if (id.includes('node_modules'))
-            {
-              return 'vendor_general'
-            }
+            */
           },
           //esmodule:
           entryFileNames: (isServer) ? '[name].mjs' : (isProd) ? '[name].[hash].mjs' : '[name].mjs',
@@ -151,11 +155,12 @@ export async function configFunction(options: Partial<Options> = {}): Promise<Us
           projects: [configRelative],
           //extensions: ['.ts', '.tsx', '.js', '.jsx', '.mjs', '.jpg', '.css', '.vue', '.css', '.less'],
           loose: true
-        })
+        }),
+      visualizer()
     ],
     define: {
       __IS_SSR__: isSSR,
-      __VUE_OPTIONS_API__: true,
+      __VUE_OPTIONS_API__: false,
       __VUE_PROD_DEVTOOLS__: false,
       __VUE_I18N_LEGACY_API__: false
     }

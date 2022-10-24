@@ -12,6 +12,7 @@ import { Netmask } from 'netmask'
 import ssr from './ssrProduction'
 
 import { getSiteMap } from './sitemapF'
+import manifest from '@distClient/manifest.json'
 
 import type { IncomingMessage, ServerResponse } from 'http'
 
@@ -39,19 +40,23 @@ const fsLanMask = new Netmask("172.16.0.1/16")
 
 //https://cheatsheetseries.owasp.org/cheatsheets/JSON_Web_Token_for_Java_Cheat_Sheet.html#token-sidejacking
 
-function manifestRoutes(manifest: Record<string, string>)
+function manifestRoutes(manifest: Record<string, { file: string }>)
 {
-  let routes: string[] = new Array<string>()
-  for (let key in manifest)
+  const base = "/dist/"
+  const out = new Set<string>()
+  Object.entries(manifest).forEach(([key, assets]) =>
   {
-    routes.push(manifest[key])
-  }
-  return routes
+    out.add(base + assets.file)
+    /*assets.forEach((asset) =>
+    {
+      out.add(asset)
+    })*/
+  })
+  return [...out]
 }
 
 async function staticContent(expressApp: Express)
 {
-  const manifest: Record<string, string> = await readJson(resolve("dist-ssr", 'dist', 'manifest.json'), { encoding: 'utf-8' })
   const ressourceRequest = fileRequest(join(fileURLToPath(import.meta.url), "..", "..", "..", "dist-ssr"))
   expressApp.get(manifestRoutes(manifest), ressourceRequest)
 }

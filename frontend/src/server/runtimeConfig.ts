@@ -67,14 +67,17 @@ export async function serverBundle(isDev: boolean)
   }
 }
 
-function manifestRoutes(manifest: Record<string, string>)
+function manifestRoutes(manifest: Record<string, Array<string>>)
 {
-  let routes: string[] = new Array<string>()
-  for (let key in manifest)
+  const out = new Set<string>()
+  Object.entries(manifest).forEach(([key, assets]) =>
   {
-    routes.push(manifest[key])
-  }
-  return routes
+    assets.forEach((asset) =>
+    {
+      out.add(asset)
+    })
+  })
+  return out
 }
 
 export class Build
@@ -109,7 +112,7 @@ export class Build
         console.log("Building process finished")
       }
       //TODO:: fix router
-      //await this.constructRouter()
+      await this.constructRouter()
       return this.mRouter
     }
     catch (reason)
@@ -132,9 +135,9 @@ export class Build
     }
     else
     {
-      const manifest: Record<string, string> = await readJson(resolve("dist-ssr", 'dist', 'manifest.json'), { encoding: 'utf-8' })
       const ressourceRequest = fileRequest(join(fileURLToPath(import.meta.url), "..", "..", "..", "dist-ssr"))
-      this.mRouter.get(manifestRoutes(manifest), ressourceRequest)
+      //TODO:: test later
+      this.mRouter.get(/\/dist.*/, ressourceRequest)
     }
     this.mRouter.use(/\/(dist.*|favicon.ico)/, (req, res) =>
     {
