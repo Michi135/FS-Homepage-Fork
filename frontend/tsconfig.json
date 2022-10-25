@@ -18,9 +18,9 @@
     "types/environment.d.ts",
     "types/index.d.ts"
   ],
-  "include": [
-    "src/**/*",
-  ],
+  /*"include": [
+    "src/**//*",
+  ],*/
   "exclude": [
     "node_modules",
     "dist-ssr/server/main.js"

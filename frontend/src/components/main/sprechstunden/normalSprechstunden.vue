@@ -14,12 +14,6 @@
       :breakpoint="760"
     ></table-comp>
     <div style="height: 1.5em"></div>
-    <i18n-t
-      tag="p"
-      keypath="ahmet"
-      style="color: white"
-    >
-    </i18n-t>
   </div>
 </template>
 
@@ -46,10 +40,11 @@ type Sprechstunden = {
   sprechstunden: {
     data: {
       attributes: {
-        Montag: Partial<Day>,
-        Dienstag: Partial<Day>,
-        Mittwoch: Partial<Day>,
+        Montag: Partial<Day>
+        Dienstag: Partial<Day>
+        Mittwoch: Partial<Day>
         Donnerstag: Partial<Day>
+        Freitag: Partial<Day>
       }
     }
   }
@@ -73,10 +68,11 @@ export default defineComponent({
       Dienstag{slot0{name}slot1{name}slot2{name}}
       Mittwoch{slot0{name}slot1{name}slot2{name}}
       Donnerstag{slot0{name}slot1{name}slot2{name}}
+      Freitag{slot0{name}slot1{name}slot2{name}}
     }}}}
     `)
 
-    const tage = computed(() => [t('monday'), t('tuesday'), t('wednesday'), t('thursday')])
+    const tage = computed(() => [t('monday'), t('tuesday'), t('wednesday'), t('thursday'), t('friday')])
     const stunden = ['13:00', '14:00', '15:00']
 
     const sprechstunden = computed(() =>
@@ -89,6 +85,7 @@ export default defineComponent({
       let b: TableRow = {}
       let c: TableRow = {}
       let d: TableRow = {}
+      let e: TableRow = {}
 
       const sp = value.sprechstunden.data.attributes
 
@@ -106,12 +103,14 @@ export default defineComponent({
       assign(b, sp.Dienstag)
       assign(c, sp.Mittwoch)
       assign(d, sp.Donnerstag)
+      assign(e, sp.Freitag)
 
       let z: Table = {}
       z[0] = a
       z[1] = b
       z[2] = c
       z[3] = d
+      z[4] = e
 
       return z
     })
@@ -128,13 +127,11 @@ export default defineComponent({
 <i18n locale="de">
 {
   "consHours": "Sprechstunden der FSMPI",
-  "ahmet": "An jedem Mittwoch findet eine außerordentliche Sprechstunde von Ahmet zwischen 8 und 9 Uhr statt."
 }
 </i18n>
 
 <i18n locale="en">
 {
   "consHours": "Consultation hours of the FSMPI",
-  "ahmet": "Every wednesday there will be a extraordinary consultation hour by Ahmet from 8 till 9 o'clock."
 }
 </i18n>
