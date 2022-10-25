@@ -23,7 +23,6 @@ import vuetify from 'vite-plugin-vuetify'
 import tsconfigPaths from 'vite-tsconfig-paths'
 import { defineConfig } from 'vite'
 import { visualizer } from "rollup-plugin-visualizer"
-//import purgecss from 'rollup-plugin-purgecss'
 
 type Options = {
   isProd: boolean
