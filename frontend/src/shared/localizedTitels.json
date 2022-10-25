@@ -10,7 +10,8 @@
         "consultationHours": "Sprechstunden",
         "contact": "Kontakt",
         "error404": "404 Error",
-        "blog": "Blog"
+        "blog": "Blog",
+        "game": "game"
     },
     "en": {
         "test": "Test",
@@ -23,6 +24,7 @@
         "consultationHours": "Consultation hours",
         "contact": "Contact",
         "error404": "404 Error",
-        "blog": "Blog"
+        "blog": "Blog",
+        "game": "game"
     }
 }

@@ -34,6 +34,7 @@ routes.addRoute('party')
 routes.addRoute('imprint')
 routes.addRoute('contact')
 routes.addRoute('externals')
+routes.addRoute('game')
 
 
 routes.registerCategory([
@@ -43,5 +44,5 @@ routes.registerCategory([
 ], 'header')
 
 routes.registerCategory([
-  'imprint', 'contact', 'externals'
+  'imprint', 'contact', 'externals', 'game'
 ], 'footer')

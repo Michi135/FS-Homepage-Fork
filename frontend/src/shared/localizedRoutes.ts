@@ -60,6 +60,10 @@ export default {
     "veranstaltungen": {
       "route": "veranstaltungen",
       "title": "Veranstaltungen"
+    }, 
+    "game": {
+      "route": "game",
+      "title": "game"
     }
   },
   "en": {
@@ -120,6 +124,10 @@ export default {
     "veranstaltungen": {
       "route": "events",
       "title": "Events"
+    }, 
+    "game": {
+      "route": "game",
+      "title": "game"
     }
   }
 }

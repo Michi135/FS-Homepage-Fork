@@ -22,6 +22,8 @@ const externeComponent = () => import('@components/main/externals.vue'/* webpack
 //const testComponent = () => import('@components/editor/editor.vue' /* webpackChunkName: "footer" */)
 const wahlComponent = () => import('@components/main/hochschulwahl.vue'/* webpackChunkName: "home" */)
 const partyComponent = () => import('@components/main/nw2_party.vue' /* webpackChunkName: "home" */)
+
+const gameComponent = () => import('@components/main/game.vue')
 //const veranstaltungComponent = () => import('@components/main/veranstaltungen.vue' /* webpackChunkName: "home" */)
 
 type Lazy<T> = () => Promise<T>
@@ -100,6 +102,7 @@ routes.addRoute('party', { component: partyComponent, options: { favicon: partyS
 routes.addRoute('imprint', { component: impressumComponent })
 routes.addRoute('contact', { component: kontaktComponent })
 routes.addRoute('externals', { component: externeComponent })
+routes.addRoute('game', { component: gameComponent })
 
 
 routes.registerCategory([
@@ -109,5 +112,5 @@ routes.registerCategory([
 ], 'header')
 
 routes.registerCategory([
-  'imprint', 'contact', 'externals'
+  'imprint', 'contact', 'externals', 'game'
 ], 'footer')
