@@ -1,11 +1,12 @@
 import { resolve, join, dirname } from 'path'
+/*
 import stripJsonComments from 'strip-json-comments'
 import svgToMiniDataURI from 'mini-svg-data-uri'
 import { TsConfig } from './tsConfigType'
 import type { BrotliOptions } from 'zlib'
 import { constants } from 'zlib'
 import glob from 'glob'
-
+*/
 import type { AliasOptions, UserConfig } from 'vite'
 
 
@@ -22,6 +23,7 @@ import vuetify from 'vite-plugin-vuetify'
 import tsconfigPaths from 'vite-tsconfig-paths'
 import { defineConfig } from 'vite'
 import { visualizer } from "rollup-plugin-visualizer"
+//import purgecss from 'rollup-plugin-purgecss'
 
 type Options = {
   isProd: boolean
@@ -79,9 +81,8 @@ export async function configFunction(options: Partial<Options> = {}): Promise<Us
       ),
       rollupOptions: {
         output: {
-          manualChunks: (id) =>
+          /*manualChunks: (id) =>
           {
-            /*
             if (id.includes('node_modules'))
             {
               return 'vendor_general'
@@ -95,8 +96,7 @@ export async function configFunction(options: Partial<Options> = {}): Promise<Us
             {
               return 'vendor_vue'
             }
-            */
-          },
+          },*/
           //esmodule:
           entryFileNames: (isServer) ? '[name].mjs' : (isProd) ? '[name].[hash].mjs' : '[name].mjs',
           chunkFileNames: `[name].[hash].mjs`

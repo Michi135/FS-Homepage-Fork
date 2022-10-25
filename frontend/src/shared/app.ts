@@ -1,10 +1,12 @@
-import 'vite/modulepreload-polyfill'
+//import 'vite/modulepreload-polyfill'
 import { createSSRApp, createApp } from 'vue'
 import { createBundledRouter } from './router'
 
-import { createI18n } from 'vue-i18n'
+import { createI18n, useI18n } from 'vue-i18n'
 import { merge } from 'lodash-es'
 import { createVuetify } from 'vuetify'
+import { de, en } from 'vuetify/locale'
+import { createVueI18nAdapter } from 'vuetify/locale/adapters/vue-i18n'
 import { aliases, mdi } from 'vuetify/lib/iconsets/mdi-svg'
 import { createPinia } from 'pinia'
 
@@ -62,7 +64,7 @@ function createBundledApp(root: Component, args: BundleArgs = {})
       legacy: false,
       locale: store.language,
       fallbackLocale: ['en', 'de'],
-      messages: merge(localization, Globali18n)
+      messages: merge(localization, Globali18n, { de, en })
     })
 
   app.use(i18n)
@@ -74,6 +76,9 @@ function createBundledApp(root: Component, args: BundleArgs = {})
       sets: {
         mdi
       }
+    },
+    locale: {
+      adapter: createVueI18nAdapter({ i18n, useI18n })
     }
   }))
 

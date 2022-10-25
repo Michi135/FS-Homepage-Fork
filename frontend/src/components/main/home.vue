@@ -131,7 +131,11 @@ export default defineComponent({
     const res = ei()
     const fachschaftsimage = computed(() =>
     {
-      return '/v1' + (res.result.value?.einstellungen.data.attributes.plakat.data.attributes.url || '/')
+      const value = res.result.value
+      if (!value)
+        return null
+
+      return '/v1' + (res.result.value.einstellungen.data.attributes.plakat.data.attributes.url || '/')
     })
 
     const tGlobal = useI18n({ useScope: 'global' }).t

@@ -5,6 +5,7 @@ const nesting = require('tailwindcss/nesting')
 const purgecss = require('@fullhuman/postcss-purgecss')
 const preset = require('postcss-preset-env')
 const purgeConfig = require('./purgecss.config.cjs')
+const twConfig = require('./tailwind.config.cjs')
 
 module.exports = (api) =>
 {
@@ -12,14 +13,14 @@ module.exports = (api) =>
     plugins: [
       postcssImport(),
       nesting(),
-      tailwindcss(),
+      tailwindcss(twConfig),
       /*preset({
         stage: 1, features: {
           'focus-within-pseudo-class': false
         }
       }),*/
-      autoprefixer()
-      //purgecss({})
+      autoprefixer(),
+      purgecss(purgeConfig)
     ]
   }
 }

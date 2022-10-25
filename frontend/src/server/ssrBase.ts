@@ -18,9 +18,6 @@ import jsonwt from 'jsonwebtoken'
 const { sign } = jsonwt
 
 import type { Request, Response } from 'express'
-//import type { createDefaultApp as CA, nw2PartyEvent as NWE } from '@shared/app'
-
-//export type AppType = typeof App
 
 import { env } from 'process'
 import type { SSRContext } from '@shared/ssrContext'
@@ -82,34 +79,14 @@ function renderPreloadLink(file: string)
 
   if (type.startsWith('font'))
   {
-    return ` <link rel="preload" href="${file}" as="font" type="${type}">`
+    return `<link rel="preload" href="${file}" as="font" type="${type}">`
   }
   else if (type.startsWith('image'))
   {
-    return ` <link rel="preload" href="${file}" as="image" type="${type}">`
+    return `<link rel="preload" href="${file}" as="image" type="${type}">`
   }
   throw new Error("Unhandeled mime type")
 }
-
-/*function swap<A extends keyof any, B extends keyof any>(json: Record<A, B>)
-{
-  var ret: Record<B, A> = new Object as Record<B, A>
-  for (var key in json)
-  {
-    ret[json[key]] = key
-  }
-  return ret
-}*/
-/*
-const supportedLanguages =
-    ['de',
-      'en']
-*/
-/*function getLanguage(req: Request)
-{
-  const lang = req.acceptsLanguages(supportedLanguages)
-  return <'en' | 'de'>(lang ? lang : 'en')
-}*/
 
 function addStyles(dom: JSDOM, styles: SSRContext["styles"])
 {
@@ -168,31 +145,6 @@ export default async function ssr(htmlBlueprint: string | JSDOM, manifest: Recor
   const head = doc.head
   doc.children[0].setAttribute('lang', language)
 
-  /*
-  const chunk = chunks[req.url]
-  if (chunk)
-  {
-    const preloadCss = manifest[chunk + '.css']
-    const nodeCss = doc.createElement('link')
-    nodeCss.setAttribute('href', preloadCss)
-    nodeCss.setAttribute('rel', 'stylesheet')
-    head.appendChild(nodeCss)
-    const preloadJs = manifest[chunk + '.js']
-    const nodeJs = doc.createElement('script')
-    nodeJs.setAttribute('src', preloadJs)
-    nodeJs.setAttribute('type', 'text/javascript')
-    head.appendChild(nodeJs)
-  }
-
-  /*if (req.url === "/")
-  {
-    const preloadImg = manifest['plakat.jpg']
-    const nodeImg = doc.createElement("link")
-      nodeImg.setAttribute('href', preloadImg)
-      nodeImg.setAttribute('rel', 'preload')
-      nodeImg.setAttribute('as', 'image')
-      head.appendChild(nodeImg)
-    }*/
 
   const context = await contextLoad
   context.nonce = nonce

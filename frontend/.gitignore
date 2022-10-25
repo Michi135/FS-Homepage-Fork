@@ -117,3 +117,4 @@ src/graphql/goodToKnow.txt
 src/graphql/files
 src/graphql/FileInput.ts
 production
+stats.html
