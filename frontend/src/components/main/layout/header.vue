@@ -26,7 +26,8 @@
       </p>
     </div>
     <div
-      class="tw-relative tw-z-50 tw-flex tw-flex-row md:tw-hidden"
+      style="z-index: 9999"
+      class="tw-relative tw-flex tw-flex-row md:tw-hidden"
     >
       <button
         aria-label="Header-Menü"
@@ -52,6 +53,7 @@
       </button>
     </div>
     <div
+      style="z-index: 9998;"
       class="tw-flex tw-justify-end tw-flex-col
       md:tw-flex-row popup tw-rounded-lg
        tw-bg-gray-100 tw-absolute tw-pt-6 md:tw-relative
