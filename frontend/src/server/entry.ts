@@ -5,13 +5,11 @@ import process from 'process'
 
 import helmet, { contentSecurityPolicy, crossOriginEmbedderPolicy } from 'helmet'
 import cors from 'cors'
-import crypto from 'crypto'
 
-import { Netmask } from 'netmask'
+import { uniNet, cspNonce } from './middlewareTools'
+import { getSiteMap } from './sitemapF'
 
 import { Build } from './runtimeConfig'
-
-import { getSiteMap } from './sitemapF'
 
 import type { IncomingMessage, ServerResponse } from 'http'
 
@@ -23,12 +21,10 @@ const { resolve, dirname } = path
 const isDev = (process.env.NODE_ENV || 'development') === 'development'
 
 //if (!isDev && )
-const baseDir = dirname(resolve("./package.json"))
-console.log(existsSync(baseDir + "/dist-ssr/dist/manifest.json") && existsSync(baseDir + "/dist-ssr/server/main.js"))// && )
+//const baseDir = dirname(resolve("./package.json"))
+//console.log(existsSync(baseDir + "/dist-ssr/dist/manifest.json") && existsSync(baseDir + "/dist-ssr/server/main.js"))// && )
 
 const server = express()
-const uniMask = new Netmask("132.180.0.1/16")
-const fsLanMask = new Netmask("172.16.0.1/16")
 
 //https://cheatsheetseries.owasp.org/cheatsheets/JSON_Web_Token_for_Java_Cheat_Sheet.html#token-sidejacking
 
@@ -57,22 +53,7 @@ function cleanExit(...cleanups: Function[])
         //origin: ['https://fsmpi.uni-bayreuth.de']
       })
     )
-    server.use((req, res, next) =>
-    {
-      const ip = req.headers["x-real-ip"]
-
-      if (typeof ip === "string")
-        res.locals.isUni = uniMask.contains(ip) || fsLanMask.contains(ip)
-      else
-        res.locals.isUni = false
-      next()
-    })
-
-    server.use((req, res, next) =>
-    {
-      res.locals.cspNonce = crypto.randomBytes(40).toString('base64url').substring(0, 40)
-      next()
-    })
+    server.use(uniNet, cspNonce)
 
     server.use(helmet({
       contentSecurityPolicy: (isDev) ? false : {

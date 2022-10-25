@@ -105,7 +105,17 @@ export default {
         Query: {
           uniKinoDates: {
             async resolve() {
-              return (await strapi.db.query('api::uni-kino-filme.uni-kino-filme').findMany({})).map(({datum}) => { return datum })
+              return (await strapi.entityService.findMany('api::uni-kino-filme.uni-kino-filme', {
+                fields: ['datum'],
+                sort: {
+                  datum: 'asc'
+                },
+                filters: {
+                  published_at:{
+                    $notNull: true
+                  }
+                }
+              })).map(({ datum }) => datum)
             },
           },
         },

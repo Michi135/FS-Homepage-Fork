@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div id="uniKino">
     <div class="tw-m-3.5">
       <div style="max-width: 1100px; margin: 0 auto">
         <h2>
@@ -39,15 +39,9 @@
             tag="p"
           ></i18n-t>
           <p>
-            <!--template v-for="(date, i) in formatedDate">
-              <template v-if="i !== formatedDate.length - 1">
-                {{ date + '/ ' }}
-              </template>
-              <template v-else>
-                {{ 'und ' + date + ' ' }}
-              </template>
-            </template-->
-            03.05. / 17.05. / 31.05. / 14.06. / 28.06. und 12.07. (Sommerspecial) jeweils um 20 Uhr.
+            <template v-for="(date) in formatedDate">
+              {{ date + '/ ' }}
+            </template>
           </p>
           <i18n-t
             keypath="p[5.2]"
@@ -219,7 +213,7 @@ export default defineComponent({
       }
     }
 
-    function copyLocale(data: GraphqlFilmeData, lang?: 'en' | 'de')
+    function copyLocale(data: GraphqlFilmeData, lang?: SupportedLanguages)
     {
       if (!lang || lang === 'de')
         return copyStdLocale(data)
@@ -271,7 +265,11 @@ export default defineComponent({
     //TODO Integration von Sommerspecial in weiteren iterationen
     const formatedDate = computed(() =>
     {
-      const filmDates = [...res.result.value!.uniKinoDates].sort((a, b) =>
+      const value = res.result.value
+      if (!value)
+        return null
+
+      const filmDates = [...value.uniKinoDates].sort((a, b) =>
       {
         return new Date(a).getTime() - new Date(b).getTime()
       })
@@ -287,69 +285,71 @@ export default defineComponent({
 })
 </script>
 
-<style scoped lang="less">
-p, h2, :deep(p) {
-  color: #ffffff;
-}
-.comment {
-  color: var(--color-secondary-header);
-}
-.link {
-  color: lightblue;
-}
-.link:hover {
-  color: var(--color-primary);
-}
-ol {
-  counter-reset: section;
-
-  li {
-    margin-left: 20px;
+<style lang="less">
+#uniKino {
+  p, h2 {
+    color: #ffffff;
   }
-  li::before {
-    counter-increment: section;
-    content: counter(section) '. ';
-    width: 2em;
-    display: inline-block;
+  .comment {
+    color: var(--color-secondary-header);
   }
-}
-ul {
-  li {
-    margin-left: 20px;
+  .link {
+    color: lightblue;
   }
-}
-.important {
-  color: var(--color-primary);
-  font-weight: bold;
-}
-p {
-  text-align: justify;
-}
-:deep(h1) {
-  font-size: 1.5rem;
-  line-height: 2rem;
-  color: var(--color-primary);
-}
-h2 {
-  font-size: 1.875rem;
-  line-height: 2.25rem;
-}
-hr {
-    //background-color: red;
-    /*background: rgb(7,19,237);
-    background: linear-gradient(90deg, rgba(7,19,237,1) 0%, rgba(237,146,7,1) 18%, rgba(237,146,7,1) 86%, rgba(7,19,237,1) 100%);*/
+  .link:hover {
+    color: var(--color-primary);
+  }
+  ol {
+    counter-reset: section;
 
-    background: rgb(7,19,237);
-    background: linear-gradient(90deg, rgba(7,19,237,1) 0%, rgba(194,107,0,1) 18%, rgba(194,107,0,1) 86%, rgba(7,19,237,1) 100%);
-    height: 1px;
-    border: 0;
-}
+    li {
+      margin-left: 20px;
+    }
+    li::before {
+      counter-increment: section;
+      content: counter(section) '. ';
+      width: 2em;
+      display: inline-block;
+    }
+  }
+  ul {
+    li {
+      margin-left: 20px;
+    }
+  }
+  .important {
+    color: var(--color-primary);
+    font-weight: bold;
+  }
+  p {
+    text-align: justify;
+  }
+  h1 {
+    font-size: 1.5rem;
+    line-height: 2rem;
+    color: var(--color-primary);
+  }
+  h2 {
+    font-size: 1.875rem;
+    line-height: 2.25rem;
+  }
+  hr {
+      //background-color: red;
+      /*background: rgb(7,19,237);
+      background: linear-gradient(90deg, rgba(7,19,237,1) 0%, rgba(237,146,7,1) 18%, rgba(237,146,7,1) 86%, rgba(7,19,237,1) 100%);*/
 
-a {
-  color: lightblue;
-}
-a:hover {
-  color: var(--color-primary);
+      background: rgb(7,19,237);
+      background: linear-gradient(90deg, rgba(7,19,237,1) 0%, rgba(194,107,0,1) 18%, rgba(194,107,0,1) 86%, rgba(7,19,237,1) 100%);
+      height: 1px;
+      border: 0;
+  }
+
+  a {
+    color: lightblue;
+  }
+  a:hover {
+    color: var(--color-primary);
+  }
 }
 </style>
 
@@ -374,7 +374,7 @@ a:hover {
             campusintern veröffentlichen. Dafür müsst ihr euch im Netz der Uni-Bayreuth befinden. \
             D.h. entweder in Eduroam oder über den Proxy der Uni Bayreuth. \
             Eine Anleitung hierzu findet ihr {hier}.",
-  "p[6]": "Das Programm für das Sommersemester 2022 ist:",
+  "p[6]": "Das Programm für dieses Semester ist:",
   "inet": "https://www.its.uni-bayreuth.de/de/internet-und-email/index.html",
   "here": "hier",
 }
@@ -401,7 +401,7 @@ a:hover {
             For this you have to be in the network of the Uni-Bayreuth. \
             I.e. either in Eduroam or via the proxy of the University of Bayreuth. \
             You can find instructions regarding this {hier}.",
-  "p[6]": "The program for summer semester 2022 is:",
+  "p[6]": "The program for this semester is:",
   "inet": "https://www.its.uni-bayreuth.de/en/internet-und-email/index.html",
   "here": "here",
 }
