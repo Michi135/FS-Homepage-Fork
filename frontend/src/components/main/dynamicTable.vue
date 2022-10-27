@@ -69,7 +69,7 @@
 import { computed, defineComponent, getCurrentInstance } from 'vue'
 import type { PropType } from 'vue'
 
-import { registerStyle } from '@client/dynamicTag'
+import { registerStyle } from '@client/dynElements'
 //https://colorlib.com/wp/css3-table-templates/
 //https://colorlib.com/etc/tb/Table_Highlight_Vertical_Horizontal/index.html
 

@@ -79,7 +79,8 @@ function createBundledApp(root: Component, args: BundleArgs = {})
     },
     locale: {
       adapter: createVueI18nAdapter({ i18n, useI18n })
-    }
+    },
+    ssr: true
   }))
 
   const out: BundledApp<typeof store, typeof i18n> = {

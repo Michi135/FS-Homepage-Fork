@@ -42,7 +42,7 @@
 <script lang="ts">
 import { defineComponent } from 'vue'
 import { useI18n } from 'vue-i18n'
-import { registerEvent } from '@client/dynamicTag'
+import { registerEvent } from '@client/dynElements'
 import nw2Party from '@static/nw2Event'
 import img from '@static/party_plakat_2022WS.jpg'
 
