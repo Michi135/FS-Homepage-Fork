@@ -24,7 +24,7 @@ type VertreterGQL = {
   }]
 }
 
-export {
+export type {
   Faecher,
   Lehramt,
   Grad,
