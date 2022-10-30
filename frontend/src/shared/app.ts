@@ -64,7 +64,7 @@ function createBundledApp(root: Component, args: BundleArgs = {})
       legacy: false,
       locale: store.language,
       fallbackLocale: ['en', 'de'],
-      messages: merge(localization, Globali18n, { de, en })
+      messages: merge(localization, Globali18n, { de: { "$vuetify": de }, en: { "$vuetify": en } })
     })
 
   app.use(i18n)
