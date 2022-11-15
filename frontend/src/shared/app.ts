@@ -2,10 +2,8 @@
 import { createSSRApp, createApp } from 'vue'
 import { createBundledRouter } from './router'
 
-import { createI18n, useI18n } from 'vue-i18n'
-import { merge } from 'lodash-es'
+import { useI18n } from 'vue-i18n'
 import { createVuetify } from 'vuetify'
-import { de, en } from 'vuetify/locale'
 import { createVueI18nAdapter } from 'vuetify/locale/adapters/vue-i18n'
 import { aliases, mdi } from 'vuetify/lib/iconsets/mdi-svg'
 import { createPinia } from 'pinia'
@@ -13,7 +11,7 @@ import { createPinia } from 'pinia'
 import app from '@components/App.vue'
 import { createGraphql } from '@shared/graphql'
 import { useStore } from '@shared/store'
-import Globali18n from './Translations/i18nGlobal.json'
+import { createI18n } from '@shared/i18n'
 
 //import messages from '@intlify/unplugin-vue-i18n/messages'
 
@@ -31,7 +29,7 @@ declare global {
   }
 }
 
-type BundleArgs = { ctx?: Partial<State>, networkToken?: string }
+export type BundleArgs = { storeState?: Partial<State>, networkToken?: string, locale?: SupportedLanguages }
 
 function createBundledApp(root: Component, args: BundleArgs = {})
 {
@@ -55,17 +53,11 @@ function createBundledApp(root: Component, args: BundleArgs = {})
   app.use(pinia)
 
   const store = useStore(pinia)
-  if (import.meta.env.SSR && args.ctx)
-    store.$patch(args.ctx)
+  if (import.meta.env.SSR && args.storeState)
+    store.$patch(args.storeState)
 
-  const i18n = createI18n(
-    {
-      availableLocales: ['en', 'de'],
-      legacy: false,
-      locale: store.language,
-      fallbackLocale: ['en', 'de'],
-      messages: merge(localization, Globali18n, { de: { "$vuetify": de }, en: { "$vuetify": en } })
-    })
+
+  const i18n = createI18n(args.locale, localization)
 
   app.use(i18n)
   app.use(GraphqlVue)

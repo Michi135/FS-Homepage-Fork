@@ -2,7 +2,7 @@ import base, { cleanExit } from './entryBase'
 
 //production only
 import ssr from './ssrProduction'
-import manifest from '@distClient/manifest.json'
+import manifest from '@distClient/manifest.json' assert { type: 'json'}
 
 import path from 'path'
 const { join } = path

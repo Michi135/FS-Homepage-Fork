@@ -37,7 +37,7 @@ function networkMiddleware(networkToken: string)
 
 function genClients(networkToken?: string)
 {
-  const http = createHttpLink({ uri: (import.meta.env.SSR) ? 'http://strapi:1337/graphql' : 'https://fsmpi.uni-bayreuth.de/v1/graphql', fetch, useGETForQueries: true, credentials: 'same-origin' })
+  const http = createHttpLink({ uri: (import.meta.env.SSR) ? 'http://strapi:1337/graphql' : 'https://fsmpi.uni-bayreuth.de/v1/graphql', fetch, /*useGETForQueries: true,*/ credentials: 'same-origin' })
 
   const apolloOptions: ApolloClientOptions<NormalizedCacheObject> = {
     link: (import.meta.env.SSR && networkToken) ? networkMiddleware(networkToken).concat(http) : http,
@@ -74,10 +74,7 @@ export function createGraphql(networkToken?: string)
     install(app: App)
     {
       //for (const key in clients)
-      app.provide(ApolloClients,
-        {
-          default: clients["default"]
-        })
+      app.provide(ApolloClients, clients)
     }
   }
 }

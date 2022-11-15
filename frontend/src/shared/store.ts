@@ -1,41 +1,26 @@
+import { computed, ref } from 'vue'
 import { defineStore } from 'pinia'
+
 import defFav from '@static/favicon.svg'
 
-const defaultState: {
-  defaultFavicon: any
-  defaultTitle: string
-  language: SupportedLanguages
-  initialTime: Date
-  isUniNetwork: boolean
-  nonce: string
-} = {
-  defaultFavicon: defFav,
-  defaultTitle: "FSMPI",
-  language: "de",
-  initialTime: new Date(),
-  isUniNetwork: false,
-  nonce: ""
-  //x2: ""
-}
+export type State = ReturnType<typeof useStore>['$state']
 
-export type State = typeof defaultState;
+export const useStore = defineStore('main', () =>
+{
+  const defaultFavicon = ref(defFav)
+  const defaultTitle = ref("FSMPI")
+  const initialTime = ref(new Date())
+  const isUniNetwork = ref(false)
+  const nonce = ref("")
 
-//export const key: InjectionKey<Store<State>> = Symbol()
-
-
-export const useStore = defineStore('main', {
-  state: () => defaultState,
-  actions: {
-    setLanguage(lang: SupportedLanguages)
-    {
-      this.language = lang
-    }
-  },
-  getters: {
-    /*route(state)
-    {
-      return router.currentRoute.value
-    }*/
+  return {
+    //vars
+    defaultFavicon,
+    defaultTitle,
+    initialTime,
+    isUniNetwork,
+    nonce
+    //computed
   }
 })
 

@@ -21,6 +21,7 @@ import type { Request, Response } from 'express'
 
 import { env } from 'process'
 import type { SSRContext } from '@shared/ssrContext'
+import type { BundleArgs } from '@shared/app'
 
 let networkToken: string | undefined
 
@@ -125,10 +126,12 @@ export default async function ssr(htmlBlueprint: string | JSDOM, manifest: Recor
 
   const nonce: string = res.locals.cspNonce
 
-  let args = { ctx: { language: language, isUniNetwork: res.locals!.isUni, nonce: nonce } }
-
-  if (res.locals?.isUni)
-    args = Object.assign(args, { networkToken: getNetworkToken() })
+  let args: BundleArgs =
+  {
+    storeState: { isUniNetwork: res.locals!.isUni, nonce: nonce },
+    locale: language,
+    networkToken: (res.locals?.isUni) ? getNetworkToken() : undefined
+  }
 
   const { createDefaultApp } = bundle
   const { router, app, pinia, apolloClients } = createDefaultApp(args)
