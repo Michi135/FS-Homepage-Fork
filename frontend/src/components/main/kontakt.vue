@@ -99,6 +99,7 @@
 <script lang="ts">
 import { defineComponent } from 'vue'
 import { useI18n } from 'vue-i18n'
+import { useI18nGlobal } from '@shared/i18n'
 import uniNowImg from '@static/uninow_AppIcon_rgb_color_rounded.png'
 import instagramImg from '@static/6929237_instagram_icon.png'
 import facebookImg from '@static/facebook_icon.png'
@@ -108,7 +109,7 @@ export default defineComponent({
   setup()
   {
     const { t } = useI18n()
-    const tGlobal = useI18n({ useScope: 'global' }).t
+    const tGlobal = useI18nGlobal().t
 
     return {
       t,

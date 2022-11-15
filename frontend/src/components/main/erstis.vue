@@ -115,6 +115,7 @@
 <script lang="ts">
 import { computed, defineComponent } from 'vue'
 import { useI18n } from 'vue-i18n'
+import { useI18nGlobal } from '@shared/i18n'
 
 import tableComp from './dynamicTable.vue'
 import type { TableRow, Table } from './dynamicTable.vue'
@@ -125,7 +126,7 @@ export default defineComponent({
   },
   setup()
   {
-    const tGlobal = useI18n({ useScope: 'global' }).t
+    const tGlobal = useI18nGlobal().t
     const tLocal = useI18n()
     const { t } = tLocal
 

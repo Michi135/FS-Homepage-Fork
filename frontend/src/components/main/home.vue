@@ -123,6 +123,7 @@
 <script lang="ts">
 import { computed, defineComponent } from 'vue'
 import { useI18n } from 'vue-i18n'
+import { useI18nGlobal } from '@shared/i18n'
 import ei from '@shared/Queries/einstellungen'
 
 export default defineComponent({
@@ -135,10 +136,10 @@ export default defineComponent({
       if (!value)
         return null
 
-      return '/v1' + (res.result.value.einstellungen.data.attributes.plakat.data.attributes.url || '/')
+      return '/v1' + (value.einstellungen.data.attributes.plakat.data.attributes.url || '/')
     })
 
-    const tGlobal = useI18n({ useScope: 'global' }).t
+    const tGlobal = useI18nGlobal().t
     const { t } = useI18n()
 
     return { t, tGlobal, fachschaftsimage }

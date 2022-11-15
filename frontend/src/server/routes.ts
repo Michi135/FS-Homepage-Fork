@@ -13,8 +13,8 @@ export class ServerRoutes extends Routes<string, undefined>
     this.keyRoutes.add(key)
     for (var [lang, translations] of Object.entries(localizedRoutes))
       this.local_routes.
-        get(lang as SupportedLanguages)!.
-        set(key, Routes.getKeyPath(key, <SupportedLanguages | undefined>lang))
+        get(lang as keyof typeof localizedRoutes)!.
+        set(key, Routes.getKeyPath(key, <keyof typeof localizedRoutes | undefined>lang))
   }
 }
 

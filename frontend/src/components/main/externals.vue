@@ -80,11 +80,12 @@
 <script lang="ts">
 import { defineComponent } from 'vue'
 import { useI18n } from 'vue-i18n'
+import { useI18nGlobal } from '@shared/i18n'
 
 export default defineComponent({
   setup: () =>
   {
-    const tGlobal = useI18n({ useScope: 'global' }).t
+    const tGlobal = useI18nGlobal().t
     const { t } = useI18n()
 
     return {

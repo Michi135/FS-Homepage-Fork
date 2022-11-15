@@ -155,6 +155,8 @@ type KinoDates = {
 
 type GraphqlQuery = KinoDates & GraphqlFilme
 
+import { useI18nGlobal } from '@shared/i18n'
+
 export default defineComponent({
   components: {
     movie
@@ -162,7 +164,7 @@ export default defineComponent({
   setup()
   {
     const store = useStore()
-    const { locale } = useI18n()
+    const { locale } = useI18nGlobal()
     const { t } = useI18n({ useScope: "local" })
 
     const res = useQuery<GraphqlQuery>(gql`
@@ -257,7 +259,7 @@ export default defineComponent({
 
       return films.map((val) =>
       {
-        return copyLocale(val, locale.value as SupportedLanguages)
+        return copyLocale(val, locale.value)
       })
     })
 

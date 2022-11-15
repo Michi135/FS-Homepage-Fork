@@ -8,12 +8,13 @@
 import { defineComponent, onMounted, onServerPrefetch, watch, computed } from 'vue'
 import { useSSRContext } from '@shared/ssrContext'
 import { useRouter, useRoute } from 'vue-router'
-import { useI18n } from 'vue-i18n'
 import { useStore } from '@shared/store'
 import { createFaviconLink } from '@shared/favicon'
 import { storeToRefs } from 'pinia'
 import { VueRoutes } from '@client/routes'
 import { determineLanguage } from '@shared/util'
+
+import { useI18nGlobal } from '@shared/i18n'
 
 import 'tailwindcss/tailwind.css'
 import 'vuetify/lib/styles/main.css'
@@ -22,8 +23,8 @@ export default defineComponent({
   name: 'app',
   setup()
   {
-    const { defaultTitle, defaultFavicon, language } = storeToRefs(useStore())
-    const { t, locale } = useI18n({ useScope: 'global' })
+    const { defaultTitle, defaultFavicon } = storeToRefs(useStore())
+    const { t, locale } = useI18nGlobal()
 
     const route = useRoute()
     const router = useRouter()
@@ -36,6 +37,10 @@ export default defineComponent({
     {
       return route.meta.favicon ?? defaultFavicon.value
     })
+    watch(() => route.path, (newValue) =>
+    {
+      locale.value = determineLanguage(newValue)
+    }, { immediate: true })
 
     onServerPrefetch(() =>
     {
@@ -66,15 +71,8 @@ export default defineComponent({
 
       watch(locale, () =>
       {
-        router.replace('/' + VueRoutes.getKeyPath(route.meta.title!, language.value))
-        document.children[0].setAttribute('lang', locale.value as SupportedLanguages)
-      })
-
-      router.afterEach(({ meta, path }, from, failure) =>
-      {
-        if (failure) return
-
-        language.value = determineLanguage(path)
+        router.replace('/' + VueRoutes.getKeyPath(route.meta.title!, locale.value))
+        document.children[0].setAttribute('lang', locale.value)
       })
     })
   }

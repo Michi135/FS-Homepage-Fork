@@ -116,12 +116,11 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, onMounted, ref, watch, computed } from 'vue'
+import { defineComponent, ref, computed } from 'vue'
 import { useI18n } from 'vue-i18n'
-import { storeToRefs } from 'pinia'
+import { useI18nGlobal } from '@shared/i18n'
 
 import { routes as appRoutes } from '@client/routes'
-import { useStore } from '@shared/store'
 import trossSvg from '@static/img/tross.svg'
 
 import gerFlagSvg from 'svg-country-flags/svg/de.svg'
@@ -131,25 +130,16 @@ export default defineComponent({
   setup: () =>
   {
     const isOpen = ref<boolean>(false)
-    const globalI18n = useI18n({ useScope: 'global' })
+    const globalI18n = useI18nGlobal()
     const localI18n = useI18n()
-    const { language } = storeToRefs(useStore())
-
-    onMounted(() =>
-    {
-      watch(language, (val, prevval) =>
-      {
-        globalI18n.locale.value = language.value
-      })
-    })
 
     const routes = computed(() =>
     {
-      return appRoutes.getCategoryRoutes('header', language.value)
+      return appRoutes.getCategoryRoutes('header', globalI18n.locale.value)
     })
 
     return {
-      language,
+      language: globalI18n.locale,
       tLocal: localI18n.t,
       tGlobal: globalI18n.t,
       isOpen,

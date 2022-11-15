@@ -20,6 +20,7 @@
 <script lang="ts">
 import { computed, defineComponent } from 'vue'
 import { useI18n } from 'vue-i18n'
+import { useI18nGlobal } from '@shared/i18n'
 import { useQuery } from '@vue/apollo-composable'
 
 import tableComp from '../dynamicTable.vue'
@@ -59,7 +60,7 @@ export default defineComponent({
   {
     //https://www.npmjs.com/package/@thi.ng/sparse
     //https://adamlynch.com/flexible-data-tables-with-css-grid/
-    const { t } = useI18n({ useScope: 'global' })
+    const { t } = useI18nGlobal()
     const { locale } = useI18n()
 
     const res = useQuery<Sprechstunden>(gql`

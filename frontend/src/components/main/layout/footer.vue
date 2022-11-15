@@ -45,19 +45,20 @@
 import { computed, defineComponent } from 'vue'
 import { routes as appRoutes } from '@client/routes'
 import { useI18n } from 'vue-i18n'
+import { useI18nGlobal } from '@shared/i18n'
 import { useStore } from '@shared/store'
 
 export default defineComponent({
   setup: () =>
   {
-    const globalI18n = useI18n({ useScope: 'global' })
+    const globalI18n = useI18nGlobal()
     const localI18n = useI18n()
 
     const store = useStore()
 
     const routes = computed(() =>
     {
-      return appRoutes.getCategoryRoutes('footer', store.language)
+      return appRoutes.getCategoryRoutes('footer', globalI18n.locale.value)
     })
 
     const toTop = () =>

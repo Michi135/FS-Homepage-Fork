@@ -85,6 +85,7 @@
 <script lang="ts">
 import { defineComponent, onMounted, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
+import { useI18nGlobal } from '@shared/i18n'
 import studiengang from './studiengang.vue'
 import { mdiEmail, mdiSchool } from '@mdi/js'
 
@@ -142,7 +143,7 @@ export default defineComponent({
   name: 'SingleVertreter',
   setup: () =>
   {
-    const tGlobal = useI18n({ useScope: 'global' }).t
+    const tGlobal = useI18nGlobal().t
     const { t } = useI18n()
     const img = ref<HTMLImageElement | null>(null)
 

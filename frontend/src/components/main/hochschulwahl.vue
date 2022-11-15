@@ -336,9 +336,7 @@
           </template>
         </i18n-t>
         <div style="height: 1.5em"></div>
-        <template
-          v-if="mounted"
-        >
+        <v-no-ssr>
           <div
             class="tw-flex tw-justify-center"
           >
@@ -347,7 +345,7 @@
           <div
             style="height: 1.5em"
           ></div>
-        </template>
+        </v-no-ssr>
         <i18n-t
           tag="h1"
           keypath="h[4]"
@@ -449,29 +447,26 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, computed, onMounted } from 'vue'
+import { defineComponent, computed } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { VueRoutes } from '@client/routes'
 import stupaWahl from '@static/stupa_wahl.jpg?url'
 
+import { useI18nGlobal } from '@shared/i18n'
+
 export default defineComponent({
   setup()
   {
-    const { t, locale } = useI18n({ useScope: "local" })
+    const { locale } = useI18nGlobal()
+    const { t } = useI18n({ useScope: "local" })
     const extern = computed(() =>
     {
-      return '/' + VueRoutes.getKeyPath('externals', locale.value  as SupportedLanguages)
+      return '/' + VueRoutes.getKeyPath('externals', locale.value)
     })
     const kontakt = computed(() =>
     {
-      return '/' + VueRoutes.getKeyPath('contact', locale.value as SupportedLanguages)
+      return '/' + VueRoutes.getKeyPath('contact', locale.value)
     })
-    const mounted = ref<boolean>(false)
-    onMounted(() =>
-    {
-      mounted.value = true
-    })
-
 
     const v =
     [
@@ -490,7 +485,7 @@ export default defineComponent({
       "Ghofrane Kamoun",
       "Teresa Schlösser"
     ]
-    return { v, stupaWahl, mounted, t, getKeyPath: VueRoutes.getKeyPath, extern, kontakt }
+    return { v, stupaWahl, t, getKeyPath: VueRoutes.getKeyPath, extern, kontakt }
   }
 })
 </script>

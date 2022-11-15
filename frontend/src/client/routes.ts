@@ -57,8 +57,8 @@ export class VueRoutes extends Routes<RouteRecordRaw, Data>
     //headerKeys.push(key)
     for (var [lang, translations] of Object.entries(localizedRoutes))
     {
-      this.local_routes.get(lang as SupportedLanguages)!.set(key, {
-        path: Routes.getKeyPath(key, <SupportedLanguages | undefined>lang),
+      this.local_routes.get(lang as keyof typeof localizedRoutes)!.set(key, {
+        path: Routes.getKeyPath(key, <keyof typeof localizedRoutes | undefined>lang),
         component: data.component,
         meta: {
           title: key,//(<Translation>translations)[key].title
