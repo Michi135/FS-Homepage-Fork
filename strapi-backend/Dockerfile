@@ -1,4 +1,4 @@
-FROM node:16
+FROM node:18.12-buster-slim
 # Installing libvips-dev for sharp compatability
 RUN apt-get update && apt-get install -y libvips-dev
 ARG NODE_ENV=production
