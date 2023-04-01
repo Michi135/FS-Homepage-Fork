@@ -1,13 +1,13 @@
-import base, { cleanExit } from './entryBase'
+import base, { cleanExit } from './entryBase.js'
 
 //production only
-import ssr from './ssrProduction'
+import ssr from './ssrProduction.js'
 import manifest from '@distClient/manifest.json' assert { type: 'json'}
 
 import path from 'path'
 const { join } = path
 
-import { fileRequest } from './fileRequest'
+import { fileRequest } from './fileRequest.js'
 import { fileURLToPath } from 'url'
 
 import type { Express } from 'express-serve-static-core'

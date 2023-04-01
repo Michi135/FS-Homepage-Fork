@@ -7,8 +7,8 @@ import process from 'process'
 import helmet, { contentSecurityPolicy } from 'helmet'
 import cors from 'cors'
 
-import { uniNet, cspNonce } from './middlewareTools'
-import { getSiteMap } from './sitemapF'
+import { uniNet, cspNonce } from './middlewareTools.js'
+import { getSiteMap } from './sitemapF.js'
 
 import type { IncomingMessage, ServerResponse } from 'http'
 

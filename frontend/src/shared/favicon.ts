@@ -1,5 +1,5 @@
-import isURL from 'validator/lib/isURL'
-import isDataURI from 'validator/lib/isDataURI'
+import isURL from 'validator/lib/isURL.js'
+import isDataURI from 'validator/lib/isDataURI.js'
 
 const endToMime: Map<string, string> = new Map<string, string>([
   ['svg', 'image/svg+xml']
@@ -13,6 +13,7 @@ function getFileExtension(input: string)
 function mimeType(input: string)
 {
   if (
+    //@ts-ignore
     isURL(input, {
       require_protocol: false,
       require_host: false
@@ -25,6 +26,7 @@ function mimeType(input: string)
       return endToMime.get(ext)
     }
   }
+  //@ts-ignore
   else if (isDataURI(input))
   {
     const reg = RegExp(/data:(.*?)?(;base64)?,(.*)/)

@@ -1,5 +1,5 @@
 import { SitemapStream, SitemapItem, streamToPromise } from 'sitemap'
-import { routes } from './routes'
+import { routes } from './routes.js'
 //import { WriteStream } from 'fs-extra'
 
 let sitemap: Buffer | undefined

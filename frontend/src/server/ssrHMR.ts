@@ -1,4 +1,4 @@
-import ssrBase from "./ssrBase"
+import ssrBase from "./ssrBase.js"
 //import { createRequire } from 'module'
 //const require = createRequire(import.meta.url)
 import { JSDOM } from 'jsdom'
@@ -16,7 +16,7 @@ function loadDevMiddleWare(res: Response)
   return <devMiddleware>{ vite: res.locals!.vite }
 }
 
-import rawHtml from '../indexHtml'
+import rawHtml from '../indexHtml.js'
 
 
 export default function ssr()

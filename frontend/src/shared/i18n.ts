@@ -1,5 +1,7 @@
+//@ts-ignore
 import { useI18n as vueUseI18n, createI18n as vueCreateI18n } from "vue-i18n"
 
+//@ts-ignore
 import { de, en } from 'vuetify/locale'
 
 import { merge } from 'lodash-es'

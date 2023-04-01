@@ -18,6 +18,7 @@ import { fileURLToPath } from 'url'
 
 import vue from '@vitejs/plugin-vue'
 //import vueI18n from '@intlify/unplugin-vue-i18n/vite'
+//@ts-ignore
 import vueI18n from '@intlify/vite-plugin-vue-i18n'
 import vuetify from 'vite-plugin-vuetify'
 import tsconfigPaths from 'vite-tsconfig-paths'
@@ -140,7 +141,9 @@ export async function configFunction(options: Partial<Options> = {}): Promise<Us
       }
     },
     plugins: [
+      //@ts-ignore
       vue(),
+      //@ts-ignore
       vueI18n({
         // if you want to use Vue I18n Legacy API, you need to set `compositionOnly: false`
         // compositionOnly: false,
@@ -148,6 +151,7 @@ export async function configFunction(options: Partial<Options> = {}): Promise<Us
         // you need to set i18n resource including paths !
         include: resolve(dir, './src/shared/Translations/**')
       }),
+      //@ts-ignore
       vuetify(),
       tsconfigPaths(
         {

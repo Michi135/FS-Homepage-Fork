@@ -1,17 +1,20 @@
 //import 'vite/modulepreload-polyfill'
 import { createSSRApp, createApp } from 'vue'
-import { createBundledRouter } from './router'
+import { createBundledRouter } from './router.js'
 
 import { useI18n } from 'vue-i18n'
+//@ts-ignore
 import { createVuetify } from 'vuetify'
+//@ts-ignore
 import { createVueI18nAdapter } from 'vuetify/locale/adapters/vue-i18n'
+//@ts-ignore
 import { aliases, mdi } from 'vuetify/lib/iconsets/mdi-svg'
 import { createPinia } from 'pinia'
 
 import app from '@components/App.vue'
-import { createGraphql } from '@shared/graphql'
-import { useStore } from '@shared/store'
-import { createI18n } from '@shared/i18n'
+import { createGraphql } from '@shared/graphql.js'
+import { useStore } from '@shared/store.js'
+import { createI18n } from '@shared/i18n.js'
 
 //import messages from '@intlify/unplugin-vue-i18n/messages'
 
@@ -21,7 +24,7 @@ import type { Pinia, Store, StateTree } from 'pinia'
 import type { ApolloClients } from '@vue/apollo-ssr'
 import type { I18n } from 'vue-i18n'
 
-import type { State } from '@shared/store'
+import type { State } from '@shared/store.js'
 
 declare global {
   interface Window {

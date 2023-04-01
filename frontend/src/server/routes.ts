@@ -1,5 +1,5 @@
-import localizedRoutes from '@shared/localizedRoutes'
-import { Routes } from "@shared/routes"
+import localizedRoutes from '@shared/localizedRoutes.js'
+import { Routes } from "@shared/routes.js"
 
 export class ServerRoutes extends Routes<string, undefined>
 {

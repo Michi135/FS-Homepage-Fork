@@ -1,4 +1,4 @@
-import { Build } from './runtimeConfig'
+import { Build } from './runtimeConfig.js'
 import { gzip as gzipRaw, brotliCompress, constants } from 'zlib'
 import { promisify } from 'util'
 import { fileURLToPath } from 'url'

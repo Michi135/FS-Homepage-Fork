@@ -1,6 +1,6 @@
 import fav2 from '@static/favicon2.svg'
 import studentSvg from '@components/main/student.svg'
-import localizedRoutes from '@shared/localizedRoutes'
+import localizedRoutes from '@shared/localizedRoutes.js'
 import wahlSvg from '@components/main/wal.svg'
 import kameraSvg from '@components/main/filmkamera.svg'
 import partySvg from '@components/main/party.svg'
@@ -27,7 +27,7 @@ const partyComponent = () => import('@components/main/nw2_party.vue' /* webpackC
 type Lazy<T> = () => Promise<T>
 type Translation = Record<string, { route: string, title: string }>
 
-import { Routes } from '@shared/routes'
+import { Routes } from '@shared/routes.js'
 type Data = {
   component: RouteComponent | Lazy<RouteComponent>
   options?: {

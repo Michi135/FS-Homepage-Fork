@@ -1,9 +1,9 @@
-import ssrBase from './ssrBase'
+import ssrBase from './ssrBase.js'
 //@ts-ignore
 import * as bundle from '@distServer/app.mjs'
 import ssrManifest from '@distClient/ssr-manifest.json' assert { type: 'json'}
 import manifest from '@distClient/manifest.json' assert { type: 'json'}
-import html from '../indexHtml'
+import html from '../indexHtml.js'
 
 import { JSDOM } from 'jsdom'
 

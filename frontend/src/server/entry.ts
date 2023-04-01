@@ -1,6 +1,6 @@
-import base, { cleanExit } from './entryBase'
+import base, { cleanExit } from './entryBase.js'
 
-import { Build } from './runtimeConfig'
+import { Build } from './runtimeConfig.js'
 //https://cheatsheetseries.owasp.org/cheatsheets/JSON_Web_Token_for_Java_Cheat_Sheet.html#token-sidejacking
 //add forbiden/authenticated routes
 process.env.NODE_ENV = 'development';

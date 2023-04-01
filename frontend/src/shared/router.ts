@@ -1,6 +1,6 @@
 import { createRouter, createMemoryHistory, createWebHistory } from "vue-router"
-import { routes } from '@client/routes'
-import localizedRoutes from './localizedRoutes'
+import { routes } from '@client/routes.js'
+import localizedRoutes from './localizedRoutes.js'
 
 function createLocalizedRoutes()
 {

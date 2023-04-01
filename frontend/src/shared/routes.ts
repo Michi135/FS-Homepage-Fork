@@ -1,4 +1,4 @@
-import localizedRoutes from './localizedRoutes'
+import localizedRoutes from './localizedRoutes.js'
 
 type Lazy<T> = () => Promise<T>
 type Translation = Record<string, { route: string, title: string }>

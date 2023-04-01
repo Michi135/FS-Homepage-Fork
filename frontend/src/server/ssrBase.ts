@@ -1,9 +1,9 @@
-import { createDefaultContext } from './context'
+import { createDefaultContext } from './context.js'
 import { renderToString } from '@vue/server-renderer'
 //import { getStyles } from './cdn.config'
-import { getMeta } from './meta.config'
-import { createFaviconLink } from '@shared/favicon'
-import { determineLanguage } from '@shared/util'
+import { getMeta } from './meta.config.js'
+import { createFaviconLink } from '@shared/favicon.js'
+import { determineLanguage } from '@shared/util.js'
 import { JSDOM } from 'jsdom'
 import { exportStates } from '@vue/apollo-ssr'
 import { brotliCompressSync, gzipSync } from 'zlib'
@@ -20,8 +20,8 @@ const { sign } = jsonwt
 import type { Request, Response } from 'express'
 
 import { env } from 'process'
-import type { SSRContext } from '@shared/ssrContext'
-import type { BundleArgs } from '@shared/app'
+import type { SSRContext } from '@shared/ssrContext.js'
+import type { BundleArgs } from '@shared/app.js'
 
 let networkToken: string | undefined
 
@@ -170,6 +170,8 @@ export default async function ssr(htmlBlueprint: string | JSDOM, manifest: Recor
       const condScript = doc.createElement('script')
       head.appendChild(condScript)
     }*/
+    
+    //@ts-ignore
   head.innerHTML += `<script nonce="${nonce}">window.__INITIAL_STATE__=${devalue(pinia.state.value)}</script>`
   head.innerHTML += `<script nonce="${nonce}">${exportStates(apolloClients)}</script>`
 

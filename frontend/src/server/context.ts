@@ -1,7 +1,7 @@
 import { resolve } from 'path'
 
 import fsExtra from 'fs-extra'
-import { ensureContext } from '@shared/ssrContext'
+import { ensureContext } from '@shared/ssrContext.js'
 
 const { pathExists, readJSON } = fsExtra
 
