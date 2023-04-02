@@ -214,7 +214,12 @@ export default defineComponent({
   "Gesellschaftssatire": "Gesellschaftssatire",
   "Musikfilm": "Musikfilm",
   "Animationsfilm": "Animationsfilm",
-  "Action": "Action"
+  "Action": "Action",
+  "Abenteuer": "Abenteuer",
+  "Actionkomoedie": "Actionkomödie",
+  "Actiondrama": "Actiondrama",
+  "Drama": "Drama",
+  "Comicverfilmung": "Comicverfilmung"
 }
 </i18n>
 
@@ -229,6 +234,11 @@ export default defineComponent({
   "Gesellschaftssatire": "Society satire",
   "Musikfilm": "Music film",
   "Animationsfilm": "Animation film",
-  "Action": "Action"
+  "Action": "Action",
+  "Abenteuer": "Adventure",
+  "Actionkomoedie": "Action-comedy",
+  "Actiondrama": "Action-drama",
+  "Drama": "Drama",
+  "Comicverfilmung": "Comic adaptation"
 }
 </i18n>

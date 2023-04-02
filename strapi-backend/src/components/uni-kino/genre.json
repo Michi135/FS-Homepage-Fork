@@ -10,18 +10,22 @@
     "genre": {
       "type": "enumeration",
       "enum": [
-        "Krimi",
-        "Thriller",
-        "Tragikomödie",
-        "Kriegssatire",
-        "Drama",
-        "Kriegsfilm",
-        "Bibliographie", 
-        "Komödie",
-        "Gesellschaftssatire",
-        "Musikfilm",
+        "Action",
+        "Actionkomödie",
+        "Actiondrama",
+        "Abenteuer",
         "Animationsfilm",
-        "Action"
+        "Bibliographie",
+        "Comicverfilmung",
+        "Drama",
+        "Gesellschaftssatire",
+        "Krimi",
+        "Kriegssatire",
+        "Kriegsfilm",
+        "Komödie",
+        "Musikfilm",
+        "Thriller",
+        "Tragikomödie"
       ],
       "required": true
     }

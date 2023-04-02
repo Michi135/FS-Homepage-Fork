@@ -12,11 +12,11 @@
     "postinstall": "patch-package"
   },
   "dependencies": {
-    "@strapi/plugin-graphql": "^4.1.7",
-    "@strapi/plugin-i18n": "^4.1.7",
-    "@strapi/plugin-users-permissions": "^4.1.7",
-    "@strapi/provider-upload-aws-s3": "^4.1.7",
-    "@strapi/strapi": "^4.1.7",
+    "@strapi/plugin-graphql": "^4.8.2",
+    "@strapi/plugin-i18n": "^4.8.2",
+    "@strapi/plugin-users-permissions": "^4.8.2",
+    "@strapi/provider-upload-aws-s3": "^4.8.2",
+    "@strapi/strapi": "^4.8.2",
     "jsonwebtoken": "^9.0.0",
     "netmask": "^2.0.2",
     "patch-package": "^6.4.7",
@@ -37,6 +37,8 @@
   "license": "MIT",
   "devDependencies": {
     "@types/jsonwebtoken": "^9.0.0",
-    "@types/netmask": "^1.0.30"
+    "@types/netmask": "^1.0.30",
+    "@types/node-fetch": "^2.6.3",
+    "@types/sharp": "^0.31.1"
   }
 }

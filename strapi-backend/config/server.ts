@@ -4,6 +4,9 @@ export default ({ env }) => ({
   app: {
     keys: env.array('APP_KEYS'),
   },
-  url: env('URL_SERVER', 'http://localhost:1337'),
-  proxy: true
+  url: env('URL_SERVER', 'http://127.0.0.1:1337'),
+  proxy: true,
+  webhooks: {
+    populateRelations: false
+  }
 });

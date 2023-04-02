@@ -7,5 +7,10 @@ export default ({ env }) => ({
   },
   port: 7000,
   host: 'localhost',
-  url: env('URL_ADMIN', 'http://localhost:7000/admin'),
+  url: env('URL_ADMIN', 'http://127.0.0.1:7000/admin'),
+  transfer: {
+    token: {
+      salt: env('TRANSFER_TOKEN_SALT')
+    }
+  }
 });
