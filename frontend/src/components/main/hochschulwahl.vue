@@ -449,10 +449,10 @@
 <script lang="ts">
 import { defineComponent, computed } from 'vue'
 import { useI18n } from 'vue-i18n'
-import { VueRoutes } from '@client/routes'
+import { VueRoutes } from '@client/routes.js'
 import stupaWahl from '@static/stupa_wahl.jpg?url'
 
-import { useI18nGlobal } from '@shared/i18n'
+import { useI18nGlobal } from '@shared/i18n.js'
 
 export default defineComponent({
   setup()

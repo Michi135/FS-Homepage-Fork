@@ -85,12 +85,12 @@
 <script lang="ts">
 import { defineComponent, onMounted, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
-import { useI18nGlobal } from '@shared/i18n'
+import { useI18nGlobal } from '@shared/i18n.js'
 import studiengang from './studiengang.vue'
 import { mdiEmail, mdiSchool } from '@mdi/js'
 
 import type { PropType } from 'vue'
-import type { Faecher, Lehramt, Grad, Feld, Rolle } from '@dataInterfaces/IVertreter'
+import type { Faecher, Lehramt, Grad, Feld, Rolle } from '@dataInterfaces/IVertreter.js'
 
 export default defineComponent({
   props: {

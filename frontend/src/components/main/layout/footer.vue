@@ -43,10 +43,10 @@
 
 <script lang="ts">
 import { computed, defineComponent } from 'vue'
-import { routes as appRoutes } from '@client/routes'
+import { routes as appRoutes } from '@client/routes.js'
 import { useI18n } from 'vue-i18n'
-import { useI18nGlobal } from '@shared/i18n'
-import { useStore } from '@shared/store'
+import { useI18nGlobal } from '@shared/i18n.js'
+import { useStore } from '@shared/store.js'
 
 export default defineComponent({
   setup: () =>

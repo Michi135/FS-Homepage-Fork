@@ -27,7 +27,7 @@ import { gql } from 'graphql-tag'
 
 import SingleVertreter from './single-vertreter.vue'
 
-import type { VertreterGQL, Faecher, Lehramt, Grad, Feld, Rolle } from '@dataInterfaces/IVertreter'
+import type { VertreterGQL, Faecher, Lehramt, Grad, Feld, Rolle } from '@dataInterfaces/IVertreter.js'
 
 type Vertreter = {
   name: string,

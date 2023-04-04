@@ -118,9 +118,9 @@
 <script lang="ts">
 import { defineComponent, ref, computed } from 'vue'
 import { useI18n } from 'vue-i18n'
-import { useI18nGlobal } from '@shared/i18n'
+import { useI18nGlobal } from '@shared/i18n.js'
 
-import { routes as appRoutes } from '@client/routes'
+import { routes as appRoutes } from '@client/routes.js'
 import trossSvg from '@static/img/tross.svg'
 
 import gerFlagSvg from 'svg-country-flags/svg/de.svg'

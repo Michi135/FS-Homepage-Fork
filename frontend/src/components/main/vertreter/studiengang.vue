@@ -7,7 +7,7 @@ import { computed, defineComponent } from 'vue'
 import { useI18n } from 'vue-i18n'
 
 import type { PropType } from 'vue'
-import type { Faecher, Lehramt, Grad, Feld } from "@dataInterfaces/IVertreter"
+import type { Faecher, Lehramt, Grad, Feld } from "@dataInterfaces/IVertreter.js"
 
 export default defineComponent({
   props: {

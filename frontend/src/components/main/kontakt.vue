@@ -99,7 +99,7 @@
 <script lang="ts">
 import { defineComponent } from 'vue'
 import { useI18n } from 'vue-i18n'
-import { useI18nGlobal } from '@shared/i18n'
+import { useI18nGlobal } from '@shared/i18n.js'
 import uniNowImg from '@static/uninow_AppIcon_rgb_color_rounded.png'
 import instagramImg from '@static/6929237_instagram_icon.png'
 import facebookImg from '@static/facebook_icon.png'

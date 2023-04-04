@@ -1,8 +1,6 @@
-import { useSSRContext } from "@shared/ssrContext"
-import type { Event, WithContext } from "schema-dts"
-import { onMounted, onBeforeUnmount, onServerPrefetch, watch, isRef, unref, computed } from "vue"
+import { useSSRContext } from "@shared/ssrContext.js"
+import { onMounted, onBeforeUnmount, onServerPrefetch, watch, isRef, unref } from "vue"
 import type { Ref, UnwrapRef } from 'vue'
-import { useStore } from "@shared/store"
 
 type MaybeWatchSource<T> = T | Ref<T>
 
@@ -17,18 +15,21 @@ function trySetWatch<T>(data: T | Ref<T>, element: HTMLElement, fn?: (val: Unwra
   })
 }
 
-function makeScriptTag(id: string, type: string, content: string, nonce: string)
+export function makeScriptTag(id: string, type: string, content: string, nonce?: string)
 {
   let element = document.createElement('script')
 
   element.id = id
   element.type = type
-  element.nonce = nonce
+
+  if (nonce)
+    element.nonce = nonce
+
   element.innerHTML = content
   return element
 }
 
-function addTagToHead(element: HTMLElement)
+export function addTagToHead(element: HTMLElement)
 {
   const head = document.querySelector('head')!
   head.appendChild(element)
@@ -39,44 +40,6 @@ function cleanup(element: HTMLElement)
   onBeforeUnmount(() =>
   {
     element.remove()
-  })
-}
-
-export function registerEvent(id: string, data: MaybeWatchSource<WithContext<Event> | undefined>)
-{
-  let element: HTMLScriptElement | null
-  const nonce = useStore().nonce
-
-  onMounted(() =>
-  {
-    element = <HTMLScriptElement | null>document.getElementById(id)
-
-    if (!element)
-    {
-      element = makeScriptTag(id, "application/ld+json", JSON.stringify(unref(data)), nonce)
-      addTagToHead(element)
-    }
-    trySetWatch(data, element!, JSON.stringify)
-  })
-  onBeforeUnmount(() =>
-  {
-    element!.remove()
-  })
-  onServerPrefetch(() =>
-  {
-    const ctx = useSSRContext()
-    //const val = unref(data)
-
-    ctx.events[id] = computed(() => {
-      return data
-    })
-
-    //if (ctx.styles[id])
-    //ctx.styles[id].push(data)
-    //else
-    
-    
-    //ctx.events[id] = val
   })
 }
 

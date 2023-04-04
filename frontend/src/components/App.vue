@@ -6,15 +6,15 @@
 
 <script lang="ts">
 import { defineComponent, onMounted, onServerPrefetch, watch, computed } from 'vue'
-import { useSSRContext } from '@shared/ssrContext'
+import { useSSRContext } from '@shared/ssrContext.js'
 import { useRouter, useRoute } from 'vue-router'
-import { useStore } from '@shared/store'
-import { createFaviconLink } from '@shared/favicon'
+import { useStore } from '@shared/store.js'
+import { createFaviconLink } from '@shared/favicon.js'
 import { storeToRefs } from 'pinia'
-import { VueRoutes } from '@client/routes'
-import { determineLanguage } from '@shared/util'
+import { VueRoutes } from '@client/routes.js'
+import { determineLanguage } from '@shared/util.js'
 
-import { useI18nGlobal } from '@shared/i18n'
+import { useI18nGlobal } from '@shared/i18n.js'
 
 import 'tailwindcss/tailwind.css'
 import 'vuetify/lib/styles/main.css'

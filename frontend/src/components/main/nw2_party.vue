@@ -36,19 +36,17 @@
         </div>
       </div>
     </div>
-    <event-component eventID="nw2-party" :value="event"/>
   </div>
 </template>
 
 <script lang="ts">
 import { defineComponent, computed } from 'vue'
 import { useI18n } from 'vue-i18n'
-import nw2Party from '@static/nw2Event'
+import nw2Party from '@static/nw2Event.js'
 
+import { useTags } from '@shared/tags/registration.js'
 import { useQuery } from '@vue/apollo-composable'
 import gql from 'graphql-tag'
-
-import eventComponent from './eventComponent.vue'
 
 type Image =
 {
@@ -80,12 +78,10 @@ type PartyData =
 }
 
 export default defineComponent({
-  components: {
-    eventComponent
-  },
   setup()
   {
     useI18n({ useScope: "local" })
+    const tagManager = useTags()
 
     const query = useQuery<{nw2Parties: PartyData}>(gql`query recentParty
     {
@@ -109,8 +105,19 @@ export default defineComponent({
       return data[0].attributes
     })
 
-    const event = computed(() => {
-      const data = query.result?.value?.nw2Parties.data
+    const image = computed(() => {
+      const party = potParty.value
+      if (!party)
+        return
+
+      return party.Plakat.data.attributes.url
+    })
+
+    query.onResult(((result) => {
+      if (result.partial || result.error)
+        return
+
+      const data = query.result.value!.nw2Parties.data
 
       if (!data)
         return
@@ -124,23 +131,17 @@ export default defineComponent({
 
       const { Start, Ende, Kuenstler, Plakat16x9, Plakat1x1, Plakat4x3, Preis, Sommerzeit } = party
 
-      return nw2Party(
+      const partyData = nw2Party(
         { start: new Date(Start), end: new Date(Ende), summertime: Sommerzeit },
         { "1x1": '/v1' + Plakat1x1.data.attributes.url, "4x3": '/v1' + Plakat4x3.data.attributes.url, "16x9": '/v1' + Plakat16x9.data.attributes.url },
         Preis,
         Kuenstler
-        )     
-    })
+        )
 
-    const image = computed(() => {
-      const party = potParty.value
-      if (!party)
-        return
+      tagManager.try_emplace("nw2-party", partyData)
+    }))
 
-      return party.Plakat.data.attributes.url
-    })
-
-    return { image, event }
+    return { image }
   }
 })
 </script>

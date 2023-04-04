@@ -1,7 +1,5 @@
 import { createDefaultContext } from './context.js'
 import { renderToString } from '@vue/server-renderer'
-import { unref } from 'vue'
-//import { getStyles } from './cdn.config'
 import { getMeta } from './meta.config.js'
 import { createFaviconLink } from '@shared/favicon.js'
 import { determineLanguage } from '@shared/util.js'
@@ -9,6 +7,7 @@ import { JSDOM } from 'jsdom'
 import { exportStates } from '@vue/apollo-ssr'
 import { brotliCompressSync, gzipSync } from 'zlib'
 import devalue from '@nuxt/devalue'
+import { addEvents } from '@shared/tags/ssr.js'
 
 import { basename } from 'path'
 
@@ -22,13 +21,13 @@ import type { Request, Response } from 'express'
 
 import { env } from 'process'
 import type { SSRContext } from '@shared/ssrContext.js'
-import type { BundleArgs } from '@shared/app.js'
+import type { BundleArgs, createDefaultApp as CreateDefaultApp } from '@shared/app.js'
 
 let networkToken: string | undefined
 
 function getNetworkToken()
 {
-  if (!networkToken) //TODO:: env secret, shared between frontendserver and backendserver
+  if (!networkToken)
     networkToken = sign({ fromServer: true }, env.JWT_SECRET_SHARED ?? 'DEFAULT_JWT_SECRET')
   return networkToken
 }
@@ -104,22 +103,6 @@ function addStyles(dom: JSDOM, styles: SSRContext["styles"])
   }
 }
 
-function addEvents(dom: JSDOM, events: SSRContext["events"], nonce: string)
-{
-  const doc = dom.window.document
-  const head = doc.head
-
-  for (let [id, event] of Object.entries(events))
-  {
-    const node = doc.createElement('script')
-    node.id = id
-    node.type = "application/ld+json"
-    node.innerHTML = JSON.stringify(unref(event))
-    node.nonce = nonce
-    head.append(node)
-  }
-}
-
 export default async function ssr(htmlBlueprint: string | JSDOM, manifest: Record<string, Array<string>>, bundle: any, req: Request, res: Response)
 {
   const contextLoad = createDefaultContext()
@@ -134,8 +117,8 @@ export default async function ssr(htmlBlueprint: string | JSDOM, manifest: Recor
     networkToken: (res.locals?.isUni) ? getNetworkToken() : undefined
   }
 
-  const { createDefaultApp } = bundle
-  const { router, app, pinia, apolloClients } = createDefaultApp(args)
+  const { createDefaultApp }: { createDefaultApp: typeof CreateDefaultApp } = bundle
+  const { router, app, pinia, tagManager, apolloClients } = createDefaultApp(args)
 
   router.push(req.url)
   await router.isReady()
@@ -160,7 +143,7 @@ export default async function ssr(htmlBlueprint: string | JSDOM, manifest: Recor
   }
 
   addStyles(dom, context.styles)
-  addEvents(dom, context.events, nonce)
+  addEvents(dom, tagManager.data.tagData, nonce)
   head.innerHTML += `<title>${context.title}</title>`
   head.innerHTML += getMeta()
   head.innerHTML += createFaviconLink(context.favicon!)

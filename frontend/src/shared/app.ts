@@ -15,6 +15,7 @@ import app from '@components/App.vue'
 import { createGraphql } from '@shared/graphql.js'
 import { useStore } from '@shared/store.js'
 import { createI18n } from '@shared/i18n.js'
+import { createTagManager } from '@shared/tags/registration.js'
 
 //import messages from '@intlify/unplugin-vue-i18n/messages'
 
@@ -61,6 +62,7 @@ function createBundledApp(root: Component, args: BundleArgs = {})
 
 
   const i18n = createI18n(args.locale, localization)
+  const tagManager = createTagManager(store.nonce)
 
   app.use(i18n)
   app.use(GraphqlVue)
@@ -77,6 +79,7 @@ function createBundledApp(root: Component, args: BundleArgs = {})
     },
     ssr: true
   }))
+  app.use(tagManager)
 
   const out: BundledApp<typeof store, typeof i18n> = {
     app,
@@ -84,17 +87,19 @@ function createBundledApp(root: Component, args: BundleArgs = {})
     pinia,
     store,
     i18n,
+    tagManager,
     apolloClients: GraphqlVue.clients
   }
   return out
 }
 
 export interface BundledApp<S extends Store<any>, P extends I18n<any>> {
-  app: App<Element>;
-  router: Router;
-  pinia: Pinia,
+  app: App<Element>
+  router: Router
+  pinia: Pinia
   store: S
-  i18n: P;
+  i18n: P
+  tagManager: ReturnType<typeof createTagManager>
   apolloClients: ApolloClients
 }
 

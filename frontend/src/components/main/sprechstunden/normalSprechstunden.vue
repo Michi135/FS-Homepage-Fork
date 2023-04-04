@@ -20,7 +20,7 @@
 <script lang="ts">
 import { computed, defineComponent } from 'vue'
 import { useI18n } from 'vue-i18n'
-import { useI18nGlobal } from '@shared/i18n'
+import { useI18nGlobal } from '@shared/i18n.js'
 import { useQuery } from '@vue/apollo-composable'
 
 import tableComp from '../dynamicTable.vue'

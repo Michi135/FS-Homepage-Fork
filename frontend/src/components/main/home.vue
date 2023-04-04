@@ -123,8 +123,8 @@
 <script lang="ts">
 import { computed, defineComponent } from 'vue'
 import { useI18n } from 'vue-i18n'
-import { useI18nGlobal } from '@shared/i18n'
-import ei from '@shared/Queries/einstellungen'
+import { useI18nGlobal } from '@shared/i18n.js'
+import ei from '@shared/Queries/einstellungen.js'
 
 export default defineComponent({
   setup: () =>

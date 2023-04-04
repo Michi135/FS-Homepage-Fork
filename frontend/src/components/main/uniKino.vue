@@ -86,7 +86,7 @@ import { useQuery } from "@vue/apollo-composable"
 import gql from "graphql-tag"
 import { computed, defineComponent, ref } from "vue"
 import { useI18n } from 'vue-i18n'
-import { useStore } from '@shared/store'
+import { useStore } from '@shared/store.js'
 import dateFormat from "dateformat"
 
 import movie from './movie.vue'
@@ -155,7 +155,7 @@ type KinoDates = {
 
 type GraphqlQuery = KinoDates & GraphqlFilme
 
-import { useI18nGlobal } from '@shared/i18n'
+import { useI18nGlobal } from '@shared/i18n.js'
 
 export default defineComponent({
   components: {

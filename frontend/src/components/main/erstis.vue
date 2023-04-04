@@ -115,7 +115,7 @@
 <script lang="ts">
 import { computed, defineComponent } from 'vue'
 import { useI18n } from 'vue-i18n'
-import { useI18nGlobal } from '@shared/i18n'
+import { useI18nGlobal } from '@shared/i18n.js'
 
 import tableComp from './dynamicTable.vue'
 import type { TableRow, Table } from './dynamicTable.vue'

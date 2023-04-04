@@ -12,7 +12,7 @@
 import { computed, defineComponent } from 'vue'
 import ferienComp from './feriensprechstunden.vue'
 import normalComp from './normalSprechstunden.vue'
-import ei from '@shared/Queries/einstellungen'
+import ei from '@shared/Queries/einstellungen.js'
 
 export default defineComponent({
   components: {
