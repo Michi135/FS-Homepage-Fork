@@ -30,29 +30,117 @@
         <div style="height: 1.5em;"></div>
         <div class="tw-flex tw-justify-center">
           <img
-            v-if="img"
-            :src="img"
+            v-if="image"
+            :src="'/v1' + image"
           />
         </div>
       </div>
     </div>
+    <event-component eventID="nw2-party" :value="event"/>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
+import { defineComponent, computed } from 'vue'
 import { useI18n } from 'vue-i18n'
-import { registerEvent } from '@client/dynElements'
 import nw2Party from '@static/nw2Event'
-import img from '@static/party_plakat_2022WS.jpg'
+
+import { useQuery } from '@vue/apollo-composable'
+import gql from 'graphql-tag'
+
+import eventComponent from './eventComponent.vue'
+
+type Image =
+{
+  data:
+  {
+    attributes: 
+    {
+      url: string
+    }
+  }
+}
+
+type PartyData =
+{
+  data: Array<{
+    attributes: {
+      Start: string
+      Ende: string
+      Preis: number
+      Kuenstler: string
+      Sommerzeit: boolean
+      Plakat: Image
+      Plakat1x1: Image
+      Plakat4x3: Image
+      Plakat16x9: Image
+      Text: string
+    }
+  }>
+}
 
 export default defineComponent({
+  components: {
+    eventComponent
+  },
   setup()
   {
     useI18n({ useScope: "local" })
-    registerEvent('nw2-party', nw2Party)
 
-    return { img }
+    const query = useQuery<{nw2Parties: PartyData}>(gql`query recentParty
+    {
+      nw2Parties (sort: ["Ende:desc"], pagination: {limit: 1}){
+        data{
+          attributes{
+            Start Ende Preis Kuenstler Sommerzeit
+            Plakat{data{attributes{url}}}
+            Plakat1x1{data{attributes{url}}}
+            Plakat4x3{data{attributes{url}}}
+            Plakat16x9{data{attributes{url}}}
+    }}}}`)
+
+    const potParty = computed(() => {
+      const data = query.result?.value?.nw2Parties.data
+      if (!data)
+        return
+      if (data.length === 0)
+        return
+
+      return data[0].attributes
+    })
+
+    const event = computed(() => {
+      const data = query.result?.value?.nw2Parties.data
+
+      if (!data)
+        return
+      if (data.length === 0)
+        return
+
+      const party = data[0].attributes
+
+      if (!party)
+        return
+
+      const { Start, Ende, Kuenstler, Plakat16x9, Plakat1x1, Plakat4x3, Preis, Sommerzeit } = party
+
+      return nw2Party(
+        { start: new Date(Start), end: new Date(Ende), summertime: Sommerzeit },
+        { "1x1": '/v1' + Plakat1x1.data.attributes.url, "4x3": '/v1' + Plakat4x3.data.attributes.url, "16x9": '/v1' + Plakat16x9.data.attributes.url },
+        Preis,
+        Kuenstler
+        )     
+    })
+
+    const image = computed(() => {
+      const party = potParty.value
+      if (!party)
+        return
+
+      return party.Plakat.data.attributes.url
+    })
+
+    return { image, event }
   }
 })
 </script>

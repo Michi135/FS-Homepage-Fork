@@ -1,5 +1,6 @@
 import { createDefaultContext } from './context.js'
 import { renderToString } from '@vue/server-renderer'
+import { unref } from 'vue'
 //import { getStyles } from './cdn.config'
 import { getMeta } from './meta.config.js'
 import { createFaviconLink } from '@shared/favicon.js'
@@ -113,7 +114,7 @@ function addEvents(dom: JSDOM, events: SSRContext["events"], nonce: string)
     const node = doc.createElement('script')
     node.id = id
     node.type = "application/ld+json"
-    node.innerHTML = JSON.stringify(event)
+    node.innerHTML = JSON.stringify(unref(event))
     node.nonce = nonce
     head.append(node)
   }

@@ -16,8 +16,8 @@
     "@mdi/js": "^7.0.96",
     "@nuxt/devalue": "^2.0.0",
     "@vitejs/plugin-vue": "^4.0.0",
-    "@vue/apollo-composable": "^4.0.0-alpha.16",
-    "@vue/apollo-ssr": "^4.0.0-alpha.18",
+    "@vue/apollo-composable": "^4.0.0-beta.4",
+    "@vue/apollo-ssr": "^4.0.0-beta.4",
     "@vue/compiler-sfc": "^3.2.19",
     "@vue/server-renderer": "^3.2.19",
     "cors": "^2.8.5",
@@ -48,8 +48,8 @@
     "vite": "^4.0.3",
     "vite-plugin-vuetify": "^1.0.0",
     "vite-tsconfig-paths": "^4.0.3",
-    "vue": "^3.2.31",
-    "vue-i18n": "^9.3.0-beta.17",
+    "vue": "^3.2.36",
+    "vue-i18n": "9.3.0-beta.17",
     "vue-router": "^4.1.5",
     "vuetify": "^3.0.0-beta.3"
   },
@@ -64,7 +64,8 @@
     "patch": "ts-node ./patch.ts",
     "start:esm": "cross-env NODE_ENV=development tsnd -r ts-node/esm -r tsconfig-paths/register ./src/server/entry.ts",
     "fix": "npx eslint \"./src/**/*.{vue, ts}\" --fix",
-    "lint": "npx eslint \"./src/**/*.{vue, ts}\""
+    "lint": "npx eslint \"./src/**/*.{vue, ts}\"",
+    "postinstall": "patch-package"
   },
   "devDependencies": {
     "@babel/core": "^7.15.8",
@@ -98,6 +99,7 @@
     "glob": "^8.0.3",
     "less": "^4.1.2",
     "mini-svg-data-uri": "^1.3.3",
+    "patch-package": "^6.5.1",
     "postcss": "^8.4.6",
     "postcss-import": "^15.0.0",
     "postcss-preset-env": "^7.4.2",

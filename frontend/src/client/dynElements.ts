@@ -1,6 +1,6 @@
 import { useSSRContext } from "@shared/ssrContext"
 import type { Event, WithContext } from "schema-dts"
-import { onMounted, onBeforeUnmount, onServerPrefetch, watch, isRef, unref } from "vue"
+import { onMounted, onBeforeUnmount, onServerPrefetch, watch, isRef, unref, computed } from "vue"
 import type { Ref, UnwrapRef } from 'vue'
 import { useStore } from "@shared/store"
 
@@ -42,7 +42,7 @@ function cleanup(element: HTMLElement)
   })
 }
 
-export function registerEvent(id: string, data: MaybeWatchSource<WithContext<Event>>)
+export function registerEvent(id: string, data: MaybeWatchSource<WithContext<Event> | undefined>)
 {
   let element: HTMLScriptElement | null
   const nonce = useStore().nonce
@@ -65,12 +65,18 @@ export function registerEvent(id: string, data: MaybeWatchSource<WithContext<Eve
   onServerPrefetch(() =>
   {
     const ctx = useSSRContext()
-    const val = unref(data)
+    //const val = unref(data)
+
+    ctx.events[id] = computed(() => {
+      return data
+    })
 
     //if (ctx.styles[id])
     //ctx.styles[id].push(data)
     //else
-    ctx.events[id] = val
+    
+    
+    //ctx.events[id] = val
   })
 }
 

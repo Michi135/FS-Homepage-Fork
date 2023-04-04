@@ -248,7 +248,100 @@ export default
 
                 if (!validImage({ width, height })) //maybe invalid, could be just for aspect creations
                 {
-                    const newSize = { width: 720, height: 720 * (height / width)}
+                    const newSize = { width: 720, height: Math.floor(720 * (height / width))}
+                    const newBuffer = await sharp(Buffer.from(file)).resize(newSize.width, newSize.height).toBuffer()
+
+                    await upload(newBuffer, info, { ext, name, mime, folderPath }, { refId: result.id, ref: "api::nw-2-party.nw-2-party", field: key }, newSize)
+                }
+                //TODO:: check all other and maybe create aspect images
+                const subWidth = Math.max(720, width)
+
+                await Promise.all(Object.entries(plakate).map(async val => 
+                    {
+                        const key = val[0]
+                        if (key === 'Plakat' || result[key])
+                            return
+                        
+                        const ratio = val[1]
+
+                        const subSize = { width: subWidth, height: Math.floor(subWidth * (ratio.height / ratio.width))}
+                        const newBuffer = await sharp(Buffer.from(file)).resize(subSize.width, subSize.height, { fit: 'fill' }).toBuffer()
+
+                        const subName = path.basename(name, ext) + `_${ratio.width}x${ratio.height}` + ext
+
+                        await upload(newBuffer, info, { ext, name: subName, mime, folderPath }, { refId: result.id, ref: "api::nw-2-party.nw-2-party", field: key }, subSize)
+                    }))
+            }
+            else
+            {
+                const folder = await strapi.db.query('plugin::upload.folder').findOne({ where: { files: { id: plakatInfo.id } }, populate: ['pathId']})
+                const info: FileInfo = { folder, caption, alternativeText }
+
+                const newWidth = Math.max(720, width)            
+                const newSize = { width: newWidth, height: Math.floor(newWidth * (ratio.height / ratio.width))}
+                const newBuffer = await sharp(Buffer.from(file)).resize(newSize.width, newSize.height, { fit: 'fill' }).toBuffer()
+
+                await upload(newBuffer, info, { ext, name, mime, folderPath }, { refId: result.id, ref: "api::nw-2-party.nw-2-party", field: key }, newSize)
+            }
+        }
+    },
+
+    async beforeUpdate(event) {
+        const { data } = event.params;
+        const { state } = event
+    
+        for (const [key, value] of Object.entries(plakate)) 
+        {
+            if (!data[key])
+                continue
+
+            //console.log(data[key])
+            const plakat = await strapi.entityService.findOne('plugin::upload.file', data[key])
+            const { width, height, url } = plakat
+
+            let invalid = false
+
+            if (key === 'Plakat')
+            {
+                invalid = !validImage({ width, height }) || !data.Plakat4x3 || !data.Plakat16x9 || !data.Plakat1x1
+                /*invalid = Object.keys(plakate).every(k => 
+                    {
+                        if (k === 'Plakat')
+                            return !validImage({ width, height })
+                        else
+                            return !data[k]
+                    })*/
+            }
+            else if (data[key])
+                invalid = !validImage({ width, height }, value)
+    
+            if (invalid)
+            {
+                state[key] = {}
+                state[key].file = await loadImage(url)
+                state[key].plakatInfo = plakat
+            }
+        }
+    },
+
+    async afterUpdate({ state, result, params }) 
+    {
+        for (const [key, ratio] of Object.entries(plakate)) 
+        {
+            if (!state[key])
+                continue
+
+            const { file, plakatInfo } = state[key]
+            const { name, width, height, alternativeText, caption, ext, mime, folderPath } = plakatInfo
+
+            if (key === 'Plakat')
+            {
+                const folder = await strapi.db.query('plugin::upload.folder').findOne({ where: { files: { id: plakatInfo.id } }, populate: ['pathId']})
+                const info: FileInfo = { folder, caption, alternativeText }
+
+                if (!validImage({ width, height })) //maybe invalid, could be just for aspect creations
+                {
+                    const newSize = { width: 720, height: Math.floor(720 * (height / width))}
                     const newBuffer = await sharp(Buffer.from(file)).resize(newSize.width, newSize.height).toBuffer()
 
                     await upload(newBuffer, info, { ext, name, mime, folderPath }, { refId: result.id, ref: "api::nw-2-party.nw-2-party", field: key }, newSize)
