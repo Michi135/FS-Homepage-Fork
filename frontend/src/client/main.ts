@@ -10,7 +10,8 @@ router.isReady().then(() =>
 
 if (import.meta.env.DEV)
 {
-  router.onError((error, to) => {
+  router.onError((error, to) =>
+  {
     console.warn(error)
     window.location.href = to.fullPath
   })

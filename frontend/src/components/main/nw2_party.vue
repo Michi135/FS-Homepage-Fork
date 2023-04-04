@@ -52,7 +52,7 @@ type Image =
 {
   data:
   {
-    attributes: 
+    attributes:
     {
       url: string
     }
@@ -95,7 +95,8 @@ export default defineComponent({
             Plakat16x9{data{attributes{url}}}
     }}}}`)
 
-    const potParty = computed(() => {
+    const potParty = computed(() =>
+    {
       const data = query.result?.value?.nw2Parties.data
       if (!data)
         return
@@ -105,7 +106,8 @@ export default defineComponent({
       return data[0].attributes
     })
 
-    const image = computed(() => {
+    const image = computed(() =>
+    {
       const party = potParty.value
       if (!party)
         return
@@ -113,7 +115,8 @@ export default defineComponent({
       return party.Plakat.data.attributes.url
     })
 
-    query.onResult(((result) => {
+    query.onResult(((result) =>
+    {
       if (result.partial || result.error)
         return
 
@@ -136,7 +139,7 @@ export default defineComponent({
         { "1x1": '/v1' + Plakat1x1.data.attributes.url, "4x3": '/v1' + Plakat4x3.data.attributes.url, "16x9": '/v1' + Plakat16x9.data.attributes.url },
         Preis,
         Kuenstler
-        )
+      )
 
       tagManager.try_emplace("nw2-party", partyData)
     }))
