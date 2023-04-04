@@ -19,5 +19,6 @@ EXPOSE 5000
 RUN chown -R node:node /var/vuecms
 USER node
 
+ENV NODE_OPTIONS=--max_old_space_size=4096
 RUN npm run build
 CMD ["npm", "run", "start:prod"]
