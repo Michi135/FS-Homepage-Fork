@@ -1,8 +1,5 @@
 import { resolve, join, dirname } from 'path'
 /*
-import stripJsonComments from 'strip-json-comments'
-import svgToMiniDataURI from 'mini-svg-data-uri'
-import { TsConfig } from './tsConfigType'
 import type { BrotliOptions } from 'zlib'
 import { constants } from 'zlib'
 import glob from 'glob'
