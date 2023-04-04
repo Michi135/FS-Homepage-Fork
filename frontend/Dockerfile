@@ -1,4 +1,4 @@
-FROM node:18.12-buster-slim
+FROM node:18.15-buster-slim
 
 RUN apt-get update && apt-get -y install --no-install-recommends \
   unzip \
