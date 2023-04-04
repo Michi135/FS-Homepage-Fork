@@ -5,9 +5,10 @@ const { file: { bytesToKbytes }, nameToSlug } = utils
 const { ValidationError } = utils.errors
 import { Readable } from "stream";
 import path from 'path'
+import fs from 'fs'
+import fsP from 'fs/promises'
 import sharp from 'sharp'
 import fetch from 'node-fetch'
-
 /*
 strapi.db.lifecycles.subscribe({
     //@ts-ignore
@@ -158,15 +159,26 @@ async function upload(buffer: Buffer, fileInfo: FileInfo, misc: Misc, metas, siz
         .create({ data: entity });
 }
 
-async function loadImage(url: string) 
+async function loadImage(url: string): Promise<ArrayBuffer>
 {
-    const q = (AbsRgExp.test(url)) ? url : new URL(url, strapi.config.get('server.url'))
-
-    const file = await fetch(q)
-    if(!file.ok)
-        throw new ValidationError("Could not load image for post-processing")
+    //const q = (AbsRgExp.test(url)) ? url : new URL(url, strapi.config.get('server.url'))
     
-    return await file.arrayBuffer()
+    if (AbsRgExp.test(url))
+    {
+        const file = await fetch(url)
+        if(!file.ok)
+            throw new ValidationError("Could not load image for post-processing")
+        return await file.arrayBuffer()
+    }
+    //assume local
+    else
+    {
+        const filePath = path.join(strapi.dirs.static.public, url)
+        if (!fs.existsSync(filePath))
+            throw new ValidationError("Could not load image for post-processing")
+
+        return (await fsP.readFile(filePath)).buffer
+    }    
 }
 
 const plakate = 
