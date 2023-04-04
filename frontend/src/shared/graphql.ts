@@ -8,7 +8,7 @@ import { ApolloClients } from '@vue/apollo-composable'
 import type { ApolloClientOptions } from '@apollo/client/core'
 import type { NormalizedCacheObject } from '@apollo/client/cache/inmemory/types.js'
 import type { ApolloClients as SSRApolloClients } from '@vue/apollo-ssr'
-import type { RequestHandler, Operation, NextLink } from '@apollo/client/link/core/types.js'
+//import type { RequestHandler, Operation, NextLink } from '@apollo/client/link/core/types.js'
 import type { App } from 'vue'
 
 /*import { onError } from '@apollo/client/link/error'
@@ -26,7 +26,8 @@ const errorlink = onError(({ graphQLErrors, networkError }) => {
 
 function networkMiddleware(networkToken: string)
 {
-  return new ApolloLink((operation: Operation, forward: NextLink): RequestHandler => 
+  //@ts-ignore
+  return new ApolloLink((operation, forward) =>
   {
     operation.setContext(({ headers = {} }) => ({
       headers: {

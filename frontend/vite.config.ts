@@ -22,6 +22,7 @@ import vue from '@vitejs/plugin-vue'
 import vueI18n from '@intlify/vite-plugin-vue-i18n'
 import vuetify from 'vite-plugin-vuetify'
 import tsconfigPaths from 'vite-tsconfig-paths'
+import typescript from '@rollup/plugin-typescript'
 import { defineConfig } from 'vite'
 import { visualizer } from "rollup-plugin-visualizer"
 
@@ -99,7 +100,8 @@ export async function configFunction(options: Partial<Options> = {}): Promise<Us
           },*/
           //esmodule:
           entryFileNames: (isServer) ? '[name].mjs' : (isProd) ? '[name].[hash].mjs' : '[name].mjs',
-          chunkFileNames: `[name].[hash].mjs`
+          chunkFileNames: `[name].[hash].mjs`,
+          sourcemap: !isProd
         },
         input: isServer
           ? resolve('src', 'shared', 'app.ts')
@@ -159,7 +161,9 @@ export async function configFunction(options: Partial<Options> = {}): Promise<Us
           //extensions: ['.ts', '.tsx', '.js', '.jsx', '.mjs', '.jpg', '.css', '.vue', '.css', '.less'],
           loose: true
         }),
-      visualizer()
+      visualizer(),
+      //@ts-ignore
+      typescript({ tsconfig: configRelative, sourceMap: !isProd, inlineSources: !isProd })
     ],
     define: {
       __IS_SSR__: isSSR,

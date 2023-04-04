@@ -2,6 +2,7 @@ import base, { cleanExit } from './entryBase.js'
 
 //production only
 import ssr from './ssrProduction.js'
+//@ts-ignore
 import manifest from '@distClient/manifest.json' assert { type: 'json'}
 
 import path from 'path'

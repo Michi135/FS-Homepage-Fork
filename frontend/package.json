@@ -56,13 +56,11 @@
   "scripts": {
     "build": "shx --silent rm -rf ./production && npm run build:vue && npm run build:ts && shx cp -r ./dist-ssr/dist ./production/dist-ssr",
     "build:ts": "cross-env NODE_ENV=production tsc --project tsconfig.json && tsc-alias -p tsconfig.json",
-    "build:vue": "cross-env NODE_ENV=production node --experimental-specifier-resolution=node --loader ts-paths-esm-loader ./src/server/build.ts",
-    "start": "npm run start:devWorkaround",
-    "start:devWorkaround": "npx nodemon",
-    "start:dev": "cross-env NODE_ENV=development tsnd -r tsconfig-paths/register ./src/server/entry.ts ",
+    "build:vue": "cross-env NODE_ENV=production tsx ./src/server/build.ts",
+    "start": "npm run dev",
+    "dev": "npx tsx watch \"./src/server/entry.ts\"",
+    "dev:detailed": "cross-env DEBUG=vite-tsconfig-paths npm run dev",
     "start:prod": "cross-env NODE_ENV=production node --experimental-specifier-resolution=node ./production/src/server/entryProduction.js",
-    "patch": "ts-node ./patch.ts",
-    "start:esm": "cross-env NODE_ENV=development tsnd -r ts-node/esm -r tsconfig-paths/register ./src/server/entry.ts",
     "fix": "npx eslint \"./src/**/*.{vue, ts}\" --fix",
     "lint": "npx eslint \"./src/**/*.{vue, ts}\"",
     "postinstall": "patch-package"
@@ -75,6 +73,7 @@
     "@intlify/eslint-plugin-vue-i18n": "^2.0.0",
     "@intlify/unplugin-vue-i18n": "^0.10.0",
     "@intlify/vite-plugin-vue-i18n": "^7.0.0-beta.4",
+    "@rollup/plugin-typescript": "^11.0.0",
     "@types/cors": "^2.8.12",
     "@types/dateformat": "^5.0.0",
     "@types/express": "^4.17.13",
@@ -111,6 +110,7 @@
     "ts-node-dev": "^2.0.0",
     "ts-paths-esm-loader": "^1.3.1",
     "tsc-alias": "^1.8.5",
+    "tsx": "^3.12.6",
     "typescript": "^5.0.3"
   },
   "browserslist": {

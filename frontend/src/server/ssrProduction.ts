@@ -1,7 +1,9 @@
 import ssrBase from './ssrBase.js'
 //@ts-ignore
 import * as bundle from '@distServer/app.mjs'
+//@ts-ignore
 import ssrManifest from '@distClient/ssr-manifest.json' assert { type: 'json'}
+//@ts-ignore
 import manifest from '@distClient/manifest.json' assert { type: 'json'}
 import html from '../indexHtml.js'
 
