@@ -29,7 +29,6 @@ export interface EventTime
 {
   start: Date
   end: Date
-  summertime: boolean
 }
 
 export interface Images
@@ -41,10 +40,12 @@ export interface Images
 
 function generateEvent(eventTime: EventTime, images: Images, costs: number, performer: string): WithContext<Event>
 {
-  const suffix = timeoffset(eventTime.summertime)
+  //const suffix = timeoffset(eventTime.summertime)
+  //const start = dateFormat(eventTime.start, "yyyy-mm-dd'T'HH:MM+") + suffix
+  //const end = dateFormat(eventTime.end, "yyyy-mm-dd'T'HH:MM+") + suffix
 
-  const start = dateFormat(eventTime.start, "yyyy-mm-dd'T'HH:MM+") + suffix
-  const end = dateFormat(eventTime.end, "yyyy-mm-dd'T'HH:MM+") + suffix
+  const start = eventTime.start.toISOString()
+  const end = eventTime.end.toISOString()
 
   return {
     "@context": "https://schema.org",

@@ -49,7 +49,7 @@
     "vuetify": "^3.0.0-beta.3"
   },
   "scripts": {
-    "build": "shx --silent rm -rf ./production && npm run build:vue && npm run build:ts && shx cp -r ./dist-ssr/dist ./production/dist-ssr",
+    "build": "cross-env NODE_OPTIONS=--max_old_space_size=4096 shx --silent rm -rf ./production && npm run build:vue && npm run build:ts && shx cp -r ./dist-ssr/dist ./production/dist-ssr",
     "build:ts": "cross-env NODE_ENV=production tsc --project tsconfig.json && tsc-alias -p tsconfig.json",
     "build:vue": "cross-env NODE_ENV=production tsx ./src/server/build.ts",
     "start": "npm run dev",

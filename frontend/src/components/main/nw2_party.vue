@@ -3,37 +3,55 @@
     <div class="tw-m-3.5">
       <div style="max-width: 1100px; margin: 0 auto">
         <h2>NW2-Party</h2>
-        <i18n-t
-          tag="p"
-          keypath="p[0]"
-        ></i18n-t>
-        <div style="height: 1.5em;"></div>
-        <i18n-t
-          tag="p"
-          keypath="p[1]"
-        ></i18n-t>
-        <div style="height: 1.5em;"></div>
-        <i18n-t
-          tag="p"
-          keypath="p[2]"
-        ></i18n-t>
-        <div style="height: 1.5em;"></div>
-        <i18n-t
-          tag="p"
-          keypath="p[3]"
-        ></i18n-t>
-        <div style="height: 1.5em;"></div>
-        <i18n-t
-          tag="p"
-          keypath="p[4]"
-        ></i18n-t>
-        <div style="height: 1.5em;"></div>
-        <div class="tw-flex tw-justify-center">
-          <img
-            v-if="image"
-            :src="'/v1' + image"
-          />
-        </div>
+        <template v-if="!loading && !error">
+          <i18n-t
+            tag="p"
+            keypath="p[0]"
+            v-if="date"
+          >
+            <template #day>
+              {{ date.getDate() }}
+            </template>
+            <template #month>
+              {{ t(`month${date.getMonth() + 1}`) }}
+            </template>
+          </i18n-t>
+          <div style="height: 1.5em;"></div>
+          <i18n-t
+            tag="p"
+            keypath="p[1]"
+          ></i18n-t>
+          <div style="height: 1.5em;"></div>
+          <i18n-t
+            tag="p"
+            keypath="p[2]"
+            v-if="date"
+          >
+            <template #date>
+              {{ dateFormat(date, "d.m.") }}
+            </template>
+            <template #hour>
+              {{ hour }}
+            </template>
+          </i18n-t>
+          <div style="height: 1.5em;"></div>
+          <i18n-t
+            tag="p"
+            keypath="p[3]"
+          ></i18n-t>
+          <div style="height: 1.5em;"></div>
+          <i18n-t
+            tag="p"
+            keypath="p[4]"
+          ></i18n-t>
+          <div style="height: 1.5em;"></div>
+          <div class="tw-flex tw-justify-center">
+            <img
+              v-if="image"
+              :src="'/v1' + image"
+            />
+          </div>
+        </template>
       </div>
     </div>
   </div>
@@ -42,11 +60,13 @@
 <script lang="ts">
 import { defineComponent, computed } from 'vue'
 import { useI18n } from 'vue-i18n'
+import { useI18nGlobal } from '@shared/i18n'
 import nw2Party from '@static/nw2Event.js'
 
 import { useTags } from '@shared/tags/registration.js'
 import { useQuery } from '@vue/apollo-composable'
 import gql from 'graphql-tag'
+import dateFormat from 'dateformat'
 
 type Image =
 {
@@ -81,6 +101,7 @@ export default defineComponent({
   setup()
   {
     useI18n({ useScope: "local" })
+    const i18n = useI18nGlobal()
     const tagManager = useTags()
 
     const query = useQuery<{nw2Parties: PartyData}>(gql`query recentParty
@@ -88,7 +109,7 @@ export default defineComponent({
       nw2Parties (sort: ["Ende:desc"], pagination: {limit: 1}){
         data{
           attributes{
-            Start Ende Preis Kuenstler Sommerzeit
+            Start Ende Preis Kuenstler
             Plakat{data{attributes{url}}}
             Plakat1x1{data{attributes{url}}}
             Plakat4x3{data{attributes{url}}}
@@ -144,7 +165,29 @@ export default defineComponent({
       tagManager.try_emplace("nw2-party", partyData)
     }))
 
-    return { image }
+    const date = computed(() =>
+    {
+      const party = potParty.value
+      if (!party)
+        return
+
+      return new Date(party.Start)
+    })
+
+    const hour = computed(() =>
+    {
+      if (!date.value)
+        return
+
+      const minutes = date.value.getMinutes()
+      let minutesString = minutes.toString()
+      if (minutes < 10)
+        minutesString = '0' + minutesString
+
+      return `${date.value.getHours()}:${minutesString}`
+    })
+
+    return { image, loading: query.loading, error: query.error, date, locale: i18n.locale, t: i18n.t, dateFormat, hour }
   }
 })
 </script>
@@ -183,10 +226,10 @@ export default defineComponent({
 
 <i18n locale="de">
 {
-  "p[0]": "Am 17. November findet endlich wieder die legendäre NW2-Party statt!",
+  "p[0]": "Am {day}.{month} findet endlich wieder die legendäre NW2-Party statt!",
   "p[1]": "Lasst eure Ohren von satten Bässen zu Rock, Metal, Alternative und Indie massieren, \
           während ihr an der Physikerbar die Künste unserer Shaker bewundert.🤘",
-  "p[2]": "Los geht's am 17.11. um 21:30 Uhr und in der ersten Stunde kann mit Bier für 1€ \
+  "p[2]": "Los geht's am {date} um {hour} Uhr und in der ersten Stunde kann mit Bier für 1€ \
           ordentlich angeheizt werden!",
   "p[3]": "Wir freuen uns auf euer Erscheinen und ROCK ON!",
   "p[4]": "Einlass ab 18 Jahren 🔞"
@@ -195,10 +238,10 @@ export default defineComponent({
 
 <i18n locale="en">
 {
-  "p[0]": "On november 17, the legendary NW2 party will finally take place again!",
+  "p[0]": "On {month} {day}, the legendary NW2 party will finally take place again!",
   "p[1]": "Let your ears be massaged by rich bass to rock, metal, alternative and indie, \
           while you admire the arts of our shakers at the physicist bar.🤘",
-  "p[2]": "It starts on 17.11. at 21:30 o'clock and in the first hour can be properly heated with beer for 1€!",
+  "p[2]": "It starts on {date} at {hour} and in the first hour can be properly heated with beer for 1€!",
   "p[3]": "We look forward to seeing you there and ROCK ON!",
   "p[4]": "Minimum Age 18+ 🔞"
 }
