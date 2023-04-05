@@ -62,7 +62,7 @@ export async function configFunction(options: Partial<Options> = {}): Promise<Us
       )
     },
     ssr: {
-      noExternal: [/\.css$/, /\?vue&type=style/, /^vuetify/, /@vue\/apollo-composable/]
+      noExternal: [/\.css$/, /\?vue&type=style/, /^vuetify/, /@vue\/apollo-composable/, /vue-i18n/]
     },
     server: {
       cors: true

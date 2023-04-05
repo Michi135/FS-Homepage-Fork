@@ -1,9 +1,10 @@
-import fav2 from '@static/favicon2.svg'
-import studentSvg from '@components/main/student.svg'
 import localizedRoutes from '@shared/localizedRoutes.js'
-import wahlSvg from '@components/main/wal.svg'
-import kameraSvg from '@components/main/filmkamera.svg'
-import partySvg from '@components/main/party.svg'
+
+const fav2 = () => import('@static/favicon2.svg?url')
+const studentSvg = () => import('@components/main/student.svg?url')
+const wahlSvg = () => import('@components/main/wal.svg?url')
+const kameraSvg = () => import('@components/main/filmkamera.svg?url')
+const partySvg = () => import('@components/main/party.svg?url')
 
 import type { RouteComponent, RouteRecordRaw } from 'vue-router'
 
@@ -31,9 +32,11 @@ import { Routes } from '@shared/routes.js'
 type Data = {
   component: RouteComponent | Lazy<RouteComponent>
   options?: {
-    favicon?: string
+    favicon?: string | (() => Promise<typeof import('*?url')>)
   }
 }
+
+type i = typeof import('*?url')
 
 export class VueRoutes extends Routes<RouteRecordRaw, Data>
 {

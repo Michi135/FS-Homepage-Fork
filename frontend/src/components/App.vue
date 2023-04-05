@@ -33,7 +33,7 @@ export default defineComponent({
     {
       return t(route.meta.title ?? defaultTitle.value)
     })
-    const favicon = computed(() =>
+    const favicon = computed<string | (() => Promise<typeof import('*?url')>)>(() =>
     {
       return route.meta.favicon ?? defaultFavicon.value
     })
@@ -42,11 +42,12 @@ export default defineComponent({
       locale.value = determineLanguage(newValue)
     }, { immediate: true })
 
-    onServerPrefetch(() =>
+    onServerPrefetch(async () =>
     {
       const ctx = useSSRContext()
       ctx.title = title.value
-      ctx.favicon = favicon.value
+
+      ctx.favicon = (typeof favicon.value === 'string') ? favicon.value : (await favicon.value()).default
     })
 
     onMounted(() =>
@@ -56,9 +57,11 @@ export default defineComponent({
       {
         document.title = newTitle
       })
-      watch(favicon, (fav) =>
+      watch(favicon, async (fav) =>
       {
-        const faviconLink = createFaviconLink(fav)
+        const favResolved = (typeof fav === 'string') ? fav : (await fav()).default
+
+        const faviconLink = createFaviconLink(favResolved)
         let exisitingLink: HTMLLinkElement | null =
           document.querySelector("link[rel*='icon']")
         if (exisitingLink)
