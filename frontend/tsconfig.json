@@ -1,13 +1,4 @@
 {
-  "ts-node": {
-    "files": true,
-    "require": [
-      "tsconfig-paths/register"
-    ],
-    "moduleTypes": {
-      "postcss.config.ts": "cjs"
-    }
-  },
   "tsc-alias": {
     "resolveFullPaths": true
   },
@@ -19,7 +10,7 @@
     "types/index.d.ts"
   ],
   /*"include": [
-    "src/**//*",
+    "src/**//*"
   ],*/
   "exclude": [
     "node_modules",

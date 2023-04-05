@@ -1,7 +1,7 @@
 <template>
   <div
     class="clearfix"
-    :class="{ visible: intersecting, hidden: !intersecting }"
+    :class="{ visible: intersecting && clientLoaded, hidden: !intersecting || !clientLoaded }"
     v-intersect="onIntersect"
   >
     <v-img
@@ -55,8 +55,8 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, PropType, ref } from "vue"
-import dateFormat from 'dateformat'
+import { computed, defineComponent, onMounted, PropType, ref } from "vue"
+import dayjs from 'dayjs'
 import youtube from './youtube.vue'
 
 import { mdiChevronUp } from '@mdi/js'
@@ -130,13 +130,20 @@ export default defineComponent({
   setup(props/*, { emit }*/)
   {
     const { t } = useI18n()
-    const formatedDate = dateFormat(props.day, 'dd.mm.yyyy, HH')
+    const formatedDate = dayjs(props.day).format('DD.MM.YYYY, HH')
     const intersecting = ref<boolean>(false)
+
+    const clientLoaded = ref<boolean>(false)
 
     function onIntersect(entries: boolean, observer: IntersectionObserverEntry)
     {
       intersecting.value = entries
     }
+    
+    onMounted(() => 
+    {
+      clientLoaded.value = true
+    })
 
     const youtubeId = computed(() =>
     {
@@ -163,7 +170,7 @@ export default defineComponent({
       set: (value: any) => emit('update:opened', value)
     })*/
 
-    return { formatedDate, onIntersect, intersecting, youtubeId, mdiChevronUp, genreTranslated, desc }
+    return { formatedDate, onIntersect, intersecting, youtubeId, mdiChevronUp, genreTranslated, desc, clientLoaded }
   }
 })
 </script>

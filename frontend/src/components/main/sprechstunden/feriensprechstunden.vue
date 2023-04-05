@@ -57,7 +57,7 @@
 import { computed, defineComponent } from 'vue'
 import { useQuery } from '@vue/apollo-composable'
 import { gql } from 'graphql-tag'
-import dateFormat from 'dateformat'
+import dayjs from 'dayjs'
 import { useI18n } from 'vue-i18n'
 
 //import { useStore } from '@shared/store'
@@ -79,6 +79,8 @@ type Feriensprechstunden = {
   }
 }
 
+const timeRegex = /(\d{2}:\d{2}):\d{2}\.\d{3}/
+
 export default defineComponent({
   setup()
   {
@@ -93,7 +95,7 @@ export default defineComponent({
           {
             attributes
             {
-              Feriensprechstunde(sort: "tag", filters: {tag: {gt: $date}})
+              Feriensprechstunde(sort: "tag", filters: {tag: {gte: $date}})
               {
                 tag
                 Personen
@@ -107,7 +109,7 @@ export default defineComponent({
           }
         }
       }
-    `, { date: dateFormat(new Date(), "isoDate") })
+    `, { date: dayjs(new Date()).utc().format("YYYY-MM-DD") })
     //TODO:: set initialTime's hours inside db to 16:xx to avoid filtering on same day
 
     const ferien_sprechstunden = computed(() =>
@@ -119,18 +121,19 @@ export default defineComponent({
       const sprechstunden = attributes.Feriensprechstunde.map((val) =>
       {
         return {
-          tag: dateFormat(val.tag, 'dd.mm'),
+          tag: dayjs(val.tag).tz().format('DD.MM'),
           betreuer: val.Personen.map((per) =>
           {
             return per.Name
           })
         }
       })
-      const von = Date.parse(`1970-01-01T${attributes.von}`)
-      const bis = Date.parse(`1970-01-01T${attributes.bis}`)
+
+      const von = timeRegex.exec(attributes.von)[1]
+      const bis = timeRegex.exec(attributes.bis)[1]
 
       return {
-        timespan: { von: dateFormat(von, 'H'), bis: dateFormat(bis, 'H') },
+        timespan: { von, bis },
         sprechstunden: sprechstunden
       }
     })

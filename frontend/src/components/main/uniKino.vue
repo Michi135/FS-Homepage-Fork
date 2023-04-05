@@ -84,10 +84,10 @@
 <script lang="ts">
 import { useQuery } from "@vue/apollo-composable"
 import gql from "graphql-tag"
-import { computed, defineComponent, ref } from "vue"
+import { computed, defineComponent } from "vue"
 import { useI18n } from 'vue-i18n'
 import { useStore } from '@shared/store.js'
-import dateFormat from "dateformat"
+import dayjs from 'dayjs'
 
 import movie from './movie.vue'
 
@@ -278,7 +278,7 @@ export default defineComponent({
 
       return filmDates.map((val) =>
       {
-        return dateFormat(new Date(val), 'dd.mm.')
+        return dayjs(val).tz().format('DD.MM.')
       })
     })
 

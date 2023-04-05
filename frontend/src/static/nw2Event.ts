@@ -31,8 +31,8 @@ export interface Images
 
 function generateEvent(eventTime: EventTime, images: Images, costs: number, performer: string): WithContext<Event>
 {
-  const start = eventTime.start.toString()
-  const end = eventTime.end.toString()
+  const start = eventTime.start.format()
+  const end = eventTime.end.format()
 
   return {
     "@context": "https://schema.org",
