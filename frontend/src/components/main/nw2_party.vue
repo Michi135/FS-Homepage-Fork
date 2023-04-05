@@ -40,7 +40,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, computed, ref, onMounted } from 'vue'
+import { defineComponent, computed, ref, onBeforeMount } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useI18nGlobal } from '@shared/i18n.js'
 import nw2Party from '@static/nw2Event.js'
@@ -168,7 +168,7 @@ export default defineComponent({
       resultData.value = partyResult
     }
 
-    onMounted(() =>
+    onBeforeMount(() =>
     {
       if (query.result.value)
         evaluate()

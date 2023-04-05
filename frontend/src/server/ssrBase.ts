@@ -155,7 +155,7 @@ export default async function ssr(htmlBlueprint: string | JSDOM, manifest: Recor
       head.appendChild(condScript)
     }*/
     
-    //@ts-ignore
+  //@ts-ignore
   head.innerHTML += `<script nonce="${nonce}">window.__INITIAL_STATE__=${devalue(pinia.state.value)}</script>`
   head.innerHTML += `<script nonce="${nonce}">${exportStates(apolloClients)}</script>`
 
