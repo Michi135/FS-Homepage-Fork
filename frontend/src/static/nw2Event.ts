@@ -1,14 +1,5 @@
-import dateFormat from "dateformat"
-
+import type dayjs from "dayjs"
 import type { Event, WithContext, Place } from "schema-dts"
-
-const summertime = "02:00"
-const wintertime = "01:00"
-
-function timeoffset(summer: boolean = true)
-{
-  return summer ? summertime : wintertime
-}
 
 const NW2: Place = {
   "@type": "Place",
@@ -27,8 +18,8 @@ const fsUrl = "https://fsmpi.uni-bayreuth.de"
 
 export interface EventTime
 {
-  start: Date
-  end: Date
+  start: dayjs.Dayjs
+  end: dayjs.Dayjs
 }
 
 export interface Images
@@ -40,12 +31,8 @@ export interface Images
 
 function generateEvent(eventTime: EventTime, images: Images, costs: number, performer: string): WithContext<Event>
 {
-  //const suffix = timeoffset(eventTime.summertime)
-  //const start = dateFormat(eventTime.start, "yyyy-mm-dd'T'HH:MM+") + suffix
-  //const end = dateFormat(eventTime.end, "yyyy-mm-dd'T'HH:MM+") + suffix
-
-  const start = eventTime.start.toISOString()
-  const end = eventTime.end.toISOString()
+  const start = eventTime.start.toString()
+  const end = eventTime.end.toString()
 
   return {
     "@context": "https://schema.org",

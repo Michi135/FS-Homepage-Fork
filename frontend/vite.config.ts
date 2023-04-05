@@ -5,7 +5,7 @@ import { constants } from 'zlib'
 import glob from 'glob'
 */
 import type { AliasOptions, UserConfig } from 'vite'
-
+import { filterData } from './src/Timezone/timezone'
 
 
 import fsExtra from 'fs-extra'
@@ -14,9 +14,8 @@ const { readFile } = fsExtra
 import { fileURLToPath } from 'url'
 
 import vue from '@vitejs/plugin-vue'
-//import vueI18n from '@intlify/unplugin-vue-i18n/vite'
 //@ts-ignore
-import vueI18n from '@intlify/vite-plugin-vue-i18n'
+import vueI18n from '@intlify/unplugin-vue-i18n/vite'
 import vuetify from 'vite-plugin-vuetify'
 import tsconfigPaths from 'vite-tsconfig-paths'
 import typescript from '@rollup/plugin-typescript'
