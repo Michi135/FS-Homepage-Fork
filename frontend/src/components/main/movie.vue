@@ -72,7 +72,7 @@ export default defineComponent({
       required: true
     },
     day: {
-      type: Date,
+      type: dayjs.Dayjs,
       required: true
     },
     description: {
@@ -130,7 +130,7 @@ export default defineComponent({
   setup(props/*, { emit }*/)
   {
     const { t } = useI18n()
-    const formatedDate = dayjs(props.day).format('DD.MM.YYYY, HH')
+    const formatedDate = props.day.format('DD.MM.YYYY, HH')
     const intersecting = ref<boolean>(false)
 
     const clientLoaded = ref<boolean>(false)

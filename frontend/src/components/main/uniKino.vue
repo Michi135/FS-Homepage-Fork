@@ -94,7 +94,7 @@ import movie from './movie.vue'
 interface Movie {
   title: string
   description: string
-  day: Date,
+  day: dayjs.Dayjs,
   locations: string[]
   year: number,
   screenTime: number,
@@ -198,7 +198,7 @@ export default defineComponent({
 
       return {
         title: titel,
-        day: new Date(datum),
+        day: dayjs(datum).tz(),
         locations: filmort.map((ort) =>
         {
           return ort.laender
@@ -234,7 +234,7 @@ export default defineComponent({
 
       return {
         title: titel,
-        day: new Date(datum),
+        day: dayjs(datum).tz(),
         locations: filmort.map((ort) =>
         {
           return ort.laender
