@@ -5,8 +5,6 @@ import { constants } from 'zlib'
 import glob from 'glob'
 */
 import type { AliasOptions, UserConfig } from 'vite'
-import { filterData } from './src/Timezone/timezone'
-
 
 import fsExtra from 'fs-extra'
 const { readFile } = fsExtra
