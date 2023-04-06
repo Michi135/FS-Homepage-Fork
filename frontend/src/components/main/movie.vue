@@ -15,7 +15,7 @@
       :src="'/v1' + image"
     ></v-img>
     <div style="overflow: hidden;">
-      <h1>{{ `${title} (${formatedDate} Uhr)` }}</h1>
+      <h1>{{ `${title} (${formatedDate})` }}</h1>
       <div style="height: 1.8em;"></div>
       <template
         v-for="(line, i) in desc"
@@ -129,8 +129,14 @@ export default defineComponent({
   },
   setup(props/*, { emit }*/)
   {
-    const { t } = useI18n()
-    const formatedDate = props.day.format('DD.MM.YYYY, HH')
+    const { t, locale } = useI18n()
+    const formatedDate = computed(() =>
+    {
+      if (locale.value === 'de')
+        return props.day.format('DD.MM.YYYY, H [Uhr]')
+
+      return props.day.format('DD.MM.YYYY, h A')
+    })
     const intersecting = ref<boolean>(false)
 
     const clientLoaded = ref<boolean>(false)
@@ -139,8 +145,8 @@ export default defineComponent({
     {
       intersecting.value = entries
     }
-    
-    onMounted(() => 
+
+    onMounted(() =>
     {
       clientLoaded.value = true
     })

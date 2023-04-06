@@ -6,18 +6,9 @@
       keypath="t[0]"
       tag="h1"
     />
-    <i18n-t
-      v-if="ferien_sprechstunden"
-      keypath="t[1]"
-      tag="h1"
-    >
-      <template #from>
-        {{ ferien_sprechstunden.timespan.von }}
-      </template>
-      <template #to>
-        {{ ferien_sprechstunden.timespan.bis }}
-      </template>
-    </i18n-t>
+    <h1 v-if="ferien_sprechstunden">
+      {{ t('t[1]', { from: ferien_sprechstunden.timespan.von, to: ferien_sprechstunden.timespan.bis }) }}
+    </h1>
     <br /><br />
     <i18n-t
       tag="h2"
@@ -79,12 +70,12 @@ type Feriensprechstunden = {
   }
 }
 
-const timeRegex = /(\d{2}:\d{2}):\d{2}\.\d{3}/
+const timeRegex = /(\d{2}):(\d{2}):\d{2}\.\d{3}/
 
 export default defineComponent({
   setup()
   {
-    const t = useI18n()
+    const { locale, t } = useI18n()
     //const { initialTime } = useStore()
     const res = useQuery<Feriensprechstunden>(gql`
       query nextFSS($date: Date!)
@@ -129,8 +120,32 @@ export default defineComponent({
         }
       })
 
-      const von = timeRegex.exec(attributes.von)[1]
-      const bis = timeRegex.exec(attributes.bis)[1]
+      const vonMatch = timeRegex.exec(attributes.von)!
+      const bisMatch = timeRegex.exec(attributes.bis)!
+
+      let von: string | undefined
+      let bis: string | undefined
+
+      if (locale.value === 'de')
+      {
+        von = `${vonMatch[1]}:${vonMatch[2]}`
+        bis = `${bisMatch[1]}:${bisMatch[2]}`
+      }
+      else
+      {
+        let hourVon = parseInt(vonMatch[1])
+        let hourBis = parseInt(bisMatch[1])
+
+        if (hourVon > 12)
+          von = `${hourVon - 12}:${vonMatch[2]} PM`
+        else
+          von = `${hourVon}:${vonMatch[2]} AM`
+
+        if (hourBis > 12)
+          bis = `${hourBis - 12}:${vonMatch[2]} PM`
+        else
+          bis = `${hourBis}:${vonMatch[2]} AM`
+      }
 
       return {
         timespan: { von, bis },
@@ -139,8 +154,7 @@ export default defineComponent({
     })
 
     return {
-      ferien_sprechstunden,
-      t
+      ferien_sprechstunden, t
     }
   }
 })
@@ -158,6 +172,6 @@ export default defineComponent({
 {
   "holidayConsHours": "Consultation hours of the FSMPI during the holidays",
   "t[0]": "The student council wishes you nice holidays and is still",
-  "t[1]": "there for you between {from} and {to}h on the following days"
+  "t[1]": "there for you between {from} and {to} on the following days"
 }
 </i18n>

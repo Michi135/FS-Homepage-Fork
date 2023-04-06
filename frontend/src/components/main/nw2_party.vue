@@ -105,7 +105,7 @@ function convertParty(party: Party)
 export default defineComponent({
   setup()
   {
-    const { t } = useI18n({ useScope: "local" })
+    const { t, locale } = useI18n({ useScope: "local" })
     const i18n = useI18nGlobal()
     const tagManager = useTags()
 
@@ -206,7 +206,11 @@ export default defineComponent({
     {
       if (!resultData.value)
         return
-      return resultData.value.Start.format("H:mm")
+
+      if (locale.value === 'de')
+        return resultData.value.Start.format("H:mm")
+
+      return resultData.value.Start.format("h:mm A")
     })
 
     return { image, loading: query.loading, error: query.error, day, month, date, hour, t }
