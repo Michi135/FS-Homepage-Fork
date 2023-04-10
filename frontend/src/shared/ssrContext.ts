@@ -10,7 +10,8 @@ export type SSRContext =
   title?: string
   favicon?: string
   nonce: string,
-  modules?: Set<string>
+  modules?: Set<string>,
+  statusCode: number
 } & VueContext
 
 export function ensureContext(context: any)
@@ -24,6 +25,8 @@ export function ensureContext(context: any)
     context.events = {}
   if (!context.nonce)
     Object.assign(context, { nonce: "" })
+  if (!context.statusCode)
+    Object.assign(context, { statusCode: 200 })
 
   return <SSRContext>context
 }

@@ -161,6 +161,7 @@ export default async function ssr(htmlBlueprint: string | JSDOM, manifest: Recor
 
   const document = dom.serialize()
 
+  res.status(context.statusCode)
   res.type('html')
   if (req.acceptsEncodings(['br']))
   {
