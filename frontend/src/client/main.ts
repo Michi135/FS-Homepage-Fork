@@ -1,21 +1,24 @@
 import { createDefaultApp } from '@shared/app.js'
 
-const { router, app } = createDefaultApp()
-
-router.isReady().then(() =>
+createDefaultApp().then(({ router, app }) =>
 {
-  app.mount('#app', true)
+  router.isReady().then(() =>
+  {
+    app.mount('#app', true)
+  })
+
+  if (import.meta.env.DEV)
+  {
+    router.onError((error, to) =>
+    {
+      console.warn(error)
+      window.location.href = to.fullPath
+    })
+  }
 })
 
 
-if (import.meta.env.DEV)
-{
-  router.onError((error, to) =>
-  {
-    console.warn(error)
-    window.location.href = to.fullPath
-  })
-}
+
 
 /*
 import.meta.hot?.on('vite:beforeUpdate', (data) => {

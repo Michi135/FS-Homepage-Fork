@@ -1,5 +1,5 @@
-import isURL from 'validator/lib/isURL.js'
-import isDataURI from 'validator/lib/isDataURI.js'
+//import isURL from 'validator/lib/isURL.js'
+
 
 const endToMime: Map<string, string> = new Map<string, string>([
   ['svg', 'image/svg+xml']
@@ -10,8 +10,10 @@ function getFileExtension(input: string)
   return input.slice(((input.lastIndexOf('.') - 1) >>> 0) + 2)
 }
 
-function mimeType(input: string)
+async function mimeType(input: string)
 {
+  const isURL = (await import('validator/lib/isURL.js')).default
+
   if (
     //@ts-ignore
     isURL(input, {
@@ -22,12 +24,14 @@ function mimeType(input: string)
   {
     const ext = getFileExtension(input)
     if (endToMime.has(ext))
-    {
       return endToMime.get(ext)
-    }
+
+    throw 'Not a favicon'
   }
+
+  const isDataURI = (await import('validator/lib/isDataURI.js')).default
   //@ts-ignore
-  else if (isDataURI(input))
+  if (isDataURI(input))
   {
     const reg = RegExp(/data:(.*?)?(;base64)?,(.*)/)
     const result = reg.exec(input)
@@ -38,9 +42,9 @@ function mimeType(input: string)
   throw 'Not a favicon'
 }
 
-export function createFaviconLink(input: string)
+export async function createFaviconLink(input: string)
 {
-  const type = mimeType(input)
+  const type = await mimeType(input)
 
   if (typeof window === 'undefined')
   {

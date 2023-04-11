@@ -87,14 +87,14 @@ import gql from "graphql-tag"
 import { computed, defineComponent } from "vue"
 import { useI18n } from 'vue-i18n'
 import { useStore } from '@shared/store.js'
-import dayjs from 'dayjs'
+import { Dayjs } from 'dayjs'
 
 import movie from './movie.vue'
 
 interface Movie {
   title: string
   description: string
-  day: dayjs.Dayjs,
+  day: Dayjs,
   locations: string[]
   year: number,
   screenTime: number,
@@ -156,6 +156,7 @@ type KinoDates = {
 type GraphqlQuery = KinoDates & GraphqlFilme
 
 import { useI18nGlobal } from '@shared/i18n.js'
+import useDayjs from '@shared/dayjs.js'
 
 export default defineComponent({
   components: {
@@ -190,6 +191,8 @@ export default defineComponent({
         }
       }
     }`, null, { errorPolicy: 'all' })
+
+    const { dayjs } = useDayjs()
 
     function copyStdLocale(data: GraphqlFilmeData): Movie
     {

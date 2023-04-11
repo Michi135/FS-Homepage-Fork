@@ -4,12 +4,13 @@ import { useI18n as vueUseI18n, createI18n as vueCreateI18n } from "vue-i18n"
 //@ts-ignore
 import { de, en } from 'vuetify/locale'
 
-import { merge } from 'lodash-es'
+//import { merge } from 'lodash-es'
+import merge from 'deepmerge'
 import Globali18n from './Translations/i18nGlobal.json'
 
 function createMessages<T>(messages: Record<SupportedLanguages, T>)
 {
-  return merge(messages, Globali18n, { de: { "$vuetify": de }, en: { "$vuetify": en } })
+  return merge.all([messages, Globali18n, { de: { "$vuetify": de }, en: { "$vuetify": en } }])
 }
 
 export function createI18n<T>(locale: SupportedLanguages = 'de', messages: Record<SupportedLanguages, T>)
@@ -19,7 +20,7 @@ export function createI18n<T>(locale: SupportedLanguages = 'de', messages: Recor
       availableLocales: ['en', 'de'],
       legacy: false,
       locale: locale,
-      fallbackLocale: ['en', 'de'],
+      fallbackLocale: ['en', 'de'], //@ts-ignore
       messages: createMessages(messages)
     })
 }

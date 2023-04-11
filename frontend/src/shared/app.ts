@@ -33,21 +33,14 @@ declare global {
   }
 }
 
-import dayjs from 'dayjs'
-//@ts-ignore
-import utc from 'dayjs/plugin/utc'
-//@ts-ignore
-import timezone from 'dayjs/plugin/timezone'
-//import customParseFormat from 'dayjs/plugin/customParseFormat'
-
 export type BundleArgs = { storeState?: Partial<State>, networkToken?: string, locale?: SupportedLanguages }
 
-function createBundledApp(root: Component, args: BundleArgs = {})
+async function createBundledApp(root: Component, args: BundleArgs = {})
 {
   const app = (import.meta.env.SSR || __IS_SSR__) ? createSSRApp(root) : createApp(root)
   const { router, localization } = createBundledRouter()
 
-  const GraphqlVue = createGraphql(args.networkToken)
+  const GraphqlVue = await createGraphql(args.networkToken)
   const pinia = createPinia()
 
   if (!import.meta.env.SSR && __IS_SSR__ && window.__INITIAL_STATE__)
@@ -87,10 +80,6 @@ function createBundledApp(root: Component, args: BundleArgs = {})
     ssr: true
   }))
   app.use(tagManager)
-
-  dayjs.extend(utc)
-  dayjs.extend(timezone)
-  dayjs.tz.setDefault("Europe/Berlin")
 
   const out: BundledApp<typeof store, typeof i18n> = {
     app,

@@ -48,7 +48,8 @@
 import { computed, defineComponent } from 'vue'
 import { useQuery } from '@vue/apollo-composable'
 import { gql } from 'graphql-tag'
-import dayjs from 'dayjs'
+//import dayjs from 'dayjs'
+import useDayjs from '@shared/dayjs.js'
 import { useI18n } from 'vue-i18n'
 
 //import { useStore } from '@shared/store'
@@ -76,6 +77,7 @@ export default defineComponent({
   setup()
   {
     const { locale, t } = useI18n()
+    const { dayjs } = useDayjs()
     //const { initialTime } = useStore()
     const res = useQuery<Feriensprechstunden>(gql`
       query nextFSS($date: Date!)

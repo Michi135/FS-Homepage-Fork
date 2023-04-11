@@ -61,7 +61,7 @@ export default defineComponent({
       {
         const favResolved = (typeof fav === 'string') ? fav : (await fav()).default
 
-        const faviconLink = createFaviconLink(favResolved)
+        const faviconLink = await createFaviconLink(favResolved)
         let exisitingLink: HTMLLinkElement | null =
           document.querySelector("link[rel*='icon']")
         if (exisitingLink)

@@ -2,7 +2,6 @@ import { InMemoryCache, ApolloClient } from '@apollo/client/core'
 import { createHttpLink } from '@apollo/client/link/http'
 import { ApolloLink } from '@apollo/client/link/core/ApolloLink.js'
 //import { ApolloLink } from '@apollo/client/link/core/ApolloLink'
-import fetch from 'cross-fetch'
 import { ApolloClients } from '@vue/apollo-composable'
 
 import type { ApolloClientOptions } from '@apollo/client/core'
@@ -39,9 +38,20 @@ function networkMiddleware(networkToken: string)
   })
 }
 
-function genClients(networkToken?: string)
+async function genHttpLink()
 {
-  const http = createHttpLink({ uri: (import.meta.env.SSR) ? 'http://strapi:1337/graphql' : 'https://fsmpi.uni-bayreuth.de/v1/graphql', fetch, /*useGETForQueries: true,*/ credentials: 'same-origin' })
+  const uri = (import.meta.env.SSR) ? 'http://strapi:1337/graphql' : 'https://fsmpi.uni-bayreuth.de/v1/graphql'
+  const credentials = 'same-origin'
+
+  if (typeof fetch !== 'undefined')
+    return createHttpLink({ uri, /*useGETForQueries: true,*/ credentials })
+
+  return createHttpLink({ uri, fetch: (await import('cross-fetch')).default, /*useGETForQueries: true,*/ credentials })
+}
+
+async function genClients(networkToken?: string)
+{
+  const http = await genHttpLink()
 
   const apolloOptions: ApolloClientOptions<NormalizedCacheObject> = {
     link: (import.meta.env.SSR && networkToken) ? networkMiddleware(networkToken).concat(http) : http,
@@ -70,9 +80,9 @@ function genClients(networkToken?: string)
   return clients
 }
 
-export function createGraphql(networkToken?: string)
+export async function createGraphql(networkToken?: string)
 {
-  const clients = genClients(networkToken)
+  const clients = await genClients(networkToken)
   return {
     clients,
     install(app: App)

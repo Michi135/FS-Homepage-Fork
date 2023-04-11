@@ -118,7 +118,7 @@ export default async function ssr(htmlBlueprint: string | JSDOM, manifest: Recor
   }
 
   const { createDefaultApp }: { createDefaultApp: typeof CreateDefaultApp } = bundle
-  const { router, app, pinia, tagManager, apolloClients } = createDefaultApp(args)
+  const { router, app, pinia, tagManager, apolloClients } = await createDefaultApp(args)
 
   router.push(req.url)
   await router.isReady()
@@ -146,7 +146,7 @@ export default async function ssr(htmlBlueprint: string | JSDOM, manifest: Recor
   addEvents(dom, tagManager.data.tagData, nonce)
   head.innerHTML += `<title>${context.title}</title>`
   head.innerHTML += getMeta()
-  head.innerHTML += createFaviconLink(context.favicon!)
+  head.innerHTML += await createFaviconLink(context.favicon!)
   //head.innerHTML += getStyles();
 
   /*if (res.locals?.isUni)

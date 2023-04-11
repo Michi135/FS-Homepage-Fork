@@ -48,7 +48,8 @@ import nw2Party from '@static/nw2Event.js'
 import { useTags } from '@shared/tags/registration.js'
 import { useQuery } from '@vue/apollo-composable'
 import gql from 'graphql-tag'
-import dayjs from 'dayjs'
+//import dayjs from 'dayjs'
+import useDayjs from '@shared/dayjs.js'
 
 type Image =
 {
@@ -89,6 +90,8 @@ function convertParty(party: Party)
 {
   const { Start, Ende, Preis, Kuenstler,
     Plakat, Plakat1x1, Plakat4x3, Plakat16x9 } = party
+
+  const { dayjs } = useDayjs()
 
   return {
     Start: dayjs(Start).tz(),
