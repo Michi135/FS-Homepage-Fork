@@ -87,14 +87,14 @@ import gql from "graphql-tag"
 import { computed, defineComponent } from "vue"
 import { useI18n } from 'vue-i18n'
 import { useStore } from '@shared/store.js'
-import { Dayjs } from 'dayjs'
+import dayjs from 'dayjs'
 
 import movie from './movie.vue'
 
 interface Movie {
   title: string
   description: string
-  day: Dayjs,
+  day: dayjs.Dayjs,
   locations: string[]
   year: number,
   screenTime: number,

@@ -56,7 +56,7 @@
 
 <script lang="ts">
 import { computed, defineComponent, onMounted, PropType, ref } from "vue"
-import { Dayjs } from "dayjs"
+import dayjs from "dayjs"
 import youtube from './youtube.vue'
 
 import { mdiChevronUp } from '@mdi/js'
@@ -72,7 +72,7 @@ export default defineComponent({
       required: true
     },
     day: {
-      type: Dayjs,
+      type: dayjs.Dayjs,
       required: true
     },
     description: {
