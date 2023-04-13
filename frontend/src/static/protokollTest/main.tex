@@ -1,0 +1,96 @@
+%Protokollvorlage für eine Fachschaftssitzung
+%(c) 2014 Thomas; 2018 Thomas, Jens (kleine Adaptionen)
+%
+\documentclass[paper=a4,bibliography=totoc,BCOR=0mm,numbers=noenddot,fontsize=12pt]{scrreprt}
+\usepackage[ngerman]{babel}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage{nicefrac}
+\usepackage{fancyvrb}
+%\usepackage{eurosym}
+%\usepackage{tolkienfonts}
+\usepackage{amsmath,amssymb,amstext}
+\usepackage{url}
+\usepackage{eurosym}
+\newcount\numm
+\numm=1
+\newcommand{\tops}[2]{\begin{itemize}\item \begin{large}\textbf{TOP \the\numm :~}\end{large}\textbf{#1} \\ #2 \end{itemize} 
+\advance\numm +1}
+\newcommand{\wiki}{$\rightarrow$ \textbf{\textit{WIKI}}}
+%Über \numm kann eingestellt werden mit welchem TOP-Punkt das Protokoll beginnt!
+%Der Befehl \tops benötigt als Angaben Titel und Text, also \tops{titel}{text}
+\begin{document}
+\begin{Huge}
+\textbf{Sitzungsprotokoll der FSMPI}
+\end{Huge}\hfill
+\raisebox{-2.5ex}{\includegraphics[scale=0.16]{tross2.png}}
+\vspace{5ex}
+
+\begin{tabular}{l l}
+\textbf{Datum:}& 06.02.2023\\
+\textbf{Anwesend:}& FSMPI, Domi, Ghofrane ab TOP 3\\
+\textbf{Abwesend:}& Olli\\
+\textbf{Protokollant:}& Daniel, Martin
+\vspace{5ex}
+\end{tabular}
+\numm=0
+%   " $\rightarrow$ \textbf{\textit{WIKI}} " für im Wiki zu vermerkende Inhalte!
+%   Bitte im Format " YYYY.MM.DD.tex " für interne, "YYYY.MM.DD_Ö.tex " für öffentliche      Protokolle benutzen
+%
+
+\tops{Protokoll der letzten Sitzung}{
+%Stichpunktweises Aufzählen der TOPs des alten Protokolls, welche keinen eigenen TOP in der jetzigen Sitzung bekommen haben.
+%Stichwort bzw. TOP-Name in "\textbf{ [STICHWORT] }" einbetten (für bessere Lesbarkeit.
+Wir waren am Hochschulinformationstag mit einem Stand im Rondell vertreten und haben SchülerInnen Einblicke ins Unileben geben können.
+}
+
+\tops{Party}{
+Der 17 Mai ist als Partytermin festgelegt.\\
+Wir freuen uns auf einen aufregenden Abend mit euch!
+}
+
+\tops{Erstiprogramm}{
+
+Wir organisieren für den 18. April eine Kneipentour! Nähere Infos dazu gibt es nach unserer nächsten Sitzung am 17.4.
+
+Es wird voraussichtlich wieder einen unserer Spieleabende geben. Termin wäre der 20. April. Allerding ist noch nicht ganz sicher, ob dieser wegen der bisher noch bestehenden Beschränkungen (Energiesparmaßnahmen der Uni) stattfinden kann.
+}
+
+
+\tops{Deutsches Museum}{
+Am 29.04.23 wird es eine spannende Exkursion in das Deutsche Museum in München geben. Wir sind derzeit noch in der Planung, ein Bus wird von uns organisiert. 
+}
+
+\tops{Neue Fachschaft}{
+    Die Hochschulwahl ist am 14.06, wo auch die neue Fachschaft gewählt wird. Wenn ihr Interesse habt bei uns mitzumachen, dann schaut doch gerne mal bei uns in der Fachschaft vorbei ;)
+}
+
+\tops{Sonstiges}{
+%Stichwort bzw. TOP-Name in "\textbf{ [STICHWORT] }" einbetten (für bessere Lesbarkeit)!
+\begin{itemize}
+    
+    \item Vom 3.7. bis zum veranstaltet der 10.7.\textbf{AK Nachhaltigkei} die Nachhaltigkeitswoche und sucht noch nach Helfern. Bei Interesse kann man sich gerne bei und oder dem AK melden.
+    \item Unsere \textbf{erste Sitzung} im neuen Semester ist am 17. April um 19 Uhr.
+    
+    \item 18.11.23 ist \textbf{aluMPI Absolventenfeier}. Am 9.5. ist Absolventensitzung für alle die Interesse daran haben den Abschluss an unserer Fakultät mitzugestalten.
+
+\end{itemize}
+}
+%
+% Ende des Protokolls
+%
+\begin{center}
+---
+\ \\
+%Zu beinhalten im internen Protokoll:
+%
+%\textbf{Stilblüte der Woche:}\\
+%T: "Ich finde nicht, dass Bayern Bodensee-Anschluss haben sollte."
+%
+%
+%Zu beinhalten im öffentlichen Protokoll
+%
+Hier nicht veröffentlichte TOPs enthalten rein interne Themen oder eine Veröffentlichung ergibt erst nach bestimmendem Beschluss in der nächsten Sitzung Sinn. Die nächste Fachschafts-Sitzung findet am Montag den 17.April ab 19:00 Uhr statt; Interessierte sind wie immer herzlich eingeladen :)
+\end{center}
+\end{document}

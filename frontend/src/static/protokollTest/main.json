@@ -1,0 +1,2597 @@
+{
+    "pandoc-api-version": [
+        1,
+        22,
+        2,
+        1
+    ],
+    "meta": {},
+    "blocks": [
+        {
+            "t": "Div",
+            "c": [
+                [
+                    "",
+                    [
+                        "Huge"
+                    ],
+                    []
+                ],
+                [
+                    {
+                        "t": "Para",
+                        "c": [
+                            {
+                                "t": "Strong",
+                                "c": [
+                                    {
+                                        "t": "Str",
+                                        "c": "Sitzungsprotokoll"
+                                    },
+                                    {
+                                        "t": "Space"
+                                    },
+                                    {
+                                        "t": "Str",
+                                        "c": "der"
+                                    },
+                                    {
+                                        "t": "Space"
+                                    },
+                                    {
+                                        "t": "Str",
+                                        "c": "FSMPI"
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            ]
+        },
+        {
+            "t": "Table",
+            "c": [
+                [
+                    "",
+                    [],
+                    []
+                ],
+                [
+                    null,
+                    []
+                ],
+                [
+                    [
+                        {
+                            "t": "AlignLeft"
+                        },
+                        {
+                            "t": "ColWidthDefault"
+                        }
+                    ],
+                    [
+                        {
+                            "t": "AlignLeft"
+                        },
+                        {
+                            "t": "ColWidthDefault"
+                        }
+                    ]
+                ],
+                [
+                    [
+                        "",
+                        [],
+                        []
+                    ],
+                    []
+                ],
+                [
+                    [
+                        [
+                            "",
+                            [],
+                            []
+                        ],
+                        0,
+                        [],
+                        [
+                            [
+                                [
+                                    "",
+                                    [],
+                                    []
+                                ],
+                                [
+                                    [
+                                        [
+                                            "",
+                                            [],
+                                            []
+                                        ],
+                                        {
+                                            "t": "AlignDefault"
+                                        },
+                                        1,
+                                        1,
+                                        [
+                                            {
+                                                "t": "Plain",
+                                                "c": [
+                                                    {
+                                                        "t": "Strong",
+                                                        "c": [
+                                                            {
+                                                                "t": "Str",
+                                                                "c": "Datum:"
+                                                            }
+                                                        ]
+                                                    }
+                                                ]
+                                            }
+                                        ]
+                                    ],
+                                    [
+                                        [
+                                            "",
+                                            [],
+                                            []
+                                        ],
+                                        {
+                                            "t": "AlignDefault"
+                                        },
+                                        1,
+                                        1,
+                                        [
+                                            {
+                                                "t": "Plain",
+                                                "c": [
+                                                    {
+                                                        "t": "Str",
+                                                        "c": "06.02.2023"
+                                                    }
+                                                ]
+                                            }
+                                        ]
+                                    ]
+                                ]
+                            ],
+                            [
+                                [
+                                    "",
+                                    [],
+                                    []
+                                ],
+                                [
+                                    [
+                                        [
+                                            "",
+                                            [],
+                                            []
+                                        ],
+                                        {
+                                            "t": "AlignDefault"
+                                        },
+                                        1,
+                                        1,
+                                        [
+                                            {
+                                                "t": "Plain",
+                                                "c": [
+                                                    {
+                                                        "t": "Strong",
+                                                        "c": [
+                                                            {
+                                                                "t": "Str",
+                                                                "c": "Anwesend:"
+                                                            }
+                                                        ]
+                                                    }
+                                                ]
+                                            }
+                                        ]
+                                    ],
+                                    [
+                                        [
+                                            "",
+                                            [],
+                                            []
+                                        ],
+                                        {
+                                            "t": "AlignDefault"
+                                        },
+                                        1,
+                                        1,
+                                        [
+                                            {
+                                                "t": "Plain",
+                                                "c": [
+                                                    {
+                                                        "t": "Str",
+                                                        "c": "FSMPI,"
+                                                    },
+                                                    {
+                                                        "t": "Space"
+                                                    },
+                                                    {
+                                                        "t": "Str",
+                                                        "c": "Domi,"
+                                                    },
+                                                    {
+                                                        "t": "Space"
+                                                    },
+                                                    {
+                                                        "t": "Str",
+                                                        "c": "Ghofrane"
+                                                    },
+                                                    {
+                                                        "t": "Space"
+                                                    },
+                                                    {
+                                                        "t": "Str",
+                                                        "c": "ab"
+                                                    },
+                                                    {
+                                                        "t": "Space"
+                                                    },
+                                                    {
+                                                        "t": "Str",
+                                                        "c": "TOP"
+                                                    },
+                                                    {
+                                                        "t": "Space"
+                                                    },
+                                                    {
+                                                        "t": "Str",
+                                                        "c": "3"
+                                                    }
+                                                ]
+                                            }
+                                        ]
+                                    ]
+                                ]
+                            ],
+                            [
+                                [
+                                    "",
+                                    [],
+                                    []
+                                ],
+                                [
+                                    [
+                                        [
+                                            "",
+                                            [],
+                                            []
+                                        ],
+                                        {
+                                            "t": "AlignDefault"
+                                        },
+                                        1,
+                                        1,
+                                        [
+                                            {
+                                                "t": "Plain",
+                                                "c": [
+                                                    {
+                                                        "t": "Strong",
+                                                        "c": [
+                                                            {
+                                                                "t": "Str",
+                                                                "c": "Abwesend:"
+                                                            }
+                                                        ]
+                                                    }
+                                                ]
+                                            }
+                                        ]
+                                    ],
+                                    [
+                                        [
+                                            "",
+                                            [],
+                                            []
+                                        ],
+                                        {
+                                            "t": "AlignDefault"
+                                        },
+                                        1,
+                                        1,
+                                        [
+                                            {
+                                                "t": "Plain",
+                                                "c": [
+                                                    {
+                                                        "t": "Str",
+                                                        "c": "Olli"
+                                                    }
+                                                ]
+                                            }
+                                        ]
+                                    ]
+                                ]
+                            ],
+                            [
+                                [
+                                    "",
+                                    [],
+                                    []
+                                ],
+                                [
+                                    [
+                                        [
+                                            "",
+                                            [],
+                                            []
+                                        ],
+                                        {
+                                            "t": "AlignDefault"
+                                        },
+                                        1,
+                                        1,
+                                        [
+                                            {
+                                                "t": "Plain",
+                                                "c": [
+                                                    {
+                                                        "t": "Strong",
+                                                        "c": [
+                                                            {
+                                                                "t": "Str",
+                                                                "c": "Protokollant:"
+                                                            }
+                                                        ]
+                                                    }
+                                                ]
+                                            }
+                                        ]
+                                    ],
+                                    [
+                                        [
+                                            "",
+                                            [],
+                                            []
+                                        ],
+                                        {
+                                            "t": "AlignDefault"
+                                        },
+                                        1,
+                                        1,
+                                        [
+                                            {
+                                                "t": "Plain",
+                                                "c": [
+                                                    {
+                                                        "t": "Str",
+                                                        "c": "Daniel,"
+                                                    },
+                                                    {
+                                                        "t": "Space"
+                                                    },
+                                                    {
+                                                        "t": "Str",
+                                                        "c": "Martin"
+                                                    }
+                                                ]
+                                            }
+                                        ]
+                                    ]
+                                ]
+                            ]
+                        ]
+                    ]
+                ],
+                [
+                    [
+                        "",
+                        [],
+                        []
+                    ],
+                    []
+                ]
+            ]
+        },
+        {
+            "t": "BulletList",
+            "c": [
+                [
+                    {
+                        "t": "Div",
+                        "c": [
+                            [
+                                "",
+                                [
+                                    "large"
+                                ],
+                                []
+                            ],
+                            [
+                                {
+                                    "t": "Para",
+                                    "c": [
+                                        {
+                                            "t": "Strong",
+                                            "c": [
+                                                {
+                                                    "t": "Str",
+                                                    "c": "TOP"
+                                                },
+                                                {
+                                                    "t": "Space"
+                                                },
+                                                {
+                                                    "t": "Str",
+                                                    "c": ": "
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                }
+                            ]
+                        ]
+                    },
+                    {
+                        "t": "Para",
+                        "c": [
+                            {
+                                "t": "Strong",
+                                "c": [
+                                    {
+                                        "t": "Str",
+                                        "c": "Protokoll"
+                                    },
+                                    {
+                                        "t": "Space"
+                                    },
+                                    {
+                                        "t": "Str",
+                                        "c": "der"
+                                    },
+                                    {
+                                        "t": "Space"
+                                    },
+                                    {
+                                        "t": "Str",
+                                        "c": "letzten"
+                                    },
+                                    {
+                                        "t": "Space"
+                                    },
+                                    {
+                                        "t": "Str",
+                                        "c": "Sitzung"
+                                    }
+                                ]
+                            },
+                            {
+                                "t": "LineBreak"
+                            },
+                            {
+                                "t": "Str",
+                                "c": "Wir"
+                            },
+                            {
+                                "t": "Space"
+                            },
+                            {
+                                "t": "Str",
+                                "c": "waren"
+                            },
+                            {
+                                "t": "Space"
+                            },
+                            {
+                                "t": "Str",
+                                "c": "am"
+                            },
+                            {
+                                "t": "Space"
+                            },
+                            {
+                                "t": "Str",
+                                "c": "Hochschulinformationstag"
+                            },
+                            {
+                                "t": "Space"
+                            },
+                            {
+                                "t": "Str",
+                                "c": "mit"
+                            },
+                            {
+                                "t": "Space"
+                            },
+                            {
+                                "t": "Str",
+                                "c": "einem"
+                            },
+                            {
+                                "t": "Space"
+                            },
+                            {
+                                "t": "Str",
+                                "c": "Stand"
+                            },
+                            {
+                                "t": "Space"
+                            },
+                            {
+                                "t": "Str",
+                                "c": "im"
+                            },
+                            {
+                                "t": "Space"
+                            },
+                            {
+                                "t": "Str",
+                                "c": "Rondell"
+                            },
+                            {
+                                "t": "Space"
+                            },
+                            {
+                                "t": "Str",
+                                "c": "vertreten"
+                            },
+                            {
+                                "t": "Space"
+                            },
+                            {
+                                "t": "Str",
+                                "c": "und"
+                            },
+                            {
+                                "t": "Space"
+                            },
+                            {
+                                "t": "Str",
+                                "c": "haben"
+                            },
+                            {
+                                "t": "Space"
+                            },
+                            {
+                                "t": "Str",
+                                "c": "SchülerInnen"
+                            },
+                            {
+                                "t": "Space"
+                            },
+                            {
+                                "t": "Str",
+                                "c": "Einblicke"
+                            },
+                            {
+                                "t": "Space"
+                            },
+                            {
+                                "t": "Str",
+                                "c": "ins"
+                            },
+                            {
+                                "t": "Space"
+                            },
+                            {
+                                "t": "Str",
+                                "c": "Unileben"
+                            },
+                            {
+                                "t": "Space"
+                            },
+                            {
+                                "t": "Str",
+                                "c": "geben"
+                            },
+                            {
+                                "t": "Space"
+                            },
+                            {
+                                "t": "Str",
+                                "c": "können."
+                            }
+                        ]
+                    }
+                ]
+            ]
+        },
+        {
+            "t": "Para",
+            "c": [
+                {
+                    "t": "Str",
+                    "c": "+1"
+                }
+            ]
+        },
+        {
+            "t": "BulletList",
+            "c": [
+                [
+                    {
+                        "t": "Div",
+                        "c": [
+                            [
+                                "",
+                                [
+                                    "large"
+                                ],
+                                []
+                            ],
+                            [
+                                {
+                                    "t": "Para",
+                                    "c": [
+                                        {
+                                            "t": "Strong",
+                                            "c": [
+                                                {
+                                                    "t": "Str",
+                                                    "c": "TOP"
+                                                },
+                                                {
+                                                    "t": "Space"
+                                                },
+                                                {
+                                                    "t": "Str",
+                                                    "c": ": "
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                }
+                            ]
+                        ]
+                    },
+                    {
+                        "t": "Para",
+                        "c": [
+                            {
+                                "t": "Strong",
+                                "c": [
+                                    {
+                                        "t": "Str",
+                                        "c": "Party"
+                                    }
+                                ]
+                            },
+                            {
+                                "t": "LineBreak"
+                            },
+                            {
+                                "t": "Str",
+                                "c": "Der"
+                            },
+                            {
+                                "t": "Space"
+                            },
+                            {
+                                "t": "Str",
+                                "c": "17"
+                            },
+                            {
+                                "t": "Space"
+                            },
+                            {
+                                "t": "Str",
+                                "c": "Mai"
+                            },
+                            {
+                                "t": "Space"
+                            },
+                            {
+                                "t": "Str",
+                                "c": "ist"
+                            },
+                            {
+                                "t": "Space"
+                            },
+                            {
+                                "t": "Str",
+                                "c": "als"
+                            },
+                            {
+                                "t": "Space"
+                            },
+                            {
+                                "t": "Str",
+                                "c": "Partytermin"
+                            },
+                            {
+                                "t": "Space"
+                            },
+                            {
+                                "t": "Str",
+                                "c": "festgelegt."
+                            },
+                            {
+                                "t": "LineBreak"
+                            },
+                            {
+                                "t": "Str",
+                                "c": "Wir"
+                            },
+                            {
+                                "t": "Space"
+                            },
+                            {
+                                "t": "Str",
+                                "c": "freuen"
+                            },
+                            {
+                                "t": "Space"
+                            },
+                            {
+                                "t": "Str",
+                                "c": "uns"
+                            },
+                            {
+                                "t": "Space"
+                            },
+                            {
+                                "t": "Str",
+                                "c": "auf"
+                            },
+                            {
+                                "t": "Space"
+                            },
+                            {
+                                "t": "Str",
+                                "c": "einen"
+                            },
+                            {
+                                "t": "Space"
+                            },
+                            {
+                                "t": "Str",
+                                "c": "aufregenden"
+                            },
+                            {
+                                "t": "Space"
+                            },
+                            {
+                                "t": "Str",
+                                "c": "Abend"
+                            },
+                            {
+                                "t": "Space"
+                            },
+                            {
+                                "t": "Str",
+                                "c": "mit"
+                            },
+                            {
+                                "t": "Space"
+                            },
+                            {
+                                "t": "Str",
+                                "c": "euch!"
+                            }
+                        ]
+                    }
+                ]
+            ]
+        },
+        {
+            "t": "Para",
+            "c": [
+                {
+                    "t": "Str",
+                    "c": "+1"
+                }
+            ]
+        },
+        {
+            "t": "BulletList",
+            "c": [
+                [
+                    {
+                        "t": "Div",
+                        "c": [
+                            [
+                                "",
+                                [
+                                    "large"
+                                ],
+                                []
+                            ],
+                            [
+                                {
+                                    "t": "Para",
+                                    "c": [
+                                        {
+                                            "t": "Strong",
+                                            "c": [
+                                                {
+                                                    "t": "Str",
+                                                    "c": "TOP"
+                                                },
+                                                {
+                                                    "t": "Space"
+                                                },
+                                                {
+                                                    "t": "Str",
+                                                    "c": ": "
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                }
+                            ]
+                        ]
+                    },
+                    {
+                        "t": "Para",
+                        "c": [
+                            {
+                                "t": "Strong",
+                                "c": [
+                                    {
+                                        "t": "Str",
+                                        "c": "Erstiprogramm"
+                                    }
+                                ]
+                            },
+                            {
+                                "t": "LineBreak"
+                            },
+                            {
+                                "t": "Str",
+                                "c": "Wir"
+                            },
+                            {
+                                "t": "Space"
+                            },
+                            {
+                                "t": "Str",
+                                "c": "organisieren"
+                            },
+                            {
+                                "t": "Space"
+                            },
+                            {
+                                "t": "Str",
+                                "c": "für"
+                            },
+                            {
+                                "t": "Space"
+                            },
+                            {
+                                "t": "Str",
+                                "c": "den"
+                            },
+                            {
+                                "t": "Space"
+                            },
+                            {
+                                "t": "Str",
+                                "c": "18."
+                            },
+                            {
+                                "t": "Space"
+                            },
+                            {
+                                "t": "Str",
+                                "c": "April"
+                            },
+                            {
+                                "t": "Space"
+                            },
+                            {
+                                "t": "Str",
+                                "c": "eine"
+                            },
+                            {
+                                "t": "Space"
+                            },
+                            {
+                                "t": "Str",
+                                "c": "Kneipentour!"
+                            },
+                            {
+                                "t": "Space"
+                            },
+                            {
+                                "t": "Str",
+                                "c": "Nähere"
+                            },
+                            {
+                                "t": "Space"
+                            },
+                            {
+                                "t": "Str",
+                                "c": "Infos"
+                            },
+                            {
+                                "t": "Space"
+                            },
+                            {
+                                "t": "Str",
+                                "c": "dazu"
+                            },
+                            {
+                                "t": "Space"
+                            },
+                            {
+                                "t": "Str",
+                                "c": "gibt"
+                            },
+                            {
+                                "t": "Space"
+                            },
+                            {
+                                "t": "Str",
+                                "c": "es"
+                            },
+                            {
+                                "t": "Space"
+                            },
+                            {
+                                "t": "Str",
+                                "c": "nach"
+                            },
+                            {
+                                "t": "Space"
+                            },
+                            {
+                                "t": "Str",
+                                "c": "unserer"
+                            },
+                            {
+                                "t": "Space"
+                            },
+                            {
+                                "t": "Str",
+                                "c": "nächsten"
+                            },
+                            {
+                                "t": "Space"
+                            },
+                            {
+                                "t": "Str",
+                                "c": "Sitzung"
+                            },
+                            {
+                                "t": "Space"
+                            },
+                            {
+                                "t": "Str",
+                                "c": "am"
+                            },
+                            {
+                                "t": "Space"
+                            },
+                            {
+                                "t": "Str",
+                                "c": "17.4."
+                            }
+                        ]
+                    },
+                    {
+                        "t": "Para",
+                        "c": [
+                            {
+                                "t": "Str",
+                                "c": "Es"
+                            },
+                            {
+                                "t": "Space"
+                            },
+                            {
+                                "t": "Str",
+                                "c": "wird"
+                            },
+                            {
+                                "t": "Space"
+                            },
+                            {
+                                "t": "Str",
+                                "c": "voraussichtlich"
+                            },
+                            {
+                                "t": "Space"
+                            },
+                            {
+                                "t": "Str",
+                                "c": "wieder"
+                            },
+                            {
+                                "t": "Space"
+                            },
+                            {
+                                "t": "Str",
+                                "c": "einen"
+                            },
+                            {
+                                "t": "Space"
+                            },
+                            {
+                                "t": "Str",
+                                "c": "unserer"
+                            },
+                            {
+                                "t": "Space"
+                            },
+                            {
+                                "t": "Str",
+                                "c": "Spieleabende"
+                            },
+                            {
+                                "t": "Space"
+                            },
+                            {
+                                "t": "Str",
+                                "c": "geben."
+                            },
+                            {
+                                "t": "Space"
+                            },
+                            {
+                                "t": "Str",
+                                "c": "Termin"
+                            },
+                            {
+                                "t": "Space"
+                            },
+                            {
+                                "t": "Str",
+                                "c": "wäre"
+                            },
+                            {
+                                "t": "Space"
+                            },
+                            {
+                                "t": "Str",
+                                "c": "der"
+                            },
+                            {
+                                "t": "Space"
+                            },
+                            {
+                                "t": "Str",
+                                "c": "20."
+                            },
+                            {
+                                "t": "Space"
+                            },
+                            {
+                                "t": "Str",
+                                "c": "April."
+                            },
+                            {
+                                "t": "Space"
+                            },
+                            {
+                                "t": "Str",
+                                "c": "Allerding"
+                            },
+                            {
+                                "t": "Space"
+                            },
+                            {
+                                "t": "Str",
+                                "c": "ist"
+                            },
+                            {
+                                "t": "Space"
+                            },
+                            {
+                                "t": "Str",
+                                "c": "noch"
+                            },
+                            {
+                                "t": "Space"
+                            },
+                            {
+                                "t": "Str",
+                                "c": "nicht"
+                            },
+                            {
+                                "t": "Space"
+                            },
+                            {
+                                "t": "Str",
+                                "c": "ganz"
+                            },
+                            {
+                                "t": "Space"
+                            },
+                            {
+                                "t": "Str",
+                                "c": "sicher,"
+                            },
+                            {
+                                "t": "Space"
+                            },
+                            {
+                                "t": "Str",
+                                "c": "ob"
+                            },
+                            {
+                                "t": "Space"
+                            },
+                            {
+                                "t": "Str",
+                                "c": "dieser"
+                            },
+                            {
+                                "t": "Space"
+                            },
+                            {
+                                "t": "Str",
+                                "c": "wegen"
+                            },
+                            {
+                                "t": "Space"
+                            },
+                            {
+                                "t": "Str",
+                                "c": "der"
+                            },
+                            {
+                                "t": "Space"
+                            },
+                            {
+                                "t": "Str",
+                                "c": "bisher"
+                            },
+                            {
+                                "t": "Space"
+                            },
+                            {
+                                "t": "Str",
+                                "c": "noch"
+                            },
+                            {
+                                "t": "Space"
+                            },
+                            {
+                                "t": "Str",
+                                "c": "bestehenden"
+                            },
+                            {
+                                "t": "Space"
+                            },
+                            {
+                                "t": "Str",
+                                "c": "Beschränkungen"
+                            },
+                            {
+                                "t": "Space"
+                            },
+                            {
+                                "t": "Str",
+                                "c": "(Energiesparmaßnahmen"
+                            },
+                            {
+                                "t": "Space"
+                            },
+                            {
+                                "t": "Str",
+                                "c": "der"
+                            },
+                            {
+                                "t": "Space"
+                            },
+                            {
+                                "t": "Str",
+                                "c": "Uni)"
+                            },
+                            {
+                                "t": "Space"
+                            },
+                            {
+                                "t": "Str",
+                                "c": "stattfinden"
+                            },
+                            {
+                                "t": "Space"
+                            },
+                            {
+                                "t": "Str",
+                                "c": "kann."
+                            }
+                        ]
+                    }
+                ]
+            ]
+        },
+        {
+            "t": "Para",
+            "c": [
+                {
+                    "t": "Str",
+                    "c": "+1"
+                }
+            ]
+        },
+        {
+            "t": "BulletList",
+            "c": [
+                [
+                    {
+                        "t": "Div",
+                        "c": [
+                            [
+                                "",
+                                [
+                                    "large"
+                                ],
+                                []
+                            ],
+                            [
+                                {
+                                    "t": "Para",
+                                    "c": [
+                                        {
+                                            "t": "Strong",
+                                            "c": [
+                                                {
+                                                    "t": "Str",
+                                                    "c": "TOP"
+                                                },
+                                                {
+                                                    "t": "Space"
+                                                },
+                                                {
+                                                    "t": "Str",
+                                                    "c": ": "
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                }
+                            ]
+                        ]
+                    },
+                    {
+                        "t": "Para",
+                        "c": [
+                            {
+                                "t": "Strong",
+                                "c": [
+                                    {
+                                        "t": "Str",
+                                        "c": "Deutsches"
+                                    },
+                                    {
+                                        "t": "Space"
+                                    },
+                                    {
+                                        "t": "Str",
+                                        "c": "Museum"
+                                    }
+                                ]
+                            },
+                            {
+                                "t": "LineBreak"
+                            },
+                            {
+                                "t": "Str",
+                                "c": "Am"
+                            },
+                            {
+                                "t": "Space"
+                            },
+                            {
+                                "t": "Str",
+                                "c": "29.04.23"
+                            },
+                            {
+                                "t": "Space"
+                            },
+                            {
+                                "t": "Str",
+                                "c": "wird"
+                            },
+                            {
+                                "t": "Space"
+                            },
+                            {
+                                "t": "Str",
+                                "c": "es"
+                            },
+                            {
+                                "t": "Space"
+                            },
+                            {
+                                "t": "Str",
+                                "c": "eine"
+                            },
+                            {
+                                "t": "Space"
+                            },
+                            {
+                                "t": "Str",
+                                "c": "spannende"
+                            },
+                            {
+                                "t": "Space"
+                            },
+                            {
+                                "t": "Str",
+                                "c": "Exkursion"
+                            },
+                            {
+                                "t": "Space"
+                            },
+                            {
+                                "t": "Str",
+                                "c": "in"
+                            },
+                            {
+                                "t": "Space"
+                            },
+                            {
+                                "t": "Str",
+                                "c": "das"
+                            },
+                            {
+                                "t": "Space"
+                            },
+                            {
+                                "t": "Str",
+                                "c": "Deutsche"
+                            },
+                            {
+                                "t": "Space"
+                            },
+                            {
+                                "t": "Str",
+                                "c": "Museum"
+                            },
+                            {
+                                "t": "Space"
+                            },
+                            {
+                                "t": "Str",
+                                "c": "in"
+                            },
+                            {
+                                "t": "Space"
+                            },
+                            {
+                                "t": "Str",
+                                "c": "München"
+                            },
+                            {
+                                "t": "Space"
+                            },
+                            {
+                                "t": "Str",
+                                "c": "geben."
+                            },
+                            {
+                                "t": "Space"
+                            },
+                            {
+                                "t": "Str",
+                                "c": "Wir"
+                            },
+                            {
+                                "t": "Space"
+                            },
+                            {
+                                "t": "Str",
+                                "c": "sind"
+                            },
+                            {
+                                "t": "Space"
+                            },
+                            {
+                                "t": "Str",
+                                "c": "derzeit"
+                            },
+                            {
+                                "t": "Space"
+                            },
+                            {
+                                "t": "Str",
+                                "c": "noch"
+                            },
+                            {
+                                "t": "Space"
+                            },
+                            {
+                                "t": "Str",
+                                "c": "in"
+                            },
+                            {
+                                "t": "Space"
+                            },
+                            {
+                                "t": "Str",
+                                "c": "der"
+                            },
+                            {
+                                "t": "Space"
+                            },
+                            {
+                                "t": "Str",
+                                "c": "Planung,"
+                            },
+                            {
+                                "t": "Space"
+                            },
+                            {
+                                "t": "Str",
+                                "c": "ein"
+                            },
+                            {
+                                "t": "Space"
+                            },
+                            {
+                                "t": "Str",
+                                "c": "Bus"
+                            },
+                            {
+                                "t": "Space"
+                            },
+                            {
+                                "t": "Str",
+                                "c": "wird"
+                            },
+                            {
+                                "t": "Space"
+                            },
+                            {
+                                "t": "Str",
+                                "c": "von"
+                            },
+                            {
+                                "t": "Space"
+                            },
+                            {
+                                "t": "Str",
+                                "c": "uns"
+                            },
+                            {
+                                "t": "Space"
+                            },
+                            {
+                                "t": "Str",
+                                "c": "organisiert."
+                            }
+                        ]
+                    }
+                ]
+            ]
+        },
+        {
+            "t": "Para",
+            "c": [
+                {
+                    "t": "Str",
+                    "c": "+1"
+                }
+            ]
+        },
+        {
+            "t": "BulletList",
+            "c": [
+                [
+                    {
+                        "t": "Div",
+                        "c": [
+                            [
+                                "",
+                                [
+                                    "large"
+                                ],
+                                []
+                            ],
+                            [
+                                {
+                                    "t": "Para",
+                                    "c": [
+                                        {
+                                            "t": "Strong",
+                                            "c": [
+                                                {
+                                                    "t": "Str",
+                                                    "c": "TOP"
+                                                },
+                                                {
+                                                    "t": "Space"
+                                                },
+                                                {
+                                                    "t": "Str",
+                                                    "c": ": "
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                }
+                            ]
+                        ]
+                    },
+                    {
+                        "t": "Para",
+                        "c": [
+                            {
+                                "t": "Strong",
+                                "c": [
+                                    {
+                                        "t": "Str",
+                                        "c": "Neue"
+                                    },
+                                    {
+                                        "t": "Space"
+                                    },
+                                    {
+                                        "t": "Str",
+                                        "c": "Fachschaft"
+                                    }
+                                ]
+                            },
+                            {
+                                "t": "LineBreak"
+                            },
+                            {
+                                "t": "Str",
+                                "c": "Die"
+                            },
+                            {
+                                "t": "Space"
+                            },
+                            {
+                                "t": "Str",
+                                "c": "Hochschulwahl"
+                            },
+                            {
+                                "t": "Space"
+                            },
+                            {
+                                "t": "Str",
+                                "c": "ist"
+                            },
+                            {
+                                "t": "Space"
+                            },
+                            {
+                                "t": "Str",
+                                "c": "am"
+                            },
+                            {
+                                "t": "Space"
+                            },
+                            {
+                                "t": "Str",
+                                "c": "14.06,"
+                            },
+                            {
+                                "t": "Space"
+                            },
+                            {
+                                "t": "Str",
+                                "c": "wo"
+                            },
+                            {
+                                "t": "Space"
+                            },
+                            {
+                                "t": "Str",
+                                "c": "auch"
+                            },
+                            {
+                                "t": "Space"
+                            },
+                            {
+                                "t": "Str",
+                                "c": "die"
+                            },
+                            {
+                                "t": "Space"
+                            },
+                            {
+                                "t": "Str",
+                                "c": "neue"
+                            },
+                            {
+                                "t": "Space"
+                            },
+                            {
+                                "t": "Str",
+                                "c": "Fachschaft"
+                            },
+                            {
+                                "t": "Space"
+                            },
+                            {
+                                "t": "Str",
+                                "c": "gewählt"
+                            },
+                            {
+                                "t": "Space"
+                            },
+                            {
+                                "t": "Str",
+                                "c": "wird."
+                            },
+                            {
+                                "t": "Space"
+                            },
+                            {
+                                "t": "Str",
+                                "c": "Wenn"
+                            },
+                            {
+                                "t": "Space"
+                            },
+                            {
+                                "t": "Str",
+                                "c": "ihr"
+                            },
+                            {
+                                "t": "Space"
+                            },
+                            {
+                                "t": "Str",
+                                "c": "Interesse"
+                            },
+                            {
+                                "t": "Space"
+                            },
+                            {
+                                "t": "Str",
+                                "c": "habt"
+                            },
+                            {
+                                "t": "Space"
+                            },
+                            {
+                                "t": "Str",
+                                "c": "bei"
+                            },
+                            {
+                                "t": "Space"
+                            },
+                            {
+                                "t": "Str",
+                                "c": "uns"
+                            },
+                            {
+                                "t": "Space"
+                            },
+                            {
+                                "t": "Str",
+                                "c": "mitzumachen,"
+                            },
+                            {
+                                "t": "Space"
+                            },
+                            {
+                                "t": "Str",
+                                "c": "dann"
+                            },
+                            {
+                                "t": "Space"
+                            },
+                            {
+                                "t": "Str",
+                                "c": "schaut"
+                            },
+                            {
+                                "t": "Space"
+                            },
+                            {
+                                "t": "Str",
+                                "c": "doch"
+                            },
+                            {
+                                "t": "Space"
+                            },
+                            {
+                                "t": "Str",
+                                "c": "gerne"
+                            },
+                            {
+                                "t": "Space"
+                            },
+                            {
+                                "t": "Str",
+                                "c": "mal"
+                            },
+                            {
+                                "t": "Space"
+                            },
+                            {
+                                "t": "Str",
+                                "c": "bei"
+                            },
+                            {
+                                "t": "Space"
+                            },
+                            {
+                                "t": "Str",
+                                "c": "uns"
+                            },
+                            {
+                                "t": "Space"
+                            },
+                            {
+                                "t": "Str",
+                                "c": "in"
+                            },
+                            {
+                                "t": "Space"
+                            },
+                            {
+                                "t": "Str",
+                                "c": "der"
+                            },
+                            {
+                                "t": "Space"
+                            },
+                            {
+                                "t": "Str",
+                                "c": "Fachschaft"
+                            },
+                            {
+                                "t": "Space"
+                            },
+                            {
+                                "t": "Str",
+                                "c": "vorbei"
+                            },
+                            {
+                                "t": "Space"
+                            },
+                            {
+                                "t": "Str",
+                                "c": ";)"
+                            }
+                        ]
+                    }
+                ]
+            ]
+        },
+        {
+            "t": "Para",
+            "c": [
+                {
+                    "t": "Str",
+                    "c": "+1"
+                }
+            ]
+        },
+        {
+            "t": "BulletList",
+            "c": [
+                [
+                    {
+                        "t": "Div",
+                        "c": [
+                            [
+                                "",
+                                [
+                                    "large"
+                                ],
+                                []
+                            ],
+                            [
+                                {
+                                    "t": "Para",
+                                    "c": [
+                                        {
+                                            "t": "Strong",
+                                            "c": [
+                                                {
+                                                    "t": "Str",
+                                                    "c": "TOP"
+                                                },
+                                                {
+                                                    "t": "Space"
+                                                },
+                                                {
+                                                    "t": "Str",
+                                                    "c": ": "
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                }
+                            ]
+                        ]
+                    },
+                    {
+                        "t": "Para",
+                        "c": [
+                            {
+                                "t": "Strong",
+                                "c": [
+                                    {
+                                        "t": "Str",
+                                        "c": "Sonstiges"
+                                    }
+                                ]
+                            },
+                            {
+                                "t": "LineBreak"
+                            }
+                        ]
+                    },
+                    {
+                        "t": "BulletList",
+                        "c": [
+                            [
+                                {
+                                    "t": "Para",
+                                    "c": [
+                                        {
+                                            "t": "Str",
+                                            "c": "Vom"
+                                        },
+                                        {
+                                            "t": "Space"
+                                        },
+                                        {
+                                            "t": "Str",
+                                            "c": "3.7."
+                                        },
+                                        {
+                                            "t": "Space"
+                                        },
+                                        {
+                                            "t": "Str",
+                                            "c": "bis"
+                                        },
+                                        {
+                                            "t": "Space"
+                                        },
+                                        {
+                                            "t": "Str",
+                                            "c": "zum"
+                                        },
+                                        {
+                                            "t": "Space"
+                                        },
+                                        {
+                                            "t": "Str",
+                                            "c": "veranstaltet"
+                                        },
+                                        {
+                                            "t": "Space"
+                                        },
+                                        {
+                                            "t": "Str",
+                                            "c": "der"
+                                        },
+                                        {
+                                            "t": "Space"
+                                        },
+                                        {
+                                            "t": "Str",
+                                            "c": "10.7."
+                                        },
+                                        {
+                                            "t": "Strong",
+                                            "c": [
+                                                {
+                                                    "t": "Str",
+                                                    "c": "AK"
+                                                },
+                                                {
+                                                    "t": "Space"
+                                                },
+                                                {
+                                                    "t": "Str",
+                                                    "c": "Nachhaltigkei"
+                                                }
+                                            ]
+                                        },
+                                        {
+                                            "t": "Space"
+                                        },
+                                        {
+                                            "t": "Str",
+                                            "c": "die"
+                                        },
+                                        {
+                                            "t": "Space"
+                                        },
+                                        {
+                                            "t": "Str",
+                                            "c": "Nachhaltigkeitswoche"
+                                        },
+                                        {
+                                            "t": "Space"
+                                        },
+                                        {
+                                            "t": "Str",
+                                            "c": "und"
+                                        },
+                                        {
+                                            "t": "Space"
+                                        },
+                                        {
+                                            "t": "Str",
+                                            "c": "sucht"
+                                        },
+                                        {
+                                            "t": "Space"
+                                        },
+                                        {
+                                            "t": "Str",
+                                            "c": "noch"
+                                        },
+                                        {
+                                            "t": "Space"
+                                        },
+                                        {
+                                            "t": "Str",
+                                            "c": "nach"
+                                        },
+                                        {
+                                            "t": "Space"
+                                        },
+                                        {
+                                            "t": "Str",
+                                            "c": "Helfern."
+                                        },
+                                        {
+                                            "t": "Space"
+                                        },
+                                        {
+                                            "t": "Str",
+                                            "c": "Bei"
+                                        },
+                                        {
+                                            "t": "Space"
+                                        },
+                                        {
+                                            "t": "Str",
+                                            "c": "Interesse"
+                                        },
+                                        {
+                                            "t": "Space"
+                                        },
+                                        {
+                                            "t": "Str",
+                                            "c": "kann"
+                                        },
+                                        {
+                                            "t": "Space"
+                                        },
+                                        {
+                                            "t": "Str",
+                                            "c": "man"
+                                        },
+                                        {
+                                            "t": "Space"
+                                        },
+                                        {
+                                            "t": "Str",
+                                            "c": "sich"
+                                        },
+                                        {
+                                            "t": "Space"
+                                        },
+                                        {
+                                            "t": "Str",
+                                            "c": "gerne"
+                                        },
+                                        {
+                                            "t": "Space"
+                                        },
+                                        {
+                                            "t": "Str",
+                                            "c": "bei"
+                                        },
+                                        {
+                                            "t": "Space"
+                                        },
+                                        {
+                                            "t": "Str",
+                                            "c": "und"
+                                        },
+                                        {
+                                            "t": "Space"
+                                        },
+                                        {
+                                            "t": "Str",
+                                            "c": "oder"
+                                        },
+                                        {
+                                            "t": "Space"
+                                        },
+                                        {
+                                            "t": "Str",
+                                            "c": "dem"
+                                        },
+                                        {
+                                            "t": "Space"
+                                        },
+                                        {
+                                            "t": "Str",
+                                            "c": "AK"
+                                        },
+                                        {
+                                            "t": "Space"
+                                        },
+                                        {
+                                            "t": "Str",
+                                            "c": "melden."
+                                        }
+                                    ]
+                                }
+                            ],
+                            [
+                                {
+                                    "t": "Para",
+                                    "c": [
+                                        {
+                                            "t": "Str",
+                                            "c": "Unsere"
+                                        },
+                                        {
+                                            "t": "Space"
+                                        },
+                                        {
+                                            "t": "Strong",
+                                            "c": [
+                                                {
+                                                    "t": "Str",
+                                                    "c": "erste"
+                                                },
+                                                {
+                                                    "t": "Space"
+                                                },
+                                                {
+                                                    "t": "Str",
+                                                    "c": "Sitzung"
+                                                }
+                                            ]
+                                        },
+                                        {
+                                            "t": "Space"
+                                        },
+                                        {
+                                            "t": "Str",
+                                            "c": "im"
+                                        },
+                                        {
+                                            "t": "Space"
+                                        },
+                                        {
+                                            "t": "Str",
+                                            "c": "neuen"
+                                        },
+                                        {
+                                            "t": "Space"
+                                        },
+                                        {
+                                            "t": "Str",
+                                            "c": "Semester"
+                                        },
+                                        {
+                                            "t": "Space"
+                                        },
+                                        {
+                                            "t": "Str",
+                                            "c": "ist"
+                                        },
+                                        {
+                                            "t": "Space"
+                                        },
+                                        {
+                                            "t": "Str",
+                                            "c": "am"
+                                        },
+                                        {
+                                            "t": "Space"
+                                        },
+                                        {
+                                            "t": "Str",
+                                            "c": "17."
+                                        },
+                                        {
+                                            "t": "Space"
+                                        },
+                                        {
+                                            "t": "Str",
+                                            "c": "April"
+                                        },
+                                        {
+                                            "t": "Space"
+                                        },
+                                        {
+                                            "t": "Str",
+                                            "c": "um"
+                                        },
+                                        {
+                                            "t": "Space"
+                                        },
+                                        {
+                                            "t": "Str",
+                                            "c": "19"
+                                        },
+                                        {
+                                            "t": "Space"
+                                        },
+                                        {
+                                            "t": "Str",
+                                            "c": "Uhr."
+                                        }
+                                    ]
+                                }
+                            ],
+                            [
+                                {
+                                    "t": "Para",
+                                    "c": [
+                                        {
+                                            "t": "Str",
+                                            "c": "18.11.23"
+                                        },
+                                        {
+                                            "t": "Space"
+                                        },
+                                        {
+                                            "t": "Str",
+                                            "c": "ist"
+                                        },
+                                        {
+                                            "t": "Space"
+                                        },
+                                        {
+                                            "t": "Strong",
+                                            "c": [
+                                                {
+                                                    "t": "Str",
+                                                    "c": "aluMPI"
+                                                },
+                                                {
+                                                    "t": "Space"
+                                                },
+                                                {
+                                                    "t": "Str",
+                                                    "c": "Absolventenfeier"
+                                                }
+                                            ]
+                                        },
+                                        {
+                                            "t": "Str",
+                                            "c": "."
+                                        },
+                                        {
+                                            "t": "Space"
+                                        },
+                                        {
+                                            "t": "Str",
+                                            "c": "Am"
+                                        },
+                                        {
+                                            "t": "Space"
+                                        },
+                                        {
+                                            "t": "Str",
+                                            "c": "9.5."
+                                        },
+                                        {
+                                            "t": "Space"
+                                        },
+                                        {
+                                            "t": "Str",
+                                            "c": "ist"
+                                        },
+                                        {
+                                            "t": "Space"
+                                        },
+                                        {
+                                            "t": "Str",
+                                            "c": "Absolventensitzung"
+                                        },
+                                        {
+                                            "t": "Space"
+                                        },
+                                        {
+                                            "t": "Str",
+                                            "c": "für"
+                                        },
+                                        {
+                                            "t": "Space"
+                                        },
+                                        {
+                                            "t": "Str",
+                                            "c": "alle"
+                                        },
+                                        {
+                                            "t": "Space"
+                                        },
+                                        {
+                                            "t": "Str",
+                                            "c": "die"
+                                        },
+                                        {
+                                            "t": "Space"
+                                        },
+                                        {
+                                            "t": "Str",
+                                            "c": "Interesse"
+                                        },
+                                        {
+                                            "t": "Space"
+                                        },
+                                        {
+                                            "t": "Str",
+                                            "c": "daran"
+                                        },
+                                        {
+                                            "t": "Space"
+                                        },
+                                        {
+                                            "t": "Str",
+                                            "c": "haben"
+                                        },
+                                        {
+                                            "t": "Space"
+                                        },
+                                        {
+                                            "t": "Str",
+                                            "c": "den"
+                                        },
+                                        {
+                                            "t": "Space"
+                                        },
+                                        {
+                                            "t": "Str",
+                                            "c": "Abschluss"
+                                        },
+                                        {
+                                            "t": "Space"
+                                        },
+                                        {
+                                            "t": "Str",
+                                            "c": "an"
+                                        },
+                                        {
+                                            "t": "Space"
+                                        },
+                                        {
+                                            "t": "Str",
+                                            "c": "unserer"
+                                        },
+                                        {
+                                            "t": "Space"
+                                        },
+                                        {
+                                            "t": "Str",
+                                            "c": "Fakultät"
+                                        },
+                                        {
+                                            "t": "Space"
+                                        },
+                                        {
+                                            "t": "Str",
+                                            "c": "mitzugestalten."
+                                        }
+                                    ]
+                                }
+                            ]
+                        ]
+                    }
+                ]
+            ]
+        },
+        {
+            "t": "Para",
+            "c": [
+                {
+                    "t": "Str",
+                    "c": "+1"
+                }
+            ]
+        },
+        {
+            "t": "Div",
+            "c": [
+                [
+                    "",
+                    [
+                        "center"
+                    ],
+                    []
+                ],
+                [
+                    {
+                        "t": "Para",
+                        "c": [
+                            {
+                                "t": "Str",
+                                "c": "—"
+                            },
+                            {
+                                "t": "SoftBreak"
+                            },
+                            {
+                                "t": "Str",
+                                "c": " "
+                            },
+                            {
+                                "t": "LineBreak"
+                            },
+                            {
+                                "t": "Str",
+                                "c": "Hier"
+                            },
+                            {
+                                "t": "Space"
+                            },
+                            {
+                                "t": "Str",
+                                "c": "nicht"
+                            },
+                            {
+                                "t": "Space"
+                            },
+                            {
+                                "t": "Str",
+                                "c": "veröffentlichte"
+                            },
+                            {
+                                "t": "Space"
+                            },
+                            {
+                                "t": "Str",
+                                "c": "TOPs"
+                            },
+                            {
+                                "t": "Space"
+                            },
+                            {
+                                "t": "Str",
+                                "c": "enthalten"
+                            },
+                            {
+                                "t": "Space"
+                            },
+                            {
+                                "t": "Str",
+                                "c": "rein"
+                            },
+                            {
+                                "t": "Space"
+                            },
+                            {
+                                "t": "Str",
+                                "c": "interne"
+                            },
+                            {
+                                "t": "Space"
+                            },
+                            {
+                                "t": "Str",
+                                "c": "Themen"
+                            },
+                            {
+                                "t": "Space"
+                            },
+                            {
+                                "t": "Str",
+                                "c": "oder"
+                            },
+                            {
+                                "t": "Space"
+                            },
+                            {
+                                "t": "Str",
+                                "c": "eine"
+                            },
+                            {
+                                "t": "Space"
+                            },
+                            {
+                                "t": "Str",
+                                "c": "Veröffentlichung"
+                            },
+                            {
+                                "t": "Space"
+                            },
+                            {
+                                "t": "Str",
+                                "c": "ergibt"
+                            },
+                            {
+                                "t": "Space"
+                            },
+                            {
+                                "t": "Str",
+                                "c": "erst"
+                            },
+                            {
+                                "t": "Space"
+                            },
+                            {
+                                "t": "Str",
+                                "c": "nach"
+                            },
+                            {
+                                "t": "Space"
+                            },
+                            {
+                                "t": "Str",
+                                "c": "bestimmendem"
+                            },
+                            {
+                                "t": "Space"
+                            },
+                            {
+                                "t": "Str",
+                                "c": "Beschluss"
+                            },
+                            {
+                                "t": "Space"
+                            },
+                            {
+                                "t": "Str",
+                                "c": "in"
+                            },
+                            {
+                                "t": "Space"
+                            },
+                            {
+                                "t": "Str",
+                                "c": "der"
+                            },
+                            {
+                                "t": "Space"
+                            },
+                            {
+                                "t": "Str",
+                                "c": "nächsten"
+                            },
+                            {
+                                "t": "Space"
+                            },
+                            {
+                                "t": "Str",
+                                "c": "Sitzung"
+                            },
+                            {
+                                "t": "Space"
+                            },
+                            {
+                                "t": "Str",
+                                "c": "Sinn."
+                            },
+                            {
+                                "t": "Space"
+                            },
+                            {
+                                "t": "Str",
+                                "c": "Die"
+                            },
+                            {
+                                "t": "Space"
+                            },
+                            {
+                                "t": "Str",
+                                "c": "nächste"
+                            },
+                            {
+                                "t": "Space"
+                            },
+                            {
+                                "t": "Str",
+                                "c": "Fachschafts-Sitzung"
+                            },
+                            {
+                                "t": "Space"
+                            },
+                            {
+                                "t": "Str",
+                                "c": "findet"
+                            },
+                            {
+                                "t": "Space"
+                            },
+                            {
+                                "t": "Str",
+                                "c": "am"
+                            },
+                            {
+                                "t": "Space"
+                            },
+                            {
+                                "t": "Str",
+                                "c": "Montag"
+                            },
+                            {
+                                "t": "Space"
+                            },
+                            {
+                                "t": "Str",
+                                "c": "den"
+                            },
+                            {
+                                "t": "Space"
+                            },
+                            {
+                                "t": "Str",
+                                "c": "17.April"
+                            },
+                            {
+                                "t": "Space"
+                            },
+                            {
+                                "t": "Str",
+                                "c": "ab"
+                            },
+                            {
+                                "t": "Space"
+                            },
+                            {
+                                "t": "Str",
+                                "c": "19:00"
+                            },
+                            {
+                                "t": "Space"
+                            },
+                            {
+                                "t": "Str",
+                                "c": "Uhr"
+                            },
+                            {
+                                "t": "Space"
+                            },
+                            {
+                                "t": "Str",
+                                "c": "statt;"
+                            },
+                            {
+                                "t": "Space"
+                            },
+                            {
+                                "t": "Str",
+                                "c": "Interessierte"
+                            },
+                            {
+                                "t": "Space"
+                            },
+                            {
+                                "t": "Str",
+                                "c": "sind"
+                            },
+                            {
+                                "t": "Space"
+                            },
+                            {
+                                "t": "Str",
+                                "c": "wie"
+                            },
+                            {
+                                "t": "Space"
+                            },
+                            {
+                                "t": "Str",
+                                "c": "immer"
+                            },
+                            {
+                                "t": "Space"
+                            },
+                            {
+                                "t": "Str",
+                                "c": "herzlich"
+                            },
+                            {
+                                "t": "Space"
+                            },
+                            {
+                                "t": "Str",
+                                "c": "eingeladen"
+                            },
+                            {
+                                "t": "Space"
+                            },
+                            {
+                                "t": "Str",
+                                "c": ":)"
+                            }
+                        ]
+                    }
+                ]
+            ]
+        }
+    ]
+}

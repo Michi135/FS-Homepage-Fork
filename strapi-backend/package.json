@@ -15,7 +15,6 @@
     "@strapi/plugin-graphql": "^4.8.2",
     "@strapi/plugin-i18n": "^4.8.2",
     "@strapi/plugin-users-permissions": "^4.8.2",
-    "@strapi/provider-upload-aws-s3": "^4.8.2",
     "@strapi/strapi": "^4.8.2",
     "jsonwebtoken": "^9.0.0",
     "netmask": "^2.0.2",
