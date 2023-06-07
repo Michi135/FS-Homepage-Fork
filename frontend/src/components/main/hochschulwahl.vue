@@ -586,7 +586,7 @@ h2 {
           Hochschulleitung ein, beschließt außerdem über den Entwicklungsplan, \
           Gliederung der Fakultäten, Einrichtung und Abschaffung von \
           Studiengängen und nimmt Stellung zu verschiedenen die Uni betreffenden \
-          Sachverhalten. Zudem kommt es dieses Jahr zu einer Urabstimmung zum Thema Parkraum an der Uni.",
+          Sachverhalten.",
   "p[12]": "Das Studierendenparlament {stupa}",
   "p[13]": "Das StuPa ist eure fakultätsübergreifende studentische Vertretung an \
           der Uni und setzt sich, beispielsweise vor der Verwaltung, für die \
