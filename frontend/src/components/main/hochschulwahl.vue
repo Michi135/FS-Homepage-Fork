@@ -724,8 +724,7 @@ h2 {
           proposals of the university management, also decides on the development \
           plan, the structure of the faculties, the establishment and abolition \
           of study programs and takes a position on various issues concerning \
-          the university. In addition, this year there will be a general \
-          vote on the issue of parking at the university.",
+          the university.",
   "p[12]": "The Student Parliament {stupa}",
   "p[13]": "The StuPa is your inter-faculty student representation at the \
           university and stands up for the interests of the students, for example before \
