@@ -586,7 +586,7 @@ h2 {
           Hochschulleitung ein, beschließt außerdem über den Entwicklungsplan, \
           Gliederung der Fakultäten, Einrichtung und Abschaffung von \
           Studiengängen und nimmt Stellung zu verschiedenen die Uni betreffenden \
-          Sachverhalten. Zudem kommt es dieses Jahr zu einer Urabstimmung zum Thema Parkraum an der Uni.",
+          Sachverhalten.",
   "p[12]": "Das Studierendenparlament {stupa}",
   "p[13]": "Das StuPa ist eure fakultätsübergreifende studentische Vertretung an \
           der Uni und setzt sich, beispielsweise vor der Verwaltung, für die \
@@ -724,8 +724,7 @@ h2 {
           proposals of the university management, also decides on the development \
           plan, the structure of the faculties, the establishment and abolition \
           of study programs and takes a position on various issues concerning \
-          the university. In addition, this year there will be a general \
-          vote on the issue of parking at the university.",
+          the university.",
   "p[12]": "The Student Parliament {stupa}",
   "p[13]": "The StuPa is your inter-faculty student representation at the \
           university and stands up for the interests of the students, for example before \
