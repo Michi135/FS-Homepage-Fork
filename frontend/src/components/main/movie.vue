@@ -232,7 +232,10 @@ export default defineComponent({
   "Actionkomoedie": "Actionkomödie",
   "Actiondrama": "Actiondrama",
   "Drama": "Drama",
-  "Comicverfilmung": "Comicverfilmung"
+  "Comicverfilmung": "Comicverfilmung",
+  "Historiendrama" : "Historiendrama",
+  "ScienceFiction" : "Science Fiction",
+  "Mystery" : "Mystery"
 }
 </i18n>
 
@@ -252,6 +255,9 @@ export default defineComponent({
   "Actionkomoedie": "Action-comedy",
   "Actiondrama": "Action-drama",
   "Drama": "Drama",
-  "Comicverfilmung": "Comic adaptation"
+  "Comicverfilmung": "Comic adaptation",
+  "Historiendrama" : "Historical drama",
+  "ScienceFiction" : "Science fiction",
+  "Mystery" : "Mystery"
 }
 </i18n>

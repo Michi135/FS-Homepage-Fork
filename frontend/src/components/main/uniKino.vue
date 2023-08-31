@@ -107,7 +107,8 @@ type Genre =
   'Krimi' | 'Thriller' | 'Tragikomödie' |
   'Kriegssatire' | 'Drama' | 'Kriegsfilm' |
   'Bibliographie' | 'Komödie' | 'Gesellschaftssatire' |
-  'Musikfilm' | 'Animationsfilm' | 'Action'
+  'Musikfilm' | 'Animationsfilm' | 'Action' | 'Mystery' |
+  'Abenteuer' | 'Historiendrama' | 'Science Fiction'
 
 type GraphqlFilmeData = {
   attributes: {
