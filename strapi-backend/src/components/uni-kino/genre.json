@@ -25,7 +25,11 @@
         "Komödie",
         "Musikfilm",
         "Thriller",
-        "Tragikomödie"
+        "Tragikomödie",
+        "Mystery",
+        "Abenteuer",
+        "Historiendrama",
+        "ScienceFiction"
       ],
       "required": true
     }
