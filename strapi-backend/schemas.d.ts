@@ -780,7 +780,7 @@ export interface ApiVertreterVertreter extends CollectionTypeSchema {
       DefaultTo<1>;
     portrait: MediaAttribute & RequiredAttribute;
     hauptfach: ComponentAttribute<'fachkombination.fach'> & RequiredAttribute;
-    lehramt: ComponentAttribute<'fachkombination.lehramt'>;
+    lehramt: StringAttribute;
     position: EnumerationAttribute<
       [
         'Chef',
@@ -859,7 +859,7 @@ export interface FachkombinationFach extends ComponentSchema {
   };
   attributes: {
     fach: EnumerationAttribute<
-      ['Informatik', 'Physik', 'Technomathe', 'Mathe']
+      ['Informatik', 'Physik','Angewandte Informatik', 'Mathe']
     > &
       RequiredAttribute;
   };
@@ -872,7 +872,7 @@ export interface FachkombinationLehramt extends ComponentSchema {
     description: '';
   };
   attributes: {
-    zweitfach: ComponentAttribute<'fachkombination.fach'> & RequiredAttribute;
+    zweitfach: StringAttribute & RequiredAttribute;
     schultyp: EnumerationAttribute<['Gymnasium']> &
       RequiredAttribute &
       DefaultTo<'Gymnasium'>;
@@ -915,7 +915,23 @@ export interface UniKinoGenre extends ComponentSchema {
         'Tragikom\u00F6die',
         'Kriegssatire',
         'Drama',
-        'Kriegsfilm'
+        'Kriegsfilm',
+        'Action',
+        'Actionkom\u00F6die',
+        'Actiondrama',
+        'Abenteuer',
+        'Animationsfilm',
+        'Bibliographie',
+        'Comicverfilmung',
+        'Drama',
+        'Gesellschaftssatire',
+        'Kom\u00F6die',
+        'Historiendrama',
+        'Musikfilm',
+        'Thriller',
+        'Mystery',
+        'ScienceFiction'
+
       ]
     > &
       RequiredAttribute;

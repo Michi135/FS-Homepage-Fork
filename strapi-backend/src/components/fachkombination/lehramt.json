@@ -8,10 +8,8 @@
   "options": {},
   "attributes": {
     "zweitfach": {
-      "type": "component",
-      "repeatable": false,
-      "component": "fachkombination.fach",
-      "required": true
+      "type": "string",
+      "repeatable": false
     },
     "schultyp": {
       "type": "enumeration",

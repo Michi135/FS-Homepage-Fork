@@ -63,7 +63,7 @@
       "type": "component",
       "repeatable": false,
       "pluginOptions": {},
-      "component": "fachkombination.lehramt",
+      "component": "string",
       "required": false
     },
     "position": {
