@@ -450,7 +450,7 @@
 import { defineComponent, computed } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { VueRoutes } from '@client/routes.js'
-import stupaWahl from '@static/stupa_wahl.jpg?url'
+import stupaWahl from '@static/stupa_wahl.png?url'
 
 import { useI18nGlobal } from '@shared/i18n.js'
 
@@ -470,20 +470,20 @@ export default defineComponent({
 
     const v =
     [
-      "Sophie Meißner",
       "Olivia Kammerer",
-      "Timm Bugla",
-      "Marcel Schalling",
       "Mila Reihl",
-      "Martin Treutterer",
-      "Johannes Lindner",
-      "Clara Gremmelspacher",
-      "Daniel Hadirahardjo",
+      "Martin Treuttner",
+      "Isabel Hirschmann",
+      "Natascha May",
+      "Christian Zanter",
+      "Marcel Schalling",
+      "Yannick Schieder",
+      "Jana Zanter",
+      "Moritz Quindt",
       "Elias Laumeyer",
-      "Michael Ziegler",
-      "Valerian Allingham",
       "Ghofrane Kamoun",
-      "Teresa Schlösser"
+      "Michael Ziegler",
+      "Johannes Lindner"
     ]
     return { v, stupaWahl, t, getKeyPath: VueRoutes.getKeyPath, extern, kontakt }
   }
@@ -586,7 +586,7 @@ h2 {
           Hochschulleitung ein, beschließt außerdem über den Entwicklungsplan, \
           Gliederung der Fakultäten, Einrichtung und Abschaffung von \
           Studiengängen und nimmt Stellung zu verschiedenen die Uni betreffenden \
-          Sachverhalten. Zudem kommt es dieses Jahr zu einer Urabstimmung zum Thema Parkraum an der Uni.",
+          Sachverhalten.",
   "p[12]": "Das Studierendenparlament {stupa}",
   "p[13]": "Das StuPa ist eure fakultätsübergreifende studentische Vertretung an \
           der Uni und setzt sich, beispielsweise vor der Verwaltung, für die \
@@ -596,7 +596,7 @@ h2 {
           alle möglichen weiteren universitätsweiten Gremien entsannt, die sich \
           z.B. mit dem Semesterticket oder dem Mensaumbau beschäftigen.",
   "p[14]": "Das StuPa setzt sich zusammen aus 14 Fachschaftsvertreter*innen {te} \
-          und 19 Mitgliedern aus den Hochschulgruppen. Aus den Reihen des StuPas wiederum werden seit \
+          und 20 Mitgliedern aus den Hochschulgruppen. Aus den Reihen des StuPas wiederum werden seit \
           diesem Jahr die studentischen Mitglieder im Senat und Hochschulrat vom StuPa gewählt.",
   "h[2]": "{whom} kann ich nun wählen?",
   "h[3]": "Fakultätsrat",
@@ -627,12 +627,12 @@ h2 {
           Plätze in den verschiedenen Gremien. Informationen dazu findet ihr auf \
           z.B {a} und Links zu den einzelenen Gruppen {b} auf unserer \
           Website. Auch hier gilt für alle Wahlen: Ihr habt so viele Stimmen zu \
-          vergeben, wie Plätze zu vergeben sind. Das heißt 14 Stück. Ihr könnt \
+          vergeben, wie Plätze zu vergeben sind. Das heißt 20 Stück. Ihr könnt \
           hierbei auch Personen verschiedener Listen {c} wählen {d} und aber auch \
           mehrere Stimmen {e} einer Person geben {f}. Die genauen Gegebenheiten findet ihr auch direkt auf dem \
           Wahlzettel.",
   "h[5]": "{a} kann ich wählen?",
-  "p[20]": "Die Wahl findet am 22. Juni 2022 in Präsenz an der Uni Bayreuth statt. \
+  "p[20]": "Die Wahl findet am 14. Juni 2023 in Präsenz an der Uni Bayreuth statt. \
           Wenn ihr wahlberechtigt an der Fakultät MPI seid, könnt ihr eure Stimme \
           im S80 abgeben. Das Wahlbüro ist von 9 Uhr bis 18 Uhr geöffnet. \
           Zur Motivation backen wir für alle Wähler Waffeln mit Puderzucker. Außerdem schenken wir kostenlosen Kaffee aus!",
@@ -724,8 +724,7 @@ h2 {
           proposals of the university management, also decides on the development \
           plan, the structure of the faculties, the establishment and abolition \
           of study programs and takes a position on various issues concerning \
-          the university. In addition, this year there will be a general \
-          vote on the issue of parking at the university.",
+          the university.",
   "p[12]": "The Student Parliament {stupa}",
   "p[13]": "The StuPa is your inter-faculty student representation at the \
           university and stands up for the interests of the students, for example before \
@@ -733,7 +732,7 @@ h2 {
           as the UniOpenAir, a festival here at the university, or the climate week. \
           The StuPa also appoints representatives to all kinds of other university-wide \
           committees that deal with issues such as the semester ticket or the renovation of the cafeteria.",
-  "p[14]": "The StuPa consists of 14 student representatives {te} and 19 members \
+  "p[14]": "The StuPa consists of 14 student representatives {te} and 20 members \
           from the university groups. From the ranks of the StuPa, the student \
           members of the Senate and the University Council are elected by the StuPa.",
   "h[2]": "{whom} can I vote for now?",
@@ -759,11 +758,11 @@ h2 {
           the various committees. You can find information about this on, for example {a}\
           , and links to the individual groups {b} on our website. Again, this applies \
           to every election: You have as many votes to cast as there are seats to be filled. \
-          That means 14. You can also vote for people from different {d} lists {c} and \
+          That means 20. You can also vote for people from different {d} lists {c} and \
           also give several votes {e} to one person {f}. You can find the exact \
           conditions directly on the ballot paper.",
   "h[5]": "{a} can i vote?",
-  "p[20]": "The election will take place on June 22, 2022 in presence at the University of Bayreuth. \
+  "p[20]": "The election will take place on June 14, 2023 in presence at the University of Bayreuth. \
           If you are eligible to vote at the Faculty MPI, you can cast your vote in the S80. \
           The election office is open from 9 am to 6 pm. To motivate you, we will bake waffles \
           with powdered sugar for all voters. We will also be serving free coffee!",
