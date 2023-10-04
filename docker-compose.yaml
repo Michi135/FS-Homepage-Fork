@@ -6,6 +6,7 @@ volumes:
 services:
 
   common-frontend:
+    restart: always
     build: ./nginx
     ports:
       - "80:80"
@@ -16,6 +17,7 @@ services:
         ipv4_address: 172.23.2.10
 
   strapi:
+    restart: always
     environment:
       - HOST=strapi
       - PORT=1337
@@ -37,6 +39,7 @@ services:
         ipv4_address: 172.23.2.40
 
   vuecms:
+    restart: always
     env_file:
       - shared.env
     build: ./frontend
