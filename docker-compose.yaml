@@ -23,8 +23,8 @@ services:
       - PORT=1337
       - URL_ADMIN=http://web.fsmpi:8000/admin
       - URL_SERVER=https://fsmpi.uni-bayreuth.de/v1
-    env_file:
-      - shared.env
+    #env_file:
+    #  - shared.env
     build: ./strapi-backend
     image: strapi:1.0.0
     #working_dir: "/opt"
@@ -40,8 +40,8 @@ services:
 
   vuecms:
     restart: always
-    env_file:
-      - shared.env
+    #env_file:
+    #  - shared.env
     build: ./frontend
     image: vuecms:1.0.0
     working_dir: "/var/vuecms"
