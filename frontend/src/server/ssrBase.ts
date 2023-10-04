@@ -4,8 +4,7 @@ import { getMeta } from './meta.config.js'
 import { createFaviconLink } from '@shared/favicon.js'
 import { determineLanguage } from '@shared/util.js'
 import { JSDOM } from 'jsdom'
-import vueApolloSSR from '@vue/apollo-ssr'
-const { exportStates } = vueApolloSSR
+import { exportStates } from '@vue/apollo-ssr'
 
 import { brotliCompressSync, gzipSync } from 'zlib'
 import devalue from '@nuxt/devalue'
