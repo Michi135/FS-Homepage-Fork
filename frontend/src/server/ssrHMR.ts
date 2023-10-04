@@ -43,7 +43,7 @@ export default function ssr()
     {
       //@ts-ignore
       devMiddleware.vite.ssrFixStacktrace(error)
-      console.log(error)
+      console.log("[SSR-Render]: " + error)
       res.status(500).end("Internal Server Error")
     }
   }

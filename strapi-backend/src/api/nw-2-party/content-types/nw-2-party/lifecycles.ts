@@ -131,7 +131,7 @@ async function upload(buffer: Buffer, fileInfo: FileInfo, misc: Misc, metas, siz
       ext,
       mime,
       size: bytesToKbytes(buffer.byteLength),
-      provider: strapi.config.get("plugin.upload").provider
+      provider: strapi.config.get<any>("plugin.upload").provider
     };
 
     const { refId, ref, field } = metas;

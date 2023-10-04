@@ -1,0 +1,10 @@
+diff --git a/node_modules/@vue/apollo-ssr/dist/esm/index.js b/node_modules/@vue/apollo-ssr/dist/esm/index.js
+index 206e3f4..b1c9fa0 100644
+--- a/node_modules/@vue/apollo-ssr/dist/esm/index.js
++++ b/node_modules/@vue/apollo-ssr/dist/esm/index.js
+@@ -1,4 +1,4 @@
+-import * as serializeJs from 'serialize-javascript';
++import serializeJs from 'serialize-javascript';
+ export function serializeStates(apolloClients, options = {}) {
+     const state = getStates(apolloClients, options);
+     return options.useUnsafeSerializer

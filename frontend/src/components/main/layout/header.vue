@@ -103,7 +103,8 @@
           v-model="language"
           true-value="en"
           false-value="de"
-          style="flex: none"
+          style="flex: none; "
+          class="meh"
         />
         <img
           alt="english flag"
@@ -209,11 +210,9 @@ nav ul li:hover {
 }
 </style>
 
-<style lang="less">
-.temp {
-  .v-label {
-    padding-inline-start: 0px;
-  }
+<style lang="less" scoped>
+.meh:deep(.v-switch__track) {
+    background-color: #ccc;
 }
 </style>
 

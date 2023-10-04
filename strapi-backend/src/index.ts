@@ -111,7 +111,7 @@ export default {
                   datum: 'asc'
                 },
                 filters: {
-                  published_at:{
+                  publishedAt: {
                     $notNull: true
                   }
                 }
