@@ -148,7 +148,8 @@ export async function configFunction(options: Partial<Options> = {}): Promise<Us
         // compositionOnly: false,
 
         // you need to set i18n resource including paths !
-        include: resolve(dir, './src/shared/Translations/**')
+        include: resolve(dir, './src/shared/Translations/**'),
+        ssr: isSSR
       }),
       //@ts-ignore
       vuetify(),
