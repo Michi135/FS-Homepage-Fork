@@ -31,7 +31,7 @@ export default function ssr()
     }
     catch (error)
     {
-      console.log(error)
+      console.log("[SSR-Render]: " + error)
       return res.status(500).end("Internal Server Error")
     }
   }

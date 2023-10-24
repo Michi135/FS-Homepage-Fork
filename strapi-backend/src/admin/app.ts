@@ -1,6 +1,4 @@
-import type { Strapi } from "@strapi/strapi";
-
-const app: Strapi = {
+export default {
   config: {
     locales: [
       // 'ar',
@@ -47,5 +45,3 @@ const app: Strapi = {
     console.log(app);
   },
 };
-
-export default app

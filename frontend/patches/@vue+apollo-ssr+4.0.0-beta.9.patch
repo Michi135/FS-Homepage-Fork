@@ -9,22 +9,14 @@ index 206e3f4..b1c9fa0 100644
      const state = getStates(apolloClients, options);
      return options.useUnsafeSerializer
 diff --git a/node_modules/@vue/apollo-ssr/package.json b/node_modules/@vue/apollo-ssr/package.json
-index 327607a..f96ea6a 100644
+index 00f5cc1..c114c33 100644
 --- a/node_modules/@vue/apollo-ssr/package.json
 +++ b/node_modules/@vue/apollo-ssr/package.json
-@@ -25,11 +25,12 @@
+@@ -25,6 +25,7 @@
    "main": "dist/cjs/index.js",
    "module": "dist/esm/index.js",
    "types": "dist/esm/index.d.ts",
 +  "type": "module",
    "exports": {
      ".": {
--      "types": "dist/esm/index.d.ts",
--      "import": "dist/esm/index.js",
--      "require": "dist/cjs/index.js"
-+      "types": "./dist/esm/index.d.ts",
-+      "import": "./dist/esm/index.js",
-+      "require": "./dist/cjs/index.js"
-     },
-     "./*": "./*"
-   },
+       "types": "./dist/esm/index.d.ts",

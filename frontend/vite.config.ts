@@ -1,3 +1,7 @@
+var __defProp = Object.defineProperty
+var __name = (target, value) => __defProp(target, 'name', { value, configurable: true })
+globalThis.__name = __name
+
 import { resolve, join, dirname } from 'path'
 /*
 import type { BrotliOptions } from 'zlib'
@@ -12,7 +16,6 @@ const { readFile } = fsExtra
 import { fileURLToPath } from 'url'
 
 import vue from '@vitejs/plugin-vue'
-//@ts-ignore
 import vueI18n from '@intlify/unplugin-vue-i18n/vite'
 import vuetify from 'vite-plugin-vuetify'
 import tsconfigPaths from 'vite-tsconfig-paths'
@@ -145,7 +148,8 @@ export async function configFunction(options: Partial<Options> = {}): Promise<Us
         // compositionOnly: false,
 
         // you need to set i18n resource including paths !
-        include: resolve(dir, './src/shared/Translations/**')
+        include: resolve(dir, './src/shared/Translations/**'),
+        ssr: isSSR
       }),
       //@ts-ignore
       vuetify(),
