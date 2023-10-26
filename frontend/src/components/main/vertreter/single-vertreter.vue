@@ -55,7 +55,10 @@
       :feld="feld"
       :grad="grad"
       :hauptfach="hauptfach"
-      :zweitfach="lehramt?.zweitfach"
+      :zweitfach_de="lehramt?.zweitfach_DE"
+      :zweitfach_en="lehramt?.zweitfach_EN"
+      :drittfach_de="lehramt?.drittfach_DE"
+      :drittfach_en="lehramt?.drittfach_EN"
       :lehramt="lehramt?.schultyp"
     />
 
@@ -119,7 +122,7 @@ export default defineComponent({
       required: true
     },
     lehramt: {
-      type: Object as PropType<{ zweitfach: Faecher, schultyp: Lehramt }>,
+      type: Object as PropType<{ zweitfach_DE?: string, zweitfach_EN?: string, drittfach_DE?: string, drittfach_EN?: string, schultyp: Lehramt }>,
       required: false,
       default: undefined
     },

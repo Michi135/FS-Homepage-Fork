@@ -48,7 +48,9 @@ export interface FachkombinationFach extends Schema.Component {
     description: '';
   };
   attributes: {
-    fach: Attribute.Enumeration<['Informatik', 'Physik', 'Chemie', 'Mathe']> &
+    fach: Attribute.Enumeration<
+      ['Informatik', 'Physik', 'Angewandte Informatik', 'Mathe']
+    > &
       Attribute.Required;
   };
 }
@@ -61,10 +63,13 @@ export interface FachkombinationLehramt extends Schema.Component {
     description: '';
   };
   attributes: {
-    zweitfach: Attribute.Component<'fachkombination.fach'> & Attribute.Required;
     schultyp: Attribute.Enumeration<['Gymnasium']> &
       Attribute.Required &
       Attribute.DefaultTo<'Gymnasium'>;
+    zweitfach_DE: Attribute.String;
+    zweitfach_EN: Attribute.String;
+    drittfach_DE: Attribute.String;
+    drittfach_EN: Attribute.String;
   };
 }
 
