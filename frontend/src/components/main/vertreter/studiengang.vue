@@ -69,7 +69,7 @@ export default defineComponent({
   "Master": "M.",
   "Science": "Sc.",
   "lectureship": "LA",
-  "Angewandte Informatik" : "Angewandte Informatik",
+  "AngewandteInformatik" : "Angewandte Informatik",
   "Chemie" : "Chemie"
 }
 </i18n>
@@ -84,7 +84,7 @@ export default defineComponent({
   "Master": "M.",
   "Science": "Sc.",
   "lectureship": "LS",
-  "Angewandte Informatik" : "Applied computer science",
+  "AngewandteInformatik" : "Applied computer science",
   "Chemie" : "chemistry"
 }
 </i18n>

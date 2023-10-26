@@ -19,15 +19,16 @@
         "Comicverfilmung",
         "Drama",
         "Gesellschaftssatire",
-        "Historiendrama",
         "Krimi",
         "Kriegssatire",
         "Kriegsfilm",
         "Komödie",
         "Musikfilm",
-        "Mystery",
         "Thriller",
         "Tragikomödie",
+        "Mystery",
+        "Abenteuer",
+        "Historiendrama",
         "ScienceFiction"
       ],
       "required": true
