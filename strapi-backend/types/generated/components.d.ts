@@ -48,9 +48,7 @@ export interface FachkombinationFach extends Schema.Component {
     description: '';
   };
   attributes: {
-    fach: Attribute.Enumeration<
-      ['Informatik', 'Physik', 'Angewandte Informatik', 'Mathe']
-    > &
+    fach: Attribute.Enumeration<['Informatik', 'Physik', 'Chemie', 'Mathe']> &
       Attribute.Required;
   };
 }

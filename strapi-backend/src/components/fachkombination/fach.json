@@ -12,7 +12,7 @@
       "enum": [
         "Informatik",
         "Physik",
-        "Angewandte Informatik",
+        "Chemie",
         "Mathe"
       ],
       "required": true

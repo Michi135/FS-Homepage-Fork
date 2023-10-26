@@ -45,7 +45,7 @@ type Sprechstunden = {
         Dienstag: Partial<Day>
         Mittwoch: Partial<Day>
         Donnerstag: Partial<Day>
-        Freitag: Partial<Day>
+        //Freitag: Partial<Day>
       }
     }
   }
@@ -69,11 +69,10 @@ export default defineComponent({
       Dienstag{slot0{name}slot1{name}slot2{name}}
       Mittwoch{slot0{name}slot1{name}slot2{name}}
       Donnerstag{slot0{name}slot1{name}slot2{name}}
-      Freitag{slot0{name}slot1{name}slot2{name}}
     }}}}
     `)
 
-    const tage = computed(() => [t('monday'), t('tuesday'), t('wednesday'), t('thursday'), t('friday')])
+    const tage = computed(() => [t('monday'), t('tuesday'), t('wednesday'), t('thursday')/*, t('friday')*/])
     const stunden = ['13:00', '14:00', '15:00']
 
     const sprechstunden = computed(() =>
@@ -86,7 +85,7 @@ export default defineComponent({
       let b: TableRow = {}
       let c: TableRow = {}
       let d: TableRow = {}
-      let e: TableRow = {}
+      //let e: TableRow = {}
 
       const sp = value.sprechstunden.data.attributes
 
@@ -104,14 +103,14 @@ export default defineComponent({
       assign(b, sp.Dienstag)
       assign(c, sp.Mittwoch)
       assign(d, sp.Donnerstag)
-      assign(e, sp.Freitag)
+      //assign(e, sp.Freitag)
 
       let z: Table = {}
       z[0] = a
       z[1] = b
       z[2] = c
       z[3] = d
-      z[4] = e
+      //z[4] = e
 
       return z
     })
