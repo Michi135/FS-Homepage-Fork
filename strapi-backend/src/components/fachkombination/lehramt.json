@@ -7,12 +7,6 @@
   },
   "options": {},
   "attributes": {
-    "zweitfach": {
-      "type": "component",
-      "repeatable": false,
-      "component": "fachkombination.fach",
-      "required": true
-    },
     "schultyp": {
       "type": "enumeration",
       "enum": [
@@ -20,6 +14,21 @@
       ],
       "default": "Gymnasium",
       "required": true
+    },
+    "zweitfach_DE": {
+      "type": "string"
+    },
+    "zweitfach_EN": {
+      "type": "string",
+      "unique": false,
+      "required": false
+    },
+    "drittfach_DE": {
+      "type": "string",
+      "unique": false
+    },
+    "drittfach_EN": {
+      "type": "string"
     }
   }
 }

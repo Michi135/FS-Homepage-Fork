@@ -29,15 +29,30 @@ export default defineComponent({
       type: String as PropType<Faecher>,
       required: true
     },
-    zweitfach: {
-      type: String as PropType<Faecher>,
+    zweitfach_de: {
+      type: String,
+      required: false,
+      default: undefined
+    },
+    zweitfach_en: {
+      type: String,
+      required: false,
+      default: undefined
+    },
+    drittfach_de: {
+      type: String,
+      required: false,
+      default: undefined
+    },
+    drittfach_en: {
+      type: String,
       required: false,
       default: undefined
     }
   },
   setup(props)
   {
-    const { t } = useI18n()
+    const { t, locale } = useI18n()
 
     const studiengang = computed(() =>
     {
@@ -49,9 +64,22 @@ export default defineComponent({
       if (!props.lehramt /*props.feld*/) val += t(<Feld>props.feld)
 
       val += ' ' + t(props.hauptfach)
-
-      if (props.zweitfach) val += '/' + t(props.zweitfach)
-
+      
+      if (locale.value ==='de'){
+        if(!!props.zweitfach_de){
+          val += '/' + t(props.zweitfach_de)
+        }
+        if(!!props.drittfach_de){
+          val += '/' + t(props.drittfach_de)
+        }
+      }else{
+        if(!!props.zweitfach_en){
+          val += '/' + t(props.zweitfach_en)
+        }
+        if(!!props.drittfach_en){
+          val += '/' + t(props.drittfach_en)
+        }
+      }
       return val
     })
     return { studiengang }
@@ -69,8 +97,7 @@ export default defineComponent({
   "Master": "M.",
   "Science": "Sc.",
   "lectureship": "LA",
-  "AngewandteInformatik" : "Angewandte Informatik",
-  "Chemie" : "Chemie"
+  "AngewandteInformatik" : "Angewandte Informatik"
 }
 </i18n>
 
@@ -84,7 +111,6 @@ export default defineComponent({
   "Master": "M.",
   "Science": "Sc.",
   "lectureship": "LS",
-  "AngewandteInformatik" : "Applied computer science",
-  "Chemie" : "chemistry"
+  "AngewandteInformatik" : "Applied computer science"
 }
 </i18n>

@@ -28,6 +28,7 @@ import { gql } from 'graphql-tag'
 import SingleVertreter from './single-vertreter.vue'
 
 import type { VertreterGQL, Faecher, Lehramt, Grad, Feld, Rolle } from '@dataInterfaces/IVertreter.js'
+import { mdiAxisZRotateClockwise } from '@mdi/js'
 
 type Vertreter = {
   name: string,
@@ -36,7 +37,7 @@ type Vertreter = {
   feld: Feld,
   grad: Grad,
   hauptfach: Faecher,
-  lehramt?: { zweitfach: Faecher, schultyp: Lehramt }
+  lehramt?: {schultyp: Lehramt, zweitfach_DE?:string, zweitfach_EN?:string, drittfach_DE?:string, drittfach_EN?:string}
   semester: number,
   portraitUrl: string,
   placeholder: {
@@ -66,7 +67,10 @@ export default defineComponent({
             portrait {data{attributes{url width height}}}
             hauptfach{fach}
             lehramt {
-              zweitfach {fach}
+              zweitfach_DE
+              zweitfach_EN
+              drittfach_DE
+              drittfach_EN
               schultyp
             }
             position
@@ -131,7 +135,10 @@ export default defineComponent({
         }
         if (temp.lehramt)
           vertreter.lehramt = {
-            zweitfach: temp.lehramt.zweitfach.fach,
+            zweitfach_DE: temp.lehramt.zweitfach_DE,
+            zweitfach_EN: temp.lehramt.zweitfach_EN,
+            drittfach_DE: temp.lehramt.drittfach_DE,
+            drittfach_EN: temp.lehramt.drittfach_EN,
             schultyp: temp.lehramt.schultyp
           }
 

@@ -61,10 +61,13 @@ export interface FachkombinationLehramt extends Schema.Component {
     description: '';
   };
   attributes: {
-    zweitfach: Attribute.Component<'fachkombination.fach'> & Attribute.Required;
     schultyp: Attribute.Enumeration<['Gymnasium']> &
       Attribute.Required &
       Attribute.DefaultTo<'Gymnasium'>;
+    zweitfach_DE: Attribute.String;
+    zweitfach_EN: Attribute.String;
+    drittfach_DE: Attribute.String;
+    drittfach_EN: Attribute.String;
   };
 }
 
