@@ -258,7 +258,7 @@ export default defineComponent({
   "p[0]": "Am {day}.{month} findet endlich wieder die legendäre NW2-Party statt!",
   "p[1]": "Lasst eure Ohren von satten Bässen zu Rock, Metal, Alternative und Indie massieren, \
           während ihr an der Physikerbar die Künste unserer Shaker bewundert.🤘",
-  "p[2]": "Los geht's am {date} um {hour} Uhr und in der ersten Stunde kann mit Bier für 1€ \
+  "p[2]": "Los geht's am {date} um {hour} Uhr und in der ersten Stunde kann mit Bier für 1,5€ \
           ordentlich angeheizt werden!",
   "p[3]": "Wir freuen uns auf euer Erscheinen und ROCK ON!",
   "p[4]": "Einlass ab 18 Jahren 🔞"
@@ -270,7 +270,7 @@ export default defineComponent({
   "p[0]": "On {month} {day}, the legendary NW2 party will finally take place again!",
   "p[1]": "Let your ears be massaged by rich bass to rock, metal, alternative and indie, \
           while you admire the arts of our shakers at the physicist bar.🤘",
-  "p[2]": "It starts on {date} at {hour} and in the first hour can be properly heated with beer for 1€!",
+  "p[2]": "It starts on {date} at {hour} and in the first hour can be properly heated with beer for 1.5€!",
   "p[3]": "We look forward to seeing you there and ROCK ON!",
   "p[4]": "Minimum Age 18+ 🔞"
 }
