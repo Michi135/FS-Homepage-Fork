@@ -235,7 +235,8 @@ export default defineComponent({
   "Comicverfilmung": "Comicverfilmung",
   "Historiendrama" : "Historiendrama",
   "ScienceFiction" : "Science Fiction",
-  "Mystery" : "Mystery"
+  "Mystery" : "Mystery",
+  "Western": "Western"
 }
 </i18n>
 
@@ -258,6 +259,7 @@ export default defineComponent({
   "Comicverfilmung": "Comic adaptation",
   "Historiendrama" : "Historical drama",
   "ScienceFiction" : "Science fiction",
-  "Mystery" : "Mystery"
+  "Mystery" : "Mystery",
+  "Western": "Western"
 }
 </i18n>

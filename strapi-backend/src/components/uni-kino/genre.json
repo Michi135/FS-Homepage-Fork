@@ -27,9 +27,9 @@
         "Thriller",
         "Tragikomödie",
         "Mystery",
-        "Abenteuer",
         "Historiendrama",
-        "ScienceFiction"
+        "ScienceFiction",
+        "Western"
       ],
       "required": true
     }

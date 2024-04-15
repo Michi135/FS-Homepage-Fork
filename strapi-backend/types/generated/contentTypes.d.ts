@@ -914,6 +914,9 @@ export interface ApiUniKinoFilmeUniKinoFilme extends Schema.CollectionType {
         i18n: {
           localized: true;
         };
+        translate: {
+          translate: 'translate';
+        };
       }>;
     datum: Attribute.DateTime &
       Attribute.Required &
@@ -928,6 +931,9 @@ export interface ApiUniKinoFilmeUniKinoFilme extends Schema.CollectionType {
       Attribute.SetPluginOptions<{
         i18n: {
           localized: true;
+        };
+        translate: {
+          translate: 'translate';
         };
       }>;
     filmort: Attribute.Component<'uni-kino.orte', true> &
@@ -977,6 +983,9 @@ export interface ApiUniKinoFilmeUniKinoFilme extends Schema.CollectionType {
       Attribute.SetPluginOptions<{
         i18n: {
           localized: true;
+        };
+        translate: {
+          translate: 'translate';
         };
       }>;
     archivSemester: Attribute.Component<'uni.semester'> &
