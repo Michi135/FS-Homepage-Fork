@@ -122,9 +122,9 @@ export interface UniKinoGenre extends Schema.Component {
         'Thriller',
         'Tragikom\u00F6die',
         'Mystery',
-        'Abenteuer',
         'Historiendrama',
-        'ScienceFiction'
+        'ScienceFiction',
+        'Western'
       ]
     > &
       Attribute.Required;
@@ -136,9 +136,10 @@ export interface UniKinoOrte extends Schema.Component {
   info: {
     displayName: 'orte';
     icon: 'globe-africa';
+    description: '';
   };
   attributes: {
-    laender: Attribute.Enumeration<['USA', 'UK', 'SWE', 'DNK']> &
+    laender: Attribute.Enumeration<['USA', 'UK', 'SWE', 'DNK', 'DE']> &
       Attribute.Required;
   };
 }

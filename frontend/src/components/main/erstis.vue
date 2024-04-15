@@ -133,22 +133,20 @@ export default defineComponent({
     const categories = computed(() => [t('event'), t('location')])
 
     const stunden = computed(() => [
-      `10.10 | ${t('ab')} 17:00`,
-      '11.10 | 19:00',
-      '16.10 | 16:00',
-      '16.10 | 18:00',
-      '19.10 | 19:00',
-      '23.10 | 19:00',
-      '24.10 | 19:00',
-      '03.11 | 19:00',
-      '10.11 - 12.11'
+      //`10.10 | ${t('ab')} 17:00`,
+      //'11.10 | 19:00',
+      '16.04 | 19:00',
+      '23.04 | 19:00',
+      '08.05 | 18:00',
+      //'10.11 - 12.11'
     ])
 
     const sprechstunden = computed(() =>
     {
       let a: TableRow = {}
       let b: TableRow = {}
-
+      /** 
+       //Wintersemestertermine
       a[0] = [t('Erstsemestergrillen')]
       a[1] = ['1. ' + t('Kneipentour')],
       a[2] = [
@@ -161,13 +159,9 @@ export default defineComponent({
         t('Campusabend')
       ],
       a[4] = ['2. ' + t('Kneipentour')],
-      a[5] = [
-        t('Sitzung'),
-    ],
-    a[6] = [
-        t('Spieleabend')
-      ],
-      a[7] = [t('shake')]
+      a[5] = [t('Sitzung')],
+      a[6] = [t('Spieleabend')],
+      a[7] = [t('shake')],
       //a[6] = ['1. ' + t('buddy')],
       //a[7] = ['2. ' + t('buddy')],
       a[8] = [t('Wochenende')],
@@ -182,6 +176,21 @@ export default defineComponent({
       b[6] = ['H20 | NW2']
       b[7] = ['S72 | NW2'],
       b[8] = [t("liste")]
+      */
+
+
+      //Sommersemestertermine
+      a[0] = ['1. ' + t('Kneipentour')]
+      a[1] = [t('Spieleabend')],
+      a[2] = [
+        t('shake')
+      ],
+     
+
+      b[0] = [t('Anmeldung')],
+      b[1] = ['H20 | NW2'],
+      b[2] = [t("Anmeldung")];
+      
 
       let z: Table = {}
       z[0] = a
@@ -303,7 +312,7 @@ export default defineComponent({
   "h[7]": "Erstifrühstück",
   "p[7]": "Ein kleines, aber feines Frühstück in der Uni auf Kosten der \
           Fachschaft.",
-  "dates": "Termine für das Semester WS 2023/24",
+  "dates": "Termine für das Semester SoSe 2024",
   "event": "Veranstaltung",
   "location": "Ort",
   "ab": "ab",
@@ -379,7 +388,7 @@ export default defineComponent({
           Over foods and drinks you're able to get into conversations with other students.",
   "h[7]": "Freshers breakfast",
   "p[7]": "A small but fine breakfast in the uni at the expense of the student council.",
-  "dates": "Dates for the semester WS 2023/24",
+  "dates": "Dates for the semester SoSe 2024",
   "event": "Event",
   "location": "Location",
   "ab": "from",
